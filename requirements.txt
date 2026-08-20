@@ -1,0 +1,9 @@
+# Pinned to the same major lines production Forge runs, so behaviour you rely
+# on here (pydantic validation errors, MCP transport, OpenAPI shape) matches
+# what you meet when you point the same client at forge.foundrynet.io.
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+pydantic>=2.8,<3
+# fastmcp 4.x is the 2026-07-28 stateless spec line; production pins <4 and so
+# does the sandbox, so the tool surface is identical.
+fastmcp>=3.4.5,<4

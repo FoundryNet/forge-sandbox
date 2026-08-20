@@ -1,0 +1,10 @@
+.git
+.gitignore
+**/__pycache__
+**/*.pyc
+.venv
+venv
+.pytest_cache
+docker-compose.yml
+# tests/ and tools/ are NOT excluded: the `test` build stage copies tests, and
+# excluding them here would fail the build with a confusing missing-path error.

@@ -1,0 +1,69 @@
+{
+ "generated_from": {
+  "canonical_schema": "1.0.0",
+  "license": "MIT (FoundryNet/canonical-schema)"
+ },
+ "name": "Forge sandbox mapping packs",
+ "note": "Deterministic subset only. The production corpus, embedding index, LLM resolution, and physics validators are not in this image.",
+ "packs": {
+  "carrier": {
+   "aliases": [
+    "bacnet",
+    "bacnet_ip",
+    "trane",
+    "jci",
+    "honeywell"
+   ],
+   "canonical_field_count": 13,
+   "display_name": "Carrier rooftop / chiller (BACnet/IP, i-Vu)",
+   "mapping_count": 36,
+   "protocol": "bacnet_ip",
+   "vertical": "building_automation"
+  },
+  "fanuc": {
+   "aliases": [
+    "fanuc_robotics",
+    "focas"
+   ],
+   "canonical_field_count": 66,
+   "display_name": "FANUC R-30iB robot / Series 30i CNC",
+   "mapping_count": 759,
+   "protocol": "focas",
+   "vertical": "robotics"
+  },
+  "haas": {
+   "aliases": [
+    "haas_automation"
+   ],
+   "canonical_field_count": 34,
+   "display_name": "Haas VF-series CNC",
+   "mapping_count": 240,
+   "protocol": "mtconnect",
+   "vertical": "cnc"
+  },
+  "prusa": {
+   "aliases": [
+    "octoprint",
+    "marlin",
+    "prusalink"
+   ],
+   "canonical_field_count": 33,
+   "display_name": "Prusa MK3S/MK4 (Marlin, PrusaLink, OctoPrint)",
+   "mapping_count": 40,
+   "protocol": "serial_gcode",
+   "vertical": "additive"
+  },
+  "siemens": {
+   "aliases": [
+    "sinumerik",
+    "s7",
+    "simatic"
+   ],
+   "canonical_field_count": 56,
+   "display_name": "Siemens S7-1500 PLC / SINUMERIK 840D",
+   "mapping_count": 440,
+   "protocol": "profinet_s7",
+   "vertical": "cnc"
+  }
+ }
+}

@@ -1,0 +1,2945 @@
+{
+ "base_version": "1.0.0",
+ "field_count": 408,
+ "fields": {
+  "alarm_code": {
+   "description": "Code reported by the active alarm.",
+   "example_value": "SRVO-062",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "alarm_description": {
+   "description": "Text description of the active alarm.",
+   "example_value": "BZAL alarm Group 1 Axis 1",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "alarm_severity": {
+   "description": "Severity of the active alarm.",
+   "example_value": "CRITICAL",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "alarm_severity.alarm_group": {
+   "description": "Reported value for alarm group.",
+   "example_value": "SRVO",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "alarm_severity.axis_number": {
+   "description": "Reported value for axis number.",
+   "example_value": "1",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "ambient_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "amr.battery.charge": {
+   "description": "Reported value for charge.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.battery.charging": {
+   "description": "Reported value for charging.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.battery.voltage": {
+   "description": "Voltage at the battery.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.operating_mode": {
+   "description": "Reported value for operating mode.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.position.theta": {
+   "description": "Reported value for theta.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.position.x": {
+   "description": "Reported value for x.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.position.y": {
+   "description": "Reported value for y.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.safety.estop": {
+   "description": "Reported value for estop.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.velocity.angular": {
+   "description": "Reported value for angular.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "amr.velocity.linear": {
+   "description": "Reported value for linear.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "amr"
+  },
+  "axes.0.load_percent": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": 12.5,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.0.position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": 125.432,
+   "type": "float",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.0.temperature_c": {
+   "description": "Temperature of a machine axis, in degC.",
+   "example_value": 42.5,
+   "type": "float",
+   "unit": "degC",
+   "vertical": "cnc"
+  },
+  "axes.1.position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": 80.221,
+   "type": "float",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.2.position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": -200.1,
+   "type": "float",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.a_load_pct": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.a_position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.b_load_pct": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.b_position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.c_load_pct": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.c_position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_acceleration": {
+   "description": "Ratio for a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_acceleration_commanded": {
+   "description": "Ratio for a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_current": {
+   "description": "Electrical current drawn by a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_current_amps": {
+   "description": "Electrical current drawn by a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_following_error": {
+   "description": "Reported value for x following error.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_load_pct": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.x_position": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_position_commanded": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_power_kw": {
+   "description": "Power draw of a machine axis, in kW.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "cnc"
+  },
+  "axes.x_temperature": {
+   "description": "Temperature of a machine axis.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "axes.x_velocity": {
+   "description": "Velocity of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_velocity_commanded": {
+   "description": "Velocity of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.x_voltage": {
+   "description": "Voltage at a machine axis.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "axes.y_acceleration": {
+   "description": "Ratio for a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_acceleration_commanded": {
+   "description": "Ratio for a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_current_amps": {
+   "description": "Electrical current drawn by a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_following_error": {
+   "description": "Reported value for y following error.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_load_pct": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.y_position": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_position_commanded": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_power_kw": {
+   "description": "Power draw of a machine axis, in kW.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "cnc"
+  },
+  "axes.y_temperature": {
+   "description": "Temperature of a machine axis.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "axes.y_velocity": {
+   "description": "Velocity of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_velocity_commanded": {
+   "description": "Velocity of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.y_voltage": {
+   "description": "Voltage at a machine axis.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "axes.z_acceleration": {
+   "description": "Ratio for a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_acceleration_commanded": {
+   "description": "Ratio for a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_current_amps": {
+   "description": "Electrical current drawn by a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_following_error": {
+   "description": "Reported value for z following error.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_load_pct": {
+   "description": "Load on a machine axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "axes.z_position": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_position_actual": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_position_commanded": {
+   "description": "Position of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_power_kw": {
+   "description": "Power draw of a machine axis, in kW.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "cnc"
+  },
+  "axes.z_temperature": {
+   "description": "Temperature of a machine axis.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "axes.z_velocity": {
+   "description": "Velocity of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_velocity_commanded": {
+   "description": "Velocity of a machine axis.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "axes.z_voltage": {
+   "description": "Voltage at a machine axis.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "axis_count": {
+   "description": "Count of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "battery_voltage": {
+   "description": "Voltage at the battery.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "bearing_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "bed_adhesion_score": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": null,
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "bed_power_pct": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "bed_target_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "bed_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "chamber_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "chilled_water_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "cnc.axis.load": {
+   "description": "Load on the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "cnc.coolant.pressure": {
+   "description": "Pressure in the coolant circuit.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "cnc.path.feedrate": {
+   "description": "Reported value for feedrate.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "cnc.spindle.rotary_velocity": {
+   "description": "Velocity of the spindle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "co2_ppm": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "ppm",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "condenser_pressure_bar": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "bar",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "coolant_status": {
+   "description": "Reported value for coolant status.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "coolant_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "cutting_time_hours": {
+   "description": "Cumulative runtime of the machine, in h.",
+   "example_value": null,
+   "type": "float",
+   "unit": "h",
+   "vertical": "universal"
+  },
+  "cycle_count": {
+   "description": "Count of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "cycle_time_ms": {
+   "description": "Reported value for cycle time ms, in ms.",
+   "example_value": null,
+   "type": "float",
+   "unit": "ms",
+   "vertical": "universal"
+  },
+  "cycle_time_seconds": {
+   "description": "Reported value for cycle time seconds, in s.",
+   "example_value": null,
+   "type": "float",
+   "unit": "s",
+   "vertical": "universal"
+  },
+  "damper_position_pct": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "dc_bus_voltage": {
+   "description": "Voltage at the machine.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "def_remaining_pct": {
+   "description": "Reported value for def remaining pct, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
+  },
+  "door_status": {
+   "description": "Reported value for door status.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "downtime_minutes": {
+   "description": "Reported value for downtime minutes, in min.",
+   "example_value": 45,
+   "type": "integer",
+   "unit": "min",
+   "vertical": "universal"
+  },
+  "emergency_stop_active": {
+   "description": "Reported value for emergency stop active.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "energy.cumulative_kwh": {
+   "description": "Reported value for cumulative kwh, in kWh.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kWh",
+   "vertical": "universal"
+  },
+  "energy_kwh": {
+   "description": "Energy consumed by consumed energy, in kWh.",
+   "example_value": 1.25,
+   "type": "float",
+   "unit": "kWh",
+   "vertical": "universal"
+  },
+  "engine_load_pct": {
+   "description": "Load on the machine, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
+  },
+  "engine_speed_rpm": {
+   "description": "Speed of the machine, in rpm.",
+   "example_value": null,
+   "type": "float",
+   "unit": "rpm",
+   "vertical": "universal"
+  },
+  "execution_state": {
+   "description": "Reported state of the machine.",
+   "example_value": "ACTIVE",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "extruder_position_mm": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "fan_speed_pct": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "feed_override_pct": {
+   "description": "Operator override applied to the feed axis, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "feed_rate": {
+   "description": "Reported value for feed rate.",
+   "example_value": 500.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "feed_rate_actual": {
+   "description": "Reported value for feed rate actual.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "feed_rate_commanded": {
+   "description": "Reported value for feed rate commanded.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "feed_rate_mm_min": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm/min",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "filament_diameter_mm": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "filament_flow_rate": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": null,
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "filament_used_cm3": {
+   "description": "Reported value for filament used cm3.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "additive"
+  },
+  "filament_used_mm": {
+   "description": "Reported value for filament used mm.",
+   "example_value": null,
+   "type": "float",
+   "unit": "mm",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "additive"
+  },
+  "fuel_consumed": {
+   "description": "Reported value for fuel consumed.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "fuel_rate": {
+   "description": "Reported value for fuel rate.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "fuel_remaining_pct": {
+   "description": "Reported value for fuel remaining pct, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
+  },
+  "gearbox_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "ground_speed": {
+   "description": "Speed of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "heated_bed_heater_pwm_output": {
+   "description": null,
+   "example_value": null,
+   "type": "integer",
+   "unit": "pwm_0_127",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "heated_bed_target_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "heated_bed_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "hotend_heater_pwm_output": {
+   "description": null,
+   "example_value": null,
+   "type": "integer",
+   "unit": "pwm_0_127",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "hotend_power_pct": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "hotend_target_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "hotend_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "hydraulic_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "identity.controller_model": {
+   "description": "Reported value for controller model.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "idle_hours": {
+   "description": "Cumulative runtime of the machine, in h.",
+   "example_value": null,
+   "type": "float",
+   "unit": "h",
+   "vertical": "universal"
+  },
+  "last_cycle_time_seconds": {
+   "description": "Reported value for last cycle time seconds.",
+   "example_value": null,
+   "type": "float",
+   "unit": "s",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "layer_height_mm": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "load_count": {
+   "description": "Load on the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "location_altitude": {
+   "description": "Reported value for location altitude.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "location_latitude": {
+   "description": "Reported value for location latitude.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "location_longitude": {
+   "description": "Reported value for location longitude.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "machine_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "M01",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "machine_mode": {
+   "description": "Reported value for machine mode.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "machine_state": {
+   "description": "Reported state of the machine.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "machining_state": {
+   "description": "Reported state of the machine.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "maintenance_desc": {
+   "description": "Reported value for maintenance desc.",
+   "example_value": "Replaced servo motor axis 3",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "maintenance_type": {
+   "description": "Reported value for maintenance type.",
+   "example_value": "PREVENTIVE",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "max_axes": {
+   "description": "Reported value for max axes.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.accumulator_pressure": {
+   "description": "Pressure in the machine.",
+   "example_value": 130,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.batch_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "BATCH-2024-001",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.cell_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "CELL-01",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.component": {
+   "description": "Reported value for component.",
+   "example_value": "comp1",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.controller_model": {
+   "description": "Reported value for controller model.",
+   "example_value": "R-30iB",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.cooler_condition": {
+   "description": "Reported value for cooler condition.",
+   "example_value": 3,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.error_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "error1",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.failure_mode_hdf": {
+   "description": "Reported value for failure mode hdf.",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.failure_mode_osf": {
+   "description": "Reported value for failure mode osf.",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.failure_mode_pwf": {
+   "description": "Reported value for failure mode pwf.",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.failure_mode_rnf": {
+   "description": "Reported value for failure mode rnf.",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.failure_mode_twf": {
+   "description": "Reported value for failure mode twf.",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.line_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "LINE-1",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.machine_age": {
+   "description": "Reported value for machine age.",
+   "example_value": 18,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.machine_failure": {
+   "description": "Reported value for machine failure.",
+   "example_value": "0",
+   "type": "boolean",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.plant_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "PLANT-OH-01",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.product_quality": {
+   "description": "Reported value for product quality.",
+   "example_value": "L",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.pump_leakage": {
+   "description": "Reported value for pump leakage.",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.technician_id": {
+   "description": "Identifier of the machine.",
+   "example_value": "TECH-001",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "metadata.valve_condition": {
+   "description": "Reported value for valve condition.",
+   "example_value": 73,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "model": {
+   "description": "Reported value for model.",
+   "example_value": "M-20iA/20M",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "motion_time_hours": {
+   "description": "Cumulative runtime of the machine, in h.",
+   "example_value": null,
+   "type": "float",
+   "unit": "h",
+   "vertical": "universal"
+  },
+  "motor_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "nozzle_diameter_mm": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "occupancy_state": {
+   "description": null,
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "odometer": {
+   "description": "Reported value for odometer.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "oil_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "operating_hours": {
+   "description": "Cumulative runtime of the machine, in h.",
+   "example_value": 12450.5,
+   "type": "float",
+   "unit": "h",
+   "vertical": "universal"
+  },
+  "operational_settings.setting_1": {
+   "description": "Reported value for setting 1.",
+   "example_value": -0.0007,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "operational_settings.setting_2": {
+   "description": "Reported value for setting 2.",
+   "example_value": -0.0004,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "pallet_position": {
+   "description": "Position of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "part_count": {
+   "description": "Count of the machine.",
+   "example_value": 1234,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "parts_count": {
+   "description": "Count of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "payload_kg": {
+   "description": "Load on the machine, in kg.",
+   "example_value": 5.0,
+   "type": "float",
+   "unit": "kg",
+   "vertical": "universal"
+  },
+  "payload_total": {
+   "description": "Load on the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "pinda_probe_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "power.instantaneous_kw": {
+   "description": "Reported value for instantaneous kw, in kW.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "universal"
+  },
+  "power_consumption_kw": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "kW",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "power_on_hours": {
+   "description": "Cumulative runtime of electrical power, in h.",
+   "example_value": null,
+   "type": "float",
+   "unit": "h",
+   "vertical": "universal"
+  },
+  "print_progress_pct": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "print_speed_mm_s": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm/s",
+   "unit_source": "sandbox_declared",
+   "vertical": "additive"
+  },
+  "print_time_remaining": {
+   "description": "Reported value for print time remaining.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "print_time_seconds": {
+   "description": "Reported value for print time seconds.",
+   "example_value": null,
+   "type": "float",
+   "unit": "s",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "program_id": {
+   "description": "Identifier of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "program_line_number": {
+   "description": "Reported value for program line number.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "program_name": {
+   "description": "Identifier of the machine.",
+   "example_value": "O0001",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "program_number": {
+   "description": "Reported value for program number.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "program_runtime_seconds": {
+   "description": "Reported value for program runtime seconds.",
+   "example_value": null,
+   "type": "float",
+   "unit": "s",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "progress_pct": {
+   "description": "Completion progress of the machine, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
+  },
+  "rapid_override_pct": {
+   "description": "Operator override applied to the machine, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "relative_humidity_pct": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "return_air_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "robot.joint.current": {
+   "description": "Electrical current drawn by a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.joint.effort": {
+   "description": "Reported value for effort.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.joint.position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.joint.temperature": {
+   "description": "Temperature of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.joint.velocity": {
+   "description": "Velocity of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.mode": {
+   "description": "Reported value for mode.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.payload": {
+   "description": "Load on the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.program.state": {
+   "description": "Reported state of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.safety.mode": {
+   "description": "Reported value for mode.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.safety.protective_stop": {
+   "description": "Reported value for protective stop.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.safety.status_bits": {
+   "description": "Reported value for status bits.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.speed_scaling": {
+   "description": "Speed of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.tcp.force": {
+   "description": "Force applied by the robot tool centre point.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.tcp.pose": {
+   "description": "Reported value for pose.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.tcp.speed": {
+   "description": "Speed of the robot tool centre point.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "robot.tool.current": {
+   "description": "Electrical current drawn by the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.battery_current": {
+   "description": "Electrical current drawn by the battery.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.battery_pct": {
+   "description": "Reported value for battery pct, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "robotics"
+  },
+  "ros.battery_voltage": {
+   "description": "Voltage at the battery.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "robotics"
+  },
+  "ros.camera_fps": {
+   "description": "Reported value for camera fps.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.cycle_count": {
+   "description": "Count of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.end_effector_force": {
+   "description": "Force applied by the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.end_effector_torque": {
+   "description": "Torque on the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.error_code": {
+   "description": "Code reported by the machine.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.error_description": {
+   "description": "Text description of the machine.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.imu_drift_rate": {
+   "description": "Reported value for imu drift rate.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_1_position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_1_torque": {
+   "description": "Torque on a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_2_position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_2_torque": {
+   "description": "Torque on a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_3_position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_3_torque": {
+   "description": "Torque on a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_4_position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_4_torque": {
+   "description": "Torque on a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_5_position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_5_torque": {
+   "description": "Torque on a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_6_position": {
+   "description": "Position of a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.joint_6_torque": {
+   "description": "Torque on a robot joint.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.lidar_point_density": {
+   "description": "Identifier of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.localization_confidence": {
+   "description": "Identifier of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.motor_temp_c": {
+   "description": "Temperature of the motor, in degC.",
+   "example_value": null,
+   "type": "float",
+   "unit": "degC",
+   "vertical": "robotics"
+  },
+  "ros.nav2_recovery_count": {
+   "description": "Count of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.obstacle_distance_m": {
+   "description": "Reported value for obstacle distance m, in m.",
+   "example_value": null,
+   "type": "float",
+   "unit": "m",
+   "vertical": "robotics"
+  },
+  "ros.path_deviation_m": {
+   "description": "Reported value for path deviation m, in m.",
+   "example_value": null,
+   "type": "float",
+   "unit": "m",
+   "vertical": "robotics"
+  },
+  "ros.payload_kg": {
+   "description": "Load on the machine, in kg.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kg",
+   "vertical": "robotics"
+  },
+  "ros.payload_utilization_pct": {
+   "description": "Load on the machine, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "robotics"
+  },
+  "ros.sensor_quality_pct": {
+   "description": "Reported value for sensor quality pct, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "robotics"
+  },
+  "ros.task_completion_rate": {
+   "description": "Reported value for task completion rate.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.task_id": {
+   "description": "Identifier of the machine.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.task_status": {
+   "description": "Reported value for task status.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "ros.uptime_seconds": {
+   "description": "Reported value for uptime seconds.",
+   "example_value": null,
+   "type": "float",
+   "unit": "s",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "robotics"
+  },
+  "ros.wifi_signal_dbm": {
+   "description": "Reported value for wifi signal dbm.",
+   "example_value": null,
+   "type": "float",
+   "unit": "dBm",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "robotics"
+  },
+  "sensor_readings.air_pressure": {
+   "description": "Pressure in the machine.",
+   "example_value": 90.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.air_temperature": {
+   "description": "Temperature of the machine.",
+   "example_value": 298.1,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.ambient_temp": {
+   "description": "Temperature of the machine.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.availability": {
+   "description": "Reported value for availability.",
+   "example_value": 95.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.bad_parts": {
+   "description": "Reported value for bad parts.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.bed_target": {
+   "description": "Reported value for bed target.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.bed_temp": {
+   "description": "Temperature of the print bed.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.boom_angle": {
+   "description": "Reported value for boom angle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.bucket_load": {
+   "description": "Load on the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.chamber_target": {
+   "description": "Reported value for chamber target.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.chamber_temp": {
+   "description": "Temperature of the machine.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.coolant_flow": {
+   "description": "Flow rate through the coolant circuit.",
+   "example_value": 5.2,
+   "type": "float",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "sensor_readings.coolant_level": {
+   "description": "Fill level of the coolant circuit.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "sensor_readings.coolant_pressure": {
+   "description": "Pressure in the coolant circuit.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "sensor_readings.coolant_temp": {
+   "description": "Temperature of the coolant circuit.",
+   "example_value": 22.5,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "sensor_readings.cooling_efficiency": {
+   "description": "Efficiency of the machine.",
+   "example_value": 72.5,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.cooling_power": {
+   "description": "Power draw of electrical power.",
+   "example_value": 1.41,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.core_speed_rpm": {
+   "description": "Speed of the machine, in rpm.",
+   "example_value": 9046.19,
+   "type": "float",
+   "unit": "rpm",
+   "vertical": "universal"
+  },
+  "sensor_readings.cycle_time": {
+   "description": "Reported value for cycle time.",
+   "example_value": 45.2,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.digital_input": {
+   "description": "Reported value for digital input.",
+   "example_value": "1",
+   "type": "boolean",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.digital_output": {
+   "description": "Reported value for digital output.",
+   "example_value": "1",
+   "type": "boolean",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.drive_temp": {
+   "description": "Temperature of the machine.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.efficiency_factor": {
+   "description": "Efficiency of the machine.",
+   "example_value": 91.5,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.fan_speed_rpm": {
+   "description": "Speed of the machine, in rpm.",
+   "example_value": 2388.06,
+   "type": "float",
+   "unit": "rpm",
+   "vertical": "universal"
+  },
+  "sensor_readings.good_parts": {
+   "description": "Reported value for good parts.",
+   "example_value": 1234,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.hotend2_target": {
+   "description": "Reported value for hotend2 target.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "additive"
+  },
+  "sensor_readings.hotend2_temp": {
+   "description": "Temperature of the hotend.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "additive"
+  },
+  "sensor_readings.hotend_target": {
+   "description": "Reported value for hotend target.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "additive"
+  },
+  "sensor_readings.hotend_temp": {
+   "description": "Temperature of the hotend.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "additive"
+  },
+  "sensor_readings.hydraulic_pressure": {
+   "description": "Pressure in the hydraulic system.",
+   "example_value": 2000.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.hydraulic_temp": {
+   "description": "Temperature of the hydraulic system.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.implement_pressure": {
+   "description": "Pressure in the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.intake_temp": {
+   "description": "Temperature of the machine.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.motor_power": {
+   "description": "Power draw of the motor.",
+   "example_value": 2503.56,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.motor_temp": {
+   "description": "Temperature of the motor.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.oee": {
+   "description": "Reported value for oee.",
+   "example_value": 72.5,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.oil_pressure": {
+   "description": "Pressure in the lubrication system.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.oil_temp": {
+   "description": "Temperature of the lubrication system.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.performance": {
+   "description": "Reported value for performance.",
+   "example_value": 82.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.planned_downtime": {
+   "description": "Reported value for planned downtime.",
+   "example_value": 30,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.power_consumption": {
+   "description": "Power draw of electrical power.",
+   "example_value": 12.5,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure": {
+   "description": "Pressure in the machine.",
+   "example_value": 113.08,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_1": {
+   "description": "Pressure in the machine.",
+   "example_value": 155.64,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_2": {
+   "description": "Pressure in the machine.",
+   "example_value": 104.93,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_3": {
+   "description": "Pressure in the machine.",
+   "example_value": 2.3,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_4": {
+   "description": "Pressure in the machine.",
+   "example_value": 0.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_5": {
+   "description": "Pressure in the machine.",
+   "example_value": 8.37,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_6": {
+   "description": "Pressure in the machine.",
+   "example_value": 1.31,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.pressure_fan_inlet": {
+   "description": "Pressure in the machine.",
+   "example_value": 14.62,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.process_temperature": {
+   "description": "Temperature of the machine.",
+   "example_value": 308.6,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.quality_rate": {
+   "description": "Reported value for quality rate.",
+   "example_value": 98.5,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.register_value": {
+   "description": "Reported value for register value.",
+   "example_value": 125.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.reject_parts": {
+   "description": "Reported value for reject parts.",
+   "example_value": 12,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.rotate": {
+   "description": "Reported value for rotate.",
+   "example_value": 418.55,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.speed_override": {
+   "description": "Speed of the machine.",
+   "example_value": 100,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.tcp_speed": {
+   "description": "Speed of the robot tool centre point.",
+   "example_value": 250.0,
+   "type": "float",
+   "unit": null,
+   "vertical": "robotics"
+  },
+  "sensor_readings.temperature_1": {
+   "description": "Temperature of the machine.",
+   "example_value": 35.44,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.temperature_2": {
+   "description": "Temperature of the machine.",
+   "example_value": 40.84,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.temperature_3": {
+   "description": "Temperature of the machine.",
+   "example_value": 38.66,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.temperature_4": {
+   "description": "Temperature of the machine.",
+   "example_value": 46.93,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.tool_wear": {
+   "description": "Reported value for tool wear.",
+   "example_value": 108,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.torque": {
+   "description": "Torque on the machine.",
+   "example_value": 40.1,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.total_temp_hpc_outlet": {
+   "description": "Temperature of the machine.",
+   "example_value": 1589.7,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.total_temp_lpc_outlet": {
+   "description": "Temperature of the machine.",
+   "example_value": 642.15,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.total_temp_lpt_outlet": {
+   "description": "Temperature of the machine.",
+   "example_value": 1400.6,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.transmission_temp": {
+   "description": "Temperature of the machine.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "universal"
+  },
+  "sensor_readings.unplanned_downtime": {
+   "description": "Reported value for unplanned downtime.",
+   "example_value": 12,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.vibration": {
+   "description": "Vibration measured on measured vibration.",
+   "example_value": 45.09,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.vibration_1": {
+   "description": "Vibration measured on measured vibration.",
+   "example_value": 0.49,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.vibration_score": {
+   "description": "Vibration measured on measured vibration.",
+   "example_value": null,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.vibration_x": {
+   "description": "Vibration measured on measured vibration.",
+   "example_value": 0.012,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.volt": {
+   "description": "Reported value for volt.",
+   "example_value": 176.22,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.voltage": {
+   "description": "Voltage at the machine.",
+   "example_value": 480,
+   "type": "integer",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.volume_flow_1": {
+   "description": "Flow rate through the machine.",
+   "example_value": 2.019,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sensor_readings.volume_flow_2": {
+   "description": "Flow rate through the machine.",
+   "example_value": 8.4,
+   "type": "float",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "sequence_number": {
+   "description": "Reported value for sequence number.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "serial_number": {
+   "description": "Reported value for serial number.",
+   "example_value": "FANUC-M20-0312",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "service_hours_remaining": {
+   "description": "Cumulative runtime of the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "service_meter_hours": {
+   "description": "Cumulative runtime of the machine, in h.",
+   "example_value": null,
+   "type": "float",
+   "unit": "h",
+   "vertical": "universal"
+  },
+  "space_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "spindle_current_amps": {
+   "description": "Electrical current drawn by the spindle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "spindle_inertia": {
+   "description": "Reported value for spindle inertia.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "spindle_load_pct": {
+   "description": "Load on the spindle, in %.",
+   "example_value": 22.5,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "spindle_override_pct": {
+   "description": "Operator override applied to the spindle, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "cnc"
+  },
+  "spindle_position": {
+   "description": "Position of the spindle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "spindle_power_kw": {
+   "description": "Power draw of the spindle, in kW.",
+   "example_value": null,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "cnc"
+  },
+  "spindle_speed_commanded": {
+   "description": "Speed of the spindle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "spindle_speed_rpm": {
+   "description": "Speed of the spindle, in rpm.",
+   "example_value": 3400,
+   "type": "integer",
+   "unit": "rpm",
+   "vertical": "cnc"
+  },
+  "spindle_temperature": {
+   "description": "Temperature of the spindle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "spindle_voltage": {
+   "description": "Voltage at the spindle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "V",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "cnc"
+  },
+  "supply_air_temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "building_automation"
+  },
+  "temperature_c": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "timestamp": {
+   "description": "Reported value for timestamp.",
+   "example_value": "2024-03-15T14:30:00Z",
+   "type": "string",
+   "unit": null,
+   "vertical": "universal"
+  },
+  "tool_condition": {
+   "description": "Reported value for tool condition.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "tool_id": {
+   "description": "Identifier of the active tool.",
+   "example_value": "1",
+   "type": "string",
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "tool_life_remaining": {
+   "description": "Reported value for tool life remaining.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "tool_life_used": {
+   "description": "Reported value for tool life used.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "tool_number": {
+   "description": "Reported value for tool number.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  },
+  "vehicle.acceleration_x": {
+   "description": "Ratio for the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.acceleration_y": {
+   "description": "Ratio for the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.acceleration_z": {
+   "description": "Ratio for the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.air_inlet_temp": {
+   "description": "Temperature of the vehicle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.ambient.air_temp": {
+   "description": "Temperature of the vehicle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.ambient.barometric_pressure": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.autonomy_level": {
+   "description": "Fill level of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.battery_soc_pct": {
+   "description": "Reported value for battery soc pct, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "vehicle"
+  },
+  "vehicle.battery_temp_c": {
+   "description": "Temperature of the vehicle, in degC.",
+   "example_value": null,
+   "type": "float",
+   "unit": "degC",
+   "vertical": "vehicle"
+  },
+  "vehicle.brake.air_pressure": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.brake.primary_air_pressure": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.brake.secondary_air_pressure": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.brake_pressure_pct": {
+   "description": "Pressure in the vehicle, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "vehicle"
+  },
+  "vehicle.camera_fps": {
+   "description": "Reported value for camera fps.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.dtc_code": {
+   "description": "Code reported by the vehicle.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.dtc_description": {
+   "description": "Text description of the vehicle.",
+   "example_value": null,
+   "type": "string",
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.actual_torque_pct": {
+   "description": "Torque on the vehicle, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.demand_torque_pct": {
+   "description": "Torque on the vehicle, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.exhaust_gas_temp": {
+   "description": "Temperature of the vehicle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.fuel_rail_pressure": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.fuel_rate": {
+   "description": "Reported value for fuel rate.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.intake_manifold_pressure": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.intake_manifold_temp": {
+   "description": "Temperature of the vehicle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.load": {
+   "description": "Load on the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.oil_pressure": {
+   "description": "Pressure in the lubrication system.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.oil_temp": {
+   "description": "Temperature of the lubrication system.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.engine.throttle_position": {
+   "description": "Position of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.engine_rpm": {
+   "description": "Reported value for engine rpm, in rpm.",
+   "example_value": null,
+   "type": "float",
+   "unit": "rpm",
+   "vertical": "vehicle"
+  },
+  "vehicle.engine_temp_c": {
+   "description": "Temperature of the vehicle, in degC.",
+   "example_value": null,
+   "type": "float",
+   "unit": "degC",
+   "vertical": "vehicle"
+  },
+  "vehicle.fuel_level_pct": {
+   "description": "Fill level of the vehicle, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "vehicle"
+  },
+  "vehicle.gps_altitude_m": {
+   "description": "Reported value for gps altitude m, in m.",
+   "example_value": null,
+   "type": "float",
+   "unit": "m",
+   "vertical": "vehicle"
+  },
+  "vehicle.gps_latitude": {
+   "description": "Reported value for gps latitude.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.gps_longitude": {
+   "description": "Reported value for gps longitude.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.gyro_x": {
+   "description": "Reported value for gyro x.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.gyro_y": {
+   "description": "Reported value for gyro y.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.gyro_z": {
+   "description": "Reported value for gyro z.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.harsh_accel_event": {
+   "description": "Reported value for harsh accel event.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.harsh_brake_event": {
+   "description": "Reported value for harsh brake event.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.harsh_cornering_event": {
+   "description": "Reported value for harsh cornering event.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.heading_deg": {
+   "description": "Reported value for heading deg, in deg.",
+   "example_value": null,
+   "type": "float",
+   "unit": "deg",
+   "vertical": "vehicle"
+  },
+  "vehicle.idle_duration_seconds": {
+   "description": "Ratio for the vehicle.",
+   "example_value": null,
+   "type": "float",
+   "unit": "s",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.intervention_event": {
+   "description": "Reported value for intervention event.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.lane_deviation_m": {
+   "description": "Reported value for lane deviation m, in m.",
+   "example_value": null,
+   "type": "float",
+   "unit": "m",
+   "vertical": "vehicle"
+  },
+  "vehicle.lidar_point_count": {
+   "description": "Count of the vehicle.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.obstacle_distance_m": {
+   "description": "Reported value for obstacle distance m, in m.",
+   "example_value": null,
+   "type": "float",
+   "unit": "m",
+   "vertical": "vehicle"
+  },
+  "vehicle.odometer_km": {
+   "description": "Reported value for odometer km.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.radar_target_count": {
+   "description": "Count of the vehicle.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.speed_kmh": {
+   "description": "Speed of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.speed_mph": {
+   "description": "Speed of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.steering_angle_deg": {
+   "description": "Reported value for steering angle deg, in deg.",
+   "example_value": null,
+   "type": "float",
+   "unit": "deg",
+   "vertical": "vehicle"
+  },
+  "vehicle.throttle_pct": {
+   "description": "Reported value for throttle pct, in %.",
+   "example_value": null,
+   "type": "float",
+   "unit": "%",
+   "vertical": "vehicle"
+  },
+  "vehicle.tire_pressure_fl": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.tire_pressure_fr": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.tire_pressure_rl": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.tire_pressure_rr": {
+   "description": "Pressure in the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.transmission.oil_temp": {
+   "description": "Temperature of the lubrication system.",
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_inferred_from_name",
+   "vertical": "vehicle"
+  },
+  "vehicle.transmission_gear": {
+   "description": "Reported value for transmission gear.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.trip_distance_km": {
+   "description": "Reported value for trip distance km.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.turbocharger.rpm": {
+   "description": "Reported value for rpm.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.v2x_message_count": {
+   "description": "Count of the vehicle.",
+   "example_value": null,
+   "type": "integer",
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.wheel_speed_fl": {
+   "description": "Speed of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.wheel_speed_fr": {
+   "description": "Speed of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.wheel_speed_rl": {
+   "description": "Speed of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vehicle.wheel_speed_rr": {
+   "description": "Speed of the vehicle.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "vehicle"
+  },
+  "vibration.rms": {
+   "description": "Reported value for rms.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "universal"
+  },
+  "vibration_rms": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "mm/s",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "winding_temperature": {
+   "description": null,
+   "example_value": null,
+   "type": "float",
+   "unit": "C",
+   "unit_source": "sandbox_declared",
+   "vertical": "universal"
+  },
+  "workholding_pressure": {
+   "description": "Pressure in the machine.",
+   "example_value": null,
+   "type": null,
+   "unit": null,
+   "vertical": "cnc"
+  }
+ },
+ "license": "MIT",
+ "name": "FoundryNet Canonical Schema (sandbox subset)",
+ "upstream": "https://github.com/FoundryNet/canonical-schema"
+}

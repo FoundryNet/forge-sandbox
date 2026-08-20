@@ -1,0 +1,42 @@
+# docker compose up
+#
+# Then:  curl http://localhost:8000/v1/simulate/haas
+#
+# Nothing is mounted and nothing is persisted -- stopping the container
+# discards everything, which is the intended behaviour.
+
+services:
+  forge-sandbox:
+    image: ghcr.io/foundrynet/forge-sandbox:latest
+    # Comment `image` and uncomment `build` to run your local changes.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: forge-sandbox
+    ports:
+      # Port 8000 is a popular default and may already be taken on your machine.
+      #   FORGE_SANDBOX_PORT=8099 docker compose up
+      - "${FORGE_SANDBOX_PORT:-8000}:8000"
+    environment:
+      # Guards against a pathological payload wedging your laptop. Raise them
+      # if you are testing a genuinely wide CSV.
+      SANDBOX_MAX_BODY_BYTES: "1000000"
+      SANDBOX_MAX_FIELDS: "2000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2).status == 200 else 1)"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    # The application code imports no HTTP client and no socket API, so it
+    # makes no outbound calls. These settings harden the filesystem and
+    # capabilities on top of that. They do NOT firewall the container: Docker's
+    # default bridge still allows egress, so if you need that enforced rather
+    # than merely true, run with `--network none` and reach the sandbox through
+    # a proxy, or put it on an `internal: true` network.
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true

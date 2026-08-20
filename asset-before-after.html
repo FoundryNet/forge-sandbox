@@ -1,0 +1,336 @@
+<title>Fifteen Tags, One Schema</title>
+<style>
+  /* Single-theme by design. This page exists to be screenshotted, so it has to
+     render identically regardless of the viewer's theme: every colour is
+     painted explicitly and there is no prefers-color-scheme block. */
+  :root {
+    --ground:  #0A0E13;
+    --panel:   #10161F;
+    --panel-2: #0D131B;
+    --rule:    #1E2B3D;
+    --muted:   #78849A;
+    --text:    #D7DEEA;
+    --bright:  #EDF2F8;
+    --vendor:  #D9963A;
+    --canon:   #2DBB78;
+    --arrow:   #4A5568;
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 32px 68px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .mast { display: flex; flex-direction: column; gap: 12px; }
+
+  .kicker {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .kicker i { font-style: normal; color: var(--canon); }
+
+  h1 {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 31px;
+    line-height: 1.19;
+    font-weight: 620;
+    letter-spacing: -.019em;
+    text-wrap: balance;
+    color: var(--bright);
+  }
+
+  .standfirst {
+    margin: 0;
+    max-width: 64ch;
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.62;
+    color: #9AA6B8;
+  }
+  .standfirst b { color: var(--text); font-weight: 600; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 11px 16px;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .panel-head .who {
+    color: var(--text);
+    letter-spacing: .02em;
+    text-transform: none;
+    font-size: 12.5px;
+  }
+  .panel-head .badge {
+    margin-left: auto;
+    letter-spacing: .09em;
+  }
+
+  .cmd {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 13px;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .cmd b { color: #A9B4C6; font-weight: 500; }
+
+  .rows {
+    padding: 14px 16px 16px;
+    overflow-x: auto;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 20px;
+    row-gap: 2px;
+    align-items: baseline;
+    font-variant-numeric: tabular-nums;
+    font-size: 13.5px;
+  }
+  .k { white-space: pre; }
+  .v { white-space: pre; color: #B9C3D2; }
+  .vendor .k { color: var(--vendor); }
+  .canonical .k { color: var(--canon); }
+
+  /* The rail is the transform: it names what happened between the panels. */
+  .rail { display: flex; align-items: center; gap: 16px; padding: 0 2px; }
+  .rail .line { flex: 1; height: 1px; background: var(--rule); }
+  .rail .tag {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .rail .tag i { font-style: normal; color: var(--canon); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .stat {
+    background: var(--panel);
+    padding: 15px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .stat .n {
+    font-size: 25px;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--bright);
+  }
+  .stat.good .n { color: var(--canon); }
+  .stat .l {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .machine {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .machine:last-child { border-bottom: 0; }
+
+  .who-cell { display: flex; flex-direction: column; gap: 1px; }
+  .who-cell .name { color: var(--text); font-size: 13px; }
+  .who-cell .meta {
+    font-family: var(--sans);
+    font-size: 10.5px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pairs { display: flex; flex-direction: column; gap: 2px; overflow-x: auto; }
+  .pair { white-space: pre; font-size: 13px; }
+  .pair .from { color: var(--vendor); }
+  .pair .arw { color: var(--arrow); }
+  .pair .to { color: var(--canon); }
+
+  .foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 20px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .foot b { color: #A9B4C6; font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .sheet { padding: 36px 18px 48px; }
+    h1 { font-size: 24px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .machine { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+
+<div class="sheet">
+
+  <header class="mast">
+    <div class="kicker">Forge sandbox &middot; runs on localhost &middot; <i>no API key</i></div>
+    <h1>Fifteen German tags in. Fifteen canonical fields out.</h1>
+    <p class="standfirst">
+      A SINUMERIK 840D posting telemetry the way it actually posts it. Nothing can guess
+      that <b>STUECKZAHL</b> is a part count or that <b>Betriebsstunden</b> is operating
+      hours &mdash; and nothing has to. One POST, and every tag comes back in a vocabulary
+      that reads the same across every vendor.
+    </p>
+  </header>
+
+  <section class="panel vendor">
+    <div class="panel-head">
+      <span>Before</span>
+      <span class="who">SINUMERIK 840D sl</span>
+      <span class="badge">PROFINET / S7</span>
+    </div>
+    <div class="cmd">$ curl -s localhost:8000<b>/v1/simulate/siemens</b> | jq .data</div>
+    <div class="rows">
+      <span class="k">&quot;Betriebszustand&quot;</span><span class="v">&quot;AUTOMATIK&quot;</span>
+      <span class="k">&quot;PROGRAMM&quot;</span><span class="v">&quot;WELLE_STUFE3.MPF&quot;</span>
+      <span class="k">&quot;Nist_Spindle (RPM)&quot;</span><span class="v">1210</span>
+      <span class="k">&quot;SPINDEL_AUSLASTUNG (%)&quot;</span><span class="v">59.3</span>
+      <span class="k">&quot;Drehmoment_Nm&quot;</span><span class="v">188.2</span>
+      <span class="k">&quot;Feedrate_Act (mm/min)&quot;</span><span class="v">420.8</span>
+      <span class="k">&quot;Kuehlmittel Temp (C)&quot;</span><span class="v">31.0</span>
+      <span class="k">&quot;DriveTemp&quot;</span><span class="v">57.3</span>
+      <span class="k">&quot;ActPos_X&quot;</span><span class="v">340.236</span>
+      <span class="k">&quot;FollowingError_X&quot;</span><span class="v">0.00368</span>
+      <span class="k">&quot;STUECKZAHL (pcs)&quot;</span><span class="v">842</span>
+      <span class="k">&quot;Betriebsstunden&quot;</span><span class="v">14203.5</span>
+      <span class="k">&quot;energieverbrauch(Wh)&quot;</span><span class="v">4820500.0</span>
+      <span class="k">&quot;EmergencyStop&quot;</span><span class="v">false</span>
+      <span class="k">&quot;AlarmNumber&quot;</span><span class="v">0</span>
+    </div>
+  </section>
+
+  <div class="rail">
+    <span class="line"></span>
+    <span class="tag">15 tags &rarr; <i>15 canonical fields</i> &middot; 100% coverage &middot; 0 unresolved</span>
+    <span class="line"></span>
+  </div>
+
+  <section class="panel canonical">
+    <div class="panel-head">
+      <span>After</span>
+      <span class="who">FoundryNet canonical schema</span>
+      <span class="badge">POST /V1/NORMALIZE</span>
+    </div>
+    <div class="cmd">$ &hellip; | curl -s -X POST localhost:8000<b>/v1/normalize</b> -d @- | jq .normalized</div>
+    <div class="rows">
+      <span class="k">&quot;execution_state&quot;</span><span class="v">&quot;AUTOMATIK&quot;</span>
+      <span class="k">&quot;program_name&quot;</span><span class="v">&quot;WELLE_STUFE3.MPF&quot;</span>
+      <span class="k">&quot;spindle_speed_rpm&quot;</span><span class="v">1210</span>
+      <span class="k">&quot;spindle_load_pct&quot;</span><span class="v">59.3</span>
+      <span class="k">&quot;sensor_readings.torque&quot;</span><span class="v">188.2</span>
+      <span class="k">&quot;feed_rate&quot;</span><span class="v">420.8</span>
+      <span class="k">&quot;sensor_readings.coolant_temp&quot;</span><span class="v">31.0</span>
+      <span class="k">&quot;sensor_readings.drive_temp&quot;</span><span class="v">57.3</span>
+      <span class="k">&quot;axes.x_position_actual&quot;</span><span class="v">340.236</span>
+      <span class="k">&quot;axes.x_following_error&quot;</span><span class="v">0.00368</span>
+      <span class="k">&quot;part_count&quot;</span><span class="v">842</span>
+      <span class="k">&quot;operating_hours&quot;</span><span class="v">14203.5</span>
+      <span class="k">&quot;energy_kwh&quot;</span><span class="v">4820500.0</span>
+      <span class="k">&quot;emergency_stop_active&quot;</span><span class="v">false</span>
+      <span class="k">&quot;alarm_code&quot;</span><span class="v">0</span>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat good"><span class="n">100%</span><span class="l">Coverage</span></div>
+    <div class="stat"><span class="n">1,515</span><span class="l">Tag mappings</span></div>
+    <div class="stat"><span class="n">408</span><span class="l">Canonical fields</span></div>
+    <div class="stat good"><span class="n">0</span><span class="l">API keys needed</span></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <span>And four more machines</span>
+      <span class="badge">SAME ENDPOINT</span>
+    </div>
+      <div class="machine">
+        <div class="who-cell">
+          <span class="name">HAAS-VF2SS</span>
+          <span class="meta">mtconnect &middot; 100%</span>
+        </div>
+        <div class="pairs"><div class="pair"><span class="from">S SPEED (RPM)      </span><span class="arw">&rarr; </span><span class="to">spindle_speed_rpm</span></div><div class="pair"><span class="from">SP_LOAD_PCT (%)    </span><span class="arw">&rarr; </span><span class="to">spindle_load_pct</span></div><div class="pair"><span class="from">TOTAL_HOURS (hrs)  </span><span class="arw">&rarr; </span><span class="to">operating_hours</span></div></div>
+      </div><div class="machine">
+        <div class="who-cell">
+          <span class="name">FANUC-R30IB</span>
+          <span class="meta">focas &middot; 100%</span>
+        </div>
+        <div class="pairs"><div class="pair"><span class="from">TCPVEL (mm/s)      </span><span class="arw">&rarr; </span><span class="to">sensor_readings.tcp_speed</span></div><div class="pair"><span class="from">PAYLOADKG(kg)      </span><span class="arw">&rarr; </span><span class="to">payload_kg</span></div><div class="pair"><span class="from">MTR_TORQUE (N-m)   </span><span class="arw">&rarr; </span><span class="to">sensor_readings.torque</span></div></div>
+      </div><div class="machine">
+        <div class="who-cell">
+          <span class="name">PRUSA-MK3S</span>
+          <span class="meta">serial gcode &middot; 100%</span>
+        </div>
+        <div class="pairs"><div class="pair"><span class="from">heater_power       </span><span class="arw">&rarr; </span><span class="to">hotend_heater_pwm_output</span></div><div class="pair"><span class="from">pinda_temp         </span><span class="arw">&rarr; </span><span class="to">pinda_probe_temperature_c</span></div><div class="pair"><span class="from">hotend_temp        </span><span class="arw">&rarr; </span><span class="to">hotend_temperature_c</span></div></div>
+      </div><div class="machine">
+        <div class="who-cell">
+          <span class="name">CARRIER-48TC</span>
+          <span class="meta">bacnet ip &middot; 100%</span>
+        </div>
+        <div class="pairs"><div class="pair"><span class="from">SupplyTemp         </span><span class="arw">&rarr; </span><span class="to">supply_air_temperature_c</span></div><div class="pair"><span class="from">DamperPosition     </span><span class="arw">&rarr; </span><span class="to">damper_position_pct</span></div><div class="pair"><span class="from">CO2                </span><span class="arw">&rarr; </span><span class="to">co2_ppm</span></div></div>
+      </div>
+  </section>
+
+  <footer class="foot">
+    <span><b>docker run -p 8000:8000 ghcr.io/foundrynet/forge-sandbox</b></span>
+    <span>Fake data, real schema.</span>
+    <span>foundrynet.io</span>
+  </footer>
+
+</div>
