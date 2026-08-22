@@ -64,7 +64,7 @@ def test_pwm_scale_is_declared_not_null():
 
 def test_exact_corpus_tags_resolve_at_full_confidence():
     data = {"S SPEED (RPM)": 8500, "SP_LOAD_PCT (%)": 84.7, "PART_CNT": 1204}
-    norm, mappings, stats, _, _ = corpus.normalize_row(data, "haas")
+    norm, mappings, stats, _, _, _, _ = corpus.normalize_row(data, "haas")
     assert norm["spindle_speed_rpm"] == 8500
     assert norm["spindle_load_pct"] == 84.7
     assert norm["part_count"] == 1204
@@ -75,12 +75,12 @@ def test_exact_corpus_tags_resolve_at_full_confidence():
 
 def test_unit_suffix_variants_fold_to_the_same_mapping():
     for tag in ("S SPEED (RPM)", "s_speed (1/min)", "SRPM [min-1]", "S Speed"):
-        norm, _, _, _, _ = corpus.normalize_row({tag: 8500}, "haas")
+        norm, _, _, _, _, _, _ = corpus.normalize_row({tag: 8500}, "haas")
         assert "spindle_speed_rpm" in norm, tag
 
 
 def test_fahrenheit_is_converted_to_celsius():
-    norm, _, _, conversions, _ = corpus.normalize_row(
+    norm, _, _, conversions, _, _, _ = corpus.normalize_row(
         {"COOL_TEMP [°F]": 161.8}, "haas")
     assert conversions and conversions[0]["conversion"] == "fahrenheit_to_celsius"
     assert abs(norm["sensor_readings.coolant_temp"] - 72.11) < 0.01
@@ -91,7 +91,7 @@ def test_german_sinumerik_tags_resolve():
     STUECKZAHL means, and does not have to."""
     data = {"STUECKZAHL (pcs)": 842, "Betriebsstunden": 14203.5,
             "SPINDEL_AUSLASTUNG (%)": 63.0, "Kuehlmittel Temp (C)": 22.5}
-    norm, _, stats, _, _ = corpus.normalize_row(data, "siemens")
+    norm, _, stats, _, _, _, _ = corpus.normalize_row(data, "siemens")
     assert norm["part_count"] == 842
     assert norm["operating_hours"] == 14203.5
     assert norm["spindle_load_pct"] == 63.0
@@ -100,7 +100,7 @@ def test_german_sinumerik_tags_resolve():
 
 
 def test_signal_classifier_handles_tags_no_pack_has_seen():
-    norm, mappings, _, _, _ = corpus.normalize_row(
+    norm, mappings, _, _, _, _, _ = corpus.normalize_row(
         {"S1Temp": 72.1, "S1Load": 84.7}, "haas")
     assert norm["spindle_temperature"] == 72.1
     assert norm["spindle_load_pct"] == 84.7
@@ -110,7 +110,7 @@ def test_signal_classifier_handles_tags_no_pack_has_seen():
 
 
 def test_unknown_tags_are_reported_not_invented():
-    norm, mappings, stats, _, _ = corpus.normalize_row(
+    norm, mappings, stats, _, _, _, _ = corpus.normalize_row(
         {"S SPEED (RPM)": 8500, "ZZZ_PROPRIETARY_BLOB": 42}, "haas")
     assert mappings["ZZZ_PROPRIETARY_BLOB"]["canonical_field"] is None
     assert mappings["ZZZ_PROPRIETARY_BLOB"]["match_type"] == "unknown"
@@ -124,14 +124,14 @@ def test_coverage_counts_distinct_canonicals_not_tags():
     had this exact bug: it reported 100% on an unseeded corpus."""
     data = {"S SPEED (RPM)": 8500, "SRPM": 8500, "S Speed": 8500,
             "SPINDLE_SPEED_ACT": 8500}
-    _, _, stats, _, _ = corpus.normalize_row(data, "haas")
+    _, _, stats, _, _, _, _ = corpus.normalize_row(data, "haas")
     assert stats["fields_distinct_canonical"] == 1
     assert stats["coverage_pct"] == 25.0
 
 
 def test_collisions_are_recorded_and_the_best_mapping_wins():
     data = {"S SPEED (RPM)": 8500, "S1Speed": 9999}
-    norm, mappings, _, _, collisions = corpus.normalize_row(data, "haas")
+    norm, mappings, _, _, collisions, _, _ = corpus.normalize_row(data, "haas")
     assert "spindle_speed_rpm" in collisions
     # The exact corpus row beats the signal guess.
     assert norm["spindle_speed_rpm"] == 8500
@@ -139,7 +139,7 @@ def test_collisions_are_recorded_and_the_best_mapping_wins():
 
 
 def test_unknown_oem_still_normalizes():
-    norm, _, stats, _, _ = corpus.normalize_row(
+    norm, _, stats, _, _, _, _ = corpus.normalize_row(
         {"spindle_load_pct": 61.0}, "some_vendor_we_never_heard_of")
     assert norm["spindle_load_pct"] == 61.0
     assert stats["layer2_identity"] == 1
@@ -152,7 +152,7 @@ def test_every_simulated_machine_normalizes_cleanly(machine):
     """The machines emit real vendor tags, so coverage should be high. Anything
     below 80% means a simulator invented a tag no pack knows."""
     reading = simulate.reading(machine, seed=1234)
-    _, mappings, stats, _, _ = corpus.normalize_row(reading["data"],
+    _, mappings, stats, _, _, _, _ = corpus.normalize_row(reading["data"],
                                                     reading["oem"])
     unresolved = [t for t, m in mappings.items() if m["match_type"] == "unknown"]
     assert stats["coverage_pct"] >= 80.0, (machine, stats, unresolved)

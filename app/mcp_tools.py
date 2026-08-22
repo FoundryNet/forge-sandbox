@@ -74,11 +74,13 @@ async def normalize_telemetry(
     USE WHEN: you have raw machine data — a CSV row, a sensor reading, an MES
     export, an alarm log line — and need to understand it semantically using
     canonical field names."""
-    normalized, field_mappings, stats, unit_conv, collisions = \
+    normalized, field_mappings, stats, unit_conv, collisions, null_states, enum_states = \
         corpus.normalize_row(data, (oem or "").lower() or None)
     pack = corpus.get_pack(oem)
     return {
         "normalized": normalized,
+        "null_states": null_states or None,
+        "enum_states": enum_states or None,
         "field_mappings": field_mappings,
         "coverage_pct": stats["coverage_pct"],
         "fields_total": stats["fields_total"],

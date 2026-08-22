@@ -1,0 +1,6957 @@
+{
+ "field_count": 366,
+ "fields": {
+  "alarm_code": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 218,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "alarm_description": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 179,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "alarm_severity": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 155,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "alarm_severity.alarm_group": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 114,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "alarm_severity.axis_number": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 111,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "amr.battery.charge": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100,
+    "min": 0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%",
+   "valid_range": [
+    0,
+    100
+   ]
+  },
+  "amr.battery.charging": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1
+   ]
+  },
+  "amr.battery.voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1000
+   ]
+  },
+  "amr.operating_mode": {
+   "accepted_input_units": [],
+   "canonical_values": [
+    "running",
+    "idle",
+    "stopped",
+    "error",
+    "unknown"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 4,
+   "dimension": null,
+   "mappings": {
+    "0": "idle",
+    "1": "running",
+    "2": "stopped",
+    "3": "error",
+    "ABORTED": "stopped",
+    "ACTIVE": "running",
+    "ALARM": "error",
+    "AUTO": "running",
+    "AUTOMATIK": "running",
+    "BUSY": "running",
+    "COMPLETE": "stopped",
+    "CRITICAL": "error",
+    "CYCLE": "running",
+    "EMERGENCY": "error",
+    "ERROR": "error",
+    "ESTOP": "error",
+    "EXECUTE": "running",
+    "EXECUTING": "running",
+    "E_STOP": "error",
+    "FAULT": "error",
+    "FEED_HOLD": "idle",
+    "FINISHED": "stopped",
+    "HOLD": "idle",
+    "IDLE": "idle",
+    "INTERRUPTED": "stopped",
+    "IN_CYCLE": "running",
+    "JOG": "idle",
+    "MANUAL": "idle",
+    "MDI": "idle",
+    "OCCUPIED": "running",
+    "OFF": "stopped",
+    "ON": "running",
+    "PRINTING": "running",
+    "READY": "idle",
+    "RUN": "running",
+    "RUNNING": "running",
+    "STANDBY": "idle",
+    "START": "running",
+    "STOP": "stopped",
+    "STOPPED": "stopped",
+    "UNAVAILABLE": "unknown",
+    "UNKNOWN": "unknown",
+    "UNOCCUPIED": "idle",
+    "WAITING": "idle"
+   },
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "type": "enum",
+   "unit": null
+  },
+  "amr.position.theta": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 3.1416,
+    "min": -3.1416
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -3.1416,
+    3.1416
+   ]
+  },
+  "amr.position.x": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000,
+    "min": -1000000
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -1000000,
+    1000000
+   ]
+  },
+  "amr.position.y": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000,
+    "min": -1000000
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -1000000,
+    1000000
+   ]
+  },
+  "amr.safety.estop": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 4,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "amr.velocity.angular": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 10,
+    "min": -10
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -10,
+    10
+   ]
+  },
+  "amr.velocity.linear": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 5000,
+    "min": -5000
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -5000,
+    5000
+   ]
+  },
+  "axes.0.load_percent": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 215,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.0.position_actual": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 232,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "in",
+    "m",
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.0.temperature_c": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 222,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "axes.1.position_actual": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 211,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "in",
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.2.position_actual": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 203,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "in",
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.a_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 3,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.a_position_actual": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.b_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 3,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.b_position_actual": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.c_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.c_position_actual": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_acceleration": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_acceleration_commanded": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_current": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 2,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_current_amps": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_following_error": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 58,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.x_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 9,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_position_actual": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 53,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.x_position_commanded": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 49,
+   "dimension": "length",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.x_power_kw": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 7,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "axes.x_temperature": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 31,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "axes.x_velocity": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_velocity_commanded": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.x_voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_acceleration": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_acceleration_commanded": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_current_amps": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_following_error": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 60,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.y_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 9,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_position_actual": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 52,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.y_position_commanded": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 37,
+   "dimension": "length",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.y_power_kw": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 7,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "axes.y_temperature": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 31,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "axes.y_velocity": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_velocity_commanded": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.y_voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_acceleration": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_acceleration_commanded": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_current_amps": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_following_error": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 60,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "axes.z_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 9,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_position_actual": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 52,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.z_position_commanded": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 37,
+   "dimension": "length",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "mm"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "axes.z_power_kw": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 7,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "axes.z_temperature": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 31,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "axes.z_velocity": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_velocity_commanded": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axes.z_voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "axis_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "battery_voltage": {
+   "accepted_input_units": [
+    "V"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 46,
+   "dimension": "voltage",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "V"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "voltage",
+   "si": true,
+   "unit": "V"
+  },
+  "cnc.axis.load": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 150,
+    "min": 0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%",
+   "valid_range": [
+    0,
+    150
+   ]
+  },
+  "cnc.coolant.pressure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 50000000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    50000000
+   ]
+  },
+  "cnc.path.feedrate": {
+   "accepted_input_units": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/min",
+    "mm/s"
+   ],
+   "conversion_required": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/s"
+   ],
+   "corpus_tags": 9,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mm/s"
+   ],
+   "physics_bounds": {
+    "max": 100000,
+    "min": 0
+   },
+   "quantity": "linear_speed",
+   "si": true,
+   "unit": "mm/min",
+   "valid_range": [
+    0,
+    100000
+   ]
+  },
+  "cnc.spindle.rotary_velocity": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 4,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm",
+   "valid_range": [
+    0,
+    60000
+   ]
+  },
+  "coolant_status": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "cutting_time_hours": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 42,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "h"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "cycle_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 37,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "cycle_time_ms": {
+   "accepted_input_units": [
+    "ms"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "ms"
+  },
+  "cycle_time_seconds": {
+   "accepted_input_units": [
+    "s"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 60,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "s"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "s"
+  },
+  "dc_bus_voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "def_remaining_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 57,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "door_status": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 50,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "downtime_minutes": {
+   "accepted_input_units": [
+    "min"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 151,
+   "dimension": "time",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "h",
+    "min",
+    "s"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "min"
+  },
+  "emergency_stop_active": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 41,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "energy.cumulative_kwh": {
+   "accepted_input_units": [
+    "J",
+    "MWh",
+    "Wh",
+    "kJ",
+    "kWh"
+   ],
+   "conversion_required": [
+    "J",
+    "MWh",
+    "Wh",
+    "kJ"
+   ],
+   "corpus_tags": 9,
+   "dimension": "energy",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "kWh"
+   ],
+   "physics_bounds": {
+    "max": 1000000000,
+    "min": 0
+   },
+   "quantity": "energy",
+   "si": true,
+   "unit": "kWh",
+   "valid_range": [
+    0,
+    1000000000
+   ]
+  },
+  "energy_kwh": {
+   "accepted_input_units": [
+    "J",
+    "MWh",
+    "Wh",
+    "kJ",
+    "kWh"
+   ],
+   "conversion_required": [
+    "J",
+    "MWh",
+    "Wh",
+    "kJ"
+   ],
+   "corpus_tags": 226,
+   "dimension": "energy",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "J",
+    "W",
+    "Wh",
+    "h",
+    "kW",
+    "kWh"
+   ],
+   "physics_bounds": {
+    "max": 1000000000000.0,
+    "min": 0.0
+   },
+   "quantity": "energy",
+   "si": true,
+   "unit": "kWh"
+  },
+  "engine_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 34,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "engine_speed_rpm": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 52,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "execution_state": {
+   "accepted_input_units": [],
+   "canonical_values": [
+    "running",
+    "idle",
+    "stopped",
+    "error",
+    "unknown"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 152,
+   "dimension": null,
+   "mappings": {
+    "0": "idle",
+    "1": "running",
+    "2": "stopped",
+    "3": "error",
+    "ABORTED": "stopped",
+    "ACTIVE": "running",
+    "ALARM": "error",
+    "AUTO": "running",
+    "AUTOMATIK": "running",
+    "BUSY": "running",
+    "COMPLETE": "stopped",
+    "CRITICAL": "error",
+    "CYCLE": "running",
+    "EMERGENCY": "error",
+    "ERROR": "error",
+    "ESTOP": "error",
+    "EXECUTE": "running",
+    "EXECUTING": "running",
+    "E_STOP": "error",
+    "FAULT": "error",
+    "FEED_HOLD": "idle",
+    "FINISHED": "stopped",
+    "HOLD": "idle",
+    "IDLE": "idle",
+    "INTERRUPTED": "stopped",
+    "IN_CYCLE": "running",
+    "JOG": "idle",
+    "MANUAL": "idle",
+    "MDI": "idle",
+    "OCCUPIED": "running",
+    "OFF": "stopped",
+    "ON": "running",
+    "PRINTING": "running",
+    "READY": "idle",
+    "RUN": "running",
+    "RUNNING": "running",
+    "STANDBY": "idle",
+    "START": "running",
+    "STOP": "stopped",
+    "STOPPED": "stopped",
+    "UNAVAILABLE": "unknown",
+    "UNKNOWN": "unknown",
+    "UNOCCUPIED": "idle",
+    "WAITING": "idle"
+   },
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "type": "enum",
+   "unit": null
+  },
+  "feed_override_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 43,
+   "dimension": "percent",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "feed_rate": {
+   "accepted_input_units": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/min",
+    "mm/s"
+   ],
+   "conversion_required": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/s"
+   ],
+   "corpus_tags": 215,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "in/min",
+    "m/min",
+    "mm/min"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": -10000000.0
+   },
+   "quantity": "linear_speed",
+   "si": true,
+   "unit": "mm/min"
+  },
+  "feed_rate_actual": {
+   "accepted_input_units": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/min",
+    "mm/s"
+   ],
+   "conversion_required": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/s"
+   ],
+   "corpus_tags": 61,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mm/min"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": -10000000.0
+   },
+   "quantity": "linear_speed",
+   "si": true,
+   "unit": "mm/min"
+  },
+  "feed_rate_commanded": {
+   "accepted_input_units": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/min",
+    "mm/s"
+   ],
+   "conversion_required": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/s"
+   ],
+   "corpus_tags": 49,
+   "dimension": "velocity",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "mm/min"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": -10000000.0
+   },
+   "quantity": "linear_speed",
+   "si": true,
+   "unit": "mm/min"
+  },
+  "filament_used_cm3": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "filament_used_mm": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 1,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "fuel_consumed": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 56,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "fuel_rate": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 45,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1
+   ]
+  },
+  "fuel_remaining_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 45,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "ground_speed": {
+   "accepted_input_units": [
+    "kph",
+    "m/s",
+    "mph"
+   ],
+   "conversion_required": [
+    "m/s",
+    "mph"
+   ],
+   "corpus_tags": 54,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kph"
+   ],
+   "physics_bounds": {
+    "max": 1000.0,
+    "min": -500.0
+   },
+   "quantity": "vehicle_speed",
+   "si": true,
+   "unit": "kph"
+  },
+  "identity.controller_model": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "idle_hours": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 43,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "h"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "last_cycle_time_seconds": {
+   "accepted_input_units": [
+    "s"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "s"
+  },
+  "load_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 37,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "location_altitude": {
+   "accepted_input_units": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "mm",
+    "um"
+   ],
+   "conversion_required": [
+    "cm",
+    "ft",
+    "in",
+    "m",
+    "mil",
+    "um"
+   ],
+   "corpus_tags": 40,
+   "dimension": "length",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "m"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "length",
+   "si": true,
+   "unit": "mm"
+  },
+  "location_latitude": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 35,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "location_longitude": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 43,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "machine_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 117,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "machine_mode": {
+   "accepted_input_units": [],
+   "canonical_values": [
+    "running",
+    "idle",
+    "stopped",
+    "error",
+    "unknown"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 38,
+   "dimension": null,
+   "mappings": {
+    "0": "idle",
+    "1": "running",
+    "2": "stopped",
+    "3": "error",
+    "ABORTED": "stopped",
+    "ACTIVE": "running",
+    "ALARM": "error",
+    "AUTO": "running",
+    "AUTOMATIK": "running",
+    "BUSY": "running",
+    "COMPLETE": "stopped",
+    "CRITICAL": "error",
+    "CYCLE": "running",
+    "EMERGENCY": "error",
+    "ERROR": "error",
+    "ESTOP": "error",
+    "EXECUTE": "running",
+    "EXECUTING": "running",
+    "E_STOP": "error",
+    "FAULT": "error",
+    "FEED_HOLD": "idle",
+    "FINISHED": "stopped",
+    "HOLD": "idle",
+    "IDLE": "idle",
+    "INTERRUPTED": "stopped",
+    "IN_CYCLE": "running",
+    "JOG": "idle",
+    "MANUAL": "idle",
+    "MDI": "idle",
+    "OCCUPIED": "running",
+    "OFF": "stopped",
+    "ON": "running",
+    "PRINTING": "running",
+    "READY": "idle",
+    "RUN": "running",
+    "RUNNING": "running",
+    "STANDBY": "idle",
+    "START": "running",
+    "STOP": "stopped",
+    "STOPPED": "stopped",
+    "UNAVAILABLE": "unknown",
+    "UNKNOWN": "unknown",
+    "UNOCCUPIED": "idle",
+    "WAITING": "idle"
+   },
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "type": "enum",
+   "unit": null
+  },
+  "machine_state": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 57,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "machining_state": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 9,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "maintenance_desc": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 122,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "maintenance_type": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 105,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "max_axes": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.accumulator_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "metadata.batch_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 115,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.cell_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 116,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.component": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.controller_model": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 153,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.cooler_condition": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "metadata.error_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 74,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.failure_mode_hdf": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 58,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.failure_mode_osf": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 58,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.failure_mode_pwf": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 46,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.failure_mode_rnf": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 46,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.failure_mode_twf": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 46,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.line_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 87,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.machine_age": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.machine_failure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.plant_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 115,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.product_quality": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.pump_leakage": {
+   "accepted_input_units": [
+    "L/min",
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "conversion_required": [
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "corpus_tags": 80,
+   "dimension": "flow",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mL/min"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": 0.0
+   },
+   "quantity": "flow",
+   "si": true,
+   "unit": "L/min"
+  },
+  "metadata.technician_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 108,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "metadata.valve_condition": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "model": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 142,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "motion_time_hours": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 52,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "h"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "odometer": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 44,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 526385152,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    526385152
+   ]
+  },
+  "operating_hours": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 227,
+   "dimension": "time",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "h",
+    "min"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "operational_settings.setting_1": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 88,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "operational_settings.setting_2": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 89,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "pallet_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "part_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 212,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "parts_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 68,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "payload_kg": {
+   "accepted_input_units": [
+    "g",
+    "kg",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "conversion_required": [
+    "g",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "corpus_tags": 153,
+   "dimension": "mass",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "g",
+    "kg",
+    "lb"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": 0.0
+   },
+   "quantity": "mass",
+   "si": true,
+   "unit": "kg"
+  },
+  "payload_total": {
+   "accepted_input_units": [
+    "g",
+    "kg",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "conversion_required": [
+    "g",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "corpus_tags": 55,
+   "dimension": "mass",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "kg",
+    "ton"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": 0.0
+   },
+   "quantity": "mass",
+   "si": true,
+   "unit": "kg"
+  },
+  "power.instantaneous_kw": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 12,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kW"
+   ],
+   "physics_bounds": {
+    "max": 10000000,
+    "min": 0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW",
+   "valid_range": [
+    0,
+    10000000
+   ]
+  },
+  "power_on_hours": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 67,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "h"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "print_time_remaining": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "print_time_seconds": {
+   "accepted_input_units": [
+    "s"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "s"
+  },
+  "program_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 62,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "program_line_number": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 40,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "program_name": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 118,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "program_number": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 9,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "program_runtime_seconds": {
+   "accepted_input_units": [
+    "s"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "time",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "s"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "s"
+  },
+  "progress_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "rapid_override_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 44,
+   "dimension": "percent",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "robot.joint.current": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 12,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    100
+   ]
+  },
+  "robot.joint.effort": {
+   "accepted_input_units": [
+    "Nm",
+    "ftlb"
+   ],
+   "conversion_required": [
+    "ftlb"
+   ],
+   "corpus_tags": 18,
+   "dimension": "torque",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "Nm"
+   ],
+   "physics_bounds": {
+    "max": 1000,
+    "min": -1000
+   },
+   "quantity": "torque",
+   "si": true,
+   "unit": "Nm",
+   "valid_range": [
+    -1000,
+    1000
+   ]
+  },
+  "robot.joint.position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 33,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 6.2832,
+    "min": -6.2832
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -6.2832,
+    6.2832
+   ]
+  },
+  "robot.joint.temperature": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 18,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 90,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    90
+   ]
+  },
+  "robot.joint.velocity": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 11,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 10,
+    "min": -10
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -10,
+    10
+   ]
+  },
+  "robot.mode": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 12,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "robot.payload": {
+   "accepted_input_units": [
+    "g",
+    "kg",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "conversion_required": [
+    "g",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "corpus_tags": 7,
+   "dimension": "mass",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kg"
+   ],
+   "physics_bounds": {
+    "max": 50,
+    "min": 0
+   },
+   "quantity": "mass",
+   "si": true,
+   "unit": "kg",
+   "valid_range": [
+    0,
+    50
+   ]
+  },
+  "robot.program.state": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 10,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "robot.safety.mode": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "robot.safety.protective_stop": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 14,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1
+   ]
+  },
+  "robot.safety.status_bits": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "robot.speed_scaling": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 8,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1
+   ]
+  },
+  "robot.tcp.force": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 500,
+    "min": -500
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -500,
+    500
+   ]
+  },
+  "robot.tcp.pose": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 24,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 3000,
+    "min": -3000
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -3000,
+    3000
+   ]
+  },
+  "robot.tcp.speed": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 15,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 5000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    5000
+   ]
+  },
+  "robot.tool.current": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 5,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    5
+   ]
+  },
+  "ros.battery_current": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.battery_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "ros.battery_voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.camera_fps": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.cycle_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.end_effector_force": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.end_effector_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.error_code": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 4,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.error_description": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.imu_drift_rate": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_1_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_1_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_2_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_2_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_3_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_3_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_4_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_4_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_5_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_5_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_6_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.joint_6_torque": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.lidar_point_density": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.localization_confidence": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.motor_temp_c": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 7,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "ros.nav2_recovery_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.obstacle_distance_m": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 4,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.path_deviation_m": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.payload_kg": {
+   "accepted_input_units": [
+    "g",
+    "kg",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "conversion_required": [
+    "g",
+    "lb",
+    "oz",
+    "ton",
+    "tonne"
+   ],
+   "corpus_tags": 5,
+   "dimension": "mass",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kg"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": 0.0
+   },
+   "quantity": "mass",
+   "si": true,
+   "unit": "kg"
+  },
+  "ros.payload_utilization_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "ros.sensor_quality_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "ros.task_completion_rate": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "ros.task_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.task_status": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "ros.uptime_seconds": {
+   "accepted_input_units": [
+    "s"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "time",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "s"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "s"
+  },
+  "ros.wifi_signal_dbm": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.air_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 154,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "MPa",
+    "bar",
+    "kPa",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500000,
+    "min": 0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar",
+   "valid_range": [
+    0,
+    1500000
+   ]
+  },
+  "sensor_readings.air_temperature": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 80,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F",
+    "K"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.ambient_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 44,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.availability": {
+   "accepted_input_units": [],
+   "canonical_values": [
+    "running",
+    "idle",
+    "stopped",
+    "error",
+    "unknown"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 145,
+   "dimension": "percent",
+   "mappings": {
+    "0": "idle",
+    "1": "running",
+    "2": "stopped",
+    "3": "error",
+    "ABORTED": "stopped",
+    "ACTIVE": "running",
+    "ALARM": "error",
+    "AUTO": "running",
+    "AUTOMATIK": "running",
+    "BUSY": "running",
+    "COMPLETE": "stopped",
+    "CRITICAL": "error",
+    "CYCLE": "running",
+    "EMERGENCY": "error",
+    "ERROR": "error",
+    "ESTOP": "error",
+    "EXECUTE": "running",
+    "EXECUTING": "running",
+    "E_STOP": "error",
+    "FAULT": "error",
+    "FEED_HOLD": "idle",
+    "FINISHED": "stopped",
+    "HOLD": "idle",
+    "IDLE": "idle",
+    "INTERRUPTED": "stopped",
+    "IN_CYCLE": "running",
+    "JOG": "idle",
+    "MANUAL": "idle",
+    "MDI": "idle",
+    "OCCUPIED": "running",
+    "OFF": "stopped",
+    "ON": "running",
+    "PRINTING": "running",
+    "READY": "idle",
+    "RUN": "running",
+    "RUNNING": "running",
+    "STANDBY": "idle",
+    "START": "running",
+    "STOP": "stopped",
+    "STOPPED": "stopped",
+    "UNAVAILABLE": "unknown",
+    "UNKNOWN": "unknown",
+    "UNOCCUPIED": "idle",
+    "WAITING": "idle"
+   },
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "type": "enum",
+   "unit": null
+  },
+  "sensor_readings.bad_parts": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 48,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.bed_target": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.bed_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 43,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.boom_angle": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.bucket_load": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 2,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.chamber_target": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.chamber_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 31,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.coolant_flow": {
+   "accepted_input_units": [
+    "L/min",
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "conversion_required": [
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "corpus_tags": 153,
+   "dimension": "flow",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "L/min",
+    "gal/min",
+    "mL/min"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": 0.0
+   },
+   "quantity": "flow",
+   "si": true,
+   "unit": "L/min"
+  },
+  "sensor_readings.coolant_level": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 34,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.coolant_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 37,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.coolant_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 209,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F"
+   ],
+   "physics_bounds": {
+    "max": 215,
+    "min": -40
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C",
+   "valid_range": [
+    -40,
+    215
+   ]
+  },
+  "sensor_readings.cooling_efficiency": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.cooling_power": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 80,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "W",
+    "kW"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "sensor_readings.core_speed_rpm": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 157,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "sensor_readings.cycle_time": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 154,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "min",
+    "ms",
+    "s"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "sensor_readings.digital_input": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 103,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.digital_output": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 97,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.drive_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 29,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.efficiency_factor": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.fan_speed_rpm": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 154,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "sensor_readings.good_parts": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 176,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.hotend2_target": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.hotend2_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.hotend_target": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.hotend_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 43,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.hydraulic_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 187,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "MPa",
+    "bar",
+    "kPa",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.hydraulic_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 35,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.implement_pressure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.intake_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 29,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.motor_power": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 77,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "W",
+    "hp",
+    "kW"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "sensor_readings.motor_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 39,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.oee": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 136,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.oil_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 39,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1000000,
+    "min": 0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar",
+   "valid_range": [
+    0,
+    1000000
+   ]
+  },
+  "sensor_readings.oil_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 46,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 215,
+    "min": -40
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C",
+   "valid_range": [
+    -40,
+    215
+   ]
+  },
+  "sensor_readings.performance": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 139,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.planned_downtime": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 149,
+   "dimension": "time",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "h",
+    "min"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "sensor_readings.power_consumption": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 148,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "W",
+    "hp",
+    "kW"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "sensor_readings.pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "Pa",
+    "atm",
+    "bar",
+    "kPa",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 50000000,
+    "min": 0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar",
+   "valid_range": [
+    0,
+    50000000
+   ]
+  },
+  "sensor_readings.pressure_1": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "MPa",
+    "bar",
+    "kPa",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.pressure_2": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 76,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "kPa",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.pressure_3": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.pressure_4": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.pressure_5": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.pressure_6": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 80,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.pressure_fan_inlet": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 184,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "bar",
+    "kPa",
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "sensor_readings.process_temperature": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 80,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F",
+    "K"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.quality_rate": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 144,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.register_value": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 102,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.reject_parts": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 146,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.rotate": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "sensor_readings.speed_override": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 145,
+   "dimension": "percent",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "sensor_readings.tcp_speed": {
+   "accepted_input_units": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/min",
+    "mm/s"
+   ],
+   "conversion_required": [
+    "ft/min",
+    "ft/s",
+    "in/min",
+    "m/min",
+    "m/s",
+    "mm/s"
+   ],
+   "corpus_tags": 152,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "in/s",
+    "m/s",
+    "mm/s"
+   ],
+   "physics_bounds": {
+    "max": 10000000.0,
+    "min": -10000000.0
+   },
+   "quantity": "linear_speed",
+   "si": true,
+   "unit": "mm/min"
+  },
+  "sensor_readings.temperature_1": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 80,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F",
+    "K"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.temperature_2": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 80,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.temperature_3": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 80,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.temperature_4": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 80,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C",
+    "F"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.tool_wear": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 79,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "min",
+    "mm"
+   ],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.torque": {
+   "accepted_input_units": [
+    "Nm",
+    "ftlb"
+   ],
+   "conversion_required": [
+    "ftlb"
+   ],
+   "corpus_tags": 80,
+   "dimension": "torque",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "Nm",
+    "ftlb"
+   ],
+   "physics_bounds": {
+    "max": 2000,
+    "min": -2000
+   },
+   "quantity": "torque",
+   "si": true,
+   "unit": "Nm",
+   "valid_range": [
+    -2000,
+    2000
+   ]
+  },
+  "sensor_readings.total_temp_hpc_outlet": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 190,
+   "dimension": "temperature",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "C",
+    "K",
+    "R"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.total_temp_lpc_outlet": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 204,
+   "dimension": "temperature",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.total_temp_lpt_outlet": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 191,
+   "dimension": "temperature",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "C",
+    "K",
+    "R"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.transmission_temp": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 30,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "C"
+   ],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "sensor_readings.unplanned_downtime": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 150,
+   "dimension": "time",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "h",
+    "min"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "sensor_readings.vibration": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "g",
+    "m/s2",
+    "mm/s"
+   ],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.vibration_1": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "g",
+    "m/s2",
+    "mm/s"
+   ],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.vibration_score": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 31,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.vibration_x": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 229,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "g",
+    "m/s2",
+    "mm/s",
+    "mm/s2"
+   ],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "sensor_readings.volt": {
+   "accepted_input_units": [
+    "V"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 80,
+   "dimension": "voltage",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "V"
+   ],
+   "physics_bounds": {
+    "max": 100000.0,
+    "min": -100000.0
+   },
+   "quantity": "voltage",
+   "si": true,
+   "unit": "V"
+  },
+  "sensor_readings.voltage": {
+   "accepted_input_units": [
+    "V"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 154,
+   "dimension": "voltage",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "V",
+    "kV"
+   ],
+   "physics_bounds": {
+    "max": 1000,
+    "min": 0
+   },
+   "quantity": "voltage",
+   "si": true,
+   "unit": "V",
+   "valid_range": [
+    0,
+    1000
+   ]
+  },
+  "sensor_readings.volume_flow_1": {
+   "accepted_input_units": [
+    "L/min",
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "conversion_required": [
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "corpus_tags": 80,
+   "dimension": "flow",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "L/min",
+    "gal/min"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": 0.0
+   },
+   "quantity": "flow",
+   "si": true,
+   "unit": "L/min"
+  },
+  "sensor_readings.volume_flow_2": {
+   "accepted_input_units": [
+    "L/min",
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "conversion_required": [
+    "L/s",
+    "gal/min",
+    "m3/h",
+    "mL/min"
+   ],
+   "corpus_tags": 80,
+   "dimension": "flow",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "L/min",
+    "gal/min"
+   ],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": 0.0
+   },
+   "quantity": "flow",
+   "si": true,
+   "unit": "L/min"
+  },
+  "sequence_number": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "serial_number": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 149,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "service_hours_remaining": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 1,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "service_meter_hours": {
+   "accepted_input_units": [
+    "days",
+    "h",
+    "min",
+    "ms",
+    "s"
+   ],
+   "conversion_required": [
+    "days",
+    "min",
+    "ms",
+    "s"
+   ],
+   "corpus_tags": 41,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "h"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": true,
+   "unit": "h"
+  },
+  "spindle_current_amps": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "spindle_inertia": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "spindle_load_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 255,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "spindle_override_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 44,
+   "dimension": "percent",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "spindle_position": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 8,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "spindle_power_kw": {
+   "accepted_input_units": [
+    "MW",
+    "W",
+    "hp",
+    "kW"
+   ],
+   "conversion_required": [
+    "MW",
+    "W",
+    "hp"
+   ],
+   "corpus_tags": 6,
+   "dimension": "power",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000000.0,
+    "min": -1000000.0
+   },
+   "quantity": "power",
+   "si": true,
+   "unit": "kW"
+  },
+  "spindle_speed_commanded": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 62,
+   "dimension": "rotational",
+   "measurement_type": "setpoint",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "spindle_speed_rpm": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 307,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "spindle_temperature": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 8,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "spindle_voltage": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "timestamp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 122,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "tool_condition": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "tool_id": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 164,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "tool_life_remaining": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 48,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "tool_life_used": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 37,
+   "dimension": "percent",
+   "measurement_type": "cumulative",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "tool_number": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.acceleration_x": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.acceleration_y": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.acceleration_z": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.air_inlet_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 80,
+    "min": -50
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -50,
+    80
+   ]
+  },
+  "vehicle.ambient.air_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 12,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 80,
+    "min": -50
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -50,
+    80
+   ]
+  },
+  "vehicle.ambient.barometric_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 6,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kPa"
+   ],
+   "physics_bounds": {
+    "max": 125000,
+    "min": 0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar",
+   "valid_range": [
+    0,
+    125000
+   ]
+  },
+  "vehicle.autonomy_level": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.battery_soc_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "vehicle.battery_temp_c": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 5,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "vehicle.brake.air_pressure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1500000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1500000
+   ]
+  },
+  "vehicle.brake.primary_air_pressure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1500000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1500000
+   ]
+  },
+  "vehicle.brake.secondary_air_pressure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1500000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1500000
+   ]
+  },
+  "vehicle.brake_pressure_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "vehicle.camera_fps": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.dtc_code": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.dtc_description": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.engine.actual_torque_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 125,
+    "min": -125
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%",
+   "valid_range": [
+    -125,
+    125
+   ]
+  },
+  "vehicle.engine.demand_torque_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 125,
+    "min": -125
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%",
+   "valid_range": [
+    -125,
+    125
+   ]
+  },
+  "vehicle.engine.exhaust_gas_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1000
+   ]
+  },
+  "vehicle.engine.fuel_rail_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 6,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "MPa"
+   ],
+   "physics_bounds": {
+    "max": 300000000,
+    "min": 0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar",
+   "valid_range": [
+    0,
+    300000000
+   ]
+  },
+  "vehicle.engine.fuel_rate": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 1,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    1
+   ]
+  },
+  "vehicle.engine.intake_manifold_pressure": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 500000,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    500000
+   ]
+  },
+  "vehicle.engine.intake_manifold_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 215,
+    "min": -40
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -40,
+    215
+   ]
+  },
+  "vehicle.engine.load": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100,
+    "min": 0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%",
+   "valid_range": [
+    0,
+    100
+   ]
+  },
+  "vehicle.engine.oil_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 7,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kPa"
+   ],
+   "physics_bounds": {
+    "max": 1000000,
+    "min": 0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar",
+   "valid_range": [
+    0,
+    1000000
+   ]
+  },
+  "vehicle.engine.oil_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 215,
+    "min": -40
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -40,
+    215
+   ]
+  },
+  "vehicle.engine.throttle_position": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100,
+    "min": 0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%",
+   "valid_range": [
+    0,
+    100
+   ]
+  },
+  "vehicle.engine_rpm": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "vehicle.engine_temp_c": {
+   "accepted_input_units": [
+    "C",
+    "F",
+    "K",
+    "R"
+   ],
+   "conversion_required": [
+    "F",
+    "K",
+    "R"
+   ],
+   "corpus_tags": 5,
+   "dimension": "temperature",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 3000.0,
+    "min": -273.15
+   },
+   "quantity": "temperature",
+   "si": true,
+   "unit": "C"
+  },
+  "vehicle.fuel_level_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "vehicle.gps_altitude_m": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.gps_latitude": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.gps_longitude": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.gyro_x": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.gyro_y": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.gyro_z": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.harsh_accel_event": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.harsh_brake_event": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.harsh_cornering_event": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.heading_deg": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.idle_duration_seconds": {
+   "accepted_input_units": [
+    "s"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "time",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "s"
+   ],
+   "physics_bounds": {
+    "max": 1000000000.0,
+    "min": 0.0
+   },
+   "quantity": "time",
+   "si": false,
+   "unit": "s"
+  },
+  "vehicle.intervention_event": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.lane_deviation_m": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.lidar_point_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.obstacle_distance_m": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.odometer_km": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.radar_target_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "setpoint",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.speed_kmh": {
+   "accepted_input_units": [
+    "kph",
+    "m/s",
+    "mph"
+   ],
+   "conversion_required": [
+    "m/s",
+    "mph"
+   ],
+   "corpus_tags": 6,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "kph"
+   ],
+   "physics_bounds": {
+    "max": 1000.0,
+    "min": -500.0
+   },
+   "quantity": "vehicle_speed",
+   "si": true,
+   "unit": "kph"
+  },
+  "vehicle.speed_mph": {
+   "accepted_input_units": [
+    "mph"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "velocity",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "mph"
+   ],
+   "physics_bounds": {
+    "max": 1000.0,
+    "min": -500.0
+   },
+   "quantity": "vehicle_speed",
+   "si": false,
+   "unit": "mph"
+  },
+  "vehicle.steering_angle_deg": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.throttle_pct": {
+   "accepted_input_units": [
+    "%"
+   ],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "percent",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "%"
+   ],
+   "physics_bounds": {
+    "max": 100.0,
+    "min": 0.0
+   },
+   "quantity": "percent",
+   "si": true,
+   "unit": "%"
+  },
+  "vehicle.tire_pressure_fl": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 5,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "vehicle.tire_pressure_fr": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 5,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "vehicle.tire_pressure_rl": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 5,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "vehicle.tire_pressure_rr": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 5,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  },
+  "vehicle.transmission.oil_temp": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 215,
+    "min": -40
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    -40,
+    215
+   ]
+  },
+  "vehicle.transmission_gear": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.trip_distance_km": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.turbocharger.rpm": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 7,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm",
+   "valid_range": [
+    0,
+    300000
+   ]
+  },
+  "vehicle.v2x_message_count": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": null,
+   "measurement_type": "cumulative",
+   "observed_input_units": [],
+   "quantity": null,
+   "si": false,
+   "unit": null
+  },
+  "vehicle.wheel_speed_fl": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "vehicle.wheel_speed_fr": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "vehicle.wheel_speed_rl": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "vehicle.wheel_speed_rr": {
+   "accepted_input_units": [
+    "rpm"
+   ],
+   "bounds_note": "signed: an M04 reverse spindle legitimately reports negative rpm on Fanuc/Haas/Siemens controllers, so the floor is negative rather than 0",
+   "conversion_required": [],
+   "corpus_tags": 5,
+   "dimension": "rotational",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "rpm"
+   ],
+   "physics_bounds": {
+    "max": 50000,
+    "min": -50000
+   },
+   "quantity": "rotational",
+   "si": true,
+   "unit": "rpm"
+  },
+  "vibration.rms": {
+   "accepted_input_units": [],
+   "conversion_required": [],
+   "corpus_tags": 6,
+   "dimension": null,
+   "measurement_type": "instantaneous",
+   "observed_input_units": [],
+   "physics_bounds": {
+    "max": 100,
+    "min": 0
+   },
+   "quantity": null,
+   "si": false,
+   "unit": null,
+   "valid_range": [
+    0,
+    100
+   ]
+  },
+  "workholding_pressure": {
+   "accepted_input_units": [
+    "MPa",
+    "Pa",
+    "atm",
+    "bar",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "conversion_required": [
+    "MPa",
+    "Pa",
+    "atm",
+    "inHg",
+    "kPa",
+    "mbar",
+    "mmHg",
+    "psi"
+   ],
+   "corpus_tags": 7,
+   "dimension": "pressure",
+   "measurement_type": "instantaneous",
+   "observed_input_units": [
+    "psi"
+   ],
+   "physics_bounds": {
+    "max": 1500.0,
+    "min": 0.0
+   },
+   "quantity": "pressure",
+   "si": true,
+   "unit": "bar"
+  }
+ },
+ "generated_from": "forge_schema_mappings (16,908 mappings) + canonical_schema_v2.json",
+ "note": "Authoritative canonical vocabulary AND unit contract. The LLM mapper may only emit a key from `fields`; anything else is rejected as a hallucination and recorded as UNRESOLVED.",
+ "version": "1.3.0"
+}

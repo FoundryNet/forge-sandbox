@@ -22,23 +22,41 @@ import json
 import os
 import re
 from functools import lru_cache
+from app.unit_converter import convert_value as _convert_value
+from app.value_validator import (validate_value as _validate_value,
+                                 normalize_enum_value as _normalize_enum)
 
 PACK_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "packs")
 
 # Unit suffixes vendors staple onto tag names. Folding these is what lets one
 # corpus row cover "F Rate (mm/min)", "F Rate_ipm", and "F_RATE (ipr)".
-_UNIT_SUFFIX = re.compile(
-    r"[\s_]*[\(\[]?\s*(?:deg\s*)?(?:c|f|celsius|fahrenheit|°c|°f|degc|degf|"
-    r"mm|cm|m|in|inch|inches|ft|mil|"
+# Unit suffixes vendors staple onto tag names. Folding these is what lets one
+# corpus row cover "F Rate (mm/min)", "F Rate_ipm", and "F_RATE (ipr)".
+#
+# The unit must be BRACKETED or DELIMITED. Allowing a bare trailing token meant
+# single-letter units ate the end of real words: "program" folded to "progr"
+# (m = metres, then a = amps), "alarms" to "alar" (ms), and
+# "SPINDEL_AUSLASTUNG" to "spindelauslastun" (g = grams). A unit is only a unit
+# when something separates it from the name.
+_UNITS = (
+    r"c|f|k|r|celsius|fahrenheit|kelvin|rankine|°c|°f|°k|°r|degc|degf|"
+    r"mm|cm|m|in|inch|inches|ft|mil|um|µm|"
     r"rpm|1/min|min-1|rev/min|hz|"
-    r"mm/min|mm/rev|mm/s|m/min|m/s|in/s|ipm|ipr|"
+    r"mm/min|mm/rev|mm/s|m/min|m/s|in/s|ips|ipm|ipr|fpm|mph|kph|"
     r"%|pct|percent|"
-    r"kw|w|kwh|wh|v|vac|vdc|kv|a|ma|"
-    r"nm|n-m|knm|ft-lb|ftlb|lb|lbs|kg|g|"
-    r"bar|psi|kpa|mbar|pa|"
-    r"s|sec|seconds|ms|min|minutes|h|hr|hrs|hours|"
+    r"kw|w|kwh|wh|mwh|j|kj|v|vac|vdc|kv|a|ma|"
+    r"nm|n-m|n_m|knm|ft-lb|ftlb|lb|lbs|kg|g|oz|tonne|tons|"
+    r"bar|psi|psia|psig|kpa|mpa|pa|mbar|inhg|mmhg|"
+    r"l/min|lpm|ml/min|gpm|gal/min|l/s|m3/h|lbm/s|kg/s|"
+    r"s|sec|seconds|ms|min|minutes|h|hr|hrs|hours|days|"
     r"pcs|parts|cycles|ppm|db|dbm"
-    r")\s*[\)\]]?$",
+)
+_UNIT_SUFFIX = re.compile(
+    r"(?:"
+    r"[\s_]*[\(\[\{]\s*(?:deg\s*)?(?:" + _UNITS + r")\s*[\)\]\}]"
+    r"|"
+    r"[\s_]+(?:deg\s*)?(?:" + _UNITS + r")"
+    r")\s*$",
     re.IGNORECASE,
 )
 
@@ -203,6 +221,35 @@ CANONICAL_ALIASES = {
     "feed_rate_mm_min":     ["feedrate_mm_min", "feed.rate"],
 }
 
+# Axis fields arrived in TWO competing shapes because the canonical schema
+# carries both: an INDEXED form (axes.0.position_actual, 431 corpus mappings) and
+# a LETTERED form (axes.x_position_actual, 34). Vendors picked whichever the
+# corpus offered, so Haas emitted axes.0.* while Siemens and Prusa emitted
+# axes.x_* — for the SAME physical axis. A fleet query for X position silently
+# missed whichever machines used the other shape. Worse, it was inconsistent
+# WITHIN a vendor: Siemens "ActPos_X" -> axes.x_position_actual but
+# "$AAIM[X] (m)" -> axes.0.position_actual.
+#
+# One shape wins: the lettered form. These aliases fold the indexed form into it
+# so both spellings resolve to one primary, without rewriting 431 pack entries.
+_AXIS_INDEX_TO_LETTER = {"0": "x", "1": "y", "2": "z", "3": "a", "4": "b", "5": "c"}
+_AXIS_SUFFIX_CANON = {
+    "position_actual": "position_actual",
+    "position_commanded": "position_commanded",
+    "temperature_c": "temperature",
+    "temperature": "temperature",
+    "load_percent": "load_pct",
+    "load_pct": "load_pct",
+    "following_error": "following_error",
+}
+for _i, _l in _AXIS_INDEX_TO_LETTER.items():
+    for _raw, _canon in _AXIS_SUFFIX_CANON.items():
+        _primary = f"axes.{_l}_{_canon}"
+        CANONICAL_ALIASES.setdefault(_primary, [])
+        _indexed = f"axes.{_i}.{_raw}"
+        if _indexed not in CANONICAL_ALIASES[_primary]:
+            CANONICAL_ALIASES[_primary].append(_indexed)
+
 ALIAS_TO_PRIMARY = {}
 for _p, _as in CANONICAL_ALIASES.items():
     ALIAS_TO_PRIMARY[_p] = _p
@@ -219,23 +266,6 @@ def resolve_canonical(name):
 # The tag carries the unit; the canonical field declares one. When they differ,
 # convert and say so. Production does this too, and reports it as
 # `unit_conversions` in the response.
-
-_CONVERSIONS = {
-    ("f", "c"):    (lambda v: (v - 32.0) * 5.0 / 9.0, "fahrenheit_to_celsius"),
-    ("in", "mm"):  (lambda v: v * 25.4, "inch_to_mm"),
-    ("inch", "mm"): (lambda v: v * 25.4, "inch_to_mm"),
-    ("m", "mm"):   (lambda v: v * 1000.0, "meter_to_mm"),
-    ("lbs", "kg"): (lambda v: v * 0.45359237, "pound_to_kg"),
-    ("lb", "kg"):  (lambda v: v * 0.45359237, "pound_to_kg"),
-    ("g", "kg"):   (lambda v: v / 1000.0, "gram_to_kg"),
-    ("w", "kw"):   (lambda v: v / 1000.0, "watt_to_kw"),
-    ("psi", "bar"): (lambda v: v * 0.0689475729, "psi_to_bar"),
-    ("kpa", "bar"): (lambda v: v / 100.0, "kpa_to_bar"),
-    ("mbar", "bar"): (lambda v: v / 1000.0, "mbar_to_bar"),
-    ("min", "h"):  (lambda v: v / 60.0, "minutes_to_hours"),
-    ("minutes", "h"): (lambda v: v / 60.0, "minutes_to_hours"),
-    ("ipm", "mm/min"): (lambda v: v * 25.4, "ipm_to_mm_min"),
-}
 
 _UNIT_IN_TAG = re.compile(r"[\(\[_]\s*(°?[A-Za-z/\-]+)\s*[\)\]]?\s*$")
 
@@ -426,6 +456,7 @@ def normalize_row(data: dict, oem=None):
     pack = get_pack(oem)
 
     normalized, field_mappings, unit_conversions = {}, {}, []
+    null_states, enum_states = {}, {}
     collisions = {}
     seen_canonical = {}
 
@@ -441,22 +472,27 @@ def normalize_row(data: dict, oem=None):
             field_mappings[tag] = rec
             continue
 
-        out_value = value
-        # Unit conversion, only for numbers with a declared source unit.
-        if isinstance(value, (int, float)) and not isinstance(value, bool):
-            src_unit = _tag_unit(rec.get("matched_tag") or tag) or _tag_unit(tag)
-            dst_unit = _target_unit(canonical, fields)
-            if src_unit and dst_unit and src_unit != dst_unit:
-                conv = _CONVERSIONS.get((src_unit, dst_unit))
-                if conv:
-                    fn, label = conv
-                    out_value = round(fn(float(value)), 4)
-                    unit_conversions.append({
-                        "raw_field": tag, "canonical_field": canonical,
-                        "from": src_unit, "to": dst_unit,
-                        "conversion": label,
-                        "raw_value": value, "converted_value": out_value,
-                    })
+        # Unit conversion via the SHARED engine (app/unit_converter.py), the same
+        # module the production kernel uses, so the sandbox cannot drift from
+        # prod on unit behaviour. A refusal is recorded too — never silent.
+        out_value, _urec = _convert_value(tag, value, canonical)
+        if _urec is not None:
+            unit_conversions.append(_urec)
+
+        # Status convergence, then the sentinel / physics gate. Same modules the
+        # production kernel uses, so the sandbox cannot drift from prod on what
+        # counts as a real reading.
+        _ev = _normalize_enum(canonical, out_value)
+        if _ev is not None:
+            enum_states[canonical] = _ev
+            out_value = _ev["value"]
+        _vr = _validate_value(canonical, out_value)
+        if _vr["null_state"]:
+            null_states[canonical] = {
+                "null_state": True, "null_reason": _vr["null_reason"],
+                "raw_value": _vr["raw_value"], "raw_field": tag,
+            }
+            out_value = None
 
         # Two tags landing on one canonical is a real event, not an error. Keep
         # the higher-confidence one and record what happened.
@@ -503,4 +539,5 @@ def normalize_row(data: dict, oem=None):
         "layer2_identity": sum(1 for r in resolved if r.get("layer") == 2),
         "layer3_signal": sum(1 for r in resolved if r.get("layer") == 3),
     }
-    return normalized, field_mappings, stats, unit_conversions, collisions
+    return (normalized, field_mappings, stats, unit_conversions, collisions,
+            null_states, enum_states)

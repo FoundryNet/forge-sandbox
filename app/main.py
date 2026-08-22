@@ -290,7 +290,7 @@ MAX_FIELDS = int(os.environ.get("SANDBOX_MAX_FIELDS", 2000))
 def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                        site=None, observed_at=None, rows=1, is_csv=False,
                        csv_rows=None):
-    normalized, field_mappings, stats, unit_conv, collisions = \
+    normalized, field_mappings, stats, unit_conv, collisions, null_states, enum_states = \
         corpus.normalize_row(data, oem)
 
     pack = corpus.get_pack(oem)
@@ -313,6 +313,8 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
             "layer3_signal":        stats["layer3_signal"],
         },
         "unit_conversions": unit_conv or None,
+        "null_states": null_states or None,
+        "enum_states": enum_states or None,
         "unresolved_tags":  unresolved or None,
         "oem":              oem,
         "oem_recognized":   pack is not None,
