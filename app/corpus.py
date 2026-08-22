@@ -22,8 +22,10 @@ import json
 import os
 import re
 from functools import lru_cache
-from app.unit_converter import convert_value as _convert_value
-from app.value_validator import (validate_value as _validate_value,
+from app.unit_converter import (convert_value as _convert_value,
+                                declared_unit as _declared_unit)
+from app.value_validator import (validate_sentinel as _validate_sentinel,
+                                 validate_bounds as _validate_bounds,
                                  normalize_enum_value as _normalize_enum)
 
 PACK_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "packs")
@@ -308,6 +310,12 @@ class Pack:
         self.canonical_fields = raw["canonical_fields"]
         self.mappings = raw["mappings"]
         self.units = raw.get("units", {})
+        # Source unit per RAW TAG, as the OEM puts it on the wire. Distinct from
+        # `units` above, which describes the canonical field's own unit. Needed
+        # wherever a register is named for its quantity with no suffix to read
+        # (SunSpec `W`, `WH`, `Hz`) — see convert_value(source_unit=...).
+        self.tag_units = raw.get("tag_units", {})
+        self.tag_units_folded = {_fold(t): u for t, u in sorted(self.tag_units.items())}
         # Folded index. Vendors ship the same concept under many unit-suffixed
         # spellings; if two of them disagree on the canonical, the first wins
         # deterministically (sorted) rather than by dict insertion order.
@@ -472,25 +480,57 @@ def normalize_row(data: dict, oem=None):
             field_mappings[tag] = rec
             continue
 
-        # Unit conversion via the SHARED engine (app/unit_converter.py), the same
-        # module the production kernel uses, so the sandbox cannot drift from
-        # prod on unit behaviour. A refusal is recorded too — never silent.
-        out_value, _urec = _convert_value(tag, value, canonical)
+        # ── STAGE 1: sentinel gate, on the RAW value, BEFORE conversion ────
+        # Order is load-bearing. A sentinel is a property of the number as the
+        # device put it on the wire: 65535 is uint16 max whether the register
+        # holds watt-hours or millibars. Converting first LAUNDERS it —
+        # 65535 Wh becomes 65.535 kWh, which no longer matches any sentinel and
+        # passes every downstream check as a plausible reading. That was finding
+        # F1 (2026-08-22): the validator was correct in isolation and caught the
+        # value every time it was called first; only the call order defeated it.
+        _sr = _validate_sentinel(canonical, value)
+        if _sr["null_state"]:
+            null_states[canonical] = {
+                "null_state": True, "null_reason": _sr["null_reason"],
+                "raw_value": _sr["raw_value"], "raw_field": tag,
+                "stage": "pre_conversion",
+            }
+            normalized[canonical] = None
+            field_mappings[tag] = rec
+            seen_canonical[canonical] = (rec.get("confidence") or 0.0, tag)
+            continue
+
+        # ── STAGE 2: unit conversion ───────────────────────────────────────
+        # Via the SHARED engine (app/unit_converter.py), the same module the
+        # production kernel uses, so the sandbox cannot drift from prod on unit
+        # behaviour. A refusal is recorded too — never silent.
+        # Pack-declared wire units are a DEFAULT, consulted only when the tag
+        # itself declares nothing. A tag that says `(degC)` outright is the most
+        # specific evidence available — it describes THIS message, where the
+        # pack describes the model in general — so an explicit tag unit always
+        # wins over the pack's default.
+        _src_unit = None
+        if pack and _declared_unit(tag) is None:
+            _src_unit = (pack.tag_units.get(tag)
+                         or pack.tag_units_folded.get(_fold(tag)))
+        out_value, _urec = _convert_value(tag, value, canonical, source_unit=_src_unit)
         if _urec is not None:
             unit_conversions.append(_urec)
 
-        # Status convergence, then the sentinel / physics gate. Same modules the
-        # production kernel uses, so the sandbox cannot drift from prod on what
-        # counts as a real reading.
+        # ── STAGE 3: status convergence, then physics bounds ───────────────
+        # Bounds run LAST, on a value now expressed in the canonical field's own
+        # unit — the only unit they are meaningful in. Checking 91.4 (degF)
+        # against a Celsius field's [-40, 85] would reject a correct reading.
         _ev = _normalize_enum(canonical, out_value)
         if _ev is not None:
             enum_states[canonical] = _ev
             out_value = _ev["value"]
-        _vr = _validate_value(canonical, out_value)
+        _vr = _validate_bounds(canonical, out_value)
         if _vr["null_state"]:
             null_states[canonical] = {
                 "null_state": True, "null_reason": _vr["null_reason"],
                 "raw_value": _vr["raw_value"], "raw_field": tag,
+                "stage": "post_conversion",
             }
             out_value = None
 

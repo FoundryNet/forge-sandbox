@@ -40,6 +40,7 @@ from typing import Any, Optional
 from app import field_registry as _registry
 
 __all__ = [
+    "validate_sentinel", "validate_bounds",
     "validate_value", "is_sentinel_string", "SENTINEL_STRINGS",
     "ALWAYS_SENTINEL_NUMBERS", "CONTRACTUAL_SENTINEL_NUMBERS",
     "PHYSICS_BOUNDS_BY_QUANTITY", "physics_bounds_for",
@@ -136,22 +137,34 @@ def _null(raw, reason: str) -> dict:
             "raw_value": raw}
 
 
-def validate_value(field: str, value: Any,
-                   field_contract: Optional[dict] = None) -> dict:
-    """Validate one normalized value.
-
-    Returns {"value": <value>, "null_state": False} when the reading is real, or
-    a null descriptor {"value": None, "null_state": True, "null_reason": ...,
-    "raw_value": ...} when it is not. A sentinel is NEVER passed through as a
-    real reading.
-    """
+def _bounds_for(field: str, field_contract: Optional[dict]) -> Optional[tuple]:
     spec = field_contract if field_contract is not None else _registry.field_spec(field)
+    if spec:
+        pb = spec.get("physics_bounds")
+        if isinstance(pb, dict) and "min" in pb and "max" in pb:
+            return (pb["min"], pb["max"])
+    return physics_bounds_for(field)
 
-    # ── missing / null ──────────────────────────────────────────────────────
+
+def validate_sentinel(field: str, value: Any,
+                      field_contract: Optional[dict] = None) -> dict:
+    """Stage 1 — is this a reading at all? Runs on the RAW value, BEFORE any
+    unit conversion.
+
+    Sentinels are wire-encoding artifacts: they are properties of the number as
+    the device transmitted it, not of the physical quantity. 65535 is uint16 max
+    whether the register is watt-hours or millibars. Converting first destroys
+    the evidence — 65535 Wh becomes 65.535 kWh, which is not a sentinel and
+    passes every check below (finding F1, 2026-08-22).
+
+    Deliberately does NOT check physics bounds: the raw value is in the SOURCE
+    unit, and the bounds are expressed in the canonical target unit. Checking
+    91.4 (degF) against a Celsius field's [-40, 85] would reject a correct
+    reading. Bounds belong in stage 2, after conversion.
+    """
     if value is None:
         return _null(None, "missing: value was null")
 
-    # ── string non-values ───────────────────────────────────────────────────
     if isinstance(value, str):
         token = is_sentinel_string(value)
         if token is not None:
@@ -161,54 +174,74 @@ def validate_value(field: str, value: Any,
         # would be exactly the silent corruption this module exists to stop.
         return {"value": value, "null_state": False}
 
-    # ── booleans are legitimate values, and bool is a subclass of int ───────
+    # booleans are legitimate values, and bool is a subclass of int
     if isinstance(value, bool):
         return {"value": value, "null_state": False}
 
     if not isinstance(value, (int, float)):
         return {"value": value, "null_state": False}
 
-    # ── NaN / Inf ───────────────────────────────────────────────────────────
     if isinstance(value, float):
         if math.isnan(value):
             return _null(value, "numeric_sentinel: NaN")
         if math.isinf(value):
             return _null(value, f"numeric_sentinel: {'+' if value > 0 else '-'}Inf")
 
-    bounds = None
-    if spec:
-        pb = spec.get("physics_bounds")
-        if isinstance(pb, dict) and "min" in pb and "max" in pb:
-            bounds = (pb["min"], pb["max"])
-    if bounds is None:
-        bounds = physics_bounds_for(field)
-
     # ── tier 1: wire-encoding artifacts, always a sentinel ─────────────────
     if value in ALWAYS_SENTINEL_NUMBERS:
         return _null(value, f"numeric_sentinel: {value} (integer type boundary)")
+
+    # ── tier 2: conventional sentinels, only when the field cannot arbitrate ─
+    # A field WITH physics bounds gets to clear these as real in stage 2 (-1 °C
+    # and 999 rpm are ordinary readings). A field with no bounds has nothing to
+    # disambiguate with, so the conventional error codes are treated as errors.
+    if _bounds_for(field, field_contract) is None and value in CONTRACTUAL_SENTINEL_NUMBERS:
+        return _null(value,
+                     f"numeric_sentinel: {value} (conventional error code; "
+                     f"field declares no physics bounds to disambiguate)")
+
+    return {"value": value, "null_state": False}
+
+
+def validate_bounds(field: str, value: Any,
+                    field_contract: Optional[dict] = None) -> dict:
+    """Stage 2 — is this reading physically possible? Runs AFTER conversion, on
+    a value already in the canonical field's unit, which is the only unit the
+    bounds are meaningful in."""
+    if value is None or isinstance(value, bool) or not isinstance(value, (int, float)):
+        return {"value": value, "null_state": False}
 
     # ── negative RMS / magnitude — mathematically impossible ───────────────
     low = (field or "").lower()
     if value < 0 and any(m in low for m in _NON_NEGATIVE_NAME_MARKERS):
         return _null(value, f"negative_rms: {value}")
 
-    # ── physics bounds ─────────────────────────────────────────────────────
+    bounds = _bounds_for(field, field_contract)
     if bounds:
         lo, hi = bounds
         if value < lo or value > hi:
-            return _null(value,
-                         f"physics_violation: {value} outside [{lo}, {hi}]")
-
-    # ── tier 2: conventional sentinels, only when unbounded-implausible ────
-    # Already inside the physics envelope at this point, so a bounded field has
-    # cleared them as real. Only flag when the field declares NO bounds and the
-    # value is one of the conventional error codes.
-    if bounds is None and value in CONTRACTUAL_SENTINEL_NUMBERS:
-        return _null(value,
-                     f"numeric_sentinel: {value} (conventional error code; "
-                     f"field declares no physics bounds to disambiguate)")
+            return _null(value, f"physics_violation: {value} outside [{lo}, {hi}]")
 
     return {"value": value, "null_state": False}
+
+
+def validate_value(field: str, value: Any,
+                   field_contract: Optional[dict] = None) -> dict:
+    """Validate one normalized value — both stages, in the correct order.
+
+    Kept for callers that hold a value already in canonical units. The
+    normalization pipeline does NOT use this: it calls validate_sentinel on the
+    raw value, converts, then calls validate_bounds. See corpus.normalize_row.
+
+    Returns {"value": <value>, "null_state": False} when the reading is real, or
+    a null descriptor {"value": None, "null_state": True, "null_reason": ...,
+    "raw_value": ...} when it is not. A sentinel is NEVER passed through as a
+    real reading.
+    """
+    first = validate_sentinel(field, value, field_contract)
+    if first["null_state"]:
+        return first
+    return validate_bounds(field, first["value"], field_contract)
 
 
 # ── enum / status convergence ───────────────────────────────────────────────

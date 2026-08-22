@@ -31,6 +31,37 @@
    "protocol": "focas",
    "vertical": "robotics"
   },
+  "fronius": {
+   "aliases": [
+    "sunspec",
+    "sma",
+    "solaredge",
+    "symo",
+    "primo",
+    "pv_inverter",
+    "inverter"
+   ],
+   "canonical_field_count": 8,
+   "display_name": "Fronius PV inverter (SunSpec Modbus)",
+   "mapping_count": 40,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "generic_iot": {
+   "aliases": [
+    "weather",
+    "weather_station",
+    "irradiance",
+    "pyranometer",
+    "met_station",
+    "generic_weather"
+   ],
+   "canonical_field_count": 5,
+   "display_name": "Generic weather / irradiance station (MQTT)",
+   "mapping_count": 28,
+   "protocol": "mqtt",
+   "vertical": "energy"
+  },
   "haas": {
    "aliases": [
     "haas_automation"
@@ -53,6 +84,22 @@
    "protocol": "serial_gcode",
    "vertical": "additive"
   },
+  "schneider": {
+   "aliases": [
+    "powerlogic",
+    "ion",
+    "pm8000",
+    "em6400",
+    "square_d",
+    "power_meter",
+    "meter"
+   ],
+   "canonical_field_count": 9,
+   "display_name": "Schneider PowerLogic revenue meter",
+   "mapping_count": 41,
+   "protocol": "modbus_rtu",
+   "vertical": "energy"
+  },
   "siemens": {
    "aliases": [
     "sinumerik",
@@ -64,6 +111,20 @@
    "mapping_count": 440,
    "protocol": "profinet_s7",
    "vertical": "cnc"
+  },
+  "tesla": {
+   "aliases": [
+    "megapack",
+    "powerpack",
+    "tesla_energy",
+    "bess",
+    "powerwall"
+   ],
+   "canonical_field_count": 8,
+   "display_name": "Tesla Megapack / Powerpack (BESS)",
+   "mapping_count": 42,
+   "protocol": "modbus_tcp",
+   "vertical": "energy"
   }
  }
 }

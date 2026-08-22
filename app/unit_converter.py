@@ -98,6 +98,11 @@ UNIT_ALIASES = {
     "min": "min", "mins": "min", "minutes": "min",
     "h": "h", "hr": "h", "hrs": "h", "hours": "h",
     "ms": "ms", "days": "days",
+    # irradiance — W/m² is NOT power. Without its own token, a tag declaring
+    # "(W)" against `solar_irradiance_w_m2` resolves as watts, finds the SI
+    # power target kW, and silently divides the reading by 1000.
+    "w/m2": "W/m2", "w/m²": "W/m2", "w_m2": "W/m2", "wm2": "W/m2",
+    "kw/m2": "kW/m2", "kw/m²": "kW/m2",
     # dimensionless / electrical
     "%": "%", "pct": "%", "percent": "%",
     "v": "V", "vac": "V", "vdc": "V", "kv": "kV", "a": "A", "ma": "mA",
@@ -116,6 +121,7 @@ QUANTITY = {
     "mph": "vehicle_speed", "kph": "vehicle_speed",
     "rpm": "rotational", "Hz": "rotational",
     "Wh": "energy", "kWh": "energy", "MWh": "energy", "J": "energy", "kJ": "energy",
+    "W/m2": "irradiance", "kW/m2": "irradiance",
     "W": "power", "kW": "power", "MW": "power", "hp": "power",
     "L/min": "flow", "mL/min": "flow", "gal/min": "flow", "L/s": "flow",
     "m3/h": "flow",
@@ -159,6 +165,7 @@ TARGET_UNIT = {
     "percent": "%",
     "voltage": "V",
     "current": "A",
+    "irradiance": "W/m2",
 }
 
 # ── conversions ─────────────────────────────────────────────────────────────
@@ -196,6 +203,15 @@ CONVERSIONS = {
     # vehicle speed
     ("mph", "kph"): (lambda v: v * 1.609344, "mph_to_kph"),
     ("m/s", "kph"): (lambda v: v * 3.6, "m_s_to_kph"),
+    # Meteorological wind speed is conventionally m/s (WMO), while consumer
+    # weather hardware ships mph or km/h. Without these the energy vertical's
+    # `wind_speed_m_s` field takes an mph value flagged "unit_unconvertible"
+    # and keeps it — a 2.24x error that looks entirely plausible.
+    ("kW/m2", "W/m2"): (lambda v: v * 1000.0, "kw_m2_to_w_m2"),
+    ("W/m2", "kW/m2"): (lambda v: v / 1000.0, "w_m2_to_kw_m2"),
+    ("mph", "m/s"): (lambda v: v * 0.44704, "mph_to_m_s"),
+    ("kph", "m/s"): (lambda v: v / 3.6, "kph_to_m_s"),
+    ("m/s", "mph"): (lambda v: v / 0.44704, "m_s_to_mph"),
     # energy
     ("Wh", "kWh"): (lambda v: v / 1000.0, "watthour_to_kwh"),
     ("MWh", "kWh"): (lambda v: v * 1000.0, "megawatthour_to_kwh"),
@@ -250,9 +266,63 @@ _UNAMBIGUOUS_SUFFIX = {
     "pct", "percent", "hrs", "hours", "minutes", "seconds",
     "mph", "kph", "km/h", "kmh", "ipm", "fpm",
     "mm/s", "mm/min", "m/min", "in/min", "m/s2", "m/s²",
+    "w/m2", "w/m²", "w_m2", "kw/m2",
     "degc", "degf", "celsius", "fahrenheit", "kelvin", "rankine",
     "°c", "°f", "°k", "°r",
 }
+
+# ── ambiguous bare suffixes, resolved only in context ───────────────────────
+# A bare trailing `_F` could be Fahrenheit or a boolean flag; `_V` could be
+# volts or "verified"; `_C` could be Celsius or a CNC C-axis. Excluding them
+# outright was the safe call in isolation, but it produced a worse failure than
+# the one it prevented (finding F2, 2026-08-22):
+#
+#     tag `ambient_temp_f`      -> sensor_readings.ambient_temp = 94.6
+#     tag `ambient_temp (degF)` -> sensor_readings.ambient_temp = 34.777778
+#
+# One sensor, one reading, two stored values sixty degrees apart, and the bare
+# form recorded no conversion and raised no warning. Silence was the failure.
+#
+# The fix is not to trust bare suffixes generally — it is to resolve one ONLY
+# when another token in the SAME tag names the quantity it would belong to.
+# `Cell_Temp_Max_F` says "temp", so the F is Fahrenheit. `axis_pos_c` says
+# nothing about temperature, so its C stays unresolved and nothing is converted.
+#
+# Every context token here has to be a word that would not plausibly appear in a
+# tag of a different quantity. Keep these lists tight: a false positive converts
+# a value that was already correct, which is the exact failure mode this module
+# exists to prevent.
+_BARE_SUFFIX_CONTEXT = {
+    "f": ("F", ("temp", "temperature", "tmp", "therm", "thermal", "thermo",
+                "degrees", "degree", "heat", "coolant", "ambient")),
+    "c": ("C", ("temp", "temperature", "tmp", "therm", "thermal", "thermo",
+                "degrees", "degree", "heat", "coolant", "ambient")),
+    "k": ("K", ("temp", "temperature", "tmp", "therm", "thermal", "thermo")),
+    "r": ("R", ("temp", "temperature", "tmp", "therm", "thermal", "thermo")),
+    "v": ("V", ("volt", "volts", "voltage", "vdc", "vac", "bus", "vll",
+                "potential", "emf")),
+    "a": ("A", ("curr", "current", "amp", "amps", "amperage", "ampere")),
+}
+
+
+def _bare_suffix_unit(parts: list) -> Optional[str]:
+    """Resolve a single-letter trailing unit using the rest of the tag's tokens.
+
+    `parts` is the already-lowercased token list. Returns None unless the last
+    token is an ambiguous bare unit AND an earlier token names its quantity.
+    """
+    if len(parts) < 2:
+        return None
+    entry = _BARE_SUFFIX_CONTEXT.get(parts[-1])
+    if not entry:
+        return None
+    unit, context = entry
+    head = parts[:-1]
+    for tok in head:
+        for c in context:
+            if c in tok:          # substring: matches "temp" inside "temperature"
+                return unit
+    return None
 
 
 def declared_unit(tag: str) -> Optional[str]:
@@ -281,12 +351,15 @@ def declared_unit(tag: str) -> Optional[str]:
         slashed = "/".join(parts[-n:])
         if slashed in _UNAMBIGUOUS_SUFFIX:
             return UNIT_ALIASES.get(slashed)
-    return None
+    # Last resort: a bare single-letter unit, but only when the rest of the tag
+    # names the quantity. See _BARE_SUFFIX_CONTEXT.
+    return _bare_suffix_unit(parts)
 
 
 # Longest-first so `_mm_s` wins over `_s` and `_kwh` over `_h`.
 _NAME_SUFFIXES = sorted(
     [
+        ("_w_m2", "W/m2"), ("_kw_m2", "kW/m2"),
         ("_mm_s", "mm/s"), ("_mm_min", "mm/min"), ("_m_s", "m/s"),
         ("_m_s2", "m/s2"), ("_l_min", "L/min"), ("_ml_min", "mL/min"),
         ("_kwh", "kWh"), ("_wh", "Wh"), ("_kw", "kW"), ("_mw", "MW"),
@@ -388,7 +461,8 @@ def target_unit(canonical: str, source_unit: Optional[str]) -> Optional[str]:
     return TARGET_UNIT.get(q) if q else None
 
 
-def convert_value(tag: str, value: Any, canonical: str) -> Tuple[Any, Optional[dict]]:
+def convert_value(tag: str, value: Any, canonical: str,
+                  source_unit: Optional[str] = None) -> Tuple[Any, Optional[dict]]:
     """Convert `value` into the unit `canonical` is supposed to hold.
 
     Returns (value, record). `record` is None when nothing needed doing;
@@ -396,11 +470,24 @@ def convert_value(tag: str, value: Any, canonical: str) -> Tuple[Any, Optional[d
     `unit_conversions` list. A record with "converted": False is a FLAG — the
     value was left alone because converting it would have contradicted the field
     name or because no converter exists. Nothing is ever silently passed through.
+
+    `source_unit` lets a caller state the wire unit outright, for tags that
+    declare nothing themselves. Some protocols name a register after
+    its quantity and nothing else — SunSpec models 101-103 call AC power `W` and
+    lifetime energy `WH` — so there is no suffix to read and no safe way to
+    guess from a one-token tag. That knowledge belongs to the OEM pack, which
+    declares it per tag in `tag_units`.
+
+    The caller decides precedence. corpus.normalize_row passes this ONLY when
+    the tag string is silent, so an explicit `(degC)` on the tag always beats
+    the pack's model-wide default — the tag describes this message, the pack
+    describes the model.
     """
     if not isinstance(value, (int, float)) or isinstance(value, bool):
         return value, None
 
-    src = declared_unit(tag)
+    src = source_unit or declared_unit(tag)
+    unit_source = "pack" if source_unit else "tag"
     if not src:
         return value, None
 
@@ -422,7 +509,7 @@ def convert_value(tag: str, value: Any, canonical: str) -> Tuple[Any, Optional[d
         return value, {
             "raw_field": tag, "canonical_field": canonical,
             "from": src, "to": dst, "converted": False,
-            "flag": "unit_quantity_mismatch",
+            "unit_source": unit_source, "flag": "unit_quantity_mismatch",
             "detail": f"tag declares {src} ({src_q}) but field implies "
                       f"{dst} ({dst_q}); refusing to convert across quantities",
         }
@@ -432,7 +519,7 @@ def convert_value(tag: str, value: Any, canonical: str) -> Tuple[Any, Optional[d
         return value, {
             "raw_field": tag, "canonical_field": canonical,
             "from": src, "to": dst, "converted": False,
-            "flag": "unit_unconvertible",
+            "unit_source": unit_source, "flag": "unit_unconvertible",
             "detail": f"no converter for {src} -> {dst}; value left in {src}",
         }
 
@@ -443,11 +530,11 @@ def convert_value(tag: str, value: Any, canonical: str) -> Tuple[Any, Optional[d
         return value, {
             "raw_field": tag, "canonical_field": canonical,
             "from": src, "to": dst, "converted": False,
-            "flag": "unit_conversion_failed", "detail": f"{label} raised on {value!r}",
+            "unit_source": unit_source, "flag": "unit_conversion_failed", "detail": f"{label} raised on {value!r}",
         }
 
     return out, {
         "raw_field": tag, "canonical_field": canonical,
-        "from": src, "to": dst, "converted": True,
+        "from": src, "to": dst, "converted": True, "unit_source": unit_source,
         "conversion": label, "raw_value": value, "converted_value": out,
     }

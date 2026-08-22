@@ -175,6 +175,86 @@ def _carrier(rng, phase):
     }
 
 
+# ── energy vertical ─────────────────────────────────────────────────────────
+# `phase` is 0..1 across a simulated day, so irradiance follows a real solar
+# arc and everything downstream (inverter output, meter demand, battery SOC)
+# is driven by it rather than jittered independently.
+
+def _solar(phase):
+    """Normalised 0..1 solar intensity. Sunrise 0.25, solar noon 0.5, sunset 0.79."""
+    if phase < 0.25 or phase > 0.79:
+        return 0.0
+    return math.sin(math.pi * (phase - 0.25) / 0.54)
+
+
+def _tesla(rng, phase):
+    """Tesla Megapack BESS. Charges on solar surplus, discharges after dark.
+    Cell temperature in FAHRENHEIT and pack energy in WATT-HOURS, as shipped."""
+    sun = _solar(phase)
+    charging = sun > 0.35
+    return {
+        "SOC_pct":         round(_jitter(rng, 34.0 + sun * 52.0, 0.01), 1),
+        "SOH_pct":         round(_jitter(rng, 96.1, 0.002), 1),
+        "DC_Bus_V":        round(_jitter(rng, 814.3, 0.01), 1),
+        "Chrg_Rate_kW":    round(_jitter(rng, 310.0 * sun if charging else 0.0, 0.05), 1),
+        "Dischrg_Rate_kW": round(_jitter(rng, 0.0 if charging else 247.8, 0.05), 1),
+        "Cell_Temp_Max_F": round(_jitter(rng, 84.0 + sun * 12.0, 0.01), 1),
+        "Cycles":          1847,
+        "Pack_Energy_Wh":  3200000,
+    }
+
+
+def _fronius(rng, phase):
+    """Fronius PV inverter, SunSpec Modbus models 101-103 point names."""
+    sun = _solar(phase)
+    if sun <= 0.0:
+        state = 2                                    # SLEEPING overnight
+    elif sun < 0.08:
+        state = 3                                    # STARTING
+    else:
+        state = 4                                    # MPPT
+    return {
+        "W":      int(_jitter(rng, 61000 * sun, 0.04)) if sun > 0 else 0,
+        "WH":     12847500,
+        "DCA":    round(_jitter(rng, 78.0 * sun, 0.04), 1) if sun > 0 else 0.0,
+        "DCV":    round(_jitter(rng, 782.1, 0.01), 1) if sun > 0 else 0.0,
+        "Hz":     round(_jitter(rng, 60.01, 0.0005), 2),
+        "TmpCab": round(_jitter(rng, 28.0 + sun * 22.0, 0.02), 1),
+        "St":     state,
+        "Evt1":   0,
+    }
+
+
+def _schneider(rng, phase):
+    """Schneider PowerLogic revenue meter. Units carried as a tag PREFIX."""
+    sun = _solar(phase)
+    load = 0.55 + 0.45 * math.sin(phase * math.pi)
+    return {
+        "kW_Total":       round(_jitter(rng, 312.7 * load, 0.03), 1),
+        "kVAR_Total":     round(_jitter(rng, -42.1 * load, 0.05), 1),
+        "PF_Avg":         round(_jitter(rng, 0.991, 0.002), 3),
+        "V_LL_Avg":       round(_jitter(rng, 481.2, 0.005), 1),
+        "I_Avg_A":        round(_jitter(rng, 376.4 * load, 0.03), 1),
+        "Freq_Hz":        round(_jitter(rng, 60.01, 0.0005), 2),
+        "kWh_Del":        4287650,
+        "kWh_Rec":        187420,
+        "Demand_kW_Peak": round(_jitter(rng, 487.3, 0.01), 1),
+    }
+
+
+def _weather(rng, phase):
+    """Generic MQTT weather station. FAHRENHEIT and MPH, as consumer kit ships."""
+    sun = _solar(phase)
+    ambient_f = 68.0 + sun * 28.0
+    return {
+        "irradiance_w_m2": round(_jitter(rng, 1050.0 * sun, 0.05), 1),
+        "ambient_temp_f":  round(_jitter(rng, ambient_f, 0.01), 1),
+        "wind_speed_mph":  round(_jitter(rng, 7.2 + sun * 4.0, 0.20), 1),
+        "humidity_pct":    round(_jitter(rng, 52.0 - sun * 30.0, 0.03), 1),
+        "panel_temp_f":    round(_jitter(rng, ambient_f + sun * 52.0, 0.01), 1),
+    }
+
+
 MACHINES = {
     "haas": {
         "oem": "haas",
@@ -215,6 +295,46 @@ MACHINES = {
         "protocol": "serial_gcode",
         "vertical": "additive",
         "emit": _prusa,
+    },
+    "tesla": {
+        "oem": "tesla",
+        "machine_id": "SBX-TESLA-MEGAPACK-01",
+        "model": "Megapack 2XL",
+        "serial": "SANDBOX-MP2X0774",
+        "description": "Tesla Megapack BESS over Modbus TCP; cell temp in F, pack energy in Wh",
+        "protocol": "modbus_tcp",
+        "vertical": "energy",
+        "emit": _tesla,
+    },
+    "fronius": {
+        "oem": "fronius",
+        "machine_id": "SBX-FRONIUS-SYMO-01",
+        "model": "Symo 60.0-3",
+        "serial": "SANDBOX-FR6003318",
+        "description": "Fronius Symo PV inverter, SunSpec Modbus model 103 point names",
+        "protocol": "sunspec_modbus",
+        "vertical": "energy",
+        "emit": _fronius,
+    },
+    "schneider": {
+        "oem": "schneider",
+        "machine_id": "SBX-SCHNEIDER-PM8000-01",
+        "model": "PowerLogic PM8000",
+        "serial": "SANDBOX-PM8244901",
+        "description": "Schneider PowerLogic revenue meter on Modbus RTU, unit-prefixed tags",
+        "protocol": "modbus_rtu",
+        "vertical": "energy",
+        "emit": _schneider,
+    },
+    "generic_iot": {
+        "oem": "generic_iot",
+        "machine_id": "SBX-WEATHER-POA-01",
+        "model": "POA irradiance + met station",
+        "serial": "SANDBOX-WX0031",
+        "description": "Generic MQTT weather station; irradiance W/m2, temps in F, wind in mph",
+        "protocol": "mqtt",
+        "vertical": "energy",
+        "emit": _weather,
     },
     "carrier": {
         "oem": "carrier",

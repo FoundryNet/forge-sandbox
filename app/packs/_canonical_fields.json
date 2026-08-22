@@ -1,7 +1,14 @@
 {
  "base_version": "1.0.0",
- "field_count": 408,
+ "field_count": 435,
  "fields": {
+  "active_power_kw": {
+   "description": "Total AC active power. Signed: export is negative.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "energy"
+  },
   "alarm_code": {
    "description": "Code reported by the active alarm.",
    "example_value": "SRVO-062",
@@ -44,6 +51,13 @@
    "unit": "C",
    "unit_source": "sandbox_declared",
    "vertical": "universal"
+  },
+  "ambient_temperature_c": {
+   "description": "Outdoor ambient air temperature. ADDED: no requested field holds the weather station's ambient reading.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "C",
+   "vertical": "energy"
   },
   "amr.battery.charge": {
    "description": "Reported value for charge.",
@@ -485,6 +499,34 @@
    "unit": null,
    "vertical": "universal"
   },
+  "battery_capacity_kwh": {
+   "description": "Battery nameplate usable capacity. ADDED: Pack_Energy_Wh is a rating, not cumulative production; mapping it to energy_delivered_kwh would be a category error.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kWh",
+   "vertical": "energy"
+  },
+  "battery_cell_temp_max_c": {
+   "description": "Hottest cell temperature in the pack. ADDED: the Tesla BESS reports Cell_Temp_Max and no requested field holds it.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "C",
+   "vertical": "energy"
+  },
+  "battery_soc_pct": {
+   "description": "Battery state of charge, percent of usable capacity.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "%",
+   "vertical": "energy"
+  },
+  "battery_soh_pct": {
+   "description": "Battery state of health, percent of original capacity.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "%",
+   "vertical": "energy"
+  },
   "battery_voltage": {
    "description": "Voltage at the battery.",
    "example_value": null,
@@ -540,6 +582,20 @@
    "unit": "C",
    "unit_source": "sandbox_declared",
    "vertical": "additive"
+  },
+  "charge_cycles": {
+   "description": "Lifetime battery equivalent full cycles.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "cycles",
+   "vertical": "energy"
+  },
+  "charge_rate_kw": {
+   "description": "Battery charge power.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "energy"
   },
   "chilled_water_temperature_c": {
    "description": null,
@@ -652,12 +708,40 @@
    "unit_source": "sandbox_inferred_from_name",
    "vertical": "universal"
   },
+  "dc_bus_voltage_v": {
+   "description": "DC bus voltage.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "V",
+   "vertical": "energy"
+  },
+  "dc_current_a": {
+   "description": "DC-side current.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "A",
+   "vertical": "energy"
+  },
+  "dc_voltage_v": {
+   "description": "DC-side (array/string) voltage.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "V",
+   "vertical": "energy"
+  },
   "def_remaining_pct": {
    "description": "Reported value for def remaining pct, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
    "vertical": "universal"
+  },
+  "discharge_rate_kw": {
+   "description": "Battery discharge power.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "energy"
   },
   "door_status": {
    "description": "Reported value for door status.",
@@ -687,12 +771,26 @@
    "unit": "kWh",
    "vertical": "universal"
   },
+  "energy_delivered_kwh": {
+   "description": "Cumulative energy delivered to load/grid.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kWh",
+   "vertical": "energy"
+  },
   "energy_kwh": {
    "description": "Energy consumed by consumed energy, in kWh.",
    "example_value": 1.25,
    "type": "float",
    "unit": "kWh",
    "vertical": "universal"
+  },
+  "energy_received_kwh": {
+   "description": "Cumulative energy received from grid.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kWh",
+   "vertical": "energy"
   },
   "engine_load_pct": {
    "description": "Load on the machine, in %.",
@@ -827,6 +925,13 @@
    "unit_source": "sandbox_declared",
    "vertical": "universal"
   },
+  "grid_frequency_hz": {
+   "description": "AC line frequency.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "Hz",
+   "vertical": "energy"
+  },
   "ground_speed": {
    "description": "Speed of the machine.",
    "example_value": null,
@@ -912,6 +1017,34 @@
    "unit": "h",
    "vertical": "universal"
   },
+  "inverter_cabinet_temp_c": {
+   "description": "Inverter cabinet internal temperature.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "C",
+   "vertical": "energy"
+  },
+  "inverter_event_flags": {
+   "description": "Inverter event/alarm bitfield (SunSpec Evt1).",
+   "example_value": 0,
+   "type": "integer",
+   "unit": null,
+   "vertical": "energy"
+  },
+  "inverter_output_kw": {
+   "description": "Inverter AC output power.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "energy"
+  },
+  "inverter_state": {
+   "description": "Inverter operating state (SunSpec model 103 St).",
+   "example_value": "mppt",
+   "type": "enum",
+   "unit": null,
+   "vertical": "energy"
+  },
   "last_cycle_time_seconds": {
    "description": "Reported value for last cycle time seconds.",
    "example_value": null,
@@ -927,6 +1060,20 @@
    "unit": "mm",
    "unit_source": "sandbox_declared",
    "vertical": "additive"
+  },
+  "line_current_a": {
+   "description": "AC line current.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "A",
+   "vertical": "energy"
+  },
+  "line_voltage_v": {
+   "description": "Line-to-line AC voltage.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "V",
+   "vertical": "energy"
   },
   "load_count": {
    "description": "Load on the machine.",
@@ -1226,6 +1373,13 @@
    "unit": null,
    "vertical": "universal"
   },
+  "panel_temperature_c": {
+   "description": "PV module back-surface temperature.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "C",
+   "vertical": "energy"
+  },
   "part_count": {
    "description": "Count of the machine.",
    "example_value": 1234,
@@ -1254,6 +1408,13 @@
    "unit": null,
    "vertical": "universal"
   },
+  "peak_demand_kw": {
+   "description": "Peak demand over the billing interval.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kW",
+   "vertical": "energy"
+  },
   "pinda_probe_temperature_c": {
    "description": null,
    "example_value": null,
@@ -1276,6 +1437,13 @@
    "unit": "kW",
    "unit_source": "sandbox_declared",
    "vertical": "universal"
+  },
+  "power_factor": {
+   "description": "Displacement power factor. Signed by convention.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "ratio",
+   "vertical": "energy"
   },
   "power_on_hours": {
    "description": "Cumulative runtime of electrical power, in h.",
@@ -1364,6 +1532,13 @@
    "type": "float",
    "unit": "%",
    "vertical": "cnc"
+  },
+  "reactive_power_kvar": {
+   "description": "Total AC reactive power. Signed.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kVAR",
+   "vertical": "energy"
   },
   "relative_humidity_pct": {
    "description": null,
@@ -2315,6 +2490,13 @@
    "unit": "h",
    "vertical": "universal"
   },
+  "solar_irradiance_w_m2": {
+   "description": "Plane-of-array solar irradiance.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "W/m\u00b2",
+   "vertical": "energy"
+  },
   "space_temperature_c": {
    "description": null,
    "example_value": null,
@@ -2922,6 +3104,13 @@
    "unit": "mm/s",
    "unit_source": "sandbox_declared",
    "vertical": "universal"
+  },
+  "wind_speed_m_s": {
+   "description": "Wind speed. WMO convention is m/s.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "m/s",
+   "vertical": "energy"
   },
   "winding_temperature": {
    "description": null,
