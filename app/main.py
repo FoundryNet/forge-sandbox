@@ -281,6 +281,15 @@ class NormalizeRequest(BaseModel):
     serial: Optional[str] = Field(None, max_length=128)
     site: Optional[str] = Field(None, max_length=128)
     observed_at: Optional[str] = Field(None, max_length=64)
+    locale: Optional[str] = Field(
+        None, max_length=16,
+        description="BCP-47 / CLDR locale of the NUMBER FORMAT this controller "
+                    "writes, e.g. de_DE, fr_FR, en_IN. Only needed when values "
+                    "arrive as strings: '1.842' is 1842 in de_DE and 1.842 in "
+                    "en_US, and a bare '1,234' is genuinely ambiguous. Without "
+                    "this the OEM's home convention is used, and a value that "
+                    "reads differently under two conventions is REFUSED rather "
+                    "than guessed.")
     sunspec_model: Optional[Union[int, list[int]]] = Field(
         None,
         description="SunSpec model id (101, 103, 124, 203, 802 …) for a reading "
@@ -302,9 +311,9 @@ MAX_FIELDS = int(os.environ.get("SANDBOX_MAX_FIELDS", 2000))
 
 def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                        site=None, observed_at=None, rows=1, is_csv=False,
-                       csv_rows=None, sunspec_model=None):
+                       csv_rows=None, sunspec_model=None, locale=None):
     normalized, field_mappings, stats, unit_conv, collisions, null_states, enum_states = \
-        corpus.normalize_row(data, oem, sunspec_model=sunspec_model)
+        corpus.normalize_row(data, oem, sunspec_model=sunspec_model, locale=locale)
 
     pack = corpus.get_pack(oem)
     unresolved = sorted(t for t, r in field_mappings.items()
@@ -464,7 +473,7 @@ async def v1_normalize(request: Request):
         body.data, (body.oem or "").lower() or None,
         machine_id=body.machine_id, model=body.model, serial=body.serial,
         site=body.site, observed_at=body.observed_at,
-        sunspec_model=body.sunspec_model)
+        sunspec_model=body.sunspec_model, locale=body.locale)
 
 
 def _coerce(value):

@@ -27,6 +27,7 @@ from app.unit_converter import (convert_value as _convert_value,
                                 declared_unit as _declared_unit)
 from app.value_coercion import coerce_value as _coerce_value
 from app.quantity_classifier import (UNIT_TO_QUANTITY as _UNIT_QTY,
+                                     dimensional_conflict as _dim_conflict,
                                      quantity_from_tag as _qty_tag,
                                      quantity_from_field as _qty_field,
                                      compatible as _qty_compatible)
@@ -770,8 +771,20 @@ def _quantity_ok(tag, canonical, fields, tag_units=None) -> bool:
     """
     if not canonical:
         return True
-    return _qty_compatible(_qty_tag(tag, tag_units),
-                           _qty_field(canonical, fields.get(canonical) or {}))
+    # Gate 1 — semantics. Knows that rpm is not Hz and a torque is not an
+    # energy, distinctions dimensionality cannot make.
+    if not _qty_compatible(_qty_tag(tag, tag_units),
+                           _qty_field(canonical, fields.get(canonical) or {})):
+        return False
+    # Gate 2 — dimensional analysis via Pint. Proof rather than lookup, and it
+    # catches pairs no hand-written table would have listed. Only vetoes when
+    # Pint can place BOTH units, so an exotic unit falls through to gate 1
+    # rather than rejecting a legitimate row.
+    field_unit = (fields.get(canonical) or {}).get("unit")
+    for tok in (tag_units or []):
+        if _dim_conflict(tok, field_unit):
+            return False
+    return True
 
 
 def _signal_target_allowed(source_domain, canonical, fields) -> bool:
@@ -1104,7 +1117,7 @@ def _unconvertible_unit(tag, canonical, fields, urec):
             f"number through unchanged would misstate it by an unknown factor.")
 
 
-def normalize_row(data: dict, oem=None, sunspec_model=None):
+def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
     """Normalize one flat {raw_tag: value} reading.
 
     Returns (normalized, field_mappings, stats, unit_conversions, collisions,
@@ -1175,7 +1188,8 @@ def normalize_row(data: dict, oem=None, sunspec_model=None):
         # decimal comma, a hex register or an OPC quality wrapper would skip the
         # sentinel check, the physics bounds AND the unit conversion, and still
         # land under a canonical name — 100% coverage over unvalidated data.
-        value, _applied, _origtype = _coerce_value(value, field_hint=canonical)
+        value, _applied, _origtype = _coerce_value(
+            value, field_hint=canonical, oem=oem, locale=locale)
         _coerced_unit = None
         if _applied:
             if _applied.startswith("extracted_unit:"):
@@ -1194,6 +1208,19 @@ def normalize_row(data: dict, oem=None, sunspec_model=None):
         # canonical declared `float` that receives "~31" or `true` cannot be
         # bounds-checked, converted or compared, and storing it anyway hands a
         # downstream consumer a value its own schema says is impossible.
+        # A number we refused to disambiguate is not a type error -- it is a
+        # locale we were not told. Null it with the reason it carries.
+        if _applied == "ambiguous_number":
+            null_states[canonical] = {
+                "null_state": True, "null_reason": str(value),
+                "raw_value": data[tag], "raw_field": tag,
+                "stage": "pre_conversion",
+            }
+            normalized[canonical] = None
+            field_mappings[tag] = rec
+            seen_canonical[canonical] = (tag, rec.get("confidence") or 0.0)
+            continue
+
         _tm = _type_mismatch(canonical, value, fields)
         if _tm:
             null_states[canonical] = {

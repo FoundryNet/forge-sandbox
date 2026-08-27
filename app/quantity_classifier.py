@@ -32,7 +32,9 @@ from __future__ import annotations
 import re
 from typing import Optional
 
-__all__ = ["classify_quantity", "quantity_from_unit", "quantity_from_tag", "quantity_from_field",
+__all__ = ["classify_quantity", "quantity_from_unit", "quantity_from_tag",
+           "same_physical_quantity", "dimensional_conflict",
+           "get_dimensionality", "tag_unit_to_pint", "verify_conversion", "quantity_from_field",
            "compatible", "resolve_fold_ambiguity",
            "UNIT_TO_QUANTITY", "KEYWORD_TO_QUANTITY"]
 
@@ -283,3 +285,128 @@ def resolve_fold_ambiguity(raw_tag, candidates, tag_units=None, field_spec=None)
 def classify_quantity(raw_tag: str, units=None) -> Optional[str]:
     """Public entry point: the physical quantity a raw vendor tag describes."""
     return quantity_from_tag(raw_tag, units)
+
+
+# ── Dimensional analysis via Pint ────────────────────────────────────────────
+# Pint proves dimensional equality mathematically instead of by lookup, and it
+# catches unit pairs no hand-written table would think to list.
+#
+# It is NOT sufficient on its own, and that matters. Dimensionality cannot see
+# semantics:
+#
+#     rpm      vs Hz     -> both 1/[time]                    dimensionally EQUAL
+#     N*m      vs J      -> both [mass][length]^2/[time]^2    dimensionally EQUAL
+#     ppm      vs percent-> both dimensionless                dimensionally EQUAL
+#
+# A spindle speed is not a grid frequency, a torque is not an energy, and
+# reading ppm as percent is a 10,000x error. So Pint is wired as an ADDITIONAL
+# VETO on top of the semantic map, never as a replacement: a pair must satisfy
+# BOTH to resolve. Pint contributes proof the map cannot; the map contributes
+# meaning Pint cannot.
+try:
+    import pint as _pint
+    _UREG = _pint.UnitRegistry()
+except Exception:                                # pragma: no cover
+    _pint = None
+    _UREG = None
+
+# Our tag tokens are not Pint's spellings. Thin translation layer.
+TAG_UNIT_TO_PINT = {
+    "degf": "degF", "degc": "degC", "f": "degF", "c": "degC", "k": "kelvin",
+    "r": "degR", "celsius": "degC", "fahrenheit": "degF",
+    "psi": "psi", "bar": "bar", "kpa": "kPa", "mpa": "MPa", "pa": "Pa",
+    "mbar": "mbar", "mmhg": "mmHg", "atm": "atm", "inhg": "inHg",
+    "kw": "kilowatt", "w": "watt", "mw": "megawatt", "hp": "horsepower",
+    "va": "volt_ampere", "kva": "kilovolt_ampere", "mva": "megavolt_ampere",
+    "var": "volt_ampere", "kvar": "kilovolt_ampere", "mvar": "megavolt_ampere",
+    "kwh": "kilowatt_hour", "wh": "watt_hour", "mwh": "megawatt_hour",
+    "j": "joule", "kj": "kilojoule", "btu": "BTU",
+    "gpm": "gallon / minute", "lpm": "liter / minute", "l/min": "liter / minute",
+    "lps": "liter / second", "l/s": "liter / second",
+    "m3/h": "meter ** 3 / hour", "m3h": "meter ** 3 / hour",
+    "cfm": "foot ** 3 / minute", "ml/min": "milliliter / minute",
+    "gal/min": "gallon / minute",
+    "kg/s": "kilogram / second", "kg/h": "kilogram / hour",
+    "lb/s": "pound / second", "g/s": "gram / second",
+    "rpm": "revolutions_per_minute", "hz": "hertz", "khz": "kilohertz",
+    "mph": "mph", "kph": "kph", "m/s": "meter / second",
+    "mm/s": "mm / second", "mm/min": "mm / minute", "ft/min": "foot / minute",
+    "a": "ampere", "amp": "ampere", "amps": "ampere", "ma": "milliampere",
+    "v": "volt", "kv": "kilovolt", "mv": "millivolt",
+    "mm": "mm", "cm": "cm", "m": "meter", "in": "inch", "inch": "inch",
+    "ft": "foot", "um": "micrometer", "mil": "thou",
+    "kg": "kilogram", "g": "gram", "lb": "pound", "lbs": "pound",
+    "t": "metric_ton", "tonne": "metric_ton", "ton": "short_ton", "oz": "ounce",
+    "nm": "newton * meter", "ftlb": "foot_pound",
+    "h": "hour", "hr": "hour", "hrs": "hour", "hours": "hour",
+    "min": "minute", "s": "second", "sec": "second", "ms": "millisecond",
+    "days": "day", "day": "day",
+    "w/m2": "watt / meter ** 2", "w_m2": "watt / meter ** 2",
+    "kw/m2": "kilowatt / meter ** 2",
+    "pct": "percent", "%": "percent", "percent": "percent", "ppm": "ppm",
+}
+
+_dimension_cache = {}
+
+
+def tag_unit_to_pint(tag_unit):
+    """Our tag token -> a string Pint can parse, or None."""
+    if not tag_unit:
+        return None
+    return TAG_UNIT_TO_PINT.get(str(tag_unit).strip().lower())
+
+
+def get_dimensionality(unit_str):
+    """Pint dimensionality for a unit token, or None if it cannot be placed.
+
+    Cached: parsing is the expensive part and the token set is tiny.
+    """
+    if not unit_str or _UREG is None:
+        return None
+    key = str(unit_str).strip().lower()
+    if key in _dimension_cache:
+        return _dimension_cache[key]
+    pint_str = tag_unit_to_pint(key) or key
+    try:
+        dim = _UREG.parse_units(pint_str).dimensionality
+    except Exception:
+        dim = None
+    _dimension_cache[key] = dim
+    return dim
+
+
+def same_physical_quantity(unit_a, unit_b):
+    """Do two units share a dimensionality?
+
+    True / False when both are known. None when either cannot be placed --
+    the caller decides what to do with "unknown", because refusing on an
+    unparseable unit would reject most of a real corpus.
+    """
+    da, db = get_dimensionality(unit_a), get_dimensionality(unit_b)
+    if da is None or db is None:
+        return None
+    return da == db
+
+
+def dimensional_conflict(unit_a, unit_b) -> bool:
+    """True only when Pint can place BOTH units and they disagree.
+
+    This is the veto: a positive answer is mathematical proof that two readings
+    cannot be the same measurement.
+    """
+    return same_physical_quantity(unit_a, unit_b) is False
+
+
+def verify_conversion(value, from_unit, to_unit, our_result, tol=1e-6):
+    """Cross-check one conversion against Pint. Returns (ok, pint_value, note)."""
+    if _UREG is None:
+        return True, None, "pint unavailable"
+    pf, pt = tag_unit_to_pint(from_unit), tag_unit_to_pint(to_unit)
+    if not pf or not pt:
+        return True, None, f"no pint mapping for {from_unit if not pf else to_unit}"
+    try:
+        pv = _UREG.Quantity(value, pf).to(pt).magnitude
+    except Exception as exc:
+        return False, None, f"{type(exc).__name__}: {exc}"
+    rel = abs(our_result - pv) / max(abs(pv), 1e-12)
+    return rel <= tol, pv, f"rel={rel:.2e}"

@@ -7,3 +7,5 @@ pydantic>=2.8,<3
 # fastmcp 4.x is the 2026-07-28 stateless spec line; production pins <4 and so
 # does the sandbox, so the tool surface is identical.
 fastmcp>=3.4.5,<4
+pint>=0.24
+babel>=2.14

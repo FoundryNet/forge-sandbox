@@ -202,7 +202,7 @@ CONVERSIONS = {
     ("atm", "bar"): (lambda v: v * 1.01325, "atm_to_bar"),
     ("mbar", "bar"): (lambda v: v / 1000.0, "mbar_to_bar"),
     ("inHg", "bar"): (lambda v: v * 0.0338639, "inhg_to_bar"),
-    ("mmHg", "bar"): (lambda v: v * 0.00133322, "mmhg_to_bar"),
+    ("mmHg", "bar"): (lambda v: v * 0.0013332239, "mmhg_to_bar"),
     # length
     ("in", "mm"): (lambda v: v * 25.4, "inch_to_mm"),
     ("ft", "mm"): (lambda v: v * 304.8, "foot_to_mm"),
@@ -253,7 +253,7 @@ CONVERSIONS = {
     ("gal/min", "L/min"): (lambda v: v * 3.785412, "gpm_to_l_min"),
     ("mL/min", "L/min"): (lambda v: v / 1000.0, "ml_min_to_l_min"),
     ("L/s", "L/min"): (lambda v: v * 60.0, "l_s_to_l_min"),
-    ("m3/h", "L/min"): (lambda v: v * 16.6667, "m3_h_to_l_min"),
+    ("m3/h", "L/min"): (lambda v: v * (1000.0 / 60.0), "m3_h_to_l_min"),
     # mass flow
     ("lb/s", "kg/s"): (lambda v: v * 0.4535924, "lbm_s_to_kg_s"),
     ("kg/h", "kg/s"): (lambda v: v / 3600.0, "kg_h_to_kg_s"),
