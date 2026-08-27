@@ -344,6 +344,13 @@ TAG_UNIT_TO_PINT = {
     "w/m2": "watt / meter ** 2", "w_m2": "watt / meter ** 2",
     "kw/m2": "kilowatt / meter ** 2",
     "pct": "percent", "%": "percent", "percent": "percent", "ppm": "ppm",
+    "ratio": "dimensionless", "dimensionless": "dimensionless",
+    # compound rate and acceleration units the corpus converts between
+    "m/min": "meter / minute", "in/min": "inch / minute",
+    "in/s": "inch / second", "ft/s": "foot / second",
+    "m/s2": "meter / second ** 2", "mm/s2": "mm / second ** 2",
+    "g-force": "standard_gravity", "gforce": "standard_gravity",
+    "mm/min": "mm / minute", "l/s": "liter / second", "short_ton": "short_ton",
 }
 
 _dimension_cache = {}
