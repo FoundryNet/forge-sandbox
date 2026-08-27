@@ -54,6 +54,9 @@ _THOUSANDS = re.compile(r"^[+-]?\d{1,3}(?:,\d{3})+$")
 # thousands group and is left alone rather than silently multiplied by 1000.
 _COMMA_DECIMAL = re.compile(r"^[+-]?\d+,\d{1,2}$")
 
+# "4,82e6" — one comma decimal followed by an exponent.
+_SCI_COMMA = re.compile(r"^[+-]?\d+,\d+[eE][+-]?\d+$")
+
 
 def coerce_value(raw_value: Any,
                  field_hint: Optional[str] = None,
@@ -122,6 +125,17 @@ def _coerce_string(raw: str, oem=None, locale=None) -> Tuple[Any, Optional[str],
     # the German "1.842" as 1.842 when the plant means 1842 -- a 1000x error
     # that no later gate can detect, because 1.842 is a perfectly plausible
     # reading. Only strings with no separator at all skip this.
+    # Scientific notation with a locale decimal comma ("4,82e6" = 4.82e6 in
+    # de_DE). Babel does not parse exponents, so the decimal symbol is folded to
+    # a dot and handed to float(). Guarded to the exact shape so a grouped
+    # number never reaches it.
+    m_sci = _SCI_COMMA.match(stripped)
+    if m_sci:
+        try:
+            return float(stripped.replace(",", ".")), "scientific_comma_decimal", "string"
+        except ValueError:
+            pass
+
     if any(ch in stripped for ch in ",. \u00a0\u202f\u2019'") and "e" not in stripped.lower():
         val, method, _loc = parse_numeric_string(stripped, oem=oem, locale=locale)
         if val is not None:

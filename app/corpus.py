@@ -1177,8 +1177,40 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
         rec["canonical_field"] = canonical
 
         if canonical is None:
-            # Lossless: an unresolved tag keeps its raw name and value so no
-            # data is silently dropped. It just does not count as coverage.
+            # Lossless: an unresolved tag keeps its raw NAME so no data is
+            # silently dropped, and it still does not count as coverage.
+            #
+            # But it is not exempt from the value gates. Skipping them meant an
+            # unmapped `Drehzahl: 65535` -- a uint16 sentinel -- landed in the
+            # output as the literal 65535, an unmapped "UNAVAILABLE" stayed a
+            # string, an OPC quality wrapper stayed an object, and a German
+            # "-15,2" stayed unparsed. Every guarantee this engine makes applied
+            # only to tags it happened to recognise, which is backwards: the
+            # tags it does NOT recognise are exactly the ones nobody has checked.
+            #
+            # Unit conversion and physics bounds still cannot run -- both are
+            # defined against a canonical field, and there is none -- so this is
+            # coercion plus the sentinel gate, and nothing that needs a target.
+            value, _ap, _ot = _coerce_value(value, oem=oem, locale=locale)
+            if _ap:
+                value_coercions.append({"raw_field": tag, "canonical_field": None,
+                                        "applied": _ap, "original_type": _ot})
+            if _ap == "ambiguous_number":
+                null_states[tag] = {
+                    "null_state": True, "null_reason": str(value),
+                    "raw_value": data[tag], "raw_field": tag,
+                    "stage": "pre_conversion",
+                }
+                value = None
+            else:
+                _usr = _validate_sentinel(tag, value)
+                if _usr["null_state"]:
+                    null_states[tag] = {
+                        "null_state": True, "null_reason": _usr["null_reason"],
+                        "raw_value": _usr["raw_value"], "raw_field": tag,
+                        "stage": "pre_conversion",
+                    }
+                    value = None
             normalized[tag] = value
             field_mappings[tag] = rec
             continue
