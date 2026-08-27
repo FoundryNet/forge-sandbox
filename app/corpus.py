@@ -1195,7 +1195,21 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
             if _ap:
                 value_coercions.append({"raw_field": tag, "canonical_field": None,
                                         "applied": _ap, "original_type": _ot})
-            if _ap == "ambiguous_number":
+            if _ap in ("unprocessable_object", "unknown_type"):
+                # An object with no recognisable value key, or a type we have no
+                # rule for. Nothing downstream can bound-check or convert it, and
+                # emitting it would put a raw structure in a telemetry field.
+                # (Found by the output invariant checker, then fixed here so the
+                # relief valve goes back to being silent.)
+                null_states[tag] = {
+                    "null_state": True,
+                    "null_reason": f"{_ap}: no readable value in a "
+                                   f"{_ot} under '{tag}'",
+                    "raw_value": data[tag], "raw_field": tag,
+                    "stage": "pre_conversion",
+                }
+                value = None
+            elif _ap == "ambiguous_number":
                 null_states[tag] = {
                     "null_state": True, "null_reason": str(value),
                     "raw_value": data[tag], "raw_field": tag,

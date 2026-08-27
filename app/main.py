@@ -7,6 +7,7 @@ egress, nothing written to disk.
 
 import io
 import csv
+import logging
 import os
 import time
 from datetime import datetime, timezone
@@ -17,6 +18,9 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from pydantic import BaseModel, Field
 
 from . import corpus, predict, simulate
+from .output_invariants import check_response_invariants
+
+log = logging.getLogger("forge.sandbox")
 
 VERSION = "1.0.0"
 SERVICE = "foundrynet-forge-sandbox"
@@ -320,7 +324,7 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                         if r["match_type"] == "unknown")
 
     ingested = _now()
-    return {
+    payload = {
         "normalized":       csv_rows if is_csv else normalized,
         "field_mappings":   field_mappings,
         "fields_total":     stats["fields_total"],
@@ -366,6 +370,25 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                              "embedding similarity, LLM research, physics "
                              "validation, and self-healing mapping."),
     }
+
+    # ── THE RELIEF VALVE — absolutely last, on the finished response ───────
+    # Checks what must never be true of an answer regardless of how it got
+    # there. Clean pipeline => finds nothing, costs microseconds. Buggy
+    # pipeline => the value is nulled with a reason and the violation logged,
+    # so an evaluator never sees a sentinel, a string in a float field, an OPC
+    # wrapper or a NaN, even from a bug we have not found yet.
+    #
+    # A CSV response carries a list of rows rather than one field map, so the
+    # per-field invariants do not apply to it; the checker no-ops on those.
+    try:
+        _viol = check_response_invariants(payload)
+        if _viol:
+            # Reported, never silent: a corrected response must be
+            # distinguishable from one that was right the first time.
+            payload["_invariant_violations"] = len(_viol)
+    except Exception as exc:                       # never take down a response
+        log.warning("invariant checker failed: %s: %s", type(exc).__name__, exc)
+    return payload
 
 
 @app.post("/v1/normalize")
