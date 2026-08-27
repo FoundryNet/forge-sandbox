@@ -1,0 +1,4612 @@
+{
+ "_provenance": {
+  "generated_at": "2026-08-23T06:47:22.508001+00:00",
+  "generator": "sf_handler/build_model_index.py",
+  "license": "Apache-2.0",
+  "note": "Point names, types, units and scale-factor associations are read verbatim from the normative model definitions. Not hand-transcribed.",
+  "publisher": "SunSpec Alliance",
+  "source_commit": "90b4a331dcca1d6eac69c1bead952fddcc5852e0",
+  "source_repo": "https://github.com/sunspec/models"
+ },
+ "models": {
+  "101": {
+   "id": 101,
+   "label": "Inverter (Single Phase)",
+   "name": "inverter_single_phase",
+   "point_count": 45,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "DCA": {
+     "label": "DC Amps",
+     "sf": "DCA_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "DCA_SF": {
+     "type": "sunssf"
+    },
+    "DCV": {
+     "label": "DC Voltage",
+     "sf": "DCV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "DCV_SF": {
+     "type": "sunssf"
+    },
+    "DCW": {
+     "label": "DC Watts",
+     "sf": "DCW_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "DCW_SF": {
+     "type": "sunssf"
+    },
+    "Evt1": {
+     "label": "Event1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "type": "bitfield32"
+    },
+    "EvtVnd3": {
+     "label": "Vendor Event Bitfield 3",
+     "type": "bitfield32"
+    },
+    "EvtVnd4": {
+     "label": "Vendor Event Bitfield 4",
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "uint16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "St": {
+     "label": "Operating State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StVnd": {
+     "label": "Vendor Operating State",
+     "type": "enum16"
+    },
+    "TmpCab": {
+     "label": "Cabinet Temperature",
+     "mandatory": true,
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpOt": {
+     "label": "Other Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpSnk": {
+     "label": "Heat Sink Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpTrns": {
+     "label": "Transformer Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "Tmp_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAr": {
+     "label": "VAr",
+     "sf": "VAr_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAr_SF": {
+     "type": "sunssf"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WH": {
+     "label": "WattHours",
+     "mandatory": true,
+     "sf": "WH_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "WH_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "DCA_SF",
+    "DCV_SF",
+    "DCW_SF",
+    "Hz_SF",
+    "PF_SF",
+    "Tmp_SF",
+    "VA_SF",
+    "VAr_SF",
+    "V_SF",
+    "WH_SF",
+    "W_SF"
+   ],
+   "slug": "inverter_single_phase"
+  },
+  "102": {
+   "id": 102,
+   "label": "Inverter (Split-Phase)",
+   "name": "inverter_split_phase",
+   "point_count": 45,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "DCA": {
+     "label": "DC Amps",
+     "sf": "DCA_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "DCA_SF": {
+     "type": "sunssf"
+    },
+    "DCV": {
+     "label": "DC Voltage",
+     "sf": "DCV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "DCV_SF": {
+     "type": "sunssf"
+    },
+    "DCW": {
+     "label": "DC Watts",
+     "sf": "DCW_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "DCW_SF": {
+     "type": "sunssf"
+    },
+    "Evt1": {
+     "label": "Event1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "type": "bitfield32"
+    },
+    "EvtVnd3": {
+     "label": "Vendor Event Bitfield 3",
+     "type": "bitfield32"
+    },
+    "EvtVnd4": {
+     "label": "Vendor Event Bitfield 4",
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "uint16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "St": {
+     "label": "Operating State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StVnd": {
+     "label": "Vendor Operating State",
+     "type": "enum16"
+    },
+    "TmpCab": {
+     "label": "Cabinet Temperature",
+     "mandatory": true,
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpOt": {
+     "label": "Other Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpSnk": {
+     "label": "Heat Sink Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpTrns": {
+     "label": "Transformer Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "Tmp_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAr": {
+     "label": "VAr",
+     "sf": "VAr_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAr_SF": {
+     "type": "sunssf"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WH": {
+     "label": "WattHours",
+     "mandatory": true,
+     "sf": "WH_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "WH_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "DCA_SF",
+    "DCV_SF",
+    "DCW_SF",
+    "Hz_SF",
+    "PF_SF",
+    "Tmp_SF",
+    "VA_SF",
+    "VAr_SF",
+    "V_SF",
+    "WH_SF",
+    "W_SF"
+   ],
+   "slug": "inverter_split_phase"
+  },
+  "103": {
+   "id": 103,
+   "label": "Inverter (Three Phase)",
+   "name": "inverter_three_phase",
+   "point_count": 45,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "DCA": {
+     "label": "DC Amps",
+     "sf": "DCA_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "DCA_SF": {
+     "type": "sunssf"
+    },
+    "DCV": {
+     "label": "DC Voltage",
+     "sf": "DCV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "DCV_SF": {
+     "type": "sunssf"
+    },
+    "DCW": {
+     "label": "DC Watts",
+     "sf": "DCW_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "DCW_SF": {
+     "type": "sunssf"
+    },
+    "Evt1": {
+     "label": "Event1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "type": "bitfield32"
+    },
+    "EvtVnd3": {
+     "label": "Vendor Event Bitfield 3",
+     "type": "bitfield32"
+    },
+    "EvtVnd4": {
+     "label": "Vendor Event Bitfield 4",
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "uint16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "St": {
+     "label": "Operating State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StVnd": {
+     "label": "Vendor Operating State",
+     "type": "enum16"
+    },
+    "TmpCab": {
+     "label": "Cabinet Temperature",
+     "mandatory": true,
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpOt": {
+     "label": "Other Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpSnk": {
+     "label": "Heat Sink Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "TmpTrns": {
+     "label": "Transformer Temperature",
+     "sf": "Tmp_SF",
+     "type": "int16",
+     "units": "C"
+    },
+    "Tmp_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAr": {
+     "label": "VAr",
+     "sf": "VAr_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAr_SF": {
+     "type": "sunssf"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WH": {
+     "label": "WattHours",
+     "mandatory": true,
+     "sf": "WH_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "WH_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "DCA_SF",
+    "DCV_SF",
+    "DCW_SF",
+    "Hz_SF",
+    "PF_SF",
+    "Tmp_SF",
+    "VA_SF",
+    "VAr_SF",
+    "V_SF",
+    "WH_SF",
+    "W_SF"
+   ],
+   "slug": "inverter_three_phase"
+  },
+  "111": {
+   "id": 111,
+   "label": "Inverter (Single Phase) FLOAT",
+   "name": "inverter_single_phase_float",
+   "point_count": 33,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "type": "float32",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "type": "float32",
+     "units": "A"
+    },
+    "DCA": {
+     "label": "DC Amps",
+     "type": "float32",
+     "units": "A"
+    },
+    "DCV": {
+     "label": "DC Voltage",
+     "type": "float32",
+     "units": "V"
+    },
+    "DCW": {
+     "label": "DC Watts",
+     "type": "float32",
+     "units": "W"
+    },
+    "Evt1": {
+     "label": "Event1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "type": "bitfield32"
+    },
+    "EvtVnd3": {
+     "label": "Vendor Event Bitfield 3",
+     "type": "bitfield32"
+    },
+    "EvtVnd4": {
+     "label": "Vendor Event Bitfield 4",
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "type": "float32",
+     "units": "Hz"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "type": "float32",
+     "units": "Pct"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "type": "float32",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "type": "float32",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "type": "float32",
+     "units": "V"
+    },
+    "St": {
+     "label": "Operating State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StVnd": {
+     "label": "Vendor Operating State",
+     "type": "enum16"
+    },
+    "TmpCab": {
+     "label": "Cabinet Temperature",
+     "mandatory": true,
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpOt": {
+     "label": "Other Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpSnk": {
+     "label": "Heat Sink Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpTrns": {
+     "label": "Transformer Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "VA": {
+     "label": "VA",
+     "type": "float32",
+     "units": "VA"
+    },
+    "VAr": {
+     "label": "VAr",
+     "type": "float32",
+     "units": "var"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "type": "float32",
+     "units": "W"
+    },
+    "WH": {
+     "label": "WattHours",
+     "mandatory": true,
+     "type": "float32",
+     "units": "Wh"
+    }
+   },
+   "scale_factor_points": [],
+   "slug": "inverter_single_phase_float"
+  },
+  "112": {
+   "id": 112,
+   "label": "Inverter (Split Phase) FLOAT",
+   "name": "inverter_split_phase_float",
+   "point_count": 33,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "type": "float32",
+     "units": "A"
+    },
+    "DCA": {
+     "label": "DC Amps",
+     "type": "float32",
+     "units": "A"
+    },
+    "DCV": {
+     "label": "DC Voltage",
+     "type": "float32",
+     "units": "V"
+    },
+    "DCW": {
+     "label": "DC Watts",
+     "type": "float32",
+     "units": "W"
+    },
+    "Evt1": {
+     "label": "Event1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "type": "bitfield32"
+    },
+    "EvtVnd3": {
+     "label": "Vendor Event Bitfield 3",
+     "type": "bitfield32"
+    },
+    "EvtVnd4": {
+     "label": "Vendor Event Bitfield 4",
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "type": "float32",
+     "units": "Hz"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "type": "float32",
+     "units": "Pct"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "type": "float32",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "type": "float32",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "mandatory": true,
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "type": "float32",
+     "units": "V"
+    },
+    "St": {
+     "label": "Operating State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StVnd": {
+     "label": "Vendor Operating State",
+     "type": "enum16"
+    },
+    "TmpCab": {
+     "label": "Cabinet Temperature",
+     "mandatory": true,
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpOt": {
+     "label": "Other Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpSnk": {
+     "label": "Heat Sink Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpTrns": {
+     "label": "Transformer Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "VA": {
+     "label": "VA",
+     "type": "float32",
+     "units": "VA"
+    },
+    "VAr": {
+     "label": "VAr",
+     "type": "float32",
+     "units": "var"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "type": "float32",
+     "units": "W"
+    },
+    "WH": {
+     "label": "WattHours",
+     "mandatory": true,
+     "type": "float32",
+     "units": "Wh"
+    }
+   },
+   "scale_factor_points": [],
+   "slug": "inverter_split_phase_float"
+  },
+  "113": {
+   "id": 113,
+   "label": "Inverter (Three Phase) FLOAT",
+   "name": "inverter_three_phase_float",
+   "point_count": 33,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "mandatory": true,
+     "type": "float32",
+     "units": "A"
+    },
+    "DCA": {
+     "label": "DC Amps",
+     "type": "float32",
+     "units": "A"
+    },
+    "DCV": {
+     "label": "DC Voltage",
+     "type": "float32",
+     "units": "V"
+    },
+    "DCW": {
+     "label": "DC Watts",
+     "type": "float32",
+     "units": "W"
+    },
+    "Evt1": {
+     "label": "Event1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "type": "bitfield32"
+    },
+    "EvtVnd3": {
+     "label": "Vendor Event Bitfield 3",
+     "type": "bitfield32"
+    },
+    "EvtVnd4": {
+     "label": "Vendor Event Bitfield 4",
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "type": "float32",
+     "units": "Hz"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "type": "float32",
+     "units": "Pct"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "type": "float32",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "type": "float32",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "mandatory": true,
+     "type": "float32",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "mandatory": true,
+     "type": "float32",
+     "units": "V"
+    },
+    "St": {
+     "label": "Operating State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StVnd": {
+     "label": "Vendor Operating State",
+     "type": "enum16"
+    },
+    "TmpCab": {
+     "label": "Cabinet Temperature",
+     "mandatory": true,
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpOt": {
+     "label": "Other Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpSnk": {
+     "label": "Heat Sink Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "TmpTrns": {
+     "label": "Transformer Temperature",
+     "type": "float32",
+     "units": "C"
+    },
+    "VA": {
+     "label": "VA",
+     "type": "float32",
+     "units": "VA"
+    },
+    "VAr": {
+     "label": "VAr",
+     "type": "float32",
+     "units": "var"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "type": "float32",
+     "units": "W"
+    },
+    "WH": {
+     "label": "WattHours",
+     "mandatory": true,
+     "type": "float32",
+     "units": "Wh"
+    }
+   },
+   "scale_factor_points": [],
+   "slug": "inverter_three_phase_float"
+  },
+  "120": {
+   "id": 120,
+   "label": "Nameplate",
+   "name": "nameplate",
+   "point_count": 28,
+   "points": {
+    "ARtg": {
+     "label": "ARtg",
+     "mandatory": true,
+     "sf": "ARtg_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "ARtg_SF": {
+     "label": "ARtg_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AhrRtg": {
+     "label": "AhrRtg",
+     "sf": "AhrRtg_SF",
+     "type": "uint16",
+     "units": "AH"
+    },
+    "AhrRtg_SF": {
+     "label": "AhrRtg_SF",
+     "type": "sunssf"
+    },
+    "DERTyp": {
+     "label": "DERTyp",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "MaxChaRte": {
+     "label": "MaxChaRte",
+     "sf": "MaxChaRte_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "MaxChaRte_SF": {
+     "label": "MaxChaRte_SF",
+     "type": "sunssf"
+    },
+    "MaxDisChaRte": {
+     "label": "MaxDisChaRte",
+     "sf": "MaxDisChaRte_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "MaxDisChaRte_SF": {
+     "label": "MaxDisChaRte_SF",
+     "type": "sunssf"
+    },
+    "PFRtgQ1": {
+     "label": "PFRtgQ1",
+     "mandatory": true,
+     "sf": "PFRtg_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFRtgQ2": {
+     "label": "PFRtgQ2",
+     "mandatory": true,
+     "sf": "PFRtg_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFRtgQ3": {
+     "label": "PFRtgQ3",
+     "mandatory": true,
+     "sf": "PFRtg_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFRtgQ4": {
+     "label": "PFRtgQ4",
+     "mandatory": true,
+     "sf": "PFRtg_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFRtg_SF": {
+     "label": "PFRtg_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "Pad": {
+     "label": "Pad",
+     "type": "pad"
+    },
+    "VARtg": {
+     "label": "VARtg",
+     "mandatory": true,
+     "sf": "VARtg_SF",
+     "type": "uint16",
+     "units": "VA"
+    },
+    "VARtg_SF": {
+     "label": "VARtg_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VArRtgQ1": {
+     "label": "VArRtgQ1",
+     "mandatory": true,
+     "sf": "VArRtg_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArRtgQ2": {
+     "label": "VArRtgQ2",
+     "mandatory": true,
+     "sf": "VArRtg_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArRtgQ3": {
+     "label": "VArRtgQ3",
+     "mandatory": true,
+     "sf": "VArRtg_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArRtgQ4": {
+     "label": "VArRtgQ4",
+     "mandatory": true,
+     "sf": "VArRtg_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArRtg_SF": {
+     "label": "VArRtg_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WHRtg": {
+     "label": "WHRtg",
+     "sf": "WHRtg_SF",
+     "type": "uint16",
+     "units": "Wh"
+    },
+    "WHRtg_SF": {
+     "label": "WHRtg_SF",
+     "type": "sunssf"
+    },
+    "WRtg": {
+     "label": "WRtg",
+     "mandatory": true,
+     "sf": "WRtg_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "WRtg_SF": {
+     "label": "WRtg_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    }
+   },
+   "scale_factor_points": [
+    "ARtg_SF",
+    "AhrRtg_SF",
+    "MaxChaRte_SF",
+    "MaxDisChaRte_SF",
+    "PFRtg_SF",
+    "VARtg_SF",
+    "VArRtg_SF",
+    "WHRtg_SF",
+    "WRtg_SF"
+   ],
+   "slug": "nameplate"
+  },
+  "121": {
+   "id": 121,
+   "label": "Basic Settings",
+   "name": "settings",
+   "point_count": 32,
+   "points": {
+    "ClcTotVA": {
+     "label": "ClcTotVA",
+     "type": "enum16"
+    },
+    "ConnPh": {
+     "label": "ConnPh",
+     "type": "enum16"
+    },
+    "ECPNomHz": {
+     "label": "ECPNomHz",
+     "sf": "ECPNomHz_SF",
+     "type": "uint16",
+     "units": "Hz"
+    },
+    "ECPNomHz_SF": {
+     "label": "ECPNomHz_SF",
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "MaxRmpRte": {
+     "label": "MaxRmpRte",
+     "sf": "MaxRmpRte_SF",
+     "type": "uint16",
+     "units": "% WGra"
+    },
+    "MaxRmpRte_SF": {
+     "label": "MaxRmpRte_SF",
+     "type": "sunssf"
+    },
+    "PFMinQ1": {
+     "label": "PFMinQ1",
+     "sf": "PFMin_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFMinQ2": {
+     "label": "PFMinQ2",
+     "sf": "PFMin_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFMinQ3": {
+     "label": "PFMinQ3",
+     "sf": "PFMin_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFMinQ4": {
+     "label": "PFMinQ4",
+     "sf": "PFMin_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "PFMin_SF": {
+     "label": "PFMin_SF",
+     "type": "sunssf"
+    },
+    "VAMax": {
+     "label": "VAMax",
+     "sf": "VAMax_SF",
+     "type": "uint16",
+     "units": "VA"
+    },
+    "VAMax_SF": {
+     "label": "VAMax_SF",
+     "type": "sunssf"
+    },
+    "VArAct": {
+     "label": "VArAct",
+     "type": "enum16"
+    },
+    "VArMaxQ1": {
+     "label": "VArMaxQ1",
+     "sf": "VArMax_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArMaxQ2": {
+     "label": "VArMaxQ2",
+     "sf": "VArMax_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArMaxQ3": {
+     "label": "VArMaxQ3",
+     "sf": "VArMax_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArMaxQ4": {
+     "label": "VArMaxQ4",
+     "sf": "VArMax_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArMax_SF": {
+     "label": "VArMax_SF",
+     "type": "sunssf"
+    },
+    "VMax": {
+     "label": "VMax",
+     "sf": "VMinMax_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "VMin": {
+     "label": "VMin",
+     "sf": "VMinMax_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "VMinMax_SF": {
+     "label": "VMinMax_SF",
+     "type": "sunssf"
+    },
+    "VRef": {
+     "label": "VRef",
+     "mandatory": true,
+     "sf": "VRef_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "VRefOfs": {
+     "label": "VRefOfs",
+     "mandatory": true,
+     "sf": "VRefOfs_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "VRefOfs_SF": {
+     "label": "VRefOfs_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VRef_SF": {
+     "label": "VRef_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WGra": {
+     "label": "WGra",
+     "sf": "WGra_SF",
+     "type": "uint16",
+     "units": "% WMax/sec"
+    },
+    "WGra_SF": {
+     "label": "WGra_SF",
+     "type": "sunssf"
+    },
+    "WMax": {
+     "label": "WMax",
+     "mandatory": true,
+     "sf": "WMax_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "WMax_SF": {
+     "label": "WMax_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    }
+   },
+   "scale_factor_points": [
+    "ECPNomHz_SF",
+    "MaxRmpRte_SF",
+    "PFMin_SF",
+    "VAMax_SF",
+    "VArMax_SF",
+    "VMinMax_SF",
+    "VRefOfs_SF",
+    "VRef_SF",
+    "WGra_SF",
+    "WMax_SF"
+   ],
+   "slug": "basic_settings"
+  },
+  "122": {
+   "id": 122,
+   "label": "Measurements_Status",
+   "name": "status",
+   "point_count": 22,
+   "points": {
+    "ActVAh": {
+     "label": "ActVAh",
+     "type": "acc64",
+     "units": "VAh"
+    },
+    "ActVArhQ1": {
+     "label": "ActVArhQ1",
+     "type": "acc64",
+     "units": "varh"
+    },
+    "ActVArhQ2": {
+     "label": "ActVArhQ2",
+     "type": "acc64",
+     "units": "varh"
+    },
+    "ActVArhQ3": {
+     "label": "ActVArhQ3",
+     "type": "acc64",
+     "units": "varh"
+    },
+    "ActVArhQ4": {
+     "label": "ActVArhQ4",
+     "type": "acc64",
+     "units": "varh"
+    },
+    "ActWh": {
+     "label": "ActWh",
+     "type": "acc64",
+     "units": "Wh"
+    },
+    "ECPConn": {
+     "label": "ECPConn",
+     "mandatory": true,
+     "type": "bitfield16"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PVConn": {
+     "label": "PVConn",
+     "mandatory": true,
+     "type": "bitfield16"
+    },
+    "Ris": {
+     "label": "Ris",
+     "sf": "Ris_SF",
+     "type": "uint16",
+     "units": "ohms"
+    },
+    "Ris_SF": {
+     "label": "Ris_SF",
+     "type": "sunssf"
+    },
+    "RtSt": {
+     "label": "RtSt",
+     "type": "bitfield16"
+    },
+    "StActCtl": {
+     "label": "StActCtl",
+     "type": "bitfield32"
+    },
+    "StSetLimMsk": {
+     "label": "StSetLimMsk",
+     "type": "bitfield32"
+    },
+    "StorConn": {
+     "label": "StorConn",
+     "mandatory": true,
+     "type": "bitfield16"
+    },
+    "TmSrc": {
+     "label": "TmSrc",
+     "type": "string"
+    },
+    "Tms": {
+     "label": "Tms",
+     "type": "uint32",
+     "units": "Secs"
+    },
+    "VArAval": {
+     "label": "VArAval",
+     "sf": "VArAval_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VArAval_SF": {
+     "label": "VArAval_SF",
+     "type": "sunssf"
+    },
+    "WAval": {
+     "label": "WAval",
+     "sf": "WAval_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "WAval_SF": {
+     "label": "WAval_SF",
+     "type": "sunssf"
+    }
+   },
+   "scale_factor_points": [
+    "Ris_SF",
+    "VArAval_SF",
+    "WAval_SF"
+   ],
+   "slug": "measurements_status"
+  },
+  "123": {
+   "id": 123,
+   "label": "Immediate Controls",
+   "name": "controls",
+   "point_count": 26,
+   "points": {
+    "Conn": {
+     "label": "Conn",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "Conn_RvrtTms": {
+     "label": "Conn_RvrtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "Conn_WinTms": {
+     "label": "Conn_WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "OutPFSet": {
+     "label": "OutPFSet",
+     "mandatory": true,
+     "sf": "OutPFSet_SF",
+     "type": "int16",
+     "units": "cos()"
+    },
+    "OutPFSet_Ena": {
+     "label": "OutPFSet_Ena",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "OutPFSet_RmpTms": {
+     "label": "OutPFSet_RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "OutPFSet_RvrtTms": {
+     "label": "OutPFSet_RvrtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "OutPFSet_SF": {
+     "label": "OutPFSet_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "OutPFSet_WinTms": {
+     "label": "OutPFSet_WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "VArAvalPct": {
+     "label": "VArAvalPct",
+     "sf": "VArPct_SF",
+     "type": "int16",
+     "units": "% VArAval"
+    },
+    "VArMaxPct": {
+     "label": "VArMaxPct",
+     "sf": "VArPct_SF",
+     "type": "int16",
+     "units": "% VArMax"
+    },
+    "VArPct_Ena": {
+     "label": "VArPct_Ena",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "VArPct_Mod": {
+     "label": "VArPct_Mod",
+     "type": "enum16"
+    },
+    "VArPct_RmpTms": {
+     "label": "VArPct_RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "VArPct_RvrtTms": {
+     "label": "VArPct_RvrtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "VArPct_SF": {
+     "label": "VArPct_SF",
+     "type": "sunssf"
+    },
+    "VArPct_WinTms": {
+     "label": "VArPct_WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "VArWMaxPct": {
+     "label": "VArWMaxPct",
+     "sf": "VArPct_SF",
+     "type": "int16",
+     "units": "% WMax"
+    },
+    "WMaxLimPct": {
+     "label": "WMaxLimPct",
+     "mandatory": true,
+     "sf": "WMaxLimPct_SF",
+     "type": "uint16",
+     "units": "% WMax"
+    },
+    "WMaxLimPct_RmpTms": {
+     "label": "WMaxLimPct_RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "WMaxLimPct_RvrtTms": {
+     "label": "WMaxLimPct_RvrtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "WMaxLimPct_SF": {
+     "label": "WMaxLimPct_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WMaxLimPct_WinTms": {
+     "label": "WMaxLimPct_WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "WMaxLim_Ena": {
+     "label": "WMaxLim_Ena",
+     "mandatory": true,
+     "type": "enum16"
+    }
+   },
+   "scale_factor_points": [
+    "OutPFSet_SF",
+    "VArPct_SF",
+    "WMaxLimPct_SF"
+   ],
+   "slug": "immediate_controls"
+  },
+  "124": {
+   "id": 124,
+   "label": "Storage",
+   "name": "storage_basic",
+   "point_count": 26,
+   "points": {
+    "ChaGriSet": {
+     "type": "enum16"
+    },
+    "ChaSt": {
+     "label": "ChaSt",
+     "type": "enum16"
+    },
+    "ChaState": {
+     "label": "ChaState",
+     "sf": "ChaState_SF",
+     "type": "uint16",
+     "units": "% AhrRtg"
+    },
+    "ChaState_SF": {
+     "label": "ChaState_SF",
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "InBatV": {
+     "label": "InBatV",
+     "sf": "InBatV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "InBatV_SF": {
+     "label": "InBatV_SF",
+     "type": "sunssf"
+    },
+    "InOutWRte_RmpTms": {
+     "label": "InOutWRte_RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "InOutWRte_RvrtTms": {
+     "label": "InOutWRte_RvrtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "InOutWRte_SF": {
+     "label": "InOutWRte_SF",
+     "type": "sunssf"
+    },
+    "InOutWRte_WinTms": {
+     "label": "InOutWRte_WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "InWRte": {
+     "label": "InWRte",
+     "sf": "InOutWRte_SF",
+     "type": "int16",
+     "units": " % WChaMax"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "MinRsvPct": {
+     "label": "MinRsvPct",
+     "sf": "MinRsvPct_SF",
+     "type": "uint16",
+     "units": "% WChaMax"
+    },
+    "MinRsvPct_SF": {
+     "label": "MinRsvPct_SF",
+     "type": "sunssf"
+    },
+    "OutWRte": {
+     "label": "OutWRte",
+     "sf": "InOutWRte_SF",
+     "type": "int16",
+     "units": "% WDisChaMax"
+    },
+    "StorAval": {
+     "label": "StorAval",
+     "sf": "StorAval_SF",
+     "type": "uint16",
+     "units": "AH"
+    },
+    "StorAval_SF": {
+     "label": "StorAval_SF",
+     "type": "sunssf"
+    },
+    "StorCtl_Mod": {
+     "label": "StorCtl_Mod",
+     "mandatory": true,
+     "type": "bitfield16"
+    },
+    "VAChaMax": {
+     "label": "VAChaMax",
+     "sf": "VAChaMax_SF",
+     "type": "uint16",
+     "units": "VA"
+    },
+    "VAChaMax_SF": {
+     "label": "VAChaMax_SF",
+     "type": "sunssf"
+    },
+    "WChaDisChaGra_SF": {
+     "label": "WChaDisChaGra_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WChaGra": {
+     "label": "WChaGra",
+     "mandatory": true,
+     "sf": "WChaDisChaGra_SF",
+     "type": "uint16",
+     "units": "% WChaMax/sec"
+    },
+    "WChaMax": {
+     "label": "WChaMax",
+     "mandatory": true,
+     "sf": "WChaMax_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "WChaMax_SF": {
+     "label": "WChaMax_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WDisChaGra": {
+     "label": "WDisChaGra",
+     "mandatory": true,
+     "sf": "WChaDisChaGra_SF",
+     "type": "uint16",
+     "units": "% WChaMax/sec"
+    }
+   },
+   "scale_factor_points": [
+    "ChaState_SF",
+    "InBatV_SF",
+    "InOutWRte_SF",
+    "MinRsvPct_SF",
+    "StorAval_SF",
+    "VAChaMax_SF",
+    "WChaDisChaGra_SF",
+    "WChaMax_SF"
+   ],
+   "slug": "storage"
+  },
+  "125": {
+   "id": 125,
+   "label": "Pricing",
+   "name": "pricing",
+   "point_count": 10,
+   "points": {
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "ModEna": {
+     "label": "ModEna",
+     "mandatory": true,
+     "type": "bitfield16"
+    },
+    "Pad": {
+     "type": "pad"
+    },
+    "RmpTms": {
+     "label": "RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "RvtTms": {
+     "label": "RvtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "Sig": {
+     "label": "Sig",
+     "mandatory": true,
+     "sf": "Sig_SF",
+     "type": "int16"
+    },
+    "SigType": {
+     "label": "SigType",
+     "type": "enum16"
+    },
+    "Sig_SF": {
+     "label": "Sig_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WinTms": {
+     "label": "WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    }
+   },
+   "scale_factor_points": [
+    "Sig_SF"
+   ],
+   "slug": "pricing"
+  },
+  "126": {
+   "id": 126,
+   "label": "Static Volt-VAR",
+   "name": "volt_var",
+   "point_count": 59,
+   "points": {
+    "ActCrv": {
+     "label": "ActCrv",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "DeptRef_SF": {
+     "label": "DeptRef_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "ModEna": {
+     "label": "ModEna",
+     "mandatory": true,
+     "type": "bitfield16"
+    },
+    "NCrv": {
+     "label": "NCrv",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "NPt": {
+     "label": "NPt",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "RmpIncDec_SF": {
+     "type": "sunssf"
+    },
+    "RmpTms": {
+     "label": "RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "RvrtTms": {
+     "label": "RvrtTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "V_SF": {
+     "label": "V_SF",
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WinTms": {
+     "label": "WinTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "curve.ActPt": {
+     "label": "ActPt",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "curve.CrvNam": {
+     "label": "CrvNam",
+     "type": "string"
+    },
+    "curve.DeptRef": {
+     "label": "DeptRef",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "curve.ReadOnly": {
+     "label": "ReadOnly",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "curve.RmpDecTmm": {
+     "label": "RmpDecTmm",
+     "sf": "RmpIncDec_SF",
+     "type": "uint16",
+     "units": "% ref_value/min"
+    },
+    "curve.RmpIncTmm": {
+     "label": "RmpIncTmm",
+     "sf": "RmpIncDec_SF",
+     "type": "uint16",
+     "units": "% ref_value/min"
+    },
+    "curve.RmpTms": {
+     "label": "RmpTms",
+     "type": "uint16",
+     "units": "Secs"
+    },
+    "curve.V1": {
+     "label": "V1",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V10": {
+     "label": "V10",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V11": {
+     "label": "V11",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V12": {
+     "label": "V12",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V13": {
+     "label": "V13",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V14": {
+     "label": "V14",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V15": {
+     "label": "V15",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V16": {
+     "label": "V16",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V17": {
+     "label": "V17",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V18": {
+     "label": "V18",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V19": {
+     "label": "V19",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V2": {
+     "label": "V2",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V20": {
+     "label": "V20",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V3": {
+     "label": "V3",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V4": {
+     "label": "V4",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V5": {
+     "label": "V5",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V6": {
+     "label": "V6",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V7": {
+     "label": "V7",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V8": {
+     "label": "V8",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.V9": {
+     "label": "V9",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "% VRef"
+    },
+    "curve.VAr1": {
+     "label": "VAr1",
+     "mandatory": true,
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr10": {
+     "label": "VAr10",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr11": {
+     "label": "VAr11",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr12": {
+     "label": "VAr12",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr13": {
+     "label": "VAr13",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr14": {
+     "label": "VAr14",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr15": {
+     "label": "VAr15",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr16": {
+     "label": "VAr16",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr17": {
+     "label": "VAr17",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr18": {
+     "label": "VAr18",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr19": {
+     "label": "VAr19",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr2": {
+     "label": "VAr2",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr20": {
+     "label": "VAr20",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr3": {
+     "label": "VAr3",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr4": {
+     "label": "VAr4",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr5": {
+     "label": "VAr5",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr6": {
+     "label": "VAr6",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr7": {
+     "label": "VAr7",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr8": {
+     "label": "VAr8",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    },
+    "curve.VAr9": {
+     "label": "VAr9",
+     "sf": "DeptRef_SF",
+     "type": "int16"
+    }
+   },
+   "scale_factor_points": [
+    "DeptRef_SF",
+    "RmpIncDec_SF",
+    "V_SF"
+   ],
+   "slug": "volt_var"
+  },
+  "201": {
+   "id": 201,
+   "label": "Meter (Single Phase) single phase (AN or AB) meter",
+   "name": "ac_meter_an_or_ab",
+   "point_count": 74,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "Evt": {
+     "label": "Events",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "int16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PFphA": {
+     "label": "PF phase A",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphB": {
+     "label": "PF phase B",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphC": {
+     "label": "PF phase C",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PPV": {
+     "label": "Voltage LL",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PPVphAB": {
+     "label": "Phase Voltage AB",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PPVphBC": {
+     "label": "Phase Voltage BC",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PPVphCA": {
+     "label": "Phase Voltage CA",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhV": {
+     "label": "Voltage LN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "TotVAhExp": {
+     "label": "Total VA-hours Exported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhA": {
+     "label": "Total VA-hours Exported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhB": {
+     "label": "Total VA-hours Exported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhC": {
+     "label": "Total VA-hours Exported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImp": {
+     "label": "Total VA-hours Imported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhA": {
+     "label": "Total VA-hours Imported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhB": {
+     "label": "Total VA-hours Imported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhC": {
+     "label": "Total VA-hours Imported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAh_SF": {
+     "type": "sunssf"
+    },
+    "TotVArhExpQ3": {
+     "label": "Total VAr-hours Exported Q3",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhA": {
+     "label": "Total VAr-hours Exported Q3 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhB": {
+     "label": "Total VAr-hours Exported Q3 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhC": {
+     "label": "Total VAr-hours Exported Q3 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4": {
+     "label": "Total VAr-hours Exported Q4",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhA": {
+     "label": "Total VAr-hours Exported Q4 Imported phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhB": {
+     "label": "Total VAr-hours Exported Q4 Imported phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhC": {
+     "label": "Total VAr-hours Exported Q4 Imported phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1": {
+     "label": "Total VAR-hours Imported Q1",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhA": {
+     "label": "Total VAr-hours Imported Q1 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhB": {
+     "label": "Total VAr-hours Imported Q1 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhC": {
+     "label": "Total VAr-hours Imported Q1 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2": {
+     "label": "Total VAr-hours Imported Q2",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhA": {
+     "label": "Total VAr-hours Imported Q2 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhB": {
+     "label": "Total VAr-hours Imported Q2 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhC": {
+     "label": "Total VAr-hours Imported Q2 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArh_SF": {
+     "type": "sunssf"
+    },
+    "TotWhExp": {
+     "label": "Total Watt-hours Exported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhA": {
+     "label": "Total Watt-hours Exported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhB": {
+     "label": "Total Watt-hours Exported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhC": {
+     "label": "Total Watt-hours Exported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImp": {
+     "label": "Total Watt-hours Imported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhA": {
+     "label": "Total Watt-hours Imported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhB": {
+     "label": "Total Watt-hours Imported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhC": {
+     "label": "Total Watt-hours Imported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWh_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAR": {
+     "label": "VAR",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAR_SF": {
+     "type": "sunssf"
+    },
+    "VARphA": {
+     "label": "VAR phase A",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphB": {
+     "label": "VAR phase B",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphC": {
+     "label": "VAR phase C",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAphA": {
+     "label": "VA phase A",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphB": {
+     "label": "VA phase B",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphC": {
+     "label": "VA phase C",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WphA": {
+     "label": "Watts phase A",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphB": {
+     "label": "Watts phase B",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphC": {
+     "label": "Watts phase C",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "Hz_SF",
+    "PF_SF",
+    "TotVAh_SF",
+    "TotVArh_SF",
+    "TotWh_SF",
+    "VAR_SF",
+    "VA_SF",
+    "V_SF",
+    "W_SF"
+   ],
+   "slug": "meter_single_phase"
+  },
+  "202": {
+   "id": 202,
+   "label": "split single phase (ABN) meter",
+   "name": "ac_meter_abn",
+   "point_count": 74,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "Evt": {
+     "label": "Events",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "int16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PFphA": {
+     "label": "PF phase A",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphB": {
+     "label": "PF phase B",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphC": {
+     "label": "PF phase C",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PPV": {
+     "label": "Voltage LL",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhV": {
+     "label": "Voltage LN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphAB": {
+     "label": "Phase Voltage AB",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphBC": {
+     "label": "Phase Voltage BC",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphCA": {
+     "label": "Phase Voltage CA",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "TotVAhExp": {
+     "label": "Total VA-hours Exported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhA": {
+     "label": "Total VA-hours Exported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhB": {
+     "label": "Total VA-hours Exported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhC": {
+     "label": "Total VA-hours Exported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImp": {
+     "label": "Total VA-hours Imported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhA": {
+     "label": "Total VA-hours Imported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhB": {
+     "label": "Total VA-hours Imported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhC": {
+     "label": "Total VA-hours Imported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAh_SF": {
+     "type": "sunssf"
+    },
+    "TotVArhExpQ3": {
+     "label": "Total VAr-hours Exported Q3",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhA": {
+     "label": "Total VAr-hours Exported Q3 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhB": {
+     "label": "Total VAr-hours Exported Q3 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhC": {
+     "label": "Total VAr-hours Exported Q3 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4": {
+     "label": "Total VAr-hours Exported Q4",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhA": {
+     "label": "Total VAr-hours Exported Q4 Imported phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhB": {
+     "label": "Total VAr-hours Exported Q4 Imported phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhC": {
+     "label": "Total VAr-hours Exported Q4 Imported phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1": {
+     "label": "Total VAR-hours Imported Q1",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhA": {
+     "label": "Total VAr-hours Imported Q1 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhB": {
+     "label": "Total VAr-hours Imported Q1 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhC": {
+     "label": "Total VAr-hours Imported Q1 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2": {
+     "label": "Total VAr-hours Imported Q2",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhA": {
+     "label": "Total VAr-hours Imported Q2 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhB": {
+     "label": "Total VAr-hours Imported Q2 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhC": {
+     "label": "Total VAr-hours Imported Q2 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArh_SF": {
+     "type": "sunssf"
+    },
+    "TotWhExp": {
+     "label": "Total Watt-hours Exported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhA": {
+     "label": "Total Watt-hours Exported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhB": {
+     "label": "Total Watt-hours Exported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhC": {
+     "label": "Total Watt-hours Exported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImp": {
+     "label": "Total Watt-hours Imported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhA": {
+     "label": "Total Watt-hours Imported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhB": {
+     "label": "Total Watt-hours Imported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhC": {
+     "label": "Total Watt-hours Imported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWh_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAR": {
+     "label": "VAR",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAR_SF": {
+     "type": "sunssf"
+    },
+    "VARphA": {
+     "label": "VAR phase A",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphB": {
+     "label": "VAR phase B",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphC": {
+     "label": "VAR phase C",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAphA": {
+     "label": "VA phase A",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphB": {
+     "label": "VA phase B",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphC": {
+     "label": "VA phase C",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WphA": {
+     "label": "Watts phase A",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphB": {
+     "label": "Watts phase B",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphC": {
+     "label": "Watts phase C",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "Hz_SF",
+    "PF_SF",
+    "TotVAh_SF",
+    "TotVArh_SF",
+    "TotWh_SF",
+    "VAR_SF",
+    "VA_SF",
+    "V_SF",
+    "W_SF"
+   ],
+   "slug": "meter_split_phase"
+  },
+  "203": {
+   "id": 203,
+   "label": "wye-connect three phase (abcn) meter",
+   "name": "ac_meter_abcn",
+   "point_count": 74,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "Evt": {
+     "label": "Events",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "int16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PFphA": {
+     "label": "PF phase A",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphB": {
+     "label": "PF phase B",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphC": {
+     "label": "PF phase C",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PPV": {
+     "label": "Voltage LL",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhV": {
+     "label": "Voltage LN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphAB": {
+     "label": "Phase Voltage AB",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphBC": {
+     "label": "Phase Voltage BC",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphCA": {
+     "label": "Phase Voltage CA",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "TotVAhExp": {
+     "label": "Total VA-hours Exported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhA": {
+     "label": "Total VA-hours Exported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhB": {
+     "label": "Total VA-hours Exported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhC": {
+     "label": "Total VA-hours Exported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImp": {
+     "label": "Total VA-hours Imported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhA": {
+     "label": "Total VA-hours Imported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhB": {
+     "label": "Total VA-hours Imported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhC": {
+     "label": "Total VA-hours Imported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAh_SF": {
+     "type": "sunssf"
+    },
+    "TotVArhExpQ3": {
+     "label": "Total VAr-hours Exported Q3",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhA": {
+     "label": "Total VAr-hours Exported Q3 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhB": {
+     "label": "Total VAr-hours Exported Q3 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhC": {
+     "label": "Total VAr-hours Exported Q3 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4": {
+     "label": "Total VAr-hours Exported Q4",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhA": {
+     "label": "Total VAr-hours Exported Q4 Imported phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhB": {
+     "label": "Total VAr-hours Exported Q4 Imported phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhC": {
+     "label": "Total VAr-hours Exported Q4 Imported phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1": {
+     "label": "Total VAR-hours Imported Q1",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhA": {
+     "label": "Total VAr-hours Imported Q1 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhB": {
+     "label": "Total VAr-hours Imported Q1 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhC": {
+     "label": "Total VAr-hours Imported Q1 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2": {
+     "label": "Total VAr-hours Imported Q2",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhA": {
+     "label": "Total VAr-hours Imported Q2 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhB": {
+     "label": "Total VAr-hours Imported Q2 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhC": {
+     "label": "Total VAr-hours Imported Q2 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArh_SF": {
+     "type": "sunssf"
+    },
+    "TotWhExp": {
+     "label": "Total Watt-hours Exported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhA": {
+     "label": "Total Watt-hours Exported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhB": {
+     "label": "Total Watt-hours Exported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhC": {
+     "label": "Total Watt-hours Exported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImp": {
+     "label": "Total Watt-hours Imported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhA": {
+     "label": "Total Watt-hours Imported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhB": {
+     "label": "Total Watt-hours Imported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhC": {
+     "label": "Total Watt-hours Imported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWh_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAR": {
+     "label": "VAR",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAR_SF": {
+     "type": "sunssf"
+    },
+    "VARphA": {
+     "label": "VAR phase A",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphB": {
+     "label": "VAR phase B",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphC": {
+     "label": "VAR phase C",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAphA": {
+     "label": "VA phase A",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphB": {
+     "label": "VA phase B",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphC": {
+     "label": "VA phase C",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WphA": {
+     "label": "Watts phase A",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphB": {
+     "label": "Watts phase B",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphC": {
+     "label": "Watts phase C",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "Hz_SF",
+    "PF_SF",
+    "TotVAh_SF",
+    "TotVArh_SF",
+    "TotWh_SF",
+    "VAR_SF",
+    "VA_SF",
+    "V_SF",
+    "W_SF"
+   ],
+   "slug": "meter_wye_three_phase"
+  },
+  "204": {
+   "id": 204,
+   "label": "delta-connect three phase (abc) meter",
+   "name": "ac_meter_abc",
+   "point_count": 74,
+   "points": {
+    "A": {
+     "label": "Amps",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AphA": {
+     "label": "Amps PhaseA",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphB": {
+     "label": "Amps PhaseB",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AphC": {
+     "label": "Amps PhaseC",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "Evt": {
+     "label": "Events",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Hz": {
+     "label": "Hz",
+     "mandatory": true,
+     "sf": "Hz_SF",
+     "type": "int16",
+     "units": "Hz"
+    },
+    "Hz_SF": {
+     "type": "sunssf"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "PF": {
+     "label": "PF",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PF_SF": {
+     "type": "sunssf"
+    },
+    "PFphA": {
+     "label": "PF phase A",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphB": {
+     "label": "PF phase B",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PFphC": {
+     "label": "PF phase C",
+     "sf": "PF_SF",
+     "type": "int16",
+     "units": "Pct"
+    },
+    "PPV": {
+     "label": "Voltage LL",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhV": {
+     "label": "Voltage LN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphA": {
+     "label": "Phase Voltage AN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphAB": {
+     "label": "Phase Voltage AB",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphB": {
+     "label": "Phase Voltage BN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphBC": {
+     "label": "Phase Voltage BC",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphC": {
+     "label": "Phase Voltage CN",
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "PhVphCA": {
+     "label": "Phase Voltage CA",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "int16",
+     "units": "V"
+    },
+    "TotVAhExp": {
+     "label": "Total VA-hours Exported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhA": {
+     "label": "Total VA-hours Exported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhB": {
+     "label": "Total VA-hours Exported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhExpPhC": {
+     "label": "Total VA-hours Exported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImp": {
+     "label": "Total VA-hours Imported",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhA": {
+     "label": "Total VA-hours Imported phase A",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhB": {
+     "label": "Total VA-hours Imported phase B",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAhImpPhC": {
+     "label": "Total VA-hours Imported phase C",
+     "sf": "TotVAh_SF",
+     "type": "acc32",
+     "units": "VAh"
+    },
+    "TotVAh_SF": {
+     "type": "sunssf"
+    },
+    "TotVArhExpQ3": {
+     "label": "Total VAr-hours Exported Q3",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhA": {
+     "label": "Total VAr-hours Exported Q3 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhB": {
+     "label": "Total VAr-hours Exported Q3 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ3PhC": {
+     "label": "Total VAr-hours Exported Q3 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4": {
+     "label": "Total VAr-hours Exported Q4",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhA": {
+     "label": "Total VAr-hours Exported Q4 Imported phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhB": {
+     "label": "Total VAr-hours Exported Q4 Imported phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhExpQ4PhC": {
+     "label": "Total VAr-hours Exported Q4 Imported phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1": {
+     "label": "Total VAR-hours Imported Q1",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhA": {
+     "label": "Total VAr-hours Imported Q1 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhB": {
+     "label": "Total VAr-hours Imported Q1 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ1PhC": {
+     "label": "Total VAr-hours Imported Q1 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2": {
+     "label": "Total VAr-hours Imported Q2",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhA": {
+     "label": "Total VAr-hours Imported Q2 phase A",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhB": {
+     "label": "Total VAr-hours Imported Q2 phase B",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArhImpQ2PhC": {
+     "label": "Total VAr-hours Imported Q2 phase C",
+     "sf": "TotVArh_SF",
+     "type": "acc32",
+     "units": "varh"
+    },
+    "TotVArh_SF": {
+     "type": "sunssf"
+    },
+    "TotWhExp": {
+     "label": "Total Watt-hours Exported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhA": {
+     "label": "Total Watt-hours Exported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhB": {
+     "label": "Total Watt-hours Exported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhExpPhC": {
+     "label": "Total Watt-hours Exported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImp": {
+     "label": "Total Watt-hours Imported",
+     "mandatory": true,
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhA": {
+     "label": "Total Watt-hours Imported phase A",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhB": {
+     "label": "Total Watt-hours Imported phase B",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWhImpPhC": {
+     "label": "Total Watt-hours Imported phase C",
+     "sf": "TotWh_SF",
+     "type": "acc32",
+     "units": "Wh"
+    },
+    "TotWh_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "VA": {
+     "label": "VA",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAR": {
+     "label": "VAR",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VAR_SF": {
+     "type": "sunssf"
+    },
+    "VARphA": {
+     "label": "VAR phase A",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphB": {
+     "label": "VAR phase B",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VARphC": {
+     "label": "VAR phase C",
+     "sf": "VAR_SF",
+     "type": "int16",
+     "units": "var"
+    },
+    "VA_SF": {
+     "type": "sunssf"
+    },
+    "VAphA": {
+     "label": "VA phase A",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphB": {
+     "label": "VA phase B",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "VAphC": {
+     "label": "VA phase C",
+     "sf": "VA_SF",
+     "type": "int16",
+     "units": "VA"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Watts",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "W_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WphA": {
+     "label": "Watts phase A",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphB": {
+     "label": "Watts phase B",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WphC": {
+     "label": "Watts phase C",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    }
+   },
+   "scale_factor_points": [
+    "A_SF",
+    "Hz_SF",
+    "PF_SF",
+    "TotVAh_SF",
+    "TotVArh_SF",
+    "TotWh_SF",
+    "VAR_SF",
+    "VA_SF",
+    "V_SF",
+    "W_SF"
+   ],
+   "slug": "meter_delta_three_phase"
+  },
+  "802": {
+   "id": 802,
+   "label": "Battery Base Model",
+   "name": "battery",
+   "point_count": 58,
+   "points": {
+    "A": {
+     "label": "Total DC Current",
+     "mandatory": true,
+     "sf": "A_SF",
+     "type": "int16",
+     "units": "A"
+    },
+    "AChaMax": {
+     "label": "Max Charge Current",
+     "sf": "AMax_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "ADisChaMax": {
+     "label": "Max Discharge Current",
+     "sf": "AMax_SF",
+     "type": "uint16",
+     "units": "A"
+    },
+    "AHRtg": {
+     "label": "Nameplate Charge Capacity",
+     "mandatory": true,
+     "sf": "AHRtg_SF",
+     "type": "uint16",
+     "units": "Ah"
+    },
+    "AHRtg_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AMax_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "A_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "AlmRst": {
+     "label": "Alarm Reset",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "CellVAvg": {
+     "label": "Average Cell Voltage",
+     "sf": "CellV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "CellVMax": {
+     "label": "Max Cell Voltage",
+     "sf": "CellV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "CellVMaxMod": {
+     "label": "Max Cell Voltage Module",
+     "type": "uint16"
+    },
+    "CellVMaxStr": {
+     "label": "Max Cell Voltage String",
+     "type": "uint16"
+    },
+    "CellVMin": {
+     "label": "Min Cell Voltage",
+     "sf": "CellV_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "CellVMinMod": {
+     "label": "Min Cell Voltage Module",
+     "type": "uint16"
+    },
+    "CellVMinStr": {
+     "label": "Min Cell Voltage String",
+     "type": "uint16"
+    },
+    "CellV_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "ChaSt": {
+     "label": "Charge Status",
+     "type": "enum16"
+    },
+    "CtrlHb": {
+     "label": "Controller Heartbeat",
+     "type": "uint16"
+    },
+    "DisChaRte": {
+     "label": "Self Discharge Rate",
+     "sf": "DisChaRte_SF",
+     "type": "uint16",
+     "units": "%WHRtg"
+    },
+    "DisChaRte_SF": {
+     "type": "sunssf"
+    },
+    "DoD": {
+     "label": "Depth of Discharge",
+     "sf": "DoD_SF",
+     "type": "uint16",
+     "units": "%"
+    },
+    "DoD_SF": {
+     "type": "sunssf"
+    },
+    "Evt1": {
+     "label": "Battery Event 1 Bitfield",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Evt2": {
+     "label": "Battery Event 2 Bitfield",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd1": {
+     "label": "Vendor Event Bitfield 1",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "EvtVnd2": {
+     "label": "Vendor Event Bitfield 2",
+     "mandatory": true,
+     "type": "bitfield32"
+    },
+    "Hb": {
+     "label": "Battery Heartbeat",
+     "type": "uint16"
+    },
+    "ID": {
+     "label": "Model ID",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "L": {
+     "label": "Model Length",
+     "mandatory": true,
+     "type": "uint16"
+    },
+    "LocRemCtl": {
+     "label": "Control Mode",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "NCyc": {
+     "label": "Cycle Count",
+     "type": "uint32"
+    },
+    "ReqInvState": {
+     "label": "Inverter State Request",
+     "type": "enum16"
+    },
+    "ReqW": {
+     "label": "Battery Power Request",
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "SetInvState": {
+     "label": "Set Inverter State",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "SetOp": {
+     "label": "Set Operation",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "SoC": {
+     "label": "State of Charge",
+     "mandatory": true,
+     "sf": "SoC_SF",
+     "type": "uint16",
+     "units": "%WHRtg"
+    },
+    "SoCMax": {
+     "label": "Nameplate Max SoC",
+     "sf": "SoC_SF",
+     "type": "uint16",
+     "units": "%WHRtg"
+    },
+    "SoCMin": {
+     "label": "Nameplate Min SoC",
+     "sf": "SoC_SF",
+     "type": "uint16",
+     "units": "%WHRtg"
+    },
+    "SoCRsvMin": {
+     "label": "Min Reserve Percent",
+     "sf": "SoC_SF",
+     "type": "uint16",
+     "units": "%WHRtg"
+    },
+    "SoC_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "SoH": {
+     "label": "State of Health",
+     "sf": "SoH_SF",
+     "type": "uint16",
+     "units": "%"
+    },
+    "SoH_SF": {
+     "type": "sunssf"
+    },
+    "SocRsvMax": {
+     "label": "Max Reserve Percent",
+     "sf": "SoC_SF",
+     "type": "uint16",
+     "units": "%WHRtg"
+    },
+    "State": {
+     "label": "State of the Battery Bank",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "StateVnd": {
+     "label": "Vendor Battery Bank State",
+     "type": "enum16"
+    },
+    "Typ": {
+     "label": "Battery Type",
+     "mandatory": true,
+     "type": "enum16"
+    },
+    "V": {
+     "label": "External Battery Voltage",
+     "mandatory": true,
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "VMax": {
+     "label": "Max Battery Voltage",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "VMin": {
+     "label": "Min Battery Voltage",
+     "sf": "V_SF",
+     "type": "uint16",
+     "units": "V"
+    },
+    "V_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W": {
+     "label": "Total Power",
+     "mandatory": true,
+     "sf": "W_SF",
+     "type": "int16",
+     "units": "W"
+    },
+    "WChaDisChaMax_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "WChaRteMax": {
+     "label": "Nameplate Max Charge Rate",
+     "mandatory": true,
+     "sf": "WChaDisChaMax_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "WDisChaRteMax": {
+     "label": "Nameplate Max Discharge Rate",
+     "mandatory": true,
+     "sf": "WChaDisChaMax_SF",
+     "type": "uint16",
+     "units": "W"
+    },
+    "WHRtg": {
+     "label": "Nameplate Energy Capacity",
+     "mandatory": true,
+     "sf": "WHRtg_SF",
+     "type": "uint16",
+     "units": "Wh"
+    },
+    "WHRtg_SF": {
+     "mandatory": true,
+     "type": "sunssf"
+    },
+    "W_SF": {
+     "type": "sunssf"
+    },
+    "WarrDt": {
+     "label": "Warranty Date",
+     "type": "uint32"
+    }
+   },
+   "scale_factor_points": [
+    "AHRtg_SF",
+    "AMax_SF",
+    "A_SF",
+    "CellV_SF",
+    "DisChaRte_SF",
+    "DoD_SF",
+    "SoC_SF",
+    "SoH_SF",
+    "V_SF",
+    "WChaDisChaMax_SF",
+    "WHRtg_SF",
+    "W_SF"
+   ],
+   "slug": "battery"
+  }
+ }
+}

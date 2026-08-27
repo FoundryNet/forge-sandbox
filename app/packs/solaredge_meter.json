@@ -1,0 +1,71 @@
+{
+ "aliases": [
+  "se_meter",
+  "solaredge_meter"
+ ],
+ "canonical_fields": [
+  "active_power_kw",
+  "energy_delivered_kwh",
+  "energy_received_kwh",
+  "grid_frequency_hz",
+  "line_current_a",
+  "line_voltage_v",
+  "power_factor",
+  "reactive_power_kvar"
+ ],
+ "display_name": "SolarEdge revenue meter (SunSpec Modbus TCP)",
+ "mappings": {
+  "M_AC_Current": "line_current_a",
+  "M_AC_Freq": "grid_frequency_hz",
+  "M_AC_PF": "power_factor",
+  "M_AC_Power": "active_power_kw",
+  "M_AC_VAR": "reactive_power_kvar",
+  "M_AC_Voltage_LL": "line_voltage_v",
+  "M_AC_Voltage_LN": "line_voltage_v",
+  "M_Exported": "energy_delivered_kwh",
+  "M_Imported": "energy_received_kwh"
+ },
+ "oem": "solaredge_meter",
+ "protocol": "sunspec_modbus",
+ "provenance": {
+  "generated_at": "2026-08-23T07:22:35.386885+00:00",
+  "generated_by": "energy-sprint/packs/build_packs.py",
+  "registry_field_count": 394,
+  "registry_version": "1.1.0",
+  "sunspec_models": [
+   201,
+   203
+  ],
+  "tier": "vendor_doc"
+ },
+ "source": "SolarEdge SunSpec Technical Note (public vendor documentation). SolarEdge implements SunSpec but publishes its own point names (I_ / M_ prefixes), so the bare SunSpec spellings do not resolve against it.",
+ "sunspec_sf_map": {
+  "M_AC_Current": "M_AC_Current_SF",
+  "M_AC_Current_A": "M_AC_Current_SF",
+  "M_AC_Current_B": "M_AC_Current_SF",
+  "M_AC_Current_C": "M_AC_Current_SF",
+  "M_AC_Power": "M_AC_Power_SF",
+  "M_AC_Voltage_AB": "M_AC_Voltage_SF",
+  "M_AC_Voltage_AN": "M_AC_Voltage_SF",
+  "M_AC_Voltage_BC": "M_AC_Voltage_SF",
+  "M_AC_Voltage_BN": "M_AC_Voltage_SF",
+  "M_AC_Voltage_CA": "M_AC_Voltage_SF",
+  "M_AC_Voltage_CN": "M_AC_Voltage_SF",
+  "M_AC_Voltage_LL": "M_AC_Voltage_SF",
+  "M_AC_Voltage_LN": "M_AC_Voltage_SF",
+  "M_Exported": "M_Energy_W_SF",
+  "M_Imported": "M_Energy_W_SF"
+ },
+ "tag_units": {
+  "M_AC_Current": "A",
+  "M_AC_Freq": "Hz",
+  "M_AC_PF": "%",
+  "M_AC_Power": "W",
+  "M_AC_VAR": "var",
+  "M_AC_Voltage_LL": "V",
+  "M_AC_Voltage_LN": "V",
+  "M_Exported": "Wh",
+  "M_Imported": "Wh"
+ },
+ "vertical": "energy"
+}

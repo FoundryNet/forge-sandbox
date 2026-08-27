@@ -10,7 +10,7 @@ import csv
 import os
 import time
 from datetime import datetime, timezone
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import JSONResponse, PlainTextResponse
@@ -256,7 +256,8 @@ async def simulate_series(machine: str, field: str, points: int = 48,
     # represents -- predict_breach wants that name.
     _, _, dictionary = corpus.load()
     pack = corpus.get_pack(simulate.MACHINES[machine]["oem"])
-    rec = corpus.resolve_field(field, pack, dictionary)
+    rec = corpus.resolve_field(field, pack, dictionary,
+                               oem=simulate.MACHINES[machine]["oem"])
     return {
         "machine": machine, "raw_field": field,
         "canonical_field": corpus.resolve_canonical(rec["canonical_field"]),
@@ -280,6 +281,18 @@ class NormalizeRequest(BaseModel):
     serial: Optional[str] = Field(None, max_length=128)
     site: Optional[str] = Field(None, max_length=128)
     observed_at: Optional[str] = Field(None, max_length=64)
+    sunspec_model: Optional[Union[int, list[int]]] = Field(
+        None,
+        description="SunSpec model id (101, 103, 124, 203, 802 …) for a reading "
+                    "of RAW registers, or a LIST of ids for a device that "
+                    "advertises several blocks — a BESS exposes 124 (storage "
+                    "control) and 802 (battery measurements) in one register "
+                    "map, and scaling against either alone leaves the other "
+                    "block unscaled. Scale factors are resolved from the "
+                    "published model definition, which is the only way to see a "
+                    "SHARED factor such as A_SF governing AphA/AphB/AphC. "
+                    "Omit it and the model is taken from the ID register if the "
+                    "reading carries one, then from the pack's default.")
     metadata: Optional[dict] = None
 
 
@@ -289,9 +302,9 @@ MAX_FIELDS = int(os.environ.get("SANDBOX_MAX_FIELDS", 2000))
 
 def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                        site=None, observed_at=None, rows=1, is_csv=False,
-                       csv_rows=None):
+                       csv_rows=None, sunspec_model=None):
     normalized, field_mappings, stats, unit_conv, collisions, null_states, enum_states = \
-        corpus.normalize_row(data, oem)
+        corpus.normalize_row(data, oem, sunspec_model=sunspec_model)
 
     pack = corpus.get_pack(oem)
     unresolved = sorted(t for t, r in field_mappings.items()
@@ -307,6 +320,12 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
         "fields_distinct_canonical": stats["fields_distinct_canonical"],
         "coverage_pct":     stats["coverage_pct"],
         "collisions":       collisions or None,
+        # Present only for SunSpec readings. Carries every scale factor applied
+        # (raw -> scaled, with the exponent and which register supplied it) and
+        # every diagnostic, so a 100x correction is reviewable rather than an
+        # unexplained number change.
+        "sunspec":          stats.get("sunspec"),
+        "value_coercions":  stats.get("value_coercions"),
         "normalization_layers": {
             "layer1_deterministic": stats["layer1_deterministic"],
             "layer2_identity":      stats["layer2_identity"],
@@ -378,9 +397,18 @@ async def v1_normalize(request: Request):
 
         typed = [{k: _coerce(v) for k, v in row.items() if k is not None}
                  for row in rows]
-        out_rows = [corpus.normalize_row(row, oem)[0] for row in typed]
+        # X-SunSpec-Model on the CSV path, mirroring the JSON body field. Passed
+        # to EVERY row, not just the summary one — otherwise a CSV upload
+        # returns a correctly scaled header row and unscaled data beneath it.
+        _ss = request.headers.get("x-sunspec-model")
+        try:
+            _ss = int(_ss) if _ss else None
+        except ValueError:
+            _ss = None
+        out_rows = [corpus.normalize_row(row, oem, sunspec_model=_ss)[0]
+                    for row in typed]
         return _normalize_payload(
-            typed[0], oem,
+            typed[0], oem, sunspec_model=_ss,
             machine_id=request.headers.get("x-machine-id") or None,
             model=request.headers.get("x-model") or None,
             serial=request.headers.get("x-serial") or None,
@@ -407,10 +435,36 @@ async def v1_normalize(request: Request):
             "error": "too_many_fields", "received": len(body.data),
             "max_fields": MAX_FIELDS, "service": SERVICE})
 
+    # Non-finite floats. JSON has no Infinity or NaN, but Python's own encoder
+    # emits them by default and `1e309` overflows to inf on parse — so they
+    # arrive without anyone meaning to send them. They used to be accepted,
+    # travel through normalization untouched (an unresolved tag keeps its raw
+    # value by design), and then break the RESPONSE encoder:
+    #
+    #   POST /v1/normalize {"oem":"haas","data":{"S1Temp":1e309}}
+    #     -> ValueError: Out of range float values are not JSON compliant: inf
+    #     -> HTTP 500, unauthenticated, from a 38-byte body
+    #
+    # Rejected at the boundary rather than nulled downstream: the value is not
+    # representable in the protocol the caller claims to be speaking, so the
+    # honest answer is that the request is malformed.
+    for _k, _v in body.data.items():
+        _floats = ([_v] if isinstance(_v, float)
+                   else [e for e in _v if isinstance(e, float)]
+                   if isinstance(_v, list) else [])
+        if any(f != f or f in (float("inf"), float("-inf")) for f in _floats):
+            return JSONResponse(status_code=422, content={
+                "error": "non_finite_value",
+                "field": f"data.{_k}",
+                "message": ("Telemetry values must be finite. JSON has no "
+                            "Infinity or NaN; send null for a missing reading."),
+                "received": repr(_v)[:80], "service": SERVICE})
+
     return _normalize_payload(
         body.data, (body.oem or "").lower() or None,
         machine_id=body.machine_id, model=body.model, serial=body.serial,
-        site=body.site, observed_at=body.observed_at)
+        site=body.site, observed_at=body.observed_at,
+        sunspec_model=body.sunspec_model)
 
 
 def _coerce(value):
@@ -426,7 +480,14 @@ def _coerce(value):
     except ValueError:
         pass
     try:
-        return float(s)
+        f = float(s)
+        # A CSV cell of "inf" / "nan" parses to a non-finite float, which the
+        # response encoder cannot serialise — the same HTTP 500 the JSON path
+        # had. Left as the original STRING: the sentinel gate already treats
+        # "NaN" and "inf" as non-values, so it becomes a flagged null.
+        if f != f or f in (float("inf"), float("-inf")):
+            return value
+        return f
     except ValueError:
         pass
     low = s.lower()

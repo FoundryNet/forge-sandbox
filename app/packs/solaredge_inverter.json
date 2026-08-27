@@ -1,0 +1,79 @@
+{
+ "aliases": [
+  "se_inverter",
+  "solaredge",
+  "solaredge_se"
+ ],
+ "canonical_fields": [
+  "dc_current_a",
+  "dc_voltage_v",
+  "energy_delivered_kwh",
+  "grid_frequency_hz",
+  "inverter_cabinet_temp_c",
+  "inverter_output_kw",
+  "inverter_state",
+  "line_current_a",
+  "line_voltage_v",
+  "power_factor",
+  "reactive_power_kvar"
+ ],
+ "display_name": "SolarEdge inverter (SunSpec Modbus TCP)",
+ "mappings": {
+  "I_AC_Current": "line_current_a",
+  "I_AC_Energy_WH": "energy_delivered_kwh",
+  "I_AC_Frequency": "grid_frequency_hz",
+  "I_AC_PF": "power_factor",
+  "I_AC_Power": "inverter_output_kw",
+  "I_AC_VAR": "reactive_power_kvar",
+  "I_AC_VoltageAB": "line_voltage_v",
+  "I_AC_VoltageAN": "line_voltage_v",
+  "I_DC_Current": "dc_current_a",
+  "I_DC_Voltage": "dc_voltage_v",
+  "I_Status": "inverter_state",
+  "I_Status_Vendor": "inverter_state",
+  "I_Temp_Sink": "inverter_cabinet_temp_c"
+ },
+ "oem": "solaredge_inverter",
+ "protocol": "sunspec_modbus",
+ "provenance": {
+  "generated_at": "2026-08-23T07:22:35.386850+00:00",
+  "generated_by": "energy-sprint/packs/build_packs.py",
+  "notes": "SolarEdge meters do not expose line-to-line voltage over Modbus, so a three-phase site reading M_AC_Voltage_LL from a SolarEdge meter will find it absent \u2014 that is the device, not the pack.",
+  "registry_field_count": 394,
+  "registry_version": "1.1.0",
+  "sunspec_models": [
+   101,
+   103
+  ],
+  "tier": "vendor_doc"
+ },
+ "source": "SolarEdge SunSpec Technical Note (public vendor documentation). SolarEdge implements SunSpec but publishes its own point names (I_ / M_ prefixes), so the bare SunSpec spellings do not resolve against it.",
+ "sunspec_sf_map": {
+  "I_AC_Current": "I_AC_Current_SF",
+  "I_AC_CurrentA": "I_AC_Current_SF",
+  "I_AC_CurrentB": "I_AC_Current_SF",
+  "I_AC_CurrentC": "I_AC_Current_SF",
+  "I_AC_VoltageAB": "I_AC_Voltage_SF",
+  "I_AC_VoltageAN": "I_AC_Voltage_SF",
+  "I_AC_VoltageBC": "I_AC_Voltage_SF",
+  "I_AC_VoltageBN": "I_AC_Voltage_SF",
+  "I_AC_VoltageCA": "I_AC_Voltage_SF",
+  "I_AC_VoltageCN": "I_AC_Voltage_SF",
+  "I_Temp_Cabinet": "I_Temp_SF",
+  "I_Temp_Sink": "I_Temp_SF"
+ },
+ "tag_units": {
+  "I_AC_Current": "A",
+  "I_AC_Energy_WH": "Wh",
+  "I_AC_Frequency": "Hz",
+  "I_AC_PF": "%",
+  "I_AC_Power": "W",
+  "I_AC_VAR": "var",
+  "I_AC_VoltageAB": "V",
+  "I_AC_VoltageAN": "V",
+  "I_DC_Current": "A",
+  "I_DC_Voltage": "V",
+  "I_Temp_Sink": "C"
+ },
+ "vertical": "energy"
+}

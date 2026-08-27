@@ -8,3 +8,10 @@ venv
 docker-compose.yml
 # tests/ and tools/ are NOT excluded: the `test` build stage copies tests, and
 # excluding them here would fail the build with a confusing missing-path error.
+
+# Development backups must never reach the image or the repo. They leak
+# working history and read as sloppy packaging to anyone who opens a shell
+# in the container.
+**/*.bak
+**/*.bak.*
+**/*.bak*

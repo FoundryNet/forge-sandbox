@@ -299,7 +299,8 @@ async def get_sandbox_series(machine: str, field: str, points: int = 48,
 
     _, _, dictionary = corpus.load()
     pack = corpus.get_pack(simulate.MACHINES[machine]["oem"])
-    rec = corpus.resolve_field(field, pack, dictionary)
+    rec = corpus.resolve_field(field, pack, dictionary,
+                               oem=simulate.MACHINES[machine]["oem"])
     return {"machine": machine, "raw_field": field,
             "canonical_field": corpus.resolve_canonical(rec["canonical_field"]),
             "match_type": rec["match_type"], "points": len(values),

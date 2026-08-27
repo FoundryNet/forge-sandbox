@@ -1,13 +1,14 @@
 {
  "base_version": "1.0.0",
- "field_count": 435,
+ "field_count": 449,
  "fields": {
   "active_power_kw": {
    "description": "Total AC active power. Signed: export is negative.",
    "example_value": 0,
    "type": "float",
    "unit": "kW",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "alarm_code": {
    "description": "Code reported by the active alarm.",
@@ -50,14 +51,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "ambient_temperature_c": {
    "description": "Outdoor ambient air temperature. ADDED: no requested field holds the weather station's ambient reading.",
    "example_value": 0,
    "type": "float",
    "unit": "C",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "temperature"
   },
   "amr.battery.charge": {
    "description": "Reported value for charge.",
@@ -78,7 +81,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "amr"
+   "vertical": "amr",
+   "physical_quantity": "electric_voltage"
   },
   "amr.operating_mode": {
    "description": "Reported value for operating mode.",
@@ -134,7 +138,8 @@
    "example_value": 12.5,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.0.position_actual": {
    "description": "Position of a machine axis.",
@@ -148,7 +153,8 @@
    "example_value": 42.5,
    "type": "float",
    "unit": "degC",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "temperature"
   },
   "axes.1.position_actual": {
    "description": "Position of a machine axis.",
@@ -169,7 +175,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.a_position_actual": {
    "description": "Position of a machine axis.",
@@ -183,7 +190,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.b_position_actual": {
    "description": "Position of a machine axis.",
@@ -197,7 +205,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.c_position_actual": {
    "description": "Position of a machine axis.",
@@ -225,14 +234,16 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_current"
   },
   "axes.x_current_amps": {
    "description": "Electrical current drawn by a machine axis.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_current"
   },
   "axes.x_following_error": {
    "description": "Reported value for x following error.",
@@ -246,7 +257,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.x_position": {
    "description": "Position of a machine axis.",
@@ -274,7 +286,8 @@
    "example_value": null,
    "type": "float",
    "unit": "kW",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_power"
   },
   "axes.x_temperature": {
    "description": "Temperature of a machine axis.",
@@ -282,7 +295,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "temperature"
   },
   "axes.x_velocity": {
    "description": "Velocity of a machine axis.",
@@ -304,7 +318,8 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_voltage"
   },
   "axes.y_acceleration": {
    "description": "Ratio for a machine axis.",
@@ -325,7 +340,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_current"
   },
   "axes.y_following_error": {
    "description": "Reported value for y following error.",
@@ -339,7 +355,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.y_position": {
    "description": "Position of a machine axis.",
@@ -367,7 +384,8 @@
    "example_value": null,
    "type": "float",
    "unit": "kW",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_power"
   },
   "axes.y_temperature": {
    "description": "Temperature of a machine axis.",
@@ -375,7 +393,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "temperature"
   },
   "axes.y_velocity": {
    "description": "Velocity of a machine axis.",
@@ -397,7 +416,8 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_voltage"
   },
   "axes.z_acceleration": {
    "description": "Ratio for a machine axis.",
@@ -418,7 +438,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_current"
   },
   "axes.z_following_error": {
    "description": "Reported value for z following error.",
@@ -432,7 +453,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "axes.z_position": {
    "description": "Position of a machine axis.",
@@ -460,7 +482,8 @@
    "example_value": null,
    "type": "float",
    "unit": "kW",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_power"
   },
   "axes.z_temperature": {
    "description": "Temperature of a machine axis.",
@@ -468,7 +491,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "temperature"
   },
   "axes.z_velocity": {
    "description": "Velocity of a machine axis.",
@@ -490,7 +514,8 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_voltage"
   },
   "axis_count": {
    "description": "Count of the machine.",
@@ -504,28 +529,32 @@
    "example_value": 0,
    "type": "float",
    "unit": "kWh",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_energy"
   },
   "battery_cell_temp_max_c": {
    "description": "Hottest cell temperature in the pack. ADDED: the Tesla BESS reports Cell_Temp_Max and no requested field holds it.",
    "example_value": 0,
    "type": "float",
    "unit": "C",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "temperature"
   },
   "battery_soc_pct": {
    "description": "Battery state of charge, percent of usable capacity.",
    "example_value": 0,
    "type": "float",
    "unit": "%",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "ratio"
   },
   "battery_soh_pct": {
    "description": "Battery state of health, percent of original capacity.",
    "example_value": 0,
    "type": "float",
    "unit": "%",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "ratio"
   },
   "battery_voltage": {
    "description": "Voltage at the battery.",
@@ -533,7 +562,8 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_voltage"
   },
   "bearing_temperature": {
    "description": null,
@@ -541,7 +571,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "bed_adhesion_score": {
    "description": null,
@@ -557,7 +588,8 @@
    "type": "float",
    "unit": "%",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "ratio"
   },
   "bed_target_temperature_c": {
    "description": null,
@@ -565,7 +597,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "bed_temperature_c": {
    "description": null,
@@ -573,7 +606,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "chamber_temperature_c": {
    "description": null,
@@ -581,7 +615,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "charge_cycles": {
    "description": "Lifetime battery equivalent full cycles.",
@@ -595,7 +630,8 @@
    "example_value": 0,
    "type": "float",
    "unit": "kW",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "chilled_water_temperature_c": {
    "description": null,
@@ -603,7 +639,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "temperature"
   },
   "cnc.axis.load": {
    "description": "Load on the machine.",
@@ -617,7 +654,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "pressure"
   },
   "cnc.path.feedrate": {
    "description": "Reported value for feedrate.",
@@ -639,7 +677,8 @@
    "type": "float",
    "unit": "ppm",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "concentration"
   },
   "condenser_pressure_bar": {
    "description": null,
@@ -647,7 +686,8 @@
    "type": "float",
    "unit": "bar",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "pressure"
   },
   "coolant_status": {
    "description": "Reported value for coolant status.",
@@ -662,14 +702,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "cutting_time_hours": {
    "description": "Cumulative runtime of the machine, in h.",
    "example_value": null,
    "type": "float",
    "unit": "h",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "cycle_count": {
    "description": "Count of the machine.",
@@ -683,14 +725,16 @@
    "example_value": null,
    "type": "float",
    "unit": "ms",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "linear_speed"
   },
   "cycle_time_seconds": {
    "description": "Reported value for cycle time seconds, in s.",
    "example_value": null,
    "type": "float",
    "unit": "s",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "damper_position_pct": {
    "description": null,
@@ -698,7 +742,8 @@
    "type": "float",
    "unit": "%",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "ratio"
   },
   "dc_bus_voltage": {
    "description": "Voltage at the machine.",
@@ -706,42 +751,48 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_voltage"
   },
   "dc_bus_voltage_v": {
    "description": "DC bus voltage.",
    "example_value": 0,
    "type": "float",
    "unit": "V",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_voltage"
   },
   "dc_current_a": {
    "description": "DC-side current.",
    "example_value": 0,
    "type": "float",
    "unit": "A",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_current"
   },
   "dc_voltage_v": {
    "description": "DC-side (array/string) voltage.",
    "example_value": 0,
    "type": "float",
    "unit": "V",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_voltage"
   },
   "def_remaining_pct": {
    "description": "Reported value for def remaining pct, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "ratio"
   },
   "discharge_rate_kw": {
    "description": "Battery discharge power.",
    "example_value": 0,
    "type": "float",
    "unit": "kW",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "door_status": {
    "description": "Reported value for door status.",
@@ -755,7 +806,8 @@
    "example_value": 45,
    "type": "integer",
    "unit": "min",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "emergency_stop_active": {
    "description": "Reported value for emergency stop active.",
@@ -769,42 +821,48 @@
    "example_value": null,
    "type": "float",
    "unit": "kWh",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_energy"
   },
   "energy_delivered_kwh": {
    "description": "Cumulative energy delivered to load/grid.",
    "example_value": 0,
    "type": "float",
    "unit": "kWh",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_energy"
   },
   "energy_kwh": {
    "description": "Energy consumed by consumed energy, in kWh.",
    "example_value": 1.25,
    "type": "float",
    "unit": "kWh",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_energy"
   },
   "energy_received_kwh": {
    "description": "Cumulative energy received from grid.",
    "example_value": 0,
    "type": "float",
    "unit": "kWh",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_energy"
   },
   "engine_load_pct": {
    "description": "Load on the machine, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "ratio"
   },
   "engine_speed_rpm": {
    "description": "Speed of the machine, in rpm.",
    "example_value": null,
    "type": "float",
    "unit": "rpm",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "rotational_speed"
   },
   "execution_state": {
    "description": "Reported state of the machine.",
@@ -819,7 +877,8 @@
    "type": "float",
    "unit": "mm",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "length"
   },
   "fan_speed_pct": {
    "description": null,
@@ -827,14 +886,16 @@
    "type": "float",
    "unit": "%",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "ratio"
   },
   "feed_override_pct": {
    "description": "Operator override applied to the feed axis, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "feed_rate": {
    "description": "Reported value for feed rate.",
@@ -863,7 +924,8 @@
    "type": "float",
    "unit": "mm/min",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "filament_diameter_mm": {
    "description": null,
@@ -871,7 +933,8 @@
    "type": "float",
    "unit": "mm",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "length"
   },
   "filament_flow_rate": {
    "description": null,
@@ -879,7 +942,8 @@
    "type": "float",
    "unit": null,
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "mass_flow_rate"
   },
   "filament_used_cm3": {
    "description": "Reported value for filament used cm3.",
@@ -894,7 +958,8 @@
    "type": "float",
    "unit": "mm",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "length"
   },
   "fuel_consumed": {
    "description": "Reported value for fuel consumed.",
@@ -915,7 +980,8 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "ratio"
   },
   "gearbox_temperature": {
    "description": null,
@@ -923,14 +989,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "grid_frequency_hz": {
    "description": "AC line frequency.",
    "example_value": 0,
    "type": "float",
    "unit": "Hz",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "frequency"
   },
   "ground_speed": {
    "description": "Speed of the machine.",
@@ -953,7 +1021,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "heated_bed_temperature_c": {
    "description": null,
@@ -961,7 +1030,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "hotend_heater_pwm_output": {
    "description": null,
@@ -977,7 +1047,8 @@
    "type": "float",
    "unit": "%",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "ratio"
   },
   "hotend_target_temperature_c": {
    "description": null,
@@ -985,7 +1056,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "hotend_temperature_c": {
    "description": null,
@@ -993,7 +1065,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "hydraulic_temperature": {
    "description": null,
@@ -1001,7 +1074,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "identity.controller_model": {
    "description": "Reported value for controller model.",
@@ -1015,14 +1089,16 @@
    "example_value": null,
    "type": "float",
    "unit": "h",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "inverter_cabinet_temp_c": {
    "description": "Inverter cabinet internal temperature.",
    "example_value": 0,
    "type": "float",
    "unit": "C",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "temperature"
   },
   "inverter_event_flags": {
    "description": "Inverter event/alarm bitfield (SunSpec Evt1).",
@@ -1036,7 +1112,8 @@
    "example_value": 0,
    "type": "float",
    "unit": "kW",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "inverter_state": {
    "description": "Inverter operating state (SunSpec model 103 St).",
@@ -1051,7 +1128,8 @@
    "type": "float",
    "unit": "s",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "layer_height_mm": {
    "description": null,
@@ -1059,21 +1137,24 @@
    "type": "float",
    "unit": "mm",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "length"
   },
   "line_current_a": {
    "description": "AC line current.",
    "example_value": 0,
    "type": "float",
    "unit": "A",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_current"
   },
   "line_voltage_v": {
    "description": "Line-to-line AC voltage.",
    "example_value": 0,
    "type": "float",
    "unit": "V",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_voltage"
   },
   "load_count": {
    "description": "Load on the machine.",
@@ -1157,7 +1238,8 @@
    "example_value": 130,
    "type": "integer",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "metadata.batch_id": {
    "description": "Identifier of the machine.",
@@ -1304,7 +1386,8 @@
    "example_value": null,
    "type": "float",
    "unit": "h",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "motor_temperature": {
    "description": null,
@@ -1312,7 +1395,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "nozzle_diameter_mm": {
    "description": null,
@@ -1320,7 +1404,8 @@
    "type": "float",
    "unit": "mm",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "length"
   },
   "occupancy_state": {
    "description": null,
@@ -1343,14 +1428,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "operating_hours": {
    "description": "Cumulative runtime of the machine, in h.",
    "example_value": 12450.5,
    "type": "float",
    "unit": "h",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "operational_settings.setting_1": {
    "description": "Reported value for setting 1.",
@@ -1378,7 +1465,8 @@
    "example_value": 0,
    "type": "float",
    "unit": "C",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "temperature"
   },
   "part_count": {
    "description": "Count of the machine.",
@@ -1399,7 +1487,8 @@
    "example_value": 5.0,
    "type": "float",
    "unit": "kg",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "mass"
   },
   "payload_total": {
    "description": "Load on the machine.",
@@ -1413,7 +1502,8 @@
    "example_value": 0,
    "type": "float",
    "unit": "kW",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "pinda_probe_temperature_c": {
    "description": null,
@@ -1421,14 +1511,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "power.instantaneous_kw": {
    "description": "Reported value for instantaneous kw, in kW.",
    "example_value": null,
    "type": "float",
    "unit": "kW",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_power"
   },
   "power_consumption_kw": {
    "description": null,
@@ -1436,21 +1528,24 @@
    "type": "float",
    "unit": "kW",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_power"
   },
   "power_factor": {
    "description": "Displacement power factor. Signed by convention.",
    "example_value": 0,
    "type": "float",
    "unit": "ratio",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "power_on_hours": {
    "description": "Cumulative runtime of electrical power, in h.",
    "example_value": null,
    "type": "float",
    "unit": "h",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "print_progress_pct": {
    "description": null,
@@ -1458,7 +1553,8 @@
    "type": "float",
    "unit": "%",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "ratio"
   },
   "print_speed_mm_s": {
    "description": null,
@@ -1466,7 +1562,8 @@
    "type": "float",
    "unit": "mm/s",
    "unit_source": "sandbox_declared",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "length"
   },
   "print_time_remaining": {
    "description": "Reported value for print time remaining.",
@@ -1481,7 +1578,8 @@
    "type": "float",
    "unit": "s",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "program_id": {
    "description": "Identifier of the machine.",
@@ -1517,28 +1615,32 @@
    "type": "float",
    "unit": "s",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "progress_pct": {
    "description": "Completion progress of the machine, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "ratio"
   },
   "rapid_override_pct": {
    "description": "Operator override applied to the machine, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "reactive_power_kvar": {
    "description": "Total AC reactive power. Signed.",
    "example_value": 0,
    "type": "float",
    "unit": "kVAR",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "electric_power"
   },
   "relative_humidity_pct": {
    "description": null,
@@ -1546,7 +1648,8 @@
    "type": "float",
    "unit": "%",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "ratio"
   },
   "return_air_temperature_c": {
    "description": null,
@@ -1554,14 +1657,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "temperature"
   },
   "robot.joint.current": {
    "description": "Electrical current drawn by a robot joint.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "electric_current"
   },
   "robot.joint.effort": {
    "description": "Reported value for effort.",
@@ -1582,7 +1687,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "temperature"
   },
   "robot.joint.velocity": {
    "description": "Velocity of a robot joint.",
@@ -1666,21 +1772,24 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "electric_current"
   },
   "ros.battery_current": {
    "description": "Electrical current drawn by the battery.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "electric_current"
   },
   "ros.battery_pct": {
    "description": "Reported value for battery pct, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "ratio"
   },
   "ros.battery_voltage": {
    "description": "Voltage at the battery.",
@@ -1688,7 +1797,8 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "electric_voltage"
   },
   "ros.camera_fps": {
    "description": "Reported value for camera fps.",
@@ -1716,7 +1826,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.error_code": {
    "description": "Code reported by the machine.",
@@ -1751,7 +1862,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.joint_2_position": {
    "description": "Position of a robot joint.",
@@ -1765,7 +1877,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.joint_3_position": {
    "description": "Position of a robot joint.",
@@ -1779,7 +1892,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.joint_4_position": {
    "description": "Position of a robot joint.",
@@ -1793,7 +1907,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.joint_5_position": {
    "description": "Position of a robot joint.",
@@ -1807,7 +1922,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.joint_6_position": {
    "description": "Position of a robot joint.",
@@ -1821,7 +1937,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "torque"
   },
   "ros.lidar_point_density": {
    "description": "Identifier of the machine.",
@@ -1842,7 +1959,8 @@
    "example_value": null,
    "type": "float",
    "unit": "degC",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "temperature"
   },
   "ros.nav2_recovery_count": {
    "description": "Count of the machine.",
@@ -1856,35 +1974,40 @@
    "example_value": null,
    "type": "float",
    "unit": "m",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "length"
   },
   "ros.path_deviation_m": {
    "description": "Reported value for path deviation m, in m.",
    "example_value": null,
    "type": "float",
    "unit": "m",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "length"
   },
   "ros.payload_kg": {
    "description": "Load on the machine, in kg.",
    "example_value": null,
    "type": "float",
    "unit": "kg",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "mass"
   },
   "ros.payload_utilization_pct": {
    "description": "Load on the machine, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "ratio"
   },
   "ros.sensor_quality_pct": {
    "description": "Reported value for sensor quality pct, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "ratio"
   },
   "ros.task_completion_rate": {
    "description": "Reported value for task completion rate.",
@@ -1913,7 +2036,8 @@
    "type": "float",
    "unit": "s",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "robotics"
+   "vertical": "robotics",
+   "physical_quantity": "time_duration"
   },
   "ros.wifi_signal_dbm": {
    "description": "Reported value for wifi signal dbm.",
@@ -1928,7 +2052,8 @@
    "example_value": 90.0,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.air_temperature": {
    "description": "Temperature of the machine.",
@@ -1936,7 +2061,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.ambient_temp": {
    "description": "Temperature of the machine.",
@@ -1944,7 +2070,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.availability": {
    "description": "Reported value for availability.",
@@ -1973,7 +2100,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.boom_angle": {
    "description": "Reported value for boom angle.",
@@ -2002,28 +2130,32 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.coolant_flow": {
    "description": "Flow rate through the coolant circuit.",
    "example_value": 5.2,
    "type": "float",
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "volumetric_flow_rate"
   },
   "sensor_readings.coolant_level": {
    "description": "Fill level of the coolant circuit.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "level"
   },
   "sensor_readings.coolant_pressure": {
    "description": "Pressure in the coolant circuit.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.coolant_temp": {
    "description": "Temperature of the coolant circuit.",
@@ -2031,7 +2163,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.cooling_efficiency": {
    "description": "Efficiency of the machine.",
@@ -2045,14 +2178,16 @@
    "example_value": 1.41,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_power"
   },
   "sensor_readings.core_speed_rpm": {
    "description": "Speed of the machine, in rpm.",
    "example_value": 9046.19,
    "type": "float",
    "unit": "rpm",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "rotational_speed"
   },
   "sensor_readings.cycle_time": {
    "description": "Reported value for cycle time.",
@@ -2081,7 +2216,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.efficiency_factor": {
    "description": "Efficiency of the machine.",
@@ -2095,7 +2231,8 @@
    "example_value": 2388.06,
    "type": "float",
    "unit": "rpm",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "rotational_speed"
   },
   "sensor_readings.good_parts": {
    "description": "Reported value for good parts.",
@@ -2117,7 +2254,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.hotend_target": {
    "description": "Reported value for hotend target.",
@@ -2132,14 +2270,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "additive"
+   "vertical": "additive",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.hydraulic_pressure": {
    "description": "Pressure in the hydraulic system.",
    "example_value": 2000.0,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.hydraulic_temp": {
    "description": "Temperature of the hydraulic system.",
@@ -2147,14 +2287,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.implement_pressure": {
    "description": "Pressure in the machine.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.intake_temp": {
    "description": "Temperature of the machine.",
@@ -2162,14 +2304,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.motor_power": {
    "description": "Power draw of the motor.",
    "example_value": 2503.56,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_power"
   },
   "sensor_readings.motor_temp": {
    "description": "Temperature of the motor.",
@@ -2177,7 +2321,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.oee": {
    "description": "Reported value for oee.",
@@ -2191,7 +2336,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.oil_temp": {
    "description": "Temperature of the lubrication system.",
@@ -2199,7 +2345,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.performance": {
    "description": "Reported value for performance.",
@@ -2220,63 +2367,72 @@
    "example_value": 12.5,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_power"
   },
   "sensor_readings.pressure": {
    "description": "Pressure in the machine.",
    "example_value": 113.08,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_1": {
    "description": "Pressure in the machine.",
    "example_value": 155.64,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_2": {
    "description": "Pressure in the machine.",
    "example_value": 104.93,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_3": {
    "description": "Pressure in the machine.",
    "example_value": 2.3,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_4": {
    "description": "Pressure in the machine.",
    "example_value": 0.0,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_5": {
    "description": "Pressure in the machine.",
    "example_value": 8.37,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_6": {
    "description": "Pressure in the machine.",
    "example_value": 1.31,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.pressure_fan_inlet": {
    "description": "Pressure in the machine.",
    "example_value": 14.62,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "pressure"
   },
   "sensor_readings.process_temperature": {
    "description": "Temperature of the machine.",
@@ -2284,7 +2440,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.quality_rate": {
    "description": "Reported value for quality rate.",
@@ -2333,28 +2490,32 @@
    "example_value": 35.44,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.temperature_2": {
    "description": "Temperature of the machine.",
    "example_value": 40.84,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.temperature_3": {
    "description": "Temperature of the machine.",
    "example_value": 38.66,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.temperature_4": {
    "description": "Temperature of the machine.",
    "example_value": 46.93,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.tool_wear": {
    "description": "Reported value for tool wear.",
@@ -2368,28 +2529,32 @@
    "example_value": 40.1,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "torque"
   },
   "sensor_readings.total_temp_hpc_outlet": {
    "description": "Temperature of the machine.",
    "example_value": 1589.7,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.total_temp_lpc_outlet": {
    "description": "Temperature of the machine.",
    "example_value": 642.15,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.total_temp_lpt_outlet": {
    "description": "Temperature of the machine.",
    "example_value": 1400.6,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.transmission_temp": {
    "description": "Temperature of the machine.",
@@ -2397,7 +2562,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "sensor_readings.unplanned_downtime": {
    "description": "Reported value for unplanned downtime.",
@@ -2439,28 +2605,32 @@
    "example_value": 176.22,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_voltage"
   },
   "sensor_readings.voltage": {
    "description": "Voltage at the machine.",
    "example_value": 480,
    "type": "integer",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "electric_voltage"
   },
   "sensor_readings.volume_flow_1": {
    "description": "Flow rate through the machine.",
    "example_value": 2.019,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "volumetric_flow_rate"
   },
   "sensor_readings.volume_flow_2": {
    "description": "Flow rate through the machine.",
    "example_value": 8.4,
    "type": "float",
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "volumetric_flow_rate"
   },
   "sequence_number": {
    "description": "Reported value for sequence number.",
@@ -2481,20 +2651,22 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "service_meter_hours": {
    "description": "Cumulative runtime of the machine, in h.",
    "example_value": null,
    "type": "float",
    "unit": "h",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "time_duration"
   },
   "solar_irradiance_w_m2": {
    "description": "Plane-of-array solar irradiance.",
    "example_value": 0,
    "type": "float",
-   "unit": "W/m\u00b2",
+   "unit": "W/m²",
    "vertical": "energy"
   },
   "space_temperature_c": {
@@ -2503,14 +2675,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "temperature"
   },
   "spindle_current_amps": {
    "description": "Electrical current drawn by the spindle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_current"
   },
   "spindle_inertia": {
    "description": "Reported value for spindle inertia.",
@@ -2524,14 +2698,16 @@
    "example_value": 22.5,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "spindle_override_pct": {
    "description": "Operator override applied to the spindle, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "ratio"
   },
   "spindle_position": {
    "description": "Position of the spindle.",
@@ -2545,7 +2721,8 @@
    "example_value": null,
    "type": "float",
    "unit": "kW",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_power"
   },
   "spindle_speed_commanded": {
    "description": "Speed of the spindle.",
@@ -2559,7 +2736,8 @@
    "example_value": 3400,
    "type": "integer",
    "unit": "rpm",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "rotational_speed"
   },
   "spindle_temperature": {
    "description": "Temperature of the spindle.",
@@ -2567,7 +2745,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "temperature"
   },
   "spindle_voltage": {
    "description": "Voltage at the spindle.",
@@ -2575,7 +2754,8 @@
    "type": "float",
    "unit": "V",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "electric_voltage"
   },
   "supply_air_temperature_c": {
    "description": null,
@@ -2583,7 +2763,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "building_automation"
+   "vertical": "building_automation",
+   "physical_quantity": "temperature"
   },
   "temperature_c": {
    "description": null,
@@ -2591,7 +2772,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "timestamp": {
    "description": "Reported value for timestamp.",
@@ -2662,7 +2844,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.ambient.air_temp": {
    "description": "Temperature of the vehicle.",
@@ -2670,63 +2853,72 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.ambient.barometric_pressure": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.autonomy_level": {
    "description": "Fill level of the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "level"
   },
   "vehicle.battery_soc_pct": {
    "description": "Reported value for battery soc pct, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "ratio"
   },
   "vehicle.battery_temp_c": {
    "description": "Temperature of the vehicle, in degC.",
    "example_value": null,
    "type": "float",
    "unit": "degC",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.brake.air_pressure": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.brake.primary_air_pressure": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.brake.secondary_air_pressure": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.brake_pressure_pct": {
    "description": "Pressure in the vehicle, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "ratio"
   },
   "vehicle.camera_fps": {
    "description": "Reported value for camera fps.",
@@ -2754,14 +2946,16 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "ratio"
   },
   "vehicle.engine.demand_torque_pct": {
    "description": "Torque on the vehicle, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "ratio"
   },
   "vehicle.engine.exhaust_gas_temp": {
    "description": "Temperature of the vehicle.",
@@ -2769,14 +2963,16 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.engine.fuel_rail_pressure": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.engine.fuel_rate": {
    "description": "Reported value for fuel rate.",
@@ -2790,7 +2986,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.engine.intake_manifold_temp": {
    "description": "Temperature of the vehicle.",
@@ -2798,7 +2995,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.engine.load": {
    "description": "Load on the vehicle.",
@@ -2812,7 +3010,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.engine.oil_temp": {
    "description": "Temperature of the lubrication system.",
@@ -2820,7 +3019,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.engine.throttle_position": {
    "description": "Position of the vehicle.",
@@ -2834,28 +3034,32 @@
    "example_value": null,
    "type": "float",
    "unit": "rpm",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "rotational_speed"
   },
   "vehicle.engine_temp_c": {
    "description": "Temperature of the vehicle, in degC.",
    "example_value": null,
    "type": "float",
    "unit": "degC",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.fuel_level_pct": {
    "description": "Fill level of the vehicle, in %.",
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "ratio"
   },
   "vehicle.gps_altitude_m": {
    "description": "Reported value for gps altitude m, in m.",
    "example_value": null,
    "type": "float",
    "unit": "m",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "length"
   },
   "vehicle.gps_latitude": {
    "description": "Reported value for gps latitude.",
@@ -2926,7 +3130,8 @@
    "type": "float",
    "unit": "s",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "time_duration"
   },
   "vehicle.intervention_event": {
    "description": "Reported value for intervention event.",
@@ -2940,7 +3145,8 @@
    "example_value": null,
    "type": "float",
    "unit": "m",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "length"
   },
   "vehicle.lidar_point_count": {
    "description": "Count of the vehicle.",
@@ -2954,7 +3160,8 @@
    "example_value": null,
    "type": "float",
    "unit": "m",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "length"
   },
   "vehicle.odometer_km": {
    "description": "Reported value for odometer km.",
@@ -2975,14 +3182,16 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "linear_speed"
   },
   "vehicle.speed_mph": {
    "description": "Speed of the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "linear_speed"
   },
   "vehicle.steering_angle_deg": {
    "description": "Reported value for steering angle deg, in deg.",
@@ -2996,35 +3205,40 @@
    "example_value": null,
    "type": "float",
    "unit": "%",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "ratio"
   },
   "vehicle.tire_pressure_fl": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.tire_pressure_fr": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.tire_pressure_rl": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.tire_pressure_rr": {
    "description": "Pressure in the vehicle.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "pressure"
   },
   "vehicle.transmission.oil_temp": {
    "description": "Temperature of the lubrication system.",
@@ -3032,7 +3246,8 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_inferred_from_name",
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "temperature"
   },
   "vehicle.transmission_gear": {
    "description": "Reported value for transmission gear.",
@@ -3053,7 +3268,8 @@
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "vehicle"
+   "vertical": "vehicle",
+   "physical_quantity": "rotational_speed"
   },
   "vehicle.v2x_message_count": {
    "description": "Count of the vehicle.",
@@ -3110,7 +3326,8 @@
    "example_value": 0,
    "type": "float",
    "unit": "m/s",
-   "vertical": "energy"
+   "vertical": "energy",
+   "physical_quantity": "linear_speed"
   },
   "winding_temperature": {
    "description": null,
@@ -3118,14 +3335,128 @@
    "type": "float",
    "unit": "C",
    "unit_source": "sandbox_declared",
-   "vertical": "universal"
+   "vertical": "universal",
+   "physical_quantity": "temperature"
   },
   "workholding_pressure": {
    "description": "Pressure in the machine.",
    "example_value": null,
    "type": null,
    "unit": null,
-   "vertical": "cnc"
+   "vertical": "cnc",
+   "physical_quantity": "pressure"
+  },
+  "battery_current_a": {
+   "description": "Battery current. Positive charging, negative discharging.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "A",
+   "vertical": "energy",
+   "physical_quantity": "electric_current"
+  },
+  "flow_rate_lpm": {
+   "description": "Volumetric flow rate.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "L/min",
+   "vertical": "universal",
+   "physical_quantity": "volumetric_flow_rate"
+  },
+  "pressure_kpa": {
+   "description": "Process pressure.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "kPa",
+   "vertical": "universal",
+   "physical_quantity": "pressure"
+  },
+  "tank_level_pct": {
+   "description": "Tank / vessel level, percent of capacity.",
+   "example_value": 0,
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal",
+   "physical_quantity": "level"
+  },
+  "motor_current_a": {
+   "description": "Current drawn by a motor.",
+   "example_value": 0,
+   "physical_quantity": "electric_current",
+   "type": "float",
+   "unit": "A",
+   "vertical": "universal"
+  },
+  "motor_speed_rpm": {
+   "description": "Motor shaft rotational speed.",
+   "example_value": 0,
+   "physical_quantity": "rotational_speed",
+   "type": "float",
+   "unit": "rpm",
+   "vertical": "universal"
+  },
+  "valve_position_pct": {
+   "description": "Valve open position, percent.",
+   "example_value": 0,
+   "physical_quantity": "ratio",
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
+  },
+  "vfd_output_frequency_hz": {
+   "description": "Variable-frequency-drive output frequency.",
+   "example_value": 0,
+   "physical_quantity": "frequency",
+   "type": "float",
+   "unit": "Hz",
+   "vertical": "universal"
+  },
+  "vfd_output_pct": {
+   "description": "Variable-frequency-drive output, percent of rated.",
+   "example_value": 0,
+   "physical_quantity": "ratio",
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
+  },
+  "conveyor_speed_m_s": {
+   "description": "Conveyor linear speed.",
+   "example_value": 0,
+   "physical_quantity": "linear_speed",
+   "type": "float",
+   "unit": "m/s",
+   "vertical": "universal"
+  },
+  "zone_temperature_c": {
+   "description": "Process/oven zone temperature.",
+   "example_value": 0,
+   "physical_quantity": "temperature",
+   "type": "float",
+   "unit": "C",
+   "vertical": "universal"
+  },
+  "discharge_pressure_kpa": {
+   "description": "Pump discharge pressure.",
+   "example_value": 0,
+   "physical_quantity": "pressure",
+   "type": "float",
+   "unit": "kPa",
+   "vertical": "universal"
+  },
+  "suction_pressure_kpa": {
+   "description": "Pump suction pressure.",
+   "example_value": 0,
+   "physical_quantity": "pressure",
+   "type": "float",
+   "unit": "kPa",
+   "vertical": "universal"
+  },
+  "pump_efficiency_pct": {
+   "description": "Pump efficiency, percent.",
+   "example_value": 0,
+   "physical_quantity": "ratio",
+   "type": "float",
+   "unit": "%",
+   "vertical": "universal"
   }
  },
  "license": "MIT",

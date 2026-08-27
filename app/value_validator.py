@@ -50,6 +50,11 @@ __all__ = [
 SENTINEL_STRINGS = frozenset({
     "UNAVAILABLE",                      # MTConnect standard
     "NAN", "NA", "N/A", "NULL", "NONE", "NIL",
+    # Non-finite tokens. "NaN" was already here; the infinities were not, so a
+    # CSV cell of `inf` landed in a numeric canonical field AS THE STRING "inf"
+    # while `nan` in the same column nulled cleanly. A non-finite value is never
+    # a measurement, however it is spelled.
+    "INF", "-INF", "+INF", "INFINITY", "-INFINITY", "+INFINITY",
     "ERROR", "FAULT", "INVALID", "BAD", "FAILED",
     "---", "--", "-", "?", "??",
     "",                                 # empty / whitespace-only after strip

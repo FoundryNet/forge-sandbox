@@ -14,6 +14,9 @@ Run:  python3 -m pytest tests/ -q
 import os
 import sys
 
+import json
+import os
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -147,15 +150,68 @@ def test_unknown_oem_still_normalizes():
 
 # ── Simulators ───────────────────────────────────────────────────────────────
 
+_GAPS = json.load(open(os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "app", "packs", "_registry_gaps.json")))
+DOCUMENTED_GAPS = set(_GAPS["all_points"])
+
+
 @pytest.mark.parametrize("machine", sorted(simulate.MACHINES))
-def test_every_simulated_machine_normalizes_cleanly(machine):
-    """The machines emit real vendor tags, so coverage should be high. Anything
-    below 80% means a simulator invented a tag no pack knows."""
+def test_every_simulated_machine_resolves_every_tag_it_can(machine):
+    """No simulator may emit a tag that is neither resolvable nor a documented
+    registry gap.
+
+    This replaced a flat `coverage_pct >= 80` threshold, which measured the
+    wrong thing once the SunSpec devices landed. Their register dumps are 100%
+    real, normative point names — AphA, PPVphBC, VA — that the canonical
+    registry simply has no field for, so a full model-203 read scores 66% while
+    being entirely correct. The threshold would have been satisfied by deleting
+    those points from the simulator, which is the opposite of the property
+    worth having.
+
+    What actually matters is that every unresolved tag is one we have named and
+    justified in point_map.UNMAPPED. A tag outside that list means a simulator
+    invented a spelling or a pack lost a row — and that is caught here
+    regardless of what the coverage percentage happens to be.
+    """
     reading = simulate.reading(machine, seed=1234)
-    _, mappings, stats, _, _, _, _ = corpus.normalize_row(reading["data"],
-                                                    reading["oem"])
-    unresolved = [t for t, m in mappings.items() if m["match_type"] == "unknown"]
-    assert stats["coverage_pct"] >= 80.0, (machine, stats, unresolved)
+    _, mappings, stats, _, _, _, _ = corpus.normalize_row(
+        reading["data"], reading["oem"],
+        sunspec_model=reading.get("sunspec_model"))
+    unresolved = {t for t, m in mappings.items() if m["match_type"] == "unknown"}
+    undocumented = sorted(unresolved - DOCUMENTED_GAPS)
+    assert not undocumented, (
+        f"{machine}: tags resolved to nothing and are not documented registry "
+        f"gaps: {undocumented}")
+
+
+@pytest.mark.parametrize("machine", sorted(simulate.MACHINES))
+def test_every_simulated_machine_has_useful_coverage(machine):
+    """Every tag that CAN resolve does resolve.
+
+    Scored as resolved-tags / resolvable-tags, not the kernel's distinct-
+    canonicals / total-tags coverage. Both are worth knowing and they answer
+    different questions, but only this one is a statement about the pack.
+
+    The distinct-canonical ratio penalises a device for being thorough: a BESS
+    advertising SunSpec models 124 and 802 reports state of charge in both
+    blocks (ChaState and SoC) and pack voltage in both (InBatV and V), so nine
+    perfectly resolved tags collapse to seven canonicals and the device scores
+    78% for doing exactly the right thing. The collision machinery already
+    records that, and reconciling duplicates is the point of a canonical schema
+    rather than a failure of one.
+    """
+    reading = simulate.reading(machine, seed=1234)
+    _, mappings, stats, _, _, _, _ = corpus.normalize_row(
+        reading["data"], reading["oem"],
+        sunspec_model=reading.get("sunspec_model"))
+    resolvable = [t for t in mappings if t not in DOCUMENTED_GAPS]
+    resolved = [t for t in resolvable
+                if mappings[t]["match_type"] != "unknown"
+                and mappings[t]["confidence"] > 0]
+    pct = 100.0 * len(resolved) / len(resolvable) if resolvable else 0.0
+    assert pct >= 80.0, (
+        machine, round(pct, 2),
+        sorted(set(resolvable) - set(resolved)), stats)
 
 
 def test_seed_makes_readings_reproducible():
@@ -381,12 +437,15 @@ def test_simulate_then_normalize_is_a_closed_loop(client):
     canonical fields back."""
     for machine in sorted(simulate.MACHINES):
         raw = client.get(f"/v1/simulate/{machine}?seed=7").json()
-        resp = client.post("/v1/normalize",
-                           json={"oem": raw["oem"], "data": raw["data"]})
+        payload = {"oem": raw["oem"], "data": raw["data"]}
+        if raw.get("sunspec_model"):
+            payload["sunspec_model"] = raw["sunspec_model"]
+        resp = client.post("/v1/normalize", json=payload)
         body = resp.json()
         assert resp.status_code == 200
-        assert body["coverage_pct"] >= 80.0, (machine, body["coverage_pct"])
         assert body["oem_recognized"] is True
+        undocumented = sorted(set(body["unresolved_tags"] or []) - DOCUMENTED_GAPS)
+        assert not undocumented, (machine, undocumented)
 
 
 def test_simulate_series_then_predict_is_a_closed_loop(client):

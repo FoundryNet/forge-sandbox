@@ -77,6 +77,19 @@ UNIT_ALIASES = {
     # energy / power
     "wh": "Wh", "kwh": "kWh", "mwh": "MWh", "j": "J", "kj": "kJ",
     "w": "W", "kw": "kW", "mw": "MW", "hp": "hp",
+    # Reactive and apparent power. Absent until 2026-08-22: a SunSpec meter
+    # reporting VAr in `var` landed in reactive_power_kvar unconverted, 1000x
+    # high, with no conversion record and no flag — the converter did not know
+    # the unit existed, so target_unit returned None and the value fell through
+    # the "nothing to do" path. Same shape as the F1 sentinel bug: every unit
+    # test passed because no test named a unit the table had never heard of.
+    "var": "var", "vars": "var", "v-a-r": "var", "volt-ampere-reactive": "var",
+    "kvar": "kVAR", "kvars": "kVAR", "mvar": "MVAR",
+    "va": "VA", "kva": "kVA", "mva": "MVA",
+    # Dimensionless ratio. Power factor is a ratio in [-1, 1]; SunSpec transmits
+    # it in percent (models 101-103 and 201-204 declare PF units as "Pct"), so
+    # the two spellings must be inter-convertible or a PF of 0.95 arrives as 95.
+    "ratio": "ratio", "pu": "ratio", "p.u.": "ratio", "per-unit": "ratio",
     # volumetric flow
     "l/min": "L/min", "lpm": "L/min", "ml/min": "mL/min",
     "gpm": "gal/min", "gal/min": "gal/min", "l/s": "L/s", "m3/h": "m3/h",
@@ -123,6 +136,13 @@ QUANTITY = {
     "Wh": "energy", "kWh": "energy", "MWh": "energy", "J": "energy", "kJ": "energy",
     "W/m2": "irradiance", "kW/m2": "irradiance",
     "W": "power", "kW": "power", "MW": "power", "hp": "power",
+    "var": "reactive_power", "kVAR": "reactive_power", "MVAR": "reactive_power",
+    "VA": "apparent_power", "kVA": "apparent_power", "MVA": "apparent_power",
+    # `ratio` shares the percent quantity on purpose. They are the same
+    # dimensionless quantity written two ways, so %->ratio is a legal conversion
+    # while VA->kVAR (apparent power into a reactive-power field) is refused as a
+    # cross-quantity contradiction, which is exactly the right split.
+    "ratio": "percent",
     "L/min": "flow", "mL/min": "flow", "gal/min": "flow", "L/s": "flow",
     "m3/h": "flow",
     "lb/s": "mass_flow", "kg/s": "mass_flow", "kg/h": "mass_flow",
@@ -155,7 +175,7 @@ TARGET_UNIT = {
     "vehicle_speed": "kph",      # road speed stays kph; mm/min is meaningless here
     "rotational": "rpm",
     "energy": "kWh",
-    "power": "kW",
+    "power": "kW", "reactive_power": "kVAR", "apparent_power": "kVA",
     "flow": "L/min",
     "mass_flow": "kg/s",
     "mass": "kg",
@@ -219,6 +239,14 @@ CONVERSIONS = {
     ("kJ", "kWh"): (lambda v: v / 3600.0, "kilojoule_to_kwh"),
     # power
     ("W", "kW"): (lambda v: v / 1000.0, "watt_to_kw"),
+    ("var", "kVAR"): (lambda v: v / 1000.0, "var_to_kvar"),
+    ("kVAR", "var"): (lambda v: v * 1000.0, "kvar_to_var"),
+    ("MVAR", "kVAR"): (lambda v: v * 1000.0, "mvar_to_kvar"),
+    ("VA", "kVA"): (lambda v: v / 1000.0, "va_to_kva"),
+    ("kVA", "VA"): (lambda v: v * 1000.0, "kva_to_va"),
+    ("MVA", "kVA"): (lambda v: v * 1000.0, "mva_to_kva"),
+    ("%", "ratio"): (lambda v: v / 100.0, "percent_to_ratio"),
+    ("ratio", "%"): (lambda v: v * 100.0, "ratio_to_percent"),
     ("MW", "kW"): (lambda v: v * 1000.0, "megawatt_to_kw"),
     ("hp", "kW"): (lambda v: v * 0.7457, "hp_to_kw"),
     # flow
@@ -363,6 +391,7 @@ _NAME_SUFFIXES = sorted(
         ("_mm_s", "mm/s"), ("_mm_min", "mm/min"), ("_m_s", "m/s"),
         ("_m_s2", "m/s2"), ("_l_min", "L/min"), ("_ml_min", "mL/min"),
         ("_kwh", "kWh"), ("_wh", "Wh"), ("_kw", "kW"), ("_mw", "MW"),
+        ("_kvar", "kVAR"), ("_var", "var"), ("_kva", "kVA"),
         ("_bar", "bar"), ("_mbar", "mbar"), ("_psi", "psi"),
         ("_kpa", "kPa"), ("_mpa", "MPa"), ("_pa", "Pa"),
         ("_c", "C"), ("_f", "F"), ("_k", "K"), ("_r", "R"),
@@ -401,6 +430,20 @@ def field_declared_unit(canonical: str) -> Optional[str]:
 
 def quantity_of(unit: Optional[str]) -> Optional[str]:
     return QUANTITY.get(unit) if unit else None
+
+
+def _registry_unit(canonical: str) -> Optional[str]:
+    """The unit the canonical registry declares for a field, if any.
+
+    Imported lazily and defensively: unit_converter is shared with the
+    production kernel, where the registry module may not be importable, and a
+    converter that cannot convert because a lookup table failed to load is worse
+    than one that falls back to the SI target."""
+    try:
+        from app import field_registry as _fr
+        return _fr.unit_of(canonical)
+    except Exception:
+        return None
 
 
 def _is_vibration_field(canonical: str) -> bool:
@@ -455,6 +498,23 @@ def target_unit(canonical: str, source_unit: Optional[str]) -> Optional[str]:
     named = field_declared_unit(canonical)
     if named:
         return named
+
+    # The registry's declared unit, when the NAME carries no suffix to read.
+    #
+    # Without this, a field's unit contract was only enforced if it happened to
+    # be spelled into the field name. `power_factor` is declared `ratio` in the
+    # registry and has no suffix, so target_unit returned the SI target for the
+    # SOURCE quantity — percent — decided src == dst, and passed a SunSpec PF of
+    # 95 (Pct) straight into a ratio field. The registry said "ratio" the whole
+    # time and nothing consulted it.
+    #
+    # Restricted to units the converter actually knows (present in QUANTITY),
+    # so a bookkeeping unit like `cycles` does not become a conversion target
+    # that no converter can satisfy and every reading gets flagged unconvertible.
+    declared = _registry_unit(canonical)
+    if declared and declared in QUANTITY:
+        return declared
+
     q = quantity_of(source_unit)
     if q in ("linear_speed", "vehicle_speed"):
         return _velocity_target(canonical)

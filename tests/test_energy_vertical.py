@@ -219,3 +219,37 @@ def test_irradiance_converts_within_its_own_quantity():
 def test_weather_station_irradiance_passes_through_unscaled():
     norm, _, _, _, _, _, _ = normalize_row({"irradiance_w_m2": 847.3}, oem="generic_iot")
     assert norm["solar_irradiance_w_m2"] == 847.3
+
+
+# ── non-finite input must never reach the response encoder ──────────────────
+# Found by the 2026-08-23 break test against the live sandbox: `1e309` parses to
+# inf, travelled through normalization untouched (an unresolved tag keeps its
+# raw value by design), and then broke starlette's JSON encoder —
+# `ValueError: Out of range float values are not JSON compliant: inf`, i.e. an
+# unauthenticated HTTP 500 from a 38-byte body. The CSV path had the same hole
+# via _coerce turning the cell "inf" into a float.
+
+@pytest.mark.parametrize("literal", ["1e309", "-1e309", "Infinity", "-Infinity", "NaN"])
+def test_non_finite_json_is_rejected_not_a_500(client, literal):
+    resp = client.post("/v1/normalize",
+                       content='{"oem":"haas","data":{"S1Temp":%s}}' % literal,
+                       headers={"content-type": "application/json"})
+    assert resp.status_code == 422, resp.text[:200]
+    assert "finite" in resp.text
+
+
+def test_non_finite_inside_a_list_is_rejected(client):
+    resp = client.post("/v1/normalize",
+                       content='{"oem":"haas","data":{"t":[1.0, 1e309]}}',
+                       headers={"content-type": "application/json"})
+    assert resp.status_code == 422
+
+
+@pytest.mark.parametrize("cell", ["inf", "-inf", "nan", "Infinity", "NaN"])
+def test_non_finite_csv_cells_null_out_rather_than_crashing(client, cell):
+    resp = client.post("/v1/normalize",
+                       content=f"S1Temp,SP_SPEED\n{cell},8500",
+                       headers={"content-type": "text/csv", "x-oem": "haas"})
+    assert resp.status_code == 200, resp.text[:200]
+    row = resp.json()["normalized"][0]
+    assert row.get("spindle_temperature") is None, row
