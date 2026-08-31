@@ -103,13 +103,30 @@ def test_german_sinumerik_tags_resolve():
 
 
 def test_signal_classifier_handles_tags_no_pack_has_seen():
+    # These two spellings are in NO pack, which is the point -- the test is
+    # about the signal classifier, so it has to use tags the corpus has never
+    # seen. It previously used S1Temp/S1Load; those are now real Haas rows and
+    # resolve at layer 1, which would have made this assert the opposite of
+    # what it means to.
     norm, mappings, _, _, _, _, _ = corpus.normalize_row(
-        {"S1Temp": 72.1, "S1Load": 84.7}, "haas")
+        {"SpindleTemperature": 72.1, "Spindle_Temp_Reading": 84.7}, "haas")
     assert norm["spindle_temperature"] == 72.1
-    assert norm["spindle_load_pct"] == 84.7
     assert all(m["match_type"] == "signal" for m in mappings.values())
     # A guess must never claim the confidence of a corpus hit.
     assert all(m["confidence"] < 1.0 for m in mappings.values())
+
+
+def test_common_haas_mdc_tags_resolve_from_the_pack_not_by_inference():
+    """S1Temp / S1Load / SP_SPEED are the commonest Haas MDC tags there are.
+    Answering them by inference at 0.65 when the vendor's own spelling is
+    known is leaving evidence on the table."""
+    norm, mappings, _, _, _, _, _ = corpus.normalize_row(
+        {"S1Temp": 72.1, "S1Load": 84.7, "SP_SPEED": 8500}, "haas")
+    assert norm["spindle_temperature"] == 72.1
+    assert norm["spindle_load_pct"] == 84.7
+    assert norm["spindle_speed_rpm"] == 8500
+    for tag, m in mappings.items():
+        assert m["confidence"] == 1.0, (tag, m)
 
 
 def test_unknown_tags_are_reported_not_invented():

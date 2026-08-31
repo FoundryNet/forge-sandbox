@@ -22,6 +22,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ ./app/
+COPY scripts/ ./scripts/
 
 # ── test stage ───────────────────────────────────────────────────────────────
 # docker build --target test -t forge-sandbox:test .
@@ -31,15 +32,21 @@ FROM base AS test
 COPY requirements-dev.txt pytest.ini ./
 RUN pip install --no-cache-dir -r requirements-dev.txt
 COPY tests/ ./tests/
+COPY scripts/ ./scripts/
 RUN python -m pytest tests/ -q
 
 # ── runtime ──────────────────────────────────────────────────────────────────
 FROM base AS runtime
 
-# Run unprivileged. The sandbox writes nothing, so it needs no writable path.
+# Run unprivileged. The sandbox itself writes nothing, but the satellite agent
+# queues heartbeats to disk during a control-plane outage -- that queue is the
+# only thing standing between an outage and lost billable events, so it gets a
+# real writable path owned by the runtime user.
 RUN useradd --create-home --shell /usr/sbin/nologin forge \
-    && chown -R forge:forge /app
+    && mkdir -p /var/lib/forge-satellite \
+    && chown -R forge:forge /app /var/lib/forge-satellite
 USER forge
+ENV SATELLITE_STATE_DIR=/var/lib/forge-satellite
 
 EXPOSE 8000
 

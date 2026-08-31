@@ -31,6 +31,8 @@ from app.quantity_classifier import (UNIT_TO_QUANTITY as _UNIT_QTY,
                                      quantity_from_tag as _qty_tag,
                                      quantity_from_field as _qty_field,
                                      compatible as _qty_compatible)
+from app.evidence_gate import (score_resolution as _score_resolution,
+                               refusal_note as _evidence_refusal)
 from app.value_validator import (validate_sentinel as _validate_sentinel,
                                  is_sentinel_string,
                                  validate_bounds as _validate_bounds,
@@ -59,7 +61,7 @@ _UNITS = (
     r"bar|psi|psia|psig|kpa|mpa|pa|mbar|inhg|mmhg|"
     r"l/min|lpm|ml/min|gpm|gal/min|l/s|m3/h|lbm/s|kg/s|"
     r"s|sec|seconds|ms|min|minutes|h|hr|hrs|hours|days|"
-    r"pcs|parts|cycles|ppm|db|dbm"
+    r"pcs|parts|cycles|ppm|db|dbm|amps|amp|amperes|ampere|volts|volt|watts|watt"
 )
 _UNIT_SUFFIX = re.compile(
     r"(?:"
@@ -71,6 +73,21 @@ _UNIT_SUFFIX = re.compile(
 )
 
 _PUNCT = re.compile(r"[^a-z0-9]+")
+
+# OPC UA node IDs are syntax, not vocabulary. The wire form is
+# `ns=<n>;<type>=<identifier>` where <type> is s (string), i (numeric),
+# g (guid) or b (opaque) -- so `ns=2;s=Channel1.Device1.CoolantTemp` carries a
+# bare `s` that has nothing to do with the reading. Left in, that `s` was read
+# as a SUBJECT and every OPC temperature -- coolant, oil, ambient, motor,
+# bearing -- collapsed onto `spindle_temperature`. Strip the header before any
+# vocabulary sees it; what remains is the browse path the tag actually names.
+_OPC_NODE_ID = re.compile(r"^\s*(?:ns=\d+\s*;\s*)?[sigb]=", re.IGNORECASE)
+
+
+def _strip_node_id(tag: str) -> str:
+    """Remove an OPC UA node-ID header, leaving the identifier itself."""
+    return _OPC_NODE_ID.sub("", str(tag).strip(), count=1)
+
 
 
 _VALUE_TAIL = re.compile(r":\s*-?\d+(?:\.\d+)?\s*$")
@@ -86,15 +103,12 @@ def _fold(tag: str) -> str:
     # so the tag folds to "t" and resolves like the well-formed "T". Deliberately
     # narrow — only a numeric tail is removed, so a namespaced tag such as
     # "ns:temp" is untouched.
-    s = _VALUE_TAIL.sub("", s).strip() or s
-    # Strip repeatedly: "TOTAL_HOURS [minutes]" -> "TOTAL_HOURS" needs one pass,
-    # but "X_Motor_Temp(degC)" style stacking can need two.
-    for _ in range(3):
-        stripped = _UNIT_SUFFIX.sub("", s).strip()
-        if stripped == s or not stripped:
-            break
-        s = stripped
-    return _PUNCT.sub("", s.lower())
+    # Delegates to _fold_parts so there is ONE stripping implementation. These
+    # were separate loops, and patching only one of them meant the phase-label
+    # guard held in _fold_parts (no bogus unit) while _fold still ate the letter
+    # -- so `ac_current_phase_a` and `ac_current_phase_c` kept folding onto the
+    # same key with nothing in the unit list to explain why.
+    return _fold_parts(tag)[0]
 
 
 def _coerce_numeric(value):
@@ -154,6 +168,8 @@ _UNIT_FAMILY = {
     "rpm": "rotational", "hz": "frequency", "khz": "frequency",
     "pct": "ratio", "percent": "ratio", "ratio": "ratio",
     "bar": "pressure", "psi": "pressure", "kpa": "pressure", "mbar": "pressure",
+    "amps": "current", "amp": "current", "ampere": "current", "amperes": "current",
+    "volts": "voltage", "volt": "voltage", "watts": "power", "watt": "power",
     "pa": "pressure",
     "cycles": "count", "count": "count", "parts": "count",
     # power / energy beyond the SI core -- a nameplate in hp or VA is still a
@@ -169,6 +185,32 @@ _UNIT_FAMILY = {
     "mbar": "pressure", "inhg": "pressure", "kg": "mass", "tonnes": "mass",
     "t": "mass", "lb": "mass", "lbs": "mass",
 }
+
+
+# A trailing single letter after a phase / line designator is a LEG LABEL, not
+# a unit. Thirteen of the unit tokens are one character (a, c, v, w, f, k, m, s,
+# h, g, j, r, %), so without this guard `ac_current_phase_a` loses its `a` as
+# AMPS and `ac_current_phase_c` loses its `c` as CELSIUS -- which both folds the
+# two phases onto ONE key (`accurrentphase`) and hands Pint a temperature unit
+# for a current field, so the match is then vetoed as a dimensional conflict.
+# Phase B survives only because `b` happens not to be a unit. The asymmetry is
+# the tell.
+_PHASE_DESIGNATORS = {"phase", "ph", "leg", "line", "ll", "ln",
+                      "winding", "wdg", "vph", "aph", "pv"}
+
+
+def _is_leg_label(stem: str, tok: str) -> bool:
+    """Was the single letter we just stripped a phase label, not a unit?
+
+    Decided on the LAST WORD of what remains: `ac_current_phase` + `a` is
+    phase A, while `line_current` + `a` is amps. Comparing whole strings rather
+    than the final token is what made the first version of this guard silently
+    never fire.
+    """
+    if len(tok) != 1 or not tok.isalpha():
+        return False
+    toks = _tokens(stem)
+    return bool(toks) and toks[-1] in _PHASE_DESIGNATORS
 
 
 def _fold_parts(tag: str):
@@ -192,6 +234,9 @@ def _fold_parts(tag: str):
             tok = _PUNCT.sub("", m.group(0).lower())
             if tok.startswith("deg"):
                 tok = tok[3:] or tok
+            if tok and _is_leg_label(stripped, tok):
+                # Put it back: it names which leg, not what was measured.
+                break
             if tok:
                 units.append(tok)
         s = stripped
@@ -298,7 +343,7 @@ def _tokens(tag: str) -> list:
     """Split a tag into lowercase word tokens, breaking camelCase and digits.
     "S1Temp" -> ["s", "1", "temp"];  "SupplyFanSpeed" -> ["supply","fan","speed"]
     """
-    s = _UNIT_SUFFIX.sub("", str(tag).strip())
+    s = _UNIT_SUFFIX.sub("", _strip_node_id(tag))
     s = re.sub(r"([a-z])([A-Z])", r"\1 \2", s)
     s = re.sub(r"([A-Za-z])([0-9])", r"\1 \2", s)
     s = re.sub(r"([0-9])([A-Za-z])", r"\1 \2", s)
@@ -311,7 +356,11 @@ def _tokens(tag: str) -> list:
 # against canonical names that actually exist. No free-form invention.
 
 _SUBJECT = {
-    "spindle": "spindle", "spdl": "spindle", "sp": "spindle", "s": "spindle",
+    # No bare "s" alias here: a single letter is not vocabulary, and it
+    # collided with OPC UA node-ID syntax. Haas-style S1/S2 spindle
+    # numbering is recognised in _signal_guess, where the digit that
+    # follows is available as evidence.
+    "spindle": "spindle", "spdl": "spindle", "sp": "spindle",
     "motor": "motor", "mtr": "motor", "servo": "motor", "drive": "drive",
     "coolant": "coolant", "cool": "coolant", "cutting": "coolant",
     "oil": "oil", "hydraulic": "hydraulic", "hyd": "hydraulic",
@@ -360,6 +409,7 @@ _QUANTITY = {
     "target": "target", "setpoint": "target", "cmd": "target",
     "commanded": "target",
     "state": "state", "status": "state", "mode": "state",
+    "soc": "soc", "stateofcharge": "soc",
     "alarm": "alarm", "fault": "alarm", "error": "alarm", "err": "alarm",
 }
 
@@ -425,6 +475,10 @@ _BARE_QUANTITY = {
     "state":     "execution_state",
     "hours":     "operating_hours",
     "progress":  "print_progress_pct",
+    # State of charge is unambiguous: no non-battery reading is called "SOC".
+    # Left out, a BESS tagged only `SOC` went unresolved while
+    # `battery_soc_pct` sat in the schema unused.
+    "soc":       "battery_soc_pct",
     # A pump, a main or a header tagged only "Flow" is the commonest industrial
     # reading there is. Without a universal home it either went unresolved or --
     # worse -- borrowed `filament_flow_rate` from the 3D-printer pack.
@@ -601,7 +655,13 @@ def get_pack(oem):
 
 
 def _signal_guess(tag: str, dictionary: dict):
-    """Layer 3. Returns (canonical, confidence, rationale) or None."""
+    """Layer 3. Returns (canonical, confidence, rationale, quantity) or None.
+
+    The matched QUANTITY rides along because it is evidence the scoring gate
+    cannot otherwise see: `quantity_from_tag` needs a unit token to classify,
+    so `SpindleSpeed` looks quantity-less to it, while this layer knows
+    perfectly well that "speed" was matched from the quantity vocabulary.
+    """
     toks = _tokens(tag)
     if not toks:
         return None
@@ -613,6 +673,15 @@ def _signal_guess(tag: str, dictionary: dict):
         if t in _SUBJECT:
             subjects.append(_SUBJECT[t])
             used.add(i)
+        elif (t == "s" and i + 1 < len(toks) and toks[i + 1].isdigit()
+                and not toks[i + 1].startswith("0")):
+            # Haas and most lathe controls number their spindles: S1Temp,
+            # S2Load. The DIGIT is what makes this a spindle reference rather
+            # than a stray letter, so it is required -- an "s" on its own
+            # (OPC UA node-ID syntax, a units token, an initial) means nothing.
+            subjects.append("spindle")
+            used.add(i)
+            used.add(i + 1)
     for i, t in enumerate(toks):
         if i not in used and t in _QUANTITY:
             quantities.append(_QUANTITY[t])
@@ -640,14 +709,14 @@ def _signal_guess(tag: str, dictionary: dict):
             if hit and hit in dictionary:
                 # Two named halves is a strong signal; still below an exact
                 # corpus row, which is why it tops out at 0.72.
-                return hit, 0.72, f"signal:{subj}+{qty}"
+                return hit, 0.72, f"signal:{subj}+{qty}", qty
 
     for qty in quantities:
         hit = _BARE_QUANTITY.get(qty)
         if hit and _claims_modality_tag_lacks(hit):
             continue
         if hit and hit in dictionary:
-            return hit, 0.55, f"signal:{qty}"
+            return hit, 0.55, f"signal:{qty}", qty
     return None
 
 
@@ -819,10 +888,374 @@ def _cross_pack_allowed(source_domain, other_pack) -> bool:
     return source_domain == match_domain
 
 
+# ── Evidence gathering for the scoring gate ──────────────────────────────────
+# The gate does no parsing of its own; everything it weighs is established here
+# by the same machinery the resolution layers already use, so a score is a
+# summary of what the pipeline actually proved rather than a second opinion.
+
+def _field_name_tokens(canonical: str) -> set:
+    """Word tokens of a canonical field name, including its dotted namespace:
+    `sensor_readings.coolant_temp` -> {sensor, readings, coolant, temp}."""
+    return {t for t in _PUNCT.split(str(canonical).lower()) if t}
+
+
+# Word-level synonyms between how vendors name tags and how the canonical
+# schema names fields. Without these a correct mapping scores no keyword
+# evidence purely because the two vocabularies spell the same idea differently.
+_KEYWORD_SYNONYMS = {
+    "temp": {"temperature"}, "temperature": {"temp"},
+    "speed": {"rpm", "velocity", "vel"}, "rpm": {"speed"},
+    "vel": {"speed", "velocity"}, "velocity": {"speed", "vel"},
+    "load": {"pct", "percent", "utilization", "util"},
+    "pct": {"load", "percent"}, "percent": {"pct"},
+    "count": {"counter", "total", "parts", "part"},
+    "parts": {"part", "count"}, "part": {"parts", "count"},
+    "current": {"amps", "amperage", "a"}, "amps": {"current"},
+    "voltage": {"volts", "volt", "v"}, "volts": {"voltage"},
+    "power": {"kw", "watts", "watt", "w"}, "kw": {"power"},
+    # Vendor abbreviations that name a field but share no letters with it.
+    "pf": {"power", "factor"}, "cosphi": {"power", "factor"},
+    "va": {"apparent", "power"}, "kva": {"apparent", "power"},
+    "var": {"reactive", "power"}, "kvar": {"reactive", "power"},
+    "energy": {"kwh", "wh"}, "kwh": {"energy"},
+    "freq": {"frequency", "hz"}, "frequency": {"freq", "hz"},
+    "pos": {"position"}, "position": {"pos"},
+    "press": {"pressure"}, "pressure": {"press"},
+    "alarm": {"fault", "error", "code"},
+    "state": {"status", "mode"}, "status": {"state"},
+    "hours": {"time", "runtime", "hrs"}, "time": {"hours", "duration"},
+    "feed": {"feedrate"}, "feedrate": {"feed", "rate"},
+    "soc": {"charge"}, "charge": {"soc"},
+    "coolant": {"cool"}, "cool": {"coolant"},
+    "spindle": {"spdl", "sp"},
+}
+
+
+def _keywords_align(tag: str, canonical: str) -> bool:
+    """Do the tag's own words name the field it resolved to?
+
+    This is the check that separates a semantic match from a coincidence:
+    `SpindleSpeed` -> `spindle_speed_rpm` shares two words, while a fold that
+    landed on an unrelated field shares none.
+    """
+    if not canonical:
+        return False
+    tag_toks = {t for t in _tokens(tag) if len(t) > 1}
+    if not tag_toks:
+        return False
+    field_toks = _field_name_tokens(canonical)
+    if tag_toks & field_toks:
+        return True
+    for t in tag_toks:
+        if _KEYWORD_SYNONYMS.get(t, set()) & field_toks:
+            return True
+    return False
+
+
+def _unit_aligns(tag: str, canonical: str, fields: dict, tag_units=None) -> bool:
+    """Does a unit token on the tag agree with the field's declared unit?"""
+    target = (fields.get(canonical) or {}).get("unit")
+    if not target:
+        return False
+    toks = tag_units if tag_units is not None else _fold_parts(tag)[1]
+    for tok in (toks or []):
+        if _norm_unit_eq(tok, target) or _same_quantity(tok, target):
+            return True
+    return False
+
+
+def _norm_unit_eq(a, b) -> bool:
+    na, nb = _normalize_unit_token(a), _normalize_unit_token(b)
+    return bool(na and nb and str(na).lower() == str(nb).lower())
+
+
+def _same_quantity(tok, target) -> bool:
+    try:
+        from app.quantity_classifier import same_physical_quantity
+        return bool(same_physical_quantity(tok, target))
+    except Exception:
+        return False
+
+
+def _quantity_channel_agrees(tag, canonical, spec, tag_units, named_quantity):
+    """Did the tag and the field classify to the same kind of measurement?"""
+    qf = _qty_field(canonical, spec)
+    if qf is None:
+        return False
+    qt = _qty_tag(tag, tag_units)
+    if qt is not None:
+        return bool(_qty_compatible(qt, qf))
+    # No unit to classify from, but the signal classifier named a quantity from
+    # its own vocabulary -- "speed", "temperature", "load". That the field's
+    # declared quantity belongs to the same family is real corroboration.
+    if named_quantity and _named_quantity_matches(named_quantity, qf):
+        return True
+    return False
+
+
+# Quantity words the signal vocabulary uses, mapped onto the physical-quantity
+# families the canonical schema declares. Only unambiguous pairings are listed:
+# "speed" is deliberately allowed to satisfy BOTH rotational and linear speed,
+# because a tag saying "speed" genuinely does not say which, and the point here
+# is corroboration rather than proof.
+_NAMED_QUANTITY_FAMILIES = {
+    "temperature": {"temperature"},
+    "speed":       {"rotational_speed", "linear_speed", "velocity", "speed"},
+    "load":        {"ratio", "dimensionless", "power_ratio"},
+    "current":     {"electric_current"},
+    "voltage":     {"electric_voltage"},
+    "power":       {"electric_power"},
+    "energy":      {"energy"},
+    "pressure":    {"pressure"},
+    "flow":        {"volumetric_flow_rate", "mass_flow_rate", "flow_rate"},
+    "position":    {"length", "angle"},
+    "torque":      {"torque"},
+    "vibration":   {"velocity", "acceleration", "vibration"},
+    "humidity":    {"ratio", "dimensionless"},
+    "soc":         {"ratio", "dimensionless"},
+    "progress":    {"ratio", "dimensionless"},
+    "hours":       {"time_duration"},
+    "frequency":   {"frequency"},
+}
+
+
+def _named_quantity_matches(named, field_quantity) -> bool:
+    fam = _NAMED_QUANTITY_FAMILIES.get(str(named).lower())
+    return bool(fam and str(field_quantity).lower() in fam)
+
+
+def _keyword_overlap(tag: str, canonical: str) -> set:
+    """Words the tag and the canonical field share, synonyms included.
+
+    This is what separates a semantic match from a coincidence: `SpindleSpeed`
+    and `spindle_speed_rpm` share two words, while a fold that landed on an
+    unrelated field shares none.
+    """
+    if not canonical:
+        return set()
+    tag_toks = {t for t in _tokens(tag) if len(t) > 1}
+    field_toks = _field_name_tokens(canonical)
+    shared = tag_toks & field_toks
+    for t in tag_toks - shared:
+        hit = _KEYWORD_SYNONYMS.get(t, set()) & field_toks
+        if hit:
+            shared.add(t)
+    return shared
+
+
+def _path_parent_corroborates(tag: str, canonical: str, spec: dict) -> str:
+    """Does a PARENT segment of a hierarchical tag reinforce the leaf?
+
+    `Enterprise/Site1/Area1/Line1/CNC-01/SpindleSpeed` names its cell type in
+    the path. That context is real evidence about which vertical the reading
+    belongs to, and it is exactly what a UNS or ISA-95 topic carries.
+    """
+    raw = _strip_node_id(tag)
+    parts = re.split(r"[/.]", raw)
+    if len(parts) < 2:
+        return ""
+    parent_toks = set()
+    for seg in parts[:-1]:
+        parent_toks |= {t for t in _PUNCT.split(seg.lower()) if len(t) > 1}
+    if not parent_toks:
+        return ""
+    vert = (spec or {}).get("vertical")
+    dom = _VERTICAL_DOMAINS.get(vert)
+    wanted = {w for w in (vert, dom) if w}
+    for alias, d in _OEM_DOMAINS.items():
+        if d in wanted:
+            wanted.add(alias)
+    hit = parent_toks & wanted
+    if hit:
+        return sorted(hit)[0]
+    # A parent naming the same subject as the field (".../spindle/temp") is
+    # corroboration too.
+    field_toks = _field_name_tokens(canonical)
+    hit = parent_toks & field_toks
+    return sorted(hit)[0] if hit else ""
+
+
+def _same_vendor_family(a, b) -> bool:
+    """Are two pack names the same vendor, split by device role?
+
+    `solaredge_inverter` and `solaredge_meter` are both SolarEdge; so are
+    `sunspec_meter` and `sunspec_meter_1ph`. Charging a row moved between them
+    the cross-OEM penalty is wrong -- nothing was borrowed from another vendor.
+    It sank `M_AC_Power -> active_power_kw` below the threshold and let a weaker
+    signal guess (`power_consumption_kw`) win instead, which is the worst shape
+    of this failure: the RIGHT answer refused and a WEAKER one shipped.
+    """
+    if not a or not b:
+        return False
+    a, b = str(a).lower(), str(b).lower()
+    if a == b:
+        return True
+    return a.split("_", 1)[0] == b.split("_", 1)[0]
+
+
+def _gate(tag, canonical, match_type, fields, source_domain,
+          fold_candidates_count=1, matched_token=None, tag_units=None,
+          named_quantity=None, matched_oem=None):
+    """Score a candidate resolution and decide whether it may ship.
+
+    Returns the evidence dict from the gate. An exact corpus row never reaches
+    here -- see the module docstring in app/evidence_gate.py.
+    """
+    spec = fields.get(canonical) or {}
+    field_domain = _VERTICAL_DOMAINS.get(spec.get("vertical"))
+    if spec.get("vertical") in (None, "universal"):
+        field_domain = None          # universal fields belong to everyone
+
+    tu = tag_units if tag_units is not None else _fold_parts(tag)[1]
+    field_unit = spec.get("unit")
+    tag_unit = None
+    pint_ok = None
+    for tok in (tu or []):
+        tag_unit = tok
+        if _dim_conflict(tok, field_unit):
+            pint_ok = False
+            break
+        if _norm_unit_eq(tok, field_unit) or _same_quantity(tok, field_unit):
+            pint_ok = True
+            break
+
+    details = {
+        "keyword_overlap": _keyword_overlap(tag, canonical),
+        "tag_unit": tag_unit,
+        "pint_compatible": pint_ok,
+        "quantity_agrees": _quantity_channel_agrees(
+            tag, canonical, spec, tu, named_quantity),
+        "matched_token": matched_token,
+        "fold_candidates": fold_candidates_count,
+        "matched_oem": matched_oem,
+        "path_parent": _path_parent_corroborates(tag, canonical, spec),
+    }
+    return _score_resolution(tag, canonical, match_type, details,
+                             source_domain, spec, field_domain)
+
+
+_lastev = None
+
+
+def _gated(rec, tag, canonical, match_type, fields, source_domain, **kw):
+    """Apply the gate to a prepared mapping record.
+
+    Returns the record with gate-assigned confidence and an `evidence` block,
+    or None when the evidence was too thin to ship -- the caller then keeps
+    looking, or falls through to an honest miss.
+    """
+    ev = _gate(tag, canonical, match_type, fields, source_domain, **kw)
+    global _lastev
+    _lastev = ev
+    if not ev["resolve"]:
+        return None
+    rec["confidence"] = ev["confidence"]
+    rec["evidence"] = {"score": ev["score"], "class": ev["evidence_class"],
+                       "signals": ev["reasons"]}
+    return rec
+
+
+# ── Fleet corpus overlay (control-plane distributed) ─────────────────────────
+# Mappings the control plane ships take precedence over the packs baked into the
+# image: that is the whole point of shipping them. Kept in a module-level dict
+# swapped ATOMICALLY, so a hot reload never leaves a half-applied corpus visible
+# to an in-flight request — readers see the old map or the new one, never a mix.
+_FLEET_OVERLAY = {}          # (oem_lower, tag_lower) -> row
+_FLEET_VERSION = None
+
+
+def apply_fleet_overlay(payload) -> int:
+    """Install a verified corpus payload. Returns the mapping count.
+
+    The caller is responsible for having verified the signature; this function
+    is reached only from Satellite.fetch_and_apply, which refuses to call it
+    on an unverified bundle.
+    """
+    global _FLEET_OVERLAY, _FLEET_VERSION
+    built = {}
+    for row in (payload.get("mappings") or []):
+        tag = row.get("tag")
+        canonical = row.get("canonical_field")
+        if not tag or not canonical:
+            continue
+        built[(str(row.get("oem") or "").lower(), str(tag).lower())] = {
+            "canonical_field": canonical,
+            "unit": row.get("unit"),
+            "scale": row.get("scale"),
+            "confidence": float(row.get("confidence") or 1.0),
+        }
+    _FLEET_OVERLAY = built          # atomic rebind, not an in-place mutation
+    _FLEET_VERSION = payload.get("version")
+    return len(built)
+
+
+def apply_fleet_delta(payload) -> int:
+    """Apply an incremental corpus delta onto the running overlay.
+
+    A delta is {from_version, to_version, added[], updated[], removed[]}. It is
+    applied to a COPY which is then rebound atomically, so a reader mid-request
+    never observes a half-applied delta. Returns the resulting mapping count.
+    """
+    global _FLEET_OVERLAY, _FLEET_VERSION
+    built = dict(_FLEET_OVERLAY)
+    def key(row):
+        return (str(row.get("oem") or "").lower(), str(row.get("tag") or "").lower())
+    for row in (payload.get("removed") or []):
+        built.pop(key(row), None)
+    for row in list(payload.get("added") or []) + list(payload.get("updated") or []):
+        if not row.get("tag") or not row.get("canonical_field"):
+            continue
+        built[key(row)] = {
+            "canonical_field": row["canonical_field"],
+            "unit": row.get("unit"),
+            "scale": row.get("scale"),
+            "confidence": float(row.get("confidence") or 1.0),
+        }
+    _FLEET_OVERLAY = built
+    _FLEET_VERSION = payload.get("to_version") or _FLEET_VERSION
+    return len(built)
+
+
+def fleet_overlay_size():
+    return len(_FLEET_OVERLAY)
+
+
+def fleet_overlay_version():
+    return _FLEET_VERSION
+
+
+def clear_fleet_overlay():
+    global _FLEET_OVERLAY, _FLEET_VERSION
+    _FLEET_OVERLAY, _FLEET_VERSION = {}, None
+
+
+def _overlay_hit(tag, oem):
+    ov = _FLEET_OVERLAY                       # one read; immune to a swap
+    if not ov:
+        return None
+    t = str(tag).lower()
+    for key in ((str(oem or "").lower(), t), ("", t)):
+        hit = ov.get(key)
+        if hit:
+            return hit
+    return None
+
+
 def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
     """Resolve one raw tag. Always returns a mapping record -- never raises,
     never invents a name."""
     fields = dictionary["fields"]
+
+    # Layer 0: a mapping the control plane distributed. Outranks the packs baked
+    # into the image -- shipping a corpus update that the image then overrode
+    # would make fleet updates pointless.
+    _ov = _overlay_hit(tag, oem)
+    if _ov:
+        return {"canonical_field": _ov["canonical_field"],
+                "confidence": _ov["confidence"],
+                "match_type": "fleet_corpus", "layer": 0,
+                "source": f"fleet_corpus:{_FLEET_VERSION}",
+                "matched_tag": tag}
 
     # Layer 1: exact corpus row.
     if pack and tag in pack.mappings:
@@ -832,6 +1265,9 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
 
     # Layer 1b: same row, once units and punctuation are folded away.
     ambiguous = None
+    # Matches that were FOUND but could not pay for their confidence. Kept so a
+    # gate refusal never looks like plain ignorance.
+    gate_refused = []
     if pack:
         cands = pack.folded_all.get(_fold(tag))
         if cands:
@@ -846,9 +1282,17 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
             cands = _kept if (_tu or _kept) else cands
             chosen, why = _pick_by_unit(tag, cands)
             if chosen:
-                return {"canonical_field": chosen[1], "confidence": 0.95,
-                        "match_type": "corpus_normalized", "layer": 1,
-                        "source": f"pack:{pack.oem}", "matched_tag": chosen[0]}
+                _rec = _gated(
+                    {"canonical_field": chosen[1],
+                     "match_type": "corpus_normalized", "layer": 1,
+                     "source": f"pack:{pack.oem}", "matched_tag": chosen[0]},
+                    tag, chosen[1], "pack_match", fields,
+                    domain_from_oem(oem) or domain_from_pack(pack),
+                    fold_candidates_count=len({c[1] for c in cands}),
+                    tag_units=_tu)
+                if _rec is not None:
+                    return _rec
+                gate_refused.append((chosen[1], "pack_match", pack.oem, _lastev))
             ambiguous = why
 
     # Layer 2: the tag is already canonical.
@@ -918,25 +1362,49 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
         chosen, why = _pick_by_unit(tag, [c for _, c in cross_cands])
         if chosen:
             owner = next(o for o, c in cross_cands if c is chosen)
-            return {"canonical_field": chosen[1], "confidence": 0.60,
-                    "match_type": "cross_oem", "layer": 1,
-                    "source": f"pack:{owner.oem}", "matched_tag": chosen[0],
-                    "note": f"resolved from the {owner.oem} pack, not "
-                            f"{pack.oem if pack else 'any given oem'}"}
+            _rec = _gated(
+                {"canonical_field": chosen[1],
+                 "match_type": "cross_oem", "layer": 1,
+                 "source": f"pack:{owner.oem}", "matched_tag": chosen[0],
+                 "source_pack": owner.oem,
+                 "note": f"resolved from the {owner.oem} pack, not "
+                         f"{pack.oem if pack else 'any given oem'}"},
+                tag,
+                chosen[1],
+                ("pack_match" if _same_vendor_family(
+                    owner.oem, getattr(pack, "oem", None) or oem) else "cross_oem"),
+                fields, source_domain,
+                fold_candidates_count=len({c[1] for _, c in cross_cands}),
+                tag_units=_tu,
+                matched_oem=(None if _same_vendor_family(
+                    owner.oem, getattr(pack, "oem", None) or oem) else owner.oem))
+            if _rec is not None:
+                return _rec
+            gate_refused.append((chosen[1], "cross_oem", owner.oem, _lastev))
         ambiguous = ambiguous or why
 
     # Layer 3: signal classifier.
     guess = _signal_guess(tag, fields)
     if guess:
-        canonical, conf, why = guess
-        if (_signal_target_allowed(source_domain, canonical, fields)
-                and _quantity_ok(tag, canonical, fields, _fold_parts(tag)[1])):
-            return {"canonical_field": canonical, "confidence": conf,
-                    "match_type": "signal", "layer": 3, "source": why,
-                    "matched_tag": None}
-        refused.append(("signal_classifier", canonical,
-                        _VERTICAL_DOMAINS.get((fields.get(canonical) or {})
-                                              .get("vertical"))))
+        canonical, conf, why, _named_qty = guess
+        # The domain check is no longer a veto here -- it is evidence, worth
+        # -20 in the gate. That is what lets an unrecognised OEM DEGRADE
+        # (lower confidence, still an answer) instead of being disabled, while
+        # a real domain CONTRADICTION still costs enough to sink a thin match.
+        if _quantity_ok(tag, canonical, fields, _fold_parts(tag)[1]):
+            _rec = _gated(
+                {"canonical_field": canonical,
+                 "match_type": "signal", "layer": 3, "source": why,
+                 "matched_tag": None},
+                tag, canonical, "signal", fields, source_domain,
+                fold_candidates_count=1, named_quantity=_named_qty)
+            if _rec is not None:
+                return _rec
+            gate_refused.append((canonical, "signal", "signal_classifier", _lastev))
+        else:
+            refused.append(("signal_classifier", canonical,
+                            _VERTICAL_DOMAINS.get((fields.get(canonical) or {})
+                                                  .get("vertical"))))
 
     # Unit evidence is the LAST resort for an unrecognized oem: it borrows a
     # vendor's row, so it must not outrank the signal classifier, which
@@ -961,12 +1429,21 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
         if chosen:
             owner = next(o for o, c in unknown_cands if c is chosen)
             refused[:] = [r for r in refused if r[0] != owner.oem]
-            return {"canonical_field": chosen[1], "confidence": 0.55,
-                    "match_type": "cross_oem_unit_evidence", "layer": 1,
-                    "source": f"pack:{owner.oem}", "matched_tag": chosen[0],
-                    "note": f"oem '{oem}' is unrecognized, so no domain could be "
-                            f"checked; the unit on '{tag}' identifies the "
-                            f"quantity and settles it to the {owner.oem} row"}
+            _rec = _gated(
+                {"canonical_field": chosen[1],
+                 "match_type": "cross_oem_unit_evidence", "layer": 1,
+                 "source": f"pack:{owner.oem}", "matched_tag": chosen[0],
+                 "source_pack": owner.oem,
+                 "note": f"oem '{oem}' is unrecognized, so no domain could be "
+                         f"checked; the unit on '{tag}' identifies the "
+                         f"quantity and settles it to the {owner.oem} row"},
+                tag, chosen[1], "cross_oem_unit_evidence", fields,
+                source_domain, fold_candidates_count=1,
+                matched_oem=(None if _same_vendor_family(
+                    owner.oem, getattr(pack, "oem", None) or oem) else owner.oem))
+            if _rec is not None:
+                return _rec
+            gate_refused.append((chosen[1], "cross_oem_unit_evidence", owner.oem, _lastev))
         ambiguous = ambiguous or why
 
 
@@ -987,6 +1464,22 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
     if ambiguous:
         rec["match_type"] = "ambiguous_fold"
         rec["note"] = ambiguous
+        return rec
+    if gate_refused:
+        # A match was FOUND and then refused for want of evidence. Report that
+        # distinctly from "no match": the integrator needs to know the tag is
+        # nearly resolvable and what evidence would settle it.
+        _c, _mt, _owner, _ev = gate_refused[0]
+        _ev = _ev or _gate(tag, _c, _mt, fields,
+                           domain_from_oem(oem) or domain_from_pack(pack))
+        rec["match_type"] = "insufficient_evidence"
+        rec["note"] = _evidence_refusal(tag, _c, _ev["score"], _ev["reasons"])
+        rec["evidence"] = {"score": _ev["score"], "class": _ev["evidence_class"],
+                           "signals": _ev["reasons"],
+                           "refused_candidate": _c}
+        rec["refused_matches"] = [
+            {"pack": o, "canonical_field": c, "match_type": m}
+            for c, m, o, _ in gate_refused]
         return rec
     if refused:
         # Do not let a domain refusal look like plain ignorance. Say that a
@@ -1337,9 +1830,22 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
         _src_unit = None
         if _declared_unit(tag) is None:
             _src_unit = _normalize_unit_token(_coerced_unit)
-        if _src_unit is None and pack and _declared_unit(tag) is None:
-            _src_unit = (pack.tag_units.get(tag)
-                         or pack.tag_units_folded.get(_fold(tag)))
+        if _src_unit is None and _declared_unit(tag) is None:
+            # A row borrowed from ANOTHER pack must bring that pack's unit
+            # contract with it. Consulting only the caller's pack meant
+            # `M_AC_Power` (declared W in solaredge_meter) resolved to
+            # `active_power_kw` and kept 48700 -- a 1000x error in a field
+            # whose own name states the unit. The owning pack is checked
+            # first, then the caller's as a fallback.
+            _owner_name = (rec or {}).get("source_pack")
+            _owner = get_pack(_owner_name) if _owner_name else None
+            for _p in (_owner, pack):
+                if _p is None:
+                    continue
+                _src_unit = (_p.tag_units.get(tag)
+                             or _p.tag_units_folded.get(_fold(tag)))
+                if _src_unit:
+                    break
         out_value, _urec = _convert_value(tag, value, canonical, source_unit=_src_unit)
         if _urec is not None:
             unit_conversions.append(_urec)

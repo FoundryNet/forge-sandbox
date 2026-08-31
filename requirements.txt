@@ -9,3 +9,7 @@ pydantic>=2.8,<3
 fastmcp>=3.4.5,<4
 pint>=0.24
 babel>=2.14
+# Ed25519 verification of control-plane corpus bundles. Without this the
+# satellite cannot prove a corpus update is authentic, and an engine that
+# cannot verify an update must not apply one.
+cryptography>=42,<46

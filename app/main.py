@@ -5,8 +5,10 @@ data, real canonical schema. Everything is in-process: no database, no network
 egress, nothing written to disk.
 """
 
+import contextlib
 import io
 import csv
+import json
 import logging
 import os
 import time
@@ -38,10 +40,36 @@ try:
 except Exception as _exc:            # pragma: no cover - import-environment only
     MCP_ERROR = f"{type(_exc).__name__}: {_exc}"
 
+@contextlib.asynccontextmanager
+async def _lifespan(app_):
+    """Start the satellite heartbeat daemon, then hand off to the MCP lifespan.
+
+    Passing an explicit `lifespan=` makes Starlette IGNORE every @app.on_event
+    handler, so the satellite has to start from inside this function -- an
+    on_event("startup") hook here is silently dead code, which is exactly how
+    the first wiring of this failed: agent enabled, zero heartbeats, no error.
+    """
+    try:
+        from app.satellite import AGENT
+        AGENT.start()
+    except Exception as exc:
+        logging.getLogger("forge").warning("satellite start failed: %s", exc)
+    if MCP_APP is not None:
+        async with MCP_APP.lifespan(app_):
+            yield
+    else:
+        yield
+    try:
+        from app.satellite import AGENT
+        AGENT.stop()
+    except Exception:
+        pass
+
+
 app = FastAPI(
     title="Forge Sandbox",
     version=VERSION,
-    lifespan=(MCP_APP.lifespan if MCP_APP is not None else None),
+    lifespan=_lifespan,
     description=(
         "A local, keyless simulation of the Forge industrial telemetry kernel.\n\n"
         "Real canonical schema, real vendor tag mappings, simulated equipment and "
@@ -101,6 +129,30 @@ async def root():
 # GET and HEAD are registered separately rather than as one api_route: FastAPI
 # emits one OpenAPI operation per method, so a shared operation_id collides and
 # the generated spec warns. HEAD stays out of the schema and reuses the body.
+@app.post("/_satellite/beat", include_in_schema=False)
+async def _satellite_beat(request: Request):
+    """Force a heartbeat now, instead of waiting out the interval.
+
+    Operationally useful (an operator who just fixed a licence wants the engine
+    to re-check immediately) and it is what makes the fleet behaviour testable
+    without 60-second waits. Guarded by the engine's own bearer token, so it is
+    not an open trigger on a public port.
+    """
+    from app.satellite import AGENT
+    if not AGENT.enabled():
+        return JSONResponse(status_code=404, content={"error": "satellite_disabled"})
+    sent = (request.headers.get("authorization") or "").removeprefix("Bearer ").strip()
+    if sent != AGENT.token:
+        return JSONResponse(status_code=401, content={"error": "bad_token"})
+    ok, resp = AGENT.beat()
+    return {"ok": ok, "response": resp, "rtt_ms": AGENT.last_rtt_ms,
+            "corpus_version": AGENT.corpus_version,
+            "fleet_overlay_version": corpus.fleet_overlay_version(),
+            "queued": len(AGENT._queued()),
+            "rejected_deltas": AGENT.rejected_deltas,
+            "license_valid": AGENT.license_valid}
+
+
 @app.head("/health", include_in_schema=False)
 @app.get("/health")
 async def health():
@@ -133,8 +185,35 @@ async def health():
         "canonical_fields": dictionary["field_count"],
         "mcp": {"mounted": MCP_APP is not None, "path": "/mcp",
                 "transport": "streamable-http", "error": MCP_ERROR},
+        "satellite": _satellite_health(),
         "timestamp": _now(),
     }
+
+
+def _satellite_health():
+    """Fleet state, so an operator can see corpus version and heartbeat health
+    without shelling into the container. Absent when the agent is not enabled."""
+    try:
+        from app.satellite import AGENT
+        if not AGENT.enabled():
+            return {"enabled": False}
+        return {
+            "enabled": True,
+            "engine_id": AGENT.engine_id,
+            "license_id": AGENT.license_id,
+            "license_valid": AGENT.license_valid,
+            "corpus_version": AGENT.corpus_version,
+            "fleet_overlay_version": corpus.fleet_overlay_version(),
+            "control_plane": AGENT.control_plane,
+            "heartbeat_interval_s": AGENT.interval_s,
+            "last_rtt_ms": AGENT.last_rtt_ms,
+            "last_ack_at": (AGENT.last_ack or {}).get("server_time"),
+            "queued_heartbeats": len(AGENT._queued()),
+            "rejected_deltas": AGENT.rejected_deltas,
+            "token_rotations": AGENT.rotations,
+        }
+    except Exception as exc:
+        return {"enabled": False, "error": f"{type(exc).__name__}: {exc}"}
 
 
 # ── Coverage ─────────────────────────────────────────────────────────────────
@@ -323,6 +402,18 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
     unresolved = sorted(t for t, r in field_mappings.items()
                         if r["match_type"] == "unknown")
 
+    # Meter this call for the satellite heartbeat. Tag NAMES and counts only --
+    # the control plane learns that `Axis_1.ActVel` went unresolved 40 times on
+    # a siemens line, and never learns what it read. Metering must never be able
+    # to fail a normalize, so it is fully contained.
+    try:
+        from app.satellite import COUNTERS as _sat_counters
+        _sat_counters.record_normalize(
+            unresolved_tags=unresolved, oem=oem, machine_id=machine_id,
+            kind="normalize_csv" if is_csv else "normalize")
+    except Exception:
+        pass
+
     ingested = _now()
     payload = {
         "normalized":       csv_rows if is_csv else normalized,
@@ -456,6 +547,29 @@ async def v1_normalize(request: Request):
             "message": "Send {\"data\": {tag: value, ...}, \"oem\": \"haas\"} "
                        "as application/json, or a CSV body as text/csv.",
             "detail": str(exc)[:500], "service": SERVICE})
+
+    # An unknown top-level key is usually a caller asking for something the
+    # sandbox does not do -- `{"write": true}` being the common one. Accepting
+    # and silently dropping it is the worst answer: the caller has no way to
+    # tell the write did not happen. Say so.
+    try:
+        _sent = json.loads(raw)
+    except ValueError:
+        _sent = {}
+    if isinstance(_sent, dict):
+        _known = set(NormalizeRequest.model_fields)
+        _extra = sorted(set(_sent) - _known)
+        if _extra:
+            return JSONResponse(status_code=422, content={
+                "error": "unsupported_field",
+                "unsupported": _extra,
+                "message": ("Forge is read-only: it normalizes telemetry you "
+                            "send and never writes back to a device. "
+                            f"{', '.join(repr(k) for k in _extra)} is not a "
+                            "field this endpoint accepts, and it was NOT "
+                            "applied. Accepted fields: "
+                            f"{', '.join(sorted(_known))}."),
+                "service": SERVICE})
 
     if not body.data:
         return JSONResponse(status_code=422, content={

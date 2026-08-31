@@ -60,8 +60,13 @@ UNIT_TO_QUANTITY = {
     "pa": "pressure", "inhg": "pressure",
     # power
     "kw": "electric_power", "w": "electric_power", "mw": "electric_power",
-    "hp": "electric_power", "va": "electric_power", "kva": "electric_power",
-    "kvar": "electric_power", "mva": "electric_power",
+    "hp": "electric_power",
+    # Apparent power (VA) is not active power (W). Kept distinct so
+    # `apparent_power_va` and `active_power_kw` cannot be confused for one
+    # another, and parented to electric_power in _PARENT so nothing that
+    # already declares electric_power stops accepting these units.
+    "va": "apparent_power", "kva": "apparent_power", "mva": "apparent_power",
+    "kvar": "electric_power",
     "mvar": "electric_power", "var": "electric_power", "mw": "electric_power",
     # energy
     "kwh": "electric_energy", "wh": "electric_energy", "mwh": "electric_energy",
@@ -138,6 +143,7 @@ _SCHEMA_QUANTITY = {
 # "Flow" has not claimed volumetric OR mass, so it must not be rejected against
 # either. A tag that says GPM has.
 _PARENT = {
+    "apparent_power": "electric_power",
     "volumetric_flow_rate": "flow_rate",
     "mass_flow_rate": "flow_rate",
 }

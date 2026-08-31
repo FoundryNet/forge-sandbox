@@ -1,187 +1,217 @@
 {
- "aliases": [
-  "sungrow_shx",
-  "sungrow_sh",
-  "sh10rt",
-  "sh5k"
- ],
- "canonical_fields": [
-  "active_power_kw",
-  "battery_cell_temp_max_c",
-  "battery_soc_pct",
-  "battery_soh_pct",
-  "battery_voltage",
-  "charge_rate_kw",
-  "dc_current_a",
-  "dc_voltage_v",
-  "discharge_rate_kw",
-  "energy_delivered_kwh",
-  "energy_kwh",
-  "energy_received_kwh",
-  "grid_frequency_hz",
-  "inverter_cabinet_temp_c",
-  "inverter_output_kw",
-  "line_current_a",
-  "line_voltage_v",
-  "power_factor",
-  "reactive_power_kvar"
- ],
- "display_name": "Sungrow SH-series hybrid inverter (Modbus TCP)",
- "mappings": {
-  "Battery charging power": "charge_rate_kw",
-  "Battery discharging power": "discharge_rate_kw",
-  "Battery level": "battery_soc_pct",
-  "Battery state of health": "battery_soh_pct",
-  "Battery temperature": "battery_cell_temp_max_c",
-  "Battery voltage": "battery_voltage",
-  "Daily PV generation & battery discharge": "energy_kwh",
-  "Grid frequency": "grid_frequency_hz",
-  "Inverter temperature": "inverter_cabinet_temp_c",
-  "MPPT1 current": "dc_current_a",
-  "MPPT1 voltage": "dc_voltage_v",
-  "Phase A current": "line_current_a",
-  "Phase A voltage": "line_voltage_v",
-  "Power factor": "power_factor",
-  "Reactive power": "reactive_power_kvar",
-  "Total DC power": "inverter_output_kw",
-  "Total PV generation": "energy_delivered_kwh",
-  "Total active power": "active_power_kw",
-  "Total exported energy": "energy_delivered_kwh",
-  "Total imported energy": "energy_received_kwh"
- },
- "oem": "sungrow",
- "protocol": "modbus_tcp",
- "provenance": {
-  "generated_at": "2026-08-23T07:14:14.114266+00:00",
-  "generated_by": "energy-sprint/packs/build_sungrow.py",
-  "modbus_addresses": {
-   "Battery charging power": {},
-   "Battery discharging power": {},
-   "Battery level": {
-    "address": "13022 # reg 13023",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "Battery state of health": {
-    "address": "13023 # reg 13024",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "Battery temperature": {
-    "address": "13024 # reg 13025",
-    "data_type": "int16",
-    "scale": "0.1"
-   },
-   "Battery voltage": {
-    "address": "13019 # reg 13020",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "Daily PV generation & battery discharge": {
-    "address": "5002 # reg 5003",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "Grid frequency": {
-    "address": "5241 # reg 5242",
-    "data_type": "uint16",
-    "scale": "0.01"
-   },
-   "Inverter temperature": {
-    "address": "5007 # reg 5008",
-    "data_type": "int16",
-    "scale": "0.1"
-   },
-   "MPPT1 current": {
-    "address": "5011 # reg 5012",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "MPPT1 voltage": {
-    "address": "5010 # reg 5011",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "Phase A current": {
-    "address": "13030 # reg 13031",
-    "data_type": "int16",
-    "scale": "0.1"
-   },
-   "Phase A voltage": {
-    "address": "5018 # reg: 5019",
-    "data_type": "uint16",
-    "scale": "0.1"
-   },
-   "Power factor": {
-    "address": "5034 # reg 5035",
-    "data_type": "int16",
-    "scale": "0.001"
-   },
-   "Reactive power": {
-    "address": "5032 # reg 5033",
-    "data_type": "int32",
-    "scale": "1"
-   },
-   "Total DC power": {
-    "address": "5016 # reg 5017",
-    "data_type": "uint32",
-    "scale": "1"
-   },
-   "Total PV generation": {
-    "address": "13002 # reg 13003",
-    "data_type": "uint32",
-    "scale": "0.1"
-   },
-   "Total active power": {
-    "address": "13033 # reg 13034",
-    "data_type": "int32",
-    "scale": "1"
-   },
-   "Total exported energy": {
-    "address": "13045 # reg 13046",
-    "data_type": "uint32",
-    "scale": "0.1"
-   },
-   "Total imported energy": {
-    "address": "13036 # reg 13037",
-    "data_type": "uint32",
-    "scale": "0.1"
-   }
+  "aliases": [
+    "sungrow_shx",
+    "sungrow_sh",
+    "sh10rt",
+    "sh5k"
+  ],
+  "canonical_fields": [
+    "ac_current_phase_a",
+    "ac_current_phase_b",
+    "ac_current_phase_c",
+    "ac_voltage_ll_ab",
+    "ac_voltage_ll_bc",
+    "ac_voltage_ll_ca",
+    "ac_voltage_phase_a",
+    "ac_voltage_phase_b",
+    "ac_voltage_phase_c",
+    "active_power_kw",
+    "apparent_power_va",
+    "battery_cell_temp_max_c",
+    "battery_soc_pct",
+    "battery_soh_pct",
+    "battery_voltage",
+    "charge_rate_kw",
+    "dc_current_a",
+    "dc_voltage_v",
+    "discharge_rate_kw",
+    "energy_delivered_kwh",
+    "energy_kwh",
+    "energy_received_kwh",
+    "grid_frequency_hz",
+    "inverter_cabinet_temp_c",
+    "inverter_output_kw",
+    "line_current_a",
+    "line_voltage_v",
+    "power_factor",
+    "reactive_power_kvar"
+  ],
+  "display_name": "Sungrow SH-series hybrid inverter (Modbus TCP)",
+  "mappings": {
+    "AphA": "ac_current_phase_a",
+    "AphB": "ac_current_phase_b",
+    "AphC": "ac_current_phase_c",
+    "Battery charging power": "charge_rate_kw",
+    "Battery discharging power": "discharge_rate_kw",
+    "Battery level": "battery_soc_pct",
+    "Battery state of health": "battery_soh_pct",
+    "Battery temperature": "battery_cell_temp_max_c",
+    "Battery voltage": "battery_voltage",
+    "Daily PV generation & battery discharge": "energy_kwh",
+    "Grid frequency": "grid_frequency_hz",
+    "Inverter temperature": "inverter_cabinet_temp_c",
+    "MPPT1 current": "dc_current_a",
+    "MPPT1 voltage": "dc_voltage_v",
+    "PPVphAB": "ac_voltage_ll_ab",
+    "PPVphBC": "ac_voltage_ll_bc",
+    "PPVphCA": "ac_voltage_ll_ca",
+    "PhVphA": "ac_voltage_phase_a",
+    "PhVphB": "ac_voltage_phase_b",
+    "PhVphC": "ac_voltage_phase_c",
+    "Phase A current": "line_current_a",
+    "Phase A voltage": "line_voltage_v",
+    "Power factor": "power_factor",
+    "Reactive power": "reactive_power_kvar",
+    "Total DC power": "inverter_output_kw",
+    "Total PV generation": "energy_delivered_kwh",
+    "Total active power": "active_power_kw",
+    "Total exported energy": "energy_delivered_kwh",
+    "Total imported energy": "energy_received_kwh",
+    "VA": "apparent_power_va"
   },
-  "registers_in_source_map": 152,
-  "registers_mapped": 20,
-  "registry_field_count": 394,
-  "scaling": "Fixed per-register `scale` in the map, NOT SunSpec scale-factor registers. The exponent lives in documentation rather than on the wire, so a client that has not been told cannot detect it from the data.",
-  "tier": "vendor_doc",
-  "unit_overrides": {
-   "Reactive power": {
-    "corrected_to": "var",
-    "reason": "Reactive power is measured in vars. The map declares W because Home Assistant has no reactive-power device_class. Physical quantity beats the transcription.",
-    "source_declares": "W"
-   }
-  }
- },
- "source": "github.com/mkaiser/Sungrow-SHx-Inverter-Modbus-Home-Assistant, a maintained published Modbus map for Sungrow SH-series hybrid inverters. Names, units, addresses and fixed scales are read from that map, not recalled.",
- "tag_units": {
-  "Battery charging power": "W",
-  "Battery discharging power": "W",
-  "Battery level": "%",
-  "Battery state of health": "%",
-  "Battery temperature": "C",
-  "Battery voltage": "V",
-  "Daily PV generation & battery discharge": "kWh",
-  "Grid frequency": "Hz",
-  "Inverter temperature": "C",
-  "MPPT1 current": "A",
-  "MPPT1 voltage": "V",
-  "Phase A current": "A",
-  "Phase A voltage": "V",
-  "Reactive power": "var",
-  "Total DC power": "W",
-  "Total PV generation": "kWh",
-  "Total active power": "W",
-  "Total exported energy": "kWh",
-  "Total imported energy": "kWh"
- },
- "vertical": "energy"
+  "oem": "sungrow",
+  "protocol": "modbus_tcp",
+  "provenance": {
+    "generated_at": "2026-08-23T07:14:14.114266+00:00",
+    "generated_by": "energy-sprint/packs/build_sungrow.py",
+    "modbus_addresses": {
+      "Battery charging power": {},
+      "Battery discharging power": {},
+      "Battery level": {
+        "address": "13022 # reg 13023",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "Battery state of health": {
+        "address": "13023 # reg 13024",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "Battery temperature": {
+        "address": "13024 # reg 13025",
+        "data_type": "int16",
+        "scale": "0.1"
+      },
+      "Battery voltage": {
+        "address": "13019 # reg 13020",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "Daily PV generation & battery discharge": {
+        "address": "5002 # reg 5003",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "Grid frequency": {
+        "address": "5241 # reg 5242",
+        "data_type": "uint16",
+        "scale": "0.01"
+      },
+      "Inverter temperature": {
+        "address": "5007 # reg 5008",
+        "data_type": "int16",
+        "scale": "0.1"
+      },
+      "MPPT1 current": {
+        "address": "5011 # reg 5012",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "MPPT1 voltage": {
+        "address": "5010 # reg 5011",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "Phase A current": {
+        "address": "13030 # reg 13031",
+        "data_type": "int16",
+        "scale": "0.1"
+      },
+      "Phase A voltage": {
+        "address": "5018 # reg: 5019",
+        "data_type": "uint16",
+        "scale": "0.1"
+      },
+      "Power factor": {
+        "address": "5034 # reg 5035",
+        "data_type": "int16",
+        "scale": "0.001"
+      },
+      "Reactive power": {
+        "address": "5032 # reg 5033",
+        "data_type": "int32",
+        "scale": "1"
+      },
+      "Total DC power": {
+        "address": "5016 # reg 5017",
+        "data_type": "uint32",
+        "scale": "1"
+      },
+      "Total PV generation": {
+        "address": "13002 # reg 13003",
+        "data_type": "uint32",
+        "scale": "0.1"
+      },
+      "Total active power": {
+        "address": "13033 # reg 13034",
+        "data_type": "int32",
+        "scale": "1"
+      },
+      "Total exported energy": {
+        "address": "13045 # reg 13046",
+        "data_type": "uint32",
+        "scale": "0.1"
+      },
+      "Total imported energy": {
+        "address": "13036 # reg 13037",
+        "data_type": "uint32",
+        "scale": "0.1"
+      }
+    },
+    "registers_in_source_map": 152,
+    "registers_mapped": 20,
+    "registry_field_count": 394,
+    "scaling": "Fixed per-register `scale` in the map, NOT SunSpec scale-factor registers. The exponent lives in documentation rather than on the wire, so a client that has not been told cannot detect it from the data.",
+    "tier": "vendor_doc",
+    "unit_overrides": {
+      "Reactive power": {
+        "corrected_to": "var",
+        "reason": "Reactive power is measured in vars. The map declares W because Home Assistant has no reactive-power device_class. Physical quantity beats the transcription.",
+        "source_declares": "W"
+      }
+    }
+  },
+  "source": "github.com/mkaiser/Sungrow-SHx-Inverter-Modbus-Home-Assistant, a maintained published Modbus map for Sungrow SH-series hybrid inverters. Names, units, addresses and fixed scales are read from that map, not recalled.",
+  "tag_units": {
+    "AphA": "A",
+    "AphB": "A",
+    "AphC": "A",
+    "Battery charging power": "W",
+    "Battery discharging power": "W",
+    "Battery level": "%",
+    "Battery state of health": "%",
+    "Battery temperature": "C",
+    "Battery voltage": "V",
+    "Daily PV generation & battery discharge": "kWh",
+    "Grid frequency": "Hz",
+    "Inverter temperature": "C",
+    "MPPT1 current": "A",
+    "MPPT1 voltage": "V",
+    "PPVphAB": "V",
+    "PPVphBC": "V",
+    "PPVphCA": "V",
+    "PhVphA": "V",
+    "PhVphB": "V",
+    "PhVphC": "V",
+    "Phase A current": "A",
+    "Phase A voltage": "V",
+    "Reactive power": "var",
+    "Total DC power": "W",
+    "Total PV generation": "kWh",
+    "Total active power": "W",
+    "Total exported energy": "kWh",
+    "Total imported energy": "kWh",
+    "VA": "VA"
+  },
+  "vertical": "energy"
 }
