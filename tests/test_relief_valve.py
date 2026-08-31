@@ -144,3 +144,32 @@ def test_a_rescued_response_is_distinguishable_from_a_clean_one(client, response
         "oem": "siemens", "data": {"": 1}}).json()
     assert dirty.get("_invariant_violations")
     assert not responses["haas"].get("_invariant_violations")
+
+
+# -- ordering: the sentinel gate must run BEFORE bounds and BEFORE conversion --
+
+@pytest.mark.parametrize("oem,tag,field,sentinel", [
+    ("schneider", "ActivePower", "active_power_kw", 65535),
+    ("sunspec_inverter", "PPVphAB", "ac_voltage_ll_ab", 32767),
+    ("siemens", "POWER_CONSUMPTION(kWh)", "energy_kwh", 4294967295),
+])
+def test_sentinel_inside_the_bounds_window_is_still_nulled(
+        normalize, oem, tag, field, sentinel):
+    """102 fields have bounds that numerically CONTAIN 32767; 82 contain 65535.
+    Bounds alone would pass them. They do not pass, because the sentinel gate
+    runs first -- and nothing else pins that ordering.
+
+    It is load-bearing in the other direction too: converting first LAUNDERS the
+    sentinel. 65535 Wh becomes 65.535 kWh, which matches no sentinel and reads as
+    a plausible value through every downstream check. That was finding F1
+    (2026-08-22) -- the validator was right in isolation and only the call order
+    defeated it.
+    """
+    out = normalize(oem, {tag: sentinel})
+    assert (out["normalized"] or {}).get(field) is None, \
+        f"{field}: sentinel {sentinel} survived (bounds window admits it)"
+    ns = (out.get("null_states") or {}).get(field)
+    assert ns, f"{field}: nulled without a reason"
+    assert "sentinel" in ns["null_reason"], ns["null_reason"]
+    assert ns["stage"] == "pre_conversion", \
+        f"{field}: caught at {ns['stage']}, but post-conversion is too late"
