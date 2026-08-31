@@ -195,14 +195,14 @@ CONVERSIONS = {
     ("K", "C"): (lambda v: v - 273.15, "kelvin_to_celsius"),
     ("R", "C"): (lambda v: (v - 491.67) * 5.0 / 9.0, "rankine_to_celsius"),
     # pressure
-    ("psi", "bar"): (lambda v: v * 0.0689476, "psi_to_bar"),
+    ("psi", "bar"): (lambda v: v * 0.06894757293168361, "psi_to_bar"),
     ("kPa", "bar"): (lambda v: v / 100.0, "kpa_to_bar"),
     ("MPa", "bar"): (lambda v: v * 10.0, "mpa_to_bar"),
     ("Pa", "bar"): (lambda v: v / 100_000.0, "pa_to_bar"),
     ("atm", "bar"): (lambda v: v * 1.01325, "atm_to_bar"),
     ("mbar", "bar"): (lambda v: v / 1000.0, "mbar_to_bar"),
-    ("inHg", "bar"): (lambda v: v * 0.0338639, "inhg_to_bar"),
-    ("mmHg", "bar"): (lambda v: v * 0.0013332239, "mmhg_to_bar"),
+    ("inHg", "bar"): (lambda v: v * 0.03386388640341, "inhg_to_bar"),
+    ("mmHg", "bar"): (lambda v: v * 0.00133322387415, "mmhg_to_bar"),
     # length
     ("in", "mm"): (lambda v: v * 25.4, "inch_to_mm"),
     ("ft", "mm"): (lambda v: v * 304.8, "foot_to_mm"),
@@ -248,21 +248,21 @@ CONVERSIONS = {
     ("%", "ratio"): (lambda v: v / 100.0, "percent_to_ratio"),
     ("ratio", "%"): (lambda v: v * 100.0, "ratio_to_percent"),
     ("MW", "kW"): (lambda v: v * 1000.0, "megawatt_to_kw"),
-    ("hp", "kW"): (lambda v: v * 0.7457, "hp_to_kw"),
+    ("hp", "kW"): (lambda v: v * 0.7456998715822702, "hp_to_kw"),
     # flow
-    ("gal/min", "L/min"): (lambda v: v * 3.785412, "gpm_to_l_min"),
+    ("gal/min", "L/min"): (lambda v: v * 3.785411784, "gpm_to_l_min"),
     ("mL/min", "L/min"): (lambda v: v / 1000.0, "ml_min_to_l_min"),
     ("L/s", "L/min"): (lambda v: v * 60.0, "l_s_to_l_min"),
     ("m3/h", "L/min"): (lambda v: v * (1000.0 / 60.0), "m3_h_to_l_min"),
     # mass flow
-    ("lb/s", "kg/s"): (lambda v: v * 0.4535924, "lbm_s_to_kg_s"),
+    ("lb/s", "kg/s"): (lambda v: v * 0.45359237, "lbm_s_to_kg_s"),
     ("kg/h", "kg/s"): (lambda v: v / 3600.0, "kg_h_to_kg_s"),
     # mass
-    ("lb", "kg"): (lambda v: v * 0.4535924, "pound_to_kg"),
-    ("oz", "kg"): (lambda v: v * 0.0283495, "ounce_to_kg"),
+    ("lb", "kg"): (lambda v: v * 0.45359237, "pound_to_kg"),
+    ("oz", "kg"): (lambda v: v * 0.028349523125, "ounce_to_kg"),
     ("g", "kg"): (lambda v: v / 1000.0, "gram_to_kg"),
     ("tonne", "kg"): (lambda v: v * 1000.0, "tonne_to_kg"),
-    ("ton", "kg"): (lambda v: v * 907.185, "shortton_to_kg"),
+    ("ton", "kg"): (lambda v: v * 907.18474, "shortton_to_kg"),
     # torque
     ("ftlb", "Nm"): (lambda v: v * 1.355818, "ftlb_to_nm"),
     # vibration acceleration

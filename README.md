@@ -63,7 +63,7 @@ budget.
 |---|---|---|
 | Data | simulated | your real machines |
 | Canonical schema | **real** | **real** |
-| Vendor tag mappings | 1,515 (public sources) | 16,908 curated |
+| Vendor tag mappings | 2,131 (public sources) | 16,908 curated |
 | Unresolved tags | signal classifier | + embeddings, + LLM research, + self-healing |
 | Forecasting | least squares | TimesFM (200M params) |
 | Auth | none | API key |
@@ -263,7 +263,7 @@ plausible-looking wrong field.
 Deliberately, and stated plainly so nothing here is mistaken for the real thing:
 
 - **The production mapping corpus.** 16,908 curated mappings with confidence
-  scores and provenance. The sandbox ships 1,515 mappings assembled from
+  scores and provenance. The sandbox ships 2,131 mappings assembled from
   already-public sources only: the
   [MIT-licensed canonical schema](https://github.com/FoundryNet/canonical-schema)
   (haas, fanuc, siemens, octoprint), the shipped BACnet/IP vertical pack plus
@@ -304,7 +304,7 @@ the wrong shape is worse than no sandbox.
    about 75%. The sandbox declares `unit: "pwm_0_127"`.
 
 2. **Null units are backfilled from field names.** The published corpus declares
-   a unit for only 58 of 366 fields. Where the field name states the unit
+   a unit for only 189 of the 467 fields this image serves. Where the field name states the unit
    (`_temperature_c`, `_pressure_bar`, `_rpm`), the sandbox fills it in and
    marks it `unit_source: "sandbox_inferred_from_name"`.
 
