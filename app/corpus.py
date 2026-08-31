@@ -1688,7 +1688,19 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
             if _ap:
                 value_coercions.append({"raw_field": tag, "canonical_field": None,
                                         "applied": _ap, "original_type": _ot})
-            if _ap in ("unprocessable_object", "unknown_type"):
+            if _ap == "opc_quality_bad":
+                # The server disowned its own reading. Unresolved or not, it is
+                # not a value, and it must not sit in the response looking like
+                # one just because no canonical field claimed the tag.
+                null_states[tag] = {
+                    "null_state": True,
+                    "null_reason": "opc_quality_bad: the OPC server reported "
+                                   f"Bad quality for '{tag}'",
+                    "raw_value": data[tag], "raw_field": tag,
+                    "stage": "pre_conversion",
+                }
+                value = None
+            elif _ap in ("unprocessable_object", "unknown_type"):
                 # An object with no recognisable value key, or a type we have no
                 # rule for. Nothing downstream can bound-check or convert it, and
                 # emitting it would put a raw structure in a telemetry field.
@@ -1747,6 +1759,23 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
         # canonical declared `float` that receives "~31" or `true` cannot be
         # bounds-checked, converted or compared, and storing it anyway hands a
         # downstream consumer a value its own schema says is impossible.
+        # Bad quality is refused before the type check, not after. The value
+        # under a Bad wrapper is frequently well-formed -- a stale-but-plausible
+        # number is the normal shape of a comms dropout -- so every gate below
+        # would pass it. The wrapper is the only evidence it is not a reading.
+        if _applied == "opc_quality_bad":
+            null_states[canonical] = {
+                "null_state": True,
+                "null_reason": "opc_quality_bad: the OPC server reported "
+                               f"Bad quality for '{tag}'",
+                "raw_value": data[tag], "raw_field": tag,
+                "stage": "pre_conversion",
+            }
+            normalized[canonical] = None
+            field_mappings[tag] = rec
+            seen_canonical[canonical] = (tag, rec.get("confidence") or 0.0)
+            continue
+
         # A number we refused to disambiguate is not a type error -- it is a
         # locale we were not told. Null it with the reason it carries.
         if _applied == "ambiguous_number":

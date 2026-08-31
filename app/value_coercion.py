@@ -97,9 +97,29 @@ def coerce_value(raw_value: Any,
 
     if isinstance(raw_value, dict):
         # OPC UA and several historians wrap the reading with its quality flag.
+        #
+        # The quality IS part of the reading. A server reporting Bad is stating
+        # that its own value is untrustworthy -- stale, sensor-faulted, or the
+        # comms dropped and this is the last thing it saw. Unwrapping the number
+        # and discarding that verdict shipped a reading the device itself
+        # disowned, under a canonical field name, at full confidence, with
+        # nothing downstream able to tell: the sentinel gate sees a plausible
+        # number, the physics bounds see an in-range number, and the relief valve
+        # sees a clean float. It is the exact silent-wrong-answer this gate
+        # exists to prevent, and it is what an OPC connector vendor tests first.
+        #
+        # Quality is therefore read BEFORE the value is taken.
+        quality = _opc_quality(raw_value)
+        if quality == "bad":
+            return None, "opc_quality_bad", "object"
         for key in ("value", "Value", "val"):
             if key in raw_value:
                 inner, _applied, _t = coerce_value(raw_value[key], field_hint, oem, locale)
+                if quality == "uncertain":
+                    # Uncertain is not Bad. The server is still offering the
+                    # value, so it passes -- but it is REPORTED, so an
+                    # integrator can see which readings carried a caveat.
+                    return inner, "opc_quality_uncertain", "object"
                 return inner, f"unwrapped_object:{key}", "object"
         # No recognizable value key. Hand it back flagged: the physics gate
         # cannot check a dict, and pretending otherwise is how an object ends up
@@ -107,6 +127,44 @@ def coerce_value(raw_value: Any,
         return raw_value, "unprocessable_object", "object"
 
     return raw_value, "unknown_type", type(raw_value).__name__
+
+
+# OPC UA quality arrives in the two shapes a client actually emits: a readable
+# string ("Good" / "Bad" / "Uncertain", often qualified as "Bad_NoCommunication"
+# or "Uncertain_LastUsableValue"), and a raw 32-bit StatusCode whose TOP TWO BITS
+# are the severity -- 0 Good, 1 Uncertain, 2 and 3 Bad. Both are read, because a
+# gateway that speaks one rarely speaks the other.
+_OPC_SEVERITY = {0: "good", 1: "uncertain", 2: "bad", 3: "bad"}
+_OPC_QUALITY_KEYS = ("Quality", "quality", "StatusCode", "statusCode",
+                     "status_code", "Status", "status")
+
+
+def _opc_quality(wrapper: dict) -> Optional[str]:
+    """Severity of an OPC quality wrapper: 'good', 'uncertain', 'bad' or None.
+
+    None means the wrapper carries no quality at all, which is NOT the same as
+    Good -- it is the plain {"value": x} shape that predates this gate, and it
+    must keep unwrapping exactly as it always did.
+    """
+    for key in _OPC_QUALITY_KEYS:
+        if key not in wrapper:
+            continue
+        raw = wrapper[key]
+        # bool is an int subclass; {"Quality": True} is not a status code.
+        if isinstance(raw, bool):
+            continue
+        if isinstance(raw, str):
+            token = raw.strip().lower()
+            for name in ("bad", "uncertain", "good"):
+                if token == name or token.startswith(name + "_"):
+                    return name
+            continue          # unrecognised string: try the next key
+        if isinstance(raw, (int, float)):
+            code = int(raw)
+            if code < 0:      # a signed reading of the same 32 bits
+                code &= 0xFFFFFFFF
+            return _OPC_SEVERITY.get((code >> 30) & 0b11)
+    return None
 
 
 def _coerce_string(raw: str, oem=None, locale=None) -> Tuple[Any, Optional[str], str]:
