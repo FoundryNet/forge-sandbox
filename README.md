@@ -326,6 +326,42 @@ python -m pytest tests/ -q
 uvicorn app.main:app --reload --port 8000
 ```
 
+### Before a demo or an evaluator call
+
+```bash
+python3 -m pytest tests/ --tb=short
+```
+
+Green means safe to demo. Red means fix it before dialing. One command runs
+everything:
+
+| suite | what it holds |
+|---|---|
+| `test_sandbox.py` | response shape and fidelity against production |
+| `test_final_boss.py` | 49 fields, every bug class, all of them DECIDED |
+| `test_sunspec_103.py` | Model 103, all 28 registers, shared scale factors |
+| `test_own_pack.py` | 2,131 mappings across 19 packs resolve to their own canonical |
+| `test_relief_valve.py` | the output invariants, on clean and on garbage |
+| `test_opc_quality.py` | OPC UA Bad quality never ships as a reading |
+| `test_impersonation.py` | all eight evaluator scenarios, shortfalls pinned |
+| `test_demo_check.py` | the 35 beats a prospect sees, in the real container |
+| `test_energy_vertical.py`, `test_evidence_gate.py` | vertical + gate coverage |
+
+`test_demo_check.py` is the only one that leaves the process. It drives
+`~/Desktop/licensing-demo/run_demo.sh --check` against the pinned demo image and
+**skips** when docker or that directory is absent. Deselect the whole class with
+`-m "not slow"`.
+
+It is there because source being green does not mean the demo is. `run_demo.sh`
+runs off a local pinned tag on purpose, so a demo cannot change mid-call — which
+also means a fix in source never reaches it. On 2026-08-31 the demo had been
+failing for five days while every source suite passed. After a GHCR push,
+re-pin:
+
+```bash
+docker tag ghcr.io/foundrynet/forge-sandbox:latest forge-demo:pinned
+```
+
 Regenerate the mapping packs from source (needs the canonical-schema repo
 checked out):
 
