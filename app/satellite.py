@@ -45,24 +45,76 @@ def _env(name, default=None):
     return v if v not in (None, "") else default
 
 
+# Confidence tiers the resolver actually emits. Anything else lands in
+# "other", which is itself a signal: a new tier appeared without us noticing.
+_CONF_TIERS = ((1.0, "1.0"), (0.85, "0.85"), (0.65, "0.65"))
+
+
+def _conf_bucket(conf):
+    try:
+        c = float(conf)
+    except (TypeError, ValueError):
+        return "other"
+    for value, label in _CONF_TIERS:
+        if abs(c - value) < 1e-6:
+            return label
+    return "other"
+
+
 class Counters:
-    """Usage the engine accumulates between heartbeats.
+    """Usage and QUALITY the engine accumulates between heartbeats.
 
     Snapshot-and-swap rather than read-then-clear: a heartbeat that FAILS must
     not lose its events, so the caller keeps the snapshot until the control
     plane acknowledges it.
+
+    Everything recorded here is a NAME, a COUNT or a SCORE. No telemetry value
+    ever enters these counters, so the quality signal can leave the licensee's
+    network on the same terms the usage signal already does.
     """
+
+    # Bounded so a pathological hour cannot grow the heartbeat without limit.
+    MAX_REASONS = 25
+    MAX_KEYS = 50
 
     def __init__(self):
         self._lock = threading.Lock()
+        self._reset_locked()
+
+    def _reset_locked(self):
         self.events = 0
         self.by_kind = Counter()
         self.unresolved = Counter()          # (tag, oem) -> count
         self.machines = set()
         self.errors = []
+        # ── quality ────────────────────────────────────────────────────────
+        self.evidence_refusals = 0
+        self.refusal_reasons = []            # [{tag, candidate, score}]
+        self.relief_valve_fires = 0
+        self.relief_valve_fields = Counter()
+        self.sentinel_catches = 0
+        self.sentinels_by_token = Counter()
+        self.physics_violations = 0
+        self.physics_fields = Counter()
+        self.coercions = Counter()           # kind -> count
+        self.confidence = Counter()          # bucket -> count
+        self.fields_seen = 0
+        self.coverage_mapped = Counter()     # oem -> mapped fields
+        self.coverage_total = Counter()      # oem -> total fields
+        self.oems_seen = set()
+        self.signature_failures = 0
+        # Structurally zero: no override path exists in the resolver. The wire
+        # is here so that if one is ever added, the control plane sees it the
+        # same hour rather than the next audit.
+        self.evidence_gate_overrides = 0
 
+    # ── recording ──────────────────────────────────────────────────────────
     def record_normalize(self, *, unresolved_tags=(), oem=None, machine_id=None,
-                         kind="normalize"):
+                         kind="normalize", field_mappings=None, null_states=None,
+                         coercions=(), relief_valve_fires=0, fields_total=0,
+                         fields_mapped=0):
+        """Meter one normalize. Every argument past `kind` is optional so an
+        older caller keeps working and simply reports no quality signal."""
         with self._lock:
             self.events += 1
             self.by_kind[kind] += 1
@@ -71,10 +123,102 @@ class Counters:
             for t in unresolved_tags:
                 self.unresolved[(str(t), str(oem or "unknown"))] += 1
 
+            oem_key = str(oem or "unknown")
+            self.oems_seen.add(oem_key)
+            self.fields_seen += int(fields_total or 0)
+            self.coverage_mapped[oem_key] += int(fields_mapped or 0)
+            self.coverage_total[oem_key] += int(fields_total or 0)
+
+            if relief_valve_fires:
+                self.relief_valve_fires += int(relief_valve_fires)
+
+            for tag, rec in (field_mappings or {}).items():
+                if not isinstance(rec, dict):
+                    continue
+                match = rec.get("match_type")
+                if match == "insufficient_evidence":
+                    self.confidence["refused"] += 1
+                    self.evidence_refusals += 1
+                    if len(self.refusal_reasons) < self.MAX_REASONS:
+                        ev = rec.get("evidence") or {}
+                        self.refusal_reasons.append({
+                            "tag": str(tag)[:80],
+                            "candidate": (str(rec.get("refused_candidate"))[:80]
+                                          if rec.get("refused_candidate") else None),
+                            "score": ev.get("score"),
+                            "class": ev.get("class"),
+                        })
+                elif match in (None, "unknown", "quantity_mismatch", "ambiguous_fold"):
+                    self.confidence["unresolved"] += 1
+                else:
+                    self.confidence[_conf_bucket(rec.get("confidence"))] += 1
+
+            # Sentinels and physics violations are read off the null reasons the
+            # validator already writes, so the two can never disagree.
+            for key, state in (null_states or {}).items():
+                reason = str((state or {}).get("null_reason") or "")
+                head = reason.split(":", 1)[0].strip()
+                if head in ("numeric_sentinel", "string_sentinel"):
+                    self.sentinel_catches += 1
+                    token = reason.split(":", 1)[1].strip() if ":" in reason else ""
+                    self.sentinels_by_token[token.split("(")[0].strip()[:40] or head] += 1
+                elif head == "physics_violation":
+                    self.physics_violations += 1
+                    self.physics_fields[str(key)[:80]] += 1
+
+            for c in coercions or ():
+                if isinstance(c, dict):
+                    label = c.get("coercion") or c.get("applied") or c.get("kind")
+                    if label:
+                        # `extracted_unit:degF` and `extracted_unit:psi` are the
+                        # same coercion. Group on the kind, not its argument, or
+                        # the distribution is a list of one-offs.
+                        self.coercions[str(label).split(":", 1)[0][:40]] += 1
+
+    def record_signature_failure(self):
+        """A corpus bundle failed Ed25519 verification and was NOT applied."""
+        with self._lock:
+            self.signature_failures += 1
+
     def record_error(self, msg):
         with self._lock:
             if len(self.errors) < 25:
                 self.errors.append(str(msg)[:300])
+
+    # ── transport ──────────────────────────────────────────────────────────
+    def quality_snapshot(self):
+        """The quality half of the payload. Split out so it is testable
+        without driving a whole heartbeat."""
+        top = lambda ctr: dict(ctr.most_common(self.MAX_KEYS))
+        # Raw mapped/total, not just a percentage: averaging percentages
+        # across engines is arithmetically wrong, and the control plane needs a
+        # fleet number it can defend.
+        coverage_by_oem = {
+            oem: {"mapped": self.coverage_mapped[oem],
+                  "total": self.coverage_total[oem],
+                  "pct": round(100.0 * self.coverage_mapped[oem] / self.coverage_total[oem], 2)}
+            for oem in self.coverage_total if self.coverage_total[oem] > 0
+        }
+        mapped, total = sum(self.coverage_mapped.values()), sum(self.coverage_total.values())
+        return {
+            "evidence_refusals": self.evidence_refusals,
+            "evidence_refusal_reasons": list(self.refusal_reasons),
+            "evidence_gate_overrides": self.evidence_gate_overrides,
+            "relief_valve_fires": self.relief_valve_fires,
+            "relief_valve_fields": top(self.relief_valve_fields),
+            "sentinel_catches": self.sentinel_catches,
+            "sentinels_by_token": top(self.sentinels_by_token),
+            "physics_violations": self.physics_violations,
+            "physics_violation_fields": top(self.physics_fields),
+            "coercions_applied": top(self.coercions),
+            "confidence_distribution": top(self.confidence),
+            "coverage_by_oem": coverage_by_oem,
+            "coverage_pct": round(100.0 * mapped / total, 2) if total else None,
+            "fields_seen": self.fields_seen,
+            "fields_mapped": mapped,
+            "oems_seen": sorted(self.oems_seen)[:self.MAX_KEYS],
+            "signature_failures": self.signature_failures,
+        }
 
     def snapshot(self):
         with self._lock:
@@ -88,21 +232,43 @@ class Counters:
                 ],
                 "errors": list(self.errors),
             }
-            self.events = 0
-            self.by_kind = Counter()
-            self.unresolved = Counter()
-            self.machines = set()
-            self.errors = []
+            snap.update(self.quality_snapshot())
+            self._reset_locked()
             return snap
 
     def restore(self, snap):
-        """Give a failed heartbeat's events back, so nothing is billed away."""
+        """Give a failed heartbeat's events back, so nothing is billed away —
+        and nothing is silently un-reported either. A quality signal dropped on
+        a failed beat is a blind spot exactly when the fleet is unhealthy."""
         with self._lock:
             self.events += snap.get("events_since_last", 0)
             for k, v in (snap.get("events_by_kind") or {}).items():
                 self.by_kind[k] += v
             for row in (snap.get("unresolved_tags") or []):
                 self.unresolved[(row["tag"], row["oem"])] += row.get("count", 0)
+
+            self.evidence_refusals += snap.get("evidence_refusals", 0)
+            for r in (snap.get("evidence_refusal_reasons") or []):
+                if len(self.refusal_reasons) < self.MAX_REASONS:
+                    self.refusal_reasons.append(r)
+            self.evidence_gate_overrides += snap.get("evidence_gate_overrides", 0)
+            self.relief_valve_fires += snap.get("relief_valve_fires", 0)
+            self.sentinel_catches += snap.get("sentinel_catches", 0)
+            self.physics_violations += snap.get("physics_violations", 0)
+            self.signature_failures += snap.get("signature_failures", 0)
+            self.fields_seen += snap.get("fields_seen", 0)
+            for name, ctr in (("relief_valve_fields", self.relief_valve_fields),
+                              ("sentinels_by_token", self.sentinels_by_token),
+                              ("physics_violation_fields", self.physics_fields),
+                              ("coercions_applied", self.coercions),
+                              ("confidence_distribution", self.confidence)):
+                for k, v in (snap.get(name) or {}).items():
+                    ctr[k] += v
+            self.oems_seen.update(snap.get("oems_seen") or ())
+            for oem, d in (snap.get("coverage_by_oem") or {}).items():
+                if isinstance(d, dict):
+                    self.coverage_mapped[oem] += d.get("mapped", 0)
+                    self.coverage_total[oem] += d.get("total", 0)
 
 
 COUNTERS = Counters()
@@ -254,6 +420,10 @@ class Satellite:
             self.rejected_deltas += 1
             log.error("REFUSED corpus bundle: %s", exc)
             COUNTERS.record_error(f"delta_rejected: {exc}")
+            # Counted as well as logged: a rejected delta is a CRITICAL fleet
+            # alert, and a log line on the licensee's box is not something we
+            # can see.
+            COUNTERS.record_signature_failure()
             return None, f"delta_rejected: {exc}"
 
         # Two bundle shapes: a FULL corpus {version, mappings[]} and a DELTA
