@@ -511,6 +511,17 @@ def test_unknown_v1_endpoint_lists_the_real_ones(client):
     assert "/v1/normalize" in body["available"]
 
 
+def test_health_declares_it_is_a_sandbox_subset(client):
+    """A prospect's first call is /health. The relationship to the licensed
+    engine has to be readable there -- the field counts differ, and someone
+    comparing 467 against the sell sheet's 694 must find the reason in the
+    response, not conclude the image is short."""
+    h = client.get("/health").json()
+    assert h["sandbox"] is True
+    assert "Evaluation subset" in h["sandbox_note"]
+    assert "694" in h["sandbox_note"]
+
+
 def test_get_on_normalize_is_405_not_404(client):
     """A bare `curl localhost:8000/v1/normalize` sends GET. It used to be
     answered "unknown_endpoint" -- naming, as unknown, the endpoint listed as

@@ -165,6 +165,13 @@ async def health():
         "version": VERSION,
         "mode": "sandbox",
         "simulated": True,
+        # Stated on /health itself so the relationship to the licensed engine is
+        # legible from the first call a prospect makes, without reading the
+        # README, the sell sheet, or anything else. The field counts differ and
+        # someone comparing them should find the reason here, not infer a defect.
+        "sandbox": True,
+        "sandbox_note": ("Evaluation subset. Licensed engine serves the full "
+                         "694-field corpus."),
         "uptime_seconds": round(time.time() - STARTED, 1),
         "db": None,
         "embedder_ready": None,
