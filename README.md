@@ -158,8 +158,9 @@ Add `?seed=N` to any simulate call to make it repeatable.
 | `POST /v1/fleet_health` | fleet rollup, risk distribution, maintenance queue |
 | `POST /v1/predict_batch` | per-machine predictions, no rollup |
 | `GET /v1/coverage` | what can be normalized; pass `?oem=` to check one |
-| `GET /v1/canonical-fields` | the canonical dictionary: name, type, unit, vertical |
+| `GET /v1/canonical-fields` | the canonical dictionary: name, type, unit, vertical, ISA-95 category |
 | `GET /v1/machines` | the five simulated machines |
+| `GET /v1/quality` | evidence-gate refusals, relief-valve fires, confidence distribution, coverage by OEM |
 | `GET /v1/simulate/{machine}` | one raw reading |
 | `GET /v1/simulate/{machine}/series?field=` | a history for one raw tag |
 | `GET /health` | liveness (GET and HEAD) |
@@ -255,6 +256,66 @@ The sandbox never invents a canonical name. Every name it emits comes out of the
 shipped dictionary, and the classifier's targets are validated against that
 dictionary at startup — a typo fails the container, it does not ship a
 plausible-looking wrong field.
+
+---
+
+## ISA-95 categories: the dictionary is a model, not a lookup table
+
+Every one of the **467 canonical fields carries an `isa95_category`**, so a
+resolved tag arrives already classified against a model the plant already uses.
+This is the difference between a normalization engine and a common data model: a
+normalizer tells you `SPINDLE SPEED` is `spindle_speed_rpm`; a CDM also tells you
+that field is `equipment_performance`, which is what lets a consumer subscribe to
+a *class* of signal it has never seen a vendor spelling for.
+
+| Category | Fields |
+|---|---|
+| `equipment_performance` | 181 |
+| `equipment_condition` | 88 |
+| `equipment_state` | 58 |
+| `general` | 30 |
+| `production_performance` | 26 |
+| `energy_consumption` | 24 |
+| `electrical_measurement` | 23 |
+| `storage` | 15 |
+| `environmental` | 9 |
+| `safety` | 9 |
+| `production_quality` | 4 |
+
+Ask for it per field with `?include_context=true`, which returns the unit,
+physical quantity, ISA-95 category, confidence and originating raw tag keyed by
+canonical field — the shape a UNS or CDM consumer subscribes to:
+
+```bash
+curl -s -X POST 'localhost:8000/v1/normalize?include_context=true' \
+  -H 'content-type: application/json' \
+  -d '{"oem":"fanuc","data":{"CUT TIME (min)":90,"AmbientTemp":22.5}}' \
+  | jq '.field_context'
+```
+
+```json
+{
+  "cutting_time_hours": {
+    "unit": "h",
+    "physical_quantity": "time_duration",
+    "isa95_category": "equipment_state",
+    "confidence": 1.0,
+    "match_type": "corpus",
+    "source_tag": "CUT TIME (min)"
+  },
+  "ambient_temperature_c": {
+    "unit": "C",
+    "physical_quantity": "temperature",
+    "isa95_category": "environmental",
+    "confidence": 1.0,
+    "match_type": "corpus",
+    "source_tag": "AmbientTemp"
+  }
+}
+```
+
+Note the value alongside it: `CUT TIME (min)` of `90` is emitted as `1.5`, not
+`90`. The unit came off the tag, not a guess.
 
 ---
 
