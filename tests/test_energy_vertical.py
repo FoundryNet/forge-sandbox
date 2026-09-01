@@ -253,3 +253,77 @@ def test_non_finite_csv_cells_null_out_rather_than_crashing(client, cell):
     assert resp.status_code == 200, resp.text[:200]
     row = resp.json()["normalized"][0]
     assert row.get("spindle_temperature") is None, row
+
+
+# ── recognized-but-unconvertible units ───────────────────────────────────────
+
+def test_kilovolts_are_converted_not_passed_through(client):
+    """A unit we can NAME but not CONVERT is worse than one we never knew.
+
+    `kV` and `mA` were already recognized as voltage and current, so the tag
+    resolved cleanly and the reading was kept in its original unit -- 0.2771 kV
+    landing in a volts field as 0.2771, off by 1000x behind a clean 100%
+    coverage number. The fail-closed guard is a deliberately narrow list of flow
+    units and never covered these.
+    """
+    out = client.post("/v1/normalize", json={
+        "oem": "sunspec_meter", "data": {"PhVphA (kV)": 0.2771}}).json()
+    assert out["normalized"]["ac_voltage_phase_a"] == pytest.approx(277.1)
+
+
+def test_milliamps_are_converted(client):
+    out = client.post("/v1/normalize", json={
+        "oem": "sunspec_meter", "data": {"A (mA)": 182400}}).json()
+    assert out["normalized"]["line_current_a"] == pytest.approx(182.4)
+
+
+def test_hz_to_rpm_is_refused_rather_than_guessed():
+    """Not a unit conversion: the factor depends on the machine's pole count.
+
+    60 Hz is 3600 rpm on a 2-pole machine and 1800 on a 4-pole, and Pint reads
+    the pair as 9.549 by treating Hz as rad/s. Three defensible answers means
+    this must never be applied silently.
+    """
+    from app.unit_converter import CONVERSIONS
+    assert ("Hz", "rpm") not in CONVERSIONS
+    assert ("rpm", "Hz") not in CONVERSIONS
+
+
+def test_no_recognized_unit_lacks_a_converter_to_its_target():
+    """The gap class itself, not just the four instances found."""
+    from app.unit_converter import CONVERSIONS, QUANTITY, TARGET_UNIT
+
+    gaps = []
+    for unit, quantity in QUANTITY.items():
+        target = TARGET_UNIT.get(quantity)
+        if not target or unit == target:
+            continue
+        if (unit, target) not in CONVERSIONS:
+            gaps.append(f"{unit} -> {target}")
+    # Hz->rpm is the one deliberate omission and is asserted above.
+    assert [g for g in gaps if g != "Hz -> rpm"] == []
+
+
+# ── phase designators are not units ──────────────────────────────────────────
+
+def test_a_trailing_phase_letter_is_not_read_as_a_unit():
+    """`ac_voltage_phase_a` holds volts, not amperes.
+
+    The `_a` and `_c` on the phase fields are phase designators. Reading them
+    as a unit made a voltage field claim to hold current and a current field
+    claim to hold degrees Celsius, so every conversion into them was refused as
+    a cross-quantity mismatch and the value passed through in whatever unit it
+    arrived in.
+    """
+    from app.unit_converter import target_unit
+    assert target_unit("ac_voltage_phase_a", "V") == "V"
+    assert target_unit("ac_voltage_phase_c", "V") == "V"
+    assert target_unit("ac_current_phase_c", "A") == "A"
+    assert target_unit("ac_current_phase_a", "A") == "A"
+
+
+def test_a_name_declared_unit_still_wins_when_the_registry_agrees_in_dimension():
+    """The `..._psi` rule the name precedence exists for must not regress."""
+    from app.unit_converter import target_unit
+    assert target_unit("feed_rate_mm_min", "in/min") == "mm/min"
+    assert target_unit("print_speed_mm_s", "in/s") == "mm/s"

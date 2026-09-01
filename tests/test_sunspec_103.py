@@ -133,3 +133,45 @@ def test_omitting_sunspec_model_does_not_silently_ship_10x_values(out, client):
     assert undeclared.get("ac_current_phase_a") == 51, (
         "undeclared-model behaviour changed -- re-check the integration guide "
         "note about passing sunspec_model")
+
+
+# ── null attribution ─────────────────────────────────────────────────────────
+
+def test_a_sunspec_refusal_names_itself_in_null_states(normalize):
+    """The summary must agree with the diagnostic that explains it.
+
+    The scale-factor layer nulls a point it cannot trust and says exactly why in
+    `sunspec.diagnostics`. It does that by replacing the payload, so the
+    resolver downstream saw only None and reported "missing: value was null" --
+    telling an evaluator the register was EMPTY when the device had actually
+    sent 412600 and the reading was refused for a decode error. Two different
+    stories about the same field in one response, and the wrong one is in the
+    place a consumer looks first.
+    """
+    out = normalize("sunspec_inverter",
+                    {"W": 412600, "DCW": 420000, "Hz": 59.98},
+                    sunspec_model=103)
+
+    assert out["normalized"]["inverter_output_kw"] is None
+    ns = out["null_states"]["inverter_output_kw"]
+
+    assert "sunspec_type_range_violation" in ns["null_reason"]
+    assert "int16" in ns["null_reason"]
+    # The raw value survives: a consumer cannot diagnose a decode error against
+    # a null, and 412600 is the whole evidence that the client misread a
+    # register pair.
+    assert ns["raw_value"] == 412600
+    assert ns["raw_field"] == "W"
+
+
+def test_a_genuinely_absent_value_still_reads_as_missing(normalize):
+    """The re-attribution must not relabel every null as a SunSpec refusal."""
+    out = normalize("sunspec_inverter",
+                    {"W": 4126, "W_SF": 2, "TmpCab": None},
+                    sunspec_model=103)
+
+    ns = (out.get("null_states") or {}).get("inverter_cabinet_temp_c")
+    if ns:                                   # nulled as missing, not refused
+        assert "sunspec_" not in ns["null_reason"]
+        # W scales to 412600 W, and the canonical field is kW.
+        assert out["normalized"]["inverter_output_kw"] == 412.6

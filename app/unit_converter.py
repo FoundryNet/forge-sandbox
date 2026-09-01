@@ -264,7 +264,7 @@ CONVERSIONS = {
     ("tonne", "kg"): (lambda v: v * 1000.0, "tonne_to_kg"),
     ("ton", "kg"): (lambda v: v * 907.18474, "shortton_to_kg"),
     # torque
-    ("ftlb", "Nm"): (lambda v: v * 1.355818, "ftlb_to_nm"),
+    ("ftlb", "Nm"): (lambda v: v * 1.3558179483314004, "ftlb_to_nm"),
     # vibration acceleration
     ("m/s2", "mm/s2"): (lambda v: v * 1000.0, "m_s2_to_mm_s2"),
     ("g-force", "mm/s2"): (lambda v: v * 9806.65, "g_to_mm_s2"),
@@ -273,6 +273,26 @@ CONVERSIONS = {
     ("s", "h"): (lambda v: v / 3600.0, "seconds_to_hours"),
     ("ms", "h"): (lambda v: v / 3_600_000.0, "ms_to_hours"),
     ("days", "h"): (lambda v: v * 24.0, "days_to_hours"),
+    # electrical scale prefixes
+    #
+    # `kV` and `mA` were already RECOGNIZED as voltage and current but had no
+    # converter, so a reading arrived flagged `unit_unconvertible` and was kept
+    # as-is: 0.2771 kV sat in a volts field as 0.2771, off by 1000x. The
+    # fail-closed guard does not catch these -- it is a deliberately narrow list
+    # of flow units -- and widening that list to null them would be the worse
+    # trade when the factor is exact and the conversion is trivial.
+    ("kV", "V"): (lambda v: v * 1000.0, "kilovolt_to_volt"),
+    ("mV", "V"): (lambda v: v / 1000.0, "millivolt_to_volt"),
+    ("mA", "A"): (lambda v: v / 1000.0, "milliamp_to_amp"),
+    ("kA", "A"): (lambda v: v * 1000.0, "kiloamp_to_amp"),
+    # Hz -> rpm is deliberately ABSENT. It looks like a unit conversion and is
+    # not one: a VFD's 60 Hz is 3600 rpm on a 2-pole machine and 1800 on a
+    # 4-pole, so the factor depends on the MACHINE, not the units. Pint reads
+    # the same pair as 9.549 (treating Hz as rad/s), which is a third answer
+    # again -- three defensible numbers is the signature of a conversion that
+    # should not be automatic. Left unconvertible so it is flagged, not guessed.
+    # imperial feed rate straight to the machining target
+    ("in/s", "mm/min"): (lambda v: v * 1524.0, "in_s_to_mm_min"),
 }
 
 # ── parsing a unit off a name ───────────────────────────────────────────────
@@ -496,7 +516,29 @@ def target_unit(canonical: str, source_unit: Optional[str]) -> Optional[str]:
     mm/min. Same dimension, two legitimate targets — so the field decides.
     """
     named = field_declared_unit(canonical)
+    declared_now = _registry_unit(canonical)
     if named:
+        # ...unless the registry EXPLICITLY declares a unit of a different
+        # dimension, in which case the name was not declaring a unit at all.
+        #
+        # `ac_voltage_phase_a` ends in `_a` and `ac_current_phase_c` ends in
+        # `_c`, but those are PHASE DESIGNATORS -- reading them as amperes and
+        # degrees Celsius made a voltage field claim to hold current and a
+        # current field claim to hold temperature. The registry says V and A
+        # and even documents the trap ("The trailing letter is the phase
+        # designator, not a unit"), and nothing consulted it because the name
+        # won unconditionally.
+        #
+        # An explicit declaration beats a suffix inference. This cannot regress
+        # the `..._psi` case the name rule exists for: there the registry either
+        # agrees or is silent, and only a same-dimension disagreement (psi vs
+        # bar) is left to the name, exactly as before.
+        if declared_now and declared_now in QUANTITY and declared_now != named:
+            n_dim = DIMENSION.get(quantity_of(named), quantity_of(named))
+            d_dim = DIMENSION.get(quantity_of(declared_now),
+                                  quantity_of(declared_now))
+            if n_dim and d_dim and n_dim != d_dim:
+                return declared_now
         return named
 
     # The registry's declared unit, when the NAME carries no suffix to read.
