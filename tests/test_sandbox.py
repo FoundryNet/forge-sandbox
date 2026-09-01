@@ -522,6 +522,23 @@ def test_health_declares_it_is_a_sandbox_subset(client):
     assert "694" in h["sandbox_note"]
 
 
+def test_health_does_not_disclaim_physics_it_actually_enforces(client):
+    """/health must not list something the engine demonstrably does. It used to
+    put "physics validators" under not_included while the demo nulls a 9999 C
+    coolant reading on physics bounds -- a prospect reading both concludes the
+    product contradicts itself. Bounds ship here; read-time validators do not."""
+    h = client.get("/health").json()
+    assert "physics validators" not in h["not_included"]
+    assert "physics bounds" in h["included"]
+    assert any("read-time validators" in x for x in h["not_included"])
+
+    # The capability the label now claims is real, end to end.
+    r = client.post("/v1/normalize",
+                    json={"oem": "haas", "data": {"COOL_TEMP(C)": 9999}}).json()
+    ns = (r.get("null_states") or {})["sensor_readings.coolant_temp"]
+    assert ns["stage"] == "post_conversion"
+
+
 def test_get_on_normalize_is_405_not_404(client):
     """A bare `curl localhost:8000/v1/normalize` sends GET. It used to be
     answered "unknown_endpoint" -- naming, as unknown, the endpoint listed as

@@ -180,11 +180,24 @@ async def health():
             "prediction": ["breach", "fleet_health"],
             "normalization_layers": ["corpus", "identity", "signal_classifier"],
         },
+        # What this image actually enforces. /health is the first call anyone
+        # makes, so it has to agree with what they see next: the demo nulls a
+        # 9999 C coolant reading on physics bounds. This list previously said
+        # "physics validators" were not included, which read as the product
+        # contradicting itself. Physics BOUNDS ship here; the six READ-TIME
+        # validators are what production adds.
+        "included": [
+            "physics bounds",
+            "sentinel detection",
+            "evidence gate",
+            "relief valve",
+        ],
         "not_included": [
             "production mapping corpus",
             "embedding similarity layer",
             "LLM field research",
-            "physics validators",
+            "read-time validators (rate-of-change, stuck-sensor, dropout, "
+            "operating mode, cross-signal correlation, confidence decay)",
             "TimesFM forecasting",
             "persistence, identity, triggers, guardrails, billing",
         ],
@@ -543,8 +556,8 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
         "guardrails_triggered": [],
         "simulated":        True,
         "sandbox_note":     ("Deterministic resolution only. Production adds "
-                             "embedding similarity, LLM research, physics "
-                             "validation, and self-healing mapping."),
+                             "embedding similarity, LLM research, read-time "
+                             "validators, and self-healing mapping."),
     }
 
     # Opt-in enrichment. Default off: an existing integration must not have

@@ -335,8 +335,9 @@ Deliberately, and stated plainly so nothing here is mistaken for the real thing:
   by similarity. No model weights here.
 - **LLM field research.** Production sends genuinely novel tags to a model,
   caches the answer, confirms it at 5 uses, and packs it at 10. Not here.
-- **Physics validators and read-time validators.** Rate-of-change, stuck sensor,
-  dropout, operating mode, correlation, confidence decay. Not here.
+- **Read-time validators.** Rate-of-change, stuck sensor, dropout, operating
+  mode, correlation, confidence decay. Not here. Physics *bounds* are enforced
+  here — an impossible value is nulled with a reason.
 - **TimesFM.** Production forecasts with a 200M-parameter time-series foundation
   model. The sandbox uses least squares with a residual-scaled quantile band.
   Every prediction is stamped `"model": "sandbox-ols-v1"` and `"simulated": true`.
