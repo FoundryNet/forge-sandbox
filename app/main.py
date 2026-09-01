@@ -289,6 +289,31 @@ async def canonical_fields(vertical: Optional[str] = None,
             "license": dictionary["license"], "upstream": dictionary["upstream"]}
 
 
+# ── Quality telemetry ────────────────────────────────────────────────────────
+
+@app.get("/v1/quality")
+async def quality():
+    """The quality half of the heartbeat, readable locally.
+
+    Same numbers the satellite ships to the control plane -- evidence-gate
+    refusals, relief-valve fires, the confidence distribution and coverage by
+    OEM -- so an operator can see engine health without a control plane and
+    without shelling into the container.
+
+    READ-ONLY BY CONSTRUCTION: this calls `quality_snapshot()`, never
+    `snapshot()`. `snapshot()` resets the counters on the way out, so polling
+    this endpoint would silently drain the very metrics the next heartbeat is
+    supposed to report -- monitoring that destroys what it measures.
+    """
+    from app.satellite import COUNTERS
+    return {
+        "window": "since last heartbeat",
+        "resets_on_read": False,
+        "quality": COUNTERS.quality_snapshot(),
+        "timestamp": _now(),
+    }
+
+
 # ── Simulated equipment ──────────────────────────────────────────────────────
 
 @app.get("/v1/machines")
@@ -388,31 +413,84 @@ class NormalizeRequest(BaseModel):
     metadata: Optional[dict] = None
 
 
+def _wants_context(request) -> bool:
+    """?include_context=true. Default FALSE -- backwards compatible."""
+    return (request.query_params.get("include_context") or "").strip().lower() \
+        in ("1", "true", "yes", "on")
+
+
 MAX_BODY_BYTES = int(os.environ.get("SANDBOX_MAX_BODY_BYTES", 1_000_000))
 MAX_FIELDS = int(os.environ.get("SANDBOX_MAX_FIELDS", 2000))
 
 
+def _build_field_context(field_mappings, emitted):
+    """Per-field metadata for UNS / CDM consumers.
+
+    Assembly only -- every value here is already computed somewhere in the
+    pipeline, and this reads it rather than deriving it a second time. A second
+    derivation is a second thing to disagree with the first.
+
+      unit, physical_quantity, isa95_category  <- the canonical dictionary
+      confidence, match_type                   <- the resolution record
+
+    Keyed by CANONICAL field, matching `normalized`, because that is what a
+    consumer subscribes to. The raw tag that produced it rides along as
+    `source_tag` so the mapping stays auditable from either end.
+    """
+    try:
+        _, _, dictionary = corpus.load()
+        fields = dictionary.get("fields", {})
+    except Exception:
+        fields = {}
+
+    # A canonical field can be claimed by more than one raw tag (unit variants,
+    # vendor spellings). The highest-confidence record wins, so the context
+    # describes the reading that was actually emitted.
+    best = {}
+    for tag, rec in (field_mappings or {}).items():
+        if not isinstance(rec, dict):
+            continue
+        cf = rec.get("canonical_field")
+        if not cf:
+            continue
+        prior = best.get(cf)
+        if prior is None or (rec.get("confidence") or 0) > (prior[1].get("confidence") or 0):
+            best[cf] = (tag, rec)
+
+    ctx = {}
+    for name in emitted:
+        spec = fields.get(name) or {}
+        # An unresolved tag passes through under its RAW name, so it never
+        # appears in `best` (which is keyed by canonical field). Fall back to a
+        # direct lookup so a passthrough reports match_type "unknown" rather
+        # than a row of nulls that reads like "we have no idea what this is" --
+        # we do know: we know we could not resolve it, which is different.
+        tag, rec = best.get(name, (None, None))
+        if rec is None:
+            direct = (field_mappings or {}).get(name)
+            rec = direct if isinstance(direct, dict) else {}
+            tag = name if direct else None
+        ctx[name] = {
+            "unit": spec.get("unit"),
+            "physical_quantity": spec.get("physical_quantity"),
+            "isa95_category": spec.get("isa95_category"),
+            "confidence": rec.get("confidence"),
+            "match_type": rec.get("match_type"),
+            "source_tag": tag,
+        }
+    return ctx
+
+
 def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                        site=None, observed_at=None, rows=1, is_csv=False,
-                       csv_rows=None, sunspec_model=None, locale=None):
+                       csv_rows=None, sunspec_model=None, locale=None,
+                       include_context=False):
     normalized, field_mappings, stats, unit_conv, collisions, null_states, enum_states = \
         corpus.normalize_row(data, oem, sunspec_model=sunspec_model, locale=locale)
 
     pack = corpus.get_pack(oem)
     unresolved = sorted(t for t, r in field_mappings.items()
                         if r["match_type"] == "unknown")
-
-    # Meter this call for the satellite heartbeat. Tag NAMES and counts only --
-    # the control plane learns that `Axis_1.ActVel` went unresolved 40 times on
-    # a siemens line, and never learns what it read. Metering must never be able
-    # to fail a normalize, so it is fully contained.
-    try:
-        from app.satellite import COUNTERS as _sat_counters
-        _sat_counters.record_normalize(
-            unresolved_tags=unresolved, oem=oem, machine_id=machine_id,
-            kind="normalize_csv" if is_csv else "normalize")
-    except Exception:
-        pass
 
     ingested = _now()
     payload = {
@@ -462,6 +540,14 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                              "validation, and self-healing mapping."),
     }
 
+    # Opt-in enrichment. Default off: an existing integration must not have
+    # its response shape change under it because we shipped a new key.
+    if include_context:
+        emitted = (sorted({r["canonical_field"] for r in field_mappings.values()
+                           if isinstance(r, dict) and r.get("canonical_field")})
+                   if is_csv else list(normalized.keys()))
+        payload["field_context"] = _build_field_context(field_mappings, emitted)
+
     # ── THE RELIEF VALVE — absolutely last, on the finished response ───────
     # Checks what must never be true of an answer regardless of how it got
     # there. Clean pipeline => finds nothing, costs microseconds. Buggy
@@ -479,6 +565,28 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
             payload["_invariant_violations"] = len(_viol)
     except Exception as exc:                       # never take down a response
         log.warning("invariant checker failed: %s: %s", type(exc).__name__, exc)
+
+    # ── METERING + FLEET QUALITY SIGNAL ───────────────────────────────────
+    # Runs AFTER the relief valve, because a valve fire is one of the things
+    # worth reporting and it does not exist until the valve has run.
+    #
+    # Tag NAMES, field NAMES and COUNTS only -- the control plane learns that
+    # `Axis_1.ActVel` went unresolved 40 times on a siemens line, and never
+    # learns what it read. Metering must never be able to fail a normalize, so
+    # it is fully contained.
+    try:
+        from app.satellite import COUNTERS as _sat_counters
+        _sat_counters.record_normalize(
+            unresolved_tags=unresolved, oem=oem, machine_id=machine_id,
+            kind="normalize_csv" if is_csv else "normalize",
+            field_mappings=field_mappings,
+            null_states=null_states,
+            coercions=stats.get("value_coercions") or (),
+            relief_valve_fires=payload.get("_invariant_violations", 0),
+            fields_total=stats["fields_total"],
+            fields_mapped=stats["fields_mapped"])
+    except Exception:
+        pass
     return payload
 
 
@@ -537,7 +645,8 @@ async def v1_normalize(request: Request):
             serial=request.headers.get("x-serial") or None,
             site=request.headers.get("x-site") or None,
             observed_at=request.headers.get("x-observed-at") or None,
-            rows=len(out_rows), is_csv=True, csv_rows=out_rows)
+            rows=len(out_rows), is_csv=True, csv_rows=out_rows,
+            include_context=_wants_context(request))
 
     try:
         body = NormalizeRequest.model_validate_json(raw)
@@ -610,7 +719,8 @@ async def v1_normalize(request: Request):
         body.data, (body.oem or "").lower() or None,
         machine_id=body.machine_id, model=body.model, serial=body.serial,
         site=body.site, observed_at=body.observed_at,
-        sunspec_model=body.sunspec_model, locale=body.locale)
+        sunspec_model=body.sunspec_model, locale=body.locale,
+        include_context=_wants_context(request))
 
 
 def _coerce(value):

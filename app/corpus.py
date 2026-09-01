@@ -1473,6 +1473,10 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
         _ev = _ev or _gate(tag, _c, _mt, fields,
                            domain_from_oem(oem) or domain_from_pack(pack))
         rec["match_type"] = "insufficient_evidence"
+        # The candidate that was found and then refused. Structured as well as
+        # narrated: the note is for a human reading one response, this is for
+        # the fleet monitor counting refusals across a million of them.
+        rec["refused_candidate"] = _c
         rec["note"] = _evidence_refusal(tag, _c, _ev["score"], _ev["reasons"])
         rec["evidence"] = {"score": _ev["score"], "class": _ev["evidence_class"],
                            "signals": _ev["reasons"],
@@ -1638,6 +1642,7 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
     # model spec knows which. Same lesson as finding F1, one level deeper: the
     # gate has to sit where the type information is.
     sunspec_info = None
+    _sunspec_nulled = {}
     if _looks_like_sunspec(data) or sunspec_model is not None:
         try:
             from app.sunspec import apply_scale_factors
@@ -1654,6 +1659,23 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
                 "scale_factors_applied": sf_records,
                 "diagnostics": sf_diags,
                 "errors": sum(1 for d in sf_diags if d.get("severity") == "error"),
+            }
+            # The scale-factor layer nulls a point it cannot trust and explains
+            # why in its diagnostics -- but it does that by replacing `data`,
+            # so the loop below sees only None and reports the generic
+            # "value was null". That reason is WRONG: the device sent 412600,
+            # and an evaluator reading null_states (the obvious place to look)
+            # was told the register was empty when it was actually refused for
+            # a decode error. Keep the real cause and the real raw value.
+            _sunspec_nulled = {
+                d["point"]: {
+                    "reason": f"sunspec_{d['code']}: {d['detail']}",
+                    "raw": d.get("raw"),
+                }
+                for d in sf_diags
+                if d.get("code") in ("type_range_violation",
+                                     "point_not_implemented")
+                and d.get("point") is not None
             }
         except Exception as e:                      # never take down ingest
             sunspec_info = {"detected": True, "error": f"{type(e).__name__}: {e}"}
@@ -1998,6 +2020,14 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
         "layer2_identity": sum(1 for r in resolved if r.get("layer") == 2),
         "layer3_signal": sum(1 for r in resolved if r.get("layer") == 3),
     }
+    # Re-attribute any null the SunSpec layer caused, so the summary a
+    # consumer reads agrees with the diagnostic that explains it.
+    for _ns in null_states.values():
+        _hit = _sunspec_nulled.get(_ns.get("raw_field"))
+        if _hit and _ns.get("raw_value") is None:
+            _ns["null_reason"] = _hit["reason"]
+            _ns["raw_value"] = _hit["raw"]
+
     if sunspec_info is not None:
         stats["sunspec"] = sunspec_info
     if value_coercions:

@@ -423,7 +423,7 @@
     "Power Consumption(kWh)": "energy_kwh",
     "Power Consumption_kWh": "energy_kwh",
     "Power On Time": "operating_hours",
-    "PowerOnTime": "power_on_hours",
+    "PowerOnTime": "operating_hours",
     "Power_Consumption": "power_consumption_kw",
     "Power_Consumption (kW)": "power_consumption_kw",
     "Power_Consumption (kWh)": "energy_kwh",

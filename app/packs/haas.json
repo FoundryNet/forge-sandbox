@@ -91,7 +91,7 @@
     "M30_COUNT": "cycle_count",
     "MACHINE STATUS": "execution_state",
     "MACHINESTATUS": "execution_state",
-    "MACHINE_HOURS": "power_on_hours",
+    "MACHINE_HOURS": "operating_hours",
     "MODE": "machine_mode",
     "MOTION_TIME": "motion_time_hours",
     "Machine": "machine_id",
