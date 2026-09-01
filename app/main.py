@@ -897,6 +897,30 @@ async def _unimplemented(path: str, request: Request):
                 "error": "not_in_sandbox", "endpoint": route, "reason": why,
                 "available_in_production": True,
                 "upgrade": "https://foundrynet.io", "service": SERVICE})
+    # The route may exist under a different method. /v1/normalize is POST-only,
+    # so a bare `curl localhost:8000/v1/normalize` -- no -X, no payload, which is
+    # what a browser and a half-copied command both send -- lands here as a GET
+    # and used to be told "unknown_endpoint" while that same endpoint was listed
+    # two lines below as available. Reading that, the honest conclusion is that
+    # the image is broken. Answer the actual question instead: the path is real,
+    # the method is wrong, and here is the call that works.
+    allowed = sorted({m for r in app.routes
+                      if getattr(r, "path", None) == route
+                      for m in (getattr(r, "methods", None) or set())
+                      if m not in ("HEAD", "OPTIONS")}
+                     - {request.method})
+    if allowed:
+        body = {"error": "method_not_allowed", "endpoint": route,
+                "method": request.method, "allowed": allowed,
+                "service": SERVICE}
+        if route == "/v1/normalize":
+            body["hint"] = ("POST a JSON body: "
+                            "curl -X POST http://localhost:8000/v1/normalize "
+                            "-H 'Content-Type: application/json' "
+                            "-d '{\"oem\":\"haas\",\"data\":{\"S1Temp\":72.1}}'")
+        return JSONResponse(status_code=405, content=body,
+                            headers={"Allow": ", ".join(allowed)})
+
     return JSONResponse(status_code=404, content={
         "error": "unknown_endpoint", "endpoint": route,
         "available": ["/v1/normalize", "/v1/predict_breach", "/v1/fleet_health",

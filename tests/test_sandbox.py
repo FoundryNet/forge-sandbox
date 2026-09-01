@@ -511,6 +511,25 @@ def test_unknown_v1_endpoint_lists_the_real_ones(client):
     assert "/v1/normalize" in body["available"]
 
 
+def test_get_on_normalize_is_405_not_404(client):
+    """A bare `curl localhost:8000/v1/normalize` sends GET. It used to be
+    answered "unknown_endpoint" -- naming, as unknown, the endpoint listed as
+    available in the same body. Anyone evaluating the image reads that as
+    broken, so the wrong method must never again look like a missing route."""
+    resp = client.get("/v1/normalize")
+    assert resp.status_code == 405
+    assert resp.headers["allow"] == "POST"
+    body = resp.json()
+    assert body["error"] == "method_not_allowed"
+    assert body["allowed"] == ["POST"]
+    assert "curl -X POST" in body["hint"]
+    # POST is unaffected.
+    ok = client.post("/v1/normalize",
+                     json={"oem": "haas", "data": {"S1Temp": 72.1}})
+    assert ok.status_code == 200
+    assert ok.json()["normalized"]["spindle_temperature"] == 72.1
+
+
 def test_openapi_document_builds(client):
     spec = client.get("/openapi.json").json()
     assert "/v1/normalize" in spec["paths"]
