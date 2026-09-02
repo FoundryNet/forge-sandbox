@@ -662,3 +662,37 @@ def test_doosan_still_means_machine_tools(client):
     from app import corpus
     assert corpus.domain_from_oem("doosan") == "cnc"
     assert corpus.domain_from_oem("doosan_ce") == "automotive"
+
+
+def test_pack_index_matches_the_packs_on_disk(client):
+    """`_index.json` is the manifest a prospect reads. It must not drift.
+
+    It listed 16 of 26 packs -- every energy pack was missing -- and six of
+    the entries it did carry under-reported their mapping counts (fanuc 759
+    vs 780, haas 240 vs 258, schneider 41 vs 60). A prospect reading the
+    manifest saw a smaller product than the one they had running, and the
+    number quoted in an email would have been wrong in either direction
+    depending on which artifact was consulted.
+    """
+    pack_dir = os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "app", "packs")
+    index = json.load(open(os.path.join(pack_dir, "_index.json")))["packs"]
+    on_disk = {}
+    for fn in sorted(os.listdir(pack_dir)):
+        if not fn.endswith(".json") or fn.startswith("_"):
+            continue
+        pack = json.load(open(os.path.join(pack_dir, fn)))
+        on_disk[fn[:-5]] = len(pack["mappings"])
+
+    assert set(index) == set(on_disk), (
+        f"index/disk mismatch: only on disk {sorted(set(on_disk) - set(index))}, "
+        f"only in index {sorted(set(index) - set(on_disk))}")
+    drift = {k: (index[k]["mapping_count"], v)
+             for k, v in on_disk.items() if index[k]["mapping_count"] != v}
+    assert not drift, f"mapping_count drift (index, disk): {drift}"
+
+    # ...and the health endpoint, which is what anyone actually quotes.
+    health = client.get("/health").json()
+    assert set(health["packs"]) == set(on_disk)
+    assert sum(health["packs"].values()) == sum(on_disk.values())
+    assert health["canonical_fields"] == len(field_registry.fields())

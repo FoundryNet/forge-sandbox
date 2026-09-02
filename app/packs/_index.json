@@ -55,9 +55,9 @@
    "aliases": [
     "bacnet",
     "bacnet_ip",
-    "trane",
+    "honeywell",
     "jci",
-    "honeywell"
+    "trane"
    ],
    "canonical_field_count": 13,
    "display_name": "Carrier rooftop / chiller (BACnet/IP, i-Vu)",
@@ -70,25 +70,23 @@
     "fanuc_robotics",
     "focas"
    ],
-   "canonical_field_count": 66,
+   "canonical_field_count": 70,
    "display_name": "FANUC R-30iB robot / Series 30i CNC",
-   "mapping_count": 759,
+   "mapping_count": 780,
    "protocol": "focas",
-   "vertical": "robotics"
+   "vertical": "cnc"
   },
   "fronius": {
    "aliases": [
-    "sunspec",
-    "sma",
-    "solaredge",
-    "symo",
+    "fronius_gen24",
+    "fronius_primo",
+    "fronius_symo",
     "primo",
-    "pv_inverter",
-    "inverter"
+    "symo"
    ],
-   "canonical_field_count": 8,
+   "canonical_field_count": 29,
    "display_name": "Fronius PV inverter (SunSpec Modbus)",
-   "mapping_count": 40,
+   "mapping_count": 62,
    "protocol": "sunspec_modbus",
    "vertical": "energy"
   },
@@ -111,12 +109,12 @@
   },
   "generic_iot": {
    "aliases": [
-    "weather",
-    "weather_station",
+    "generic_weather",
     "irradiance",
-    "pyranometer",
     "met_station",
-    "generic_weather"
+    "pyranometer",
+    "weather",
+    "weather_station"
    ],
    "canonical_field_count": 5,
    "display_name": "Generic weather / irradiance station (MQTT)",
@@ -128,9 +126,9 @@
    "aliases": [
     "haas_automation"
    ],
-   "canonical_field_count": 34,
+   "canonical_field_count": 39,
    "display_name": "Haas VF-series CNC",
-   "mapping_count": 240,
+   "mapping_count": 258,
    "protocol": "mtconnect",
    "vertical": "cnc"
   },
@@ -202,55 +200,178 @@
   },
   "prusa": {
    "aliases": [
-    "octoprint",
     "marlin",
+    "octoprint",
     "prusalink"
    ],
-   "canonical_field_count": 33,
+   "canonical_field_count": 30,
    "display_name": "Prusa MK3S/MK4 (Marlin, PrusaLink, OctoPrint)",
-   "mapping_count": 40,
+   "mapping_count": 44,
    "protocol": "serial_gcode",
    "vertical": "additive"
   },
+  "rockwell": {
+   "aliases": [
+    "ab",
+    "allen-bradley",
+    "allen_bradley",
+    "compactlogix",
+    "controllogix",
+    "factorytalk",
+    "grundfos",
+    "logix",
+    "plc5",
+    "slc500",
+    "xylem"
+   ],
+   "canonical_field_count": 18,
+   "display_name": "Allen-Bradley / Rockwell process line (Logix, Kepware OPC UA)",
+   "mapping_count": 43,
+   "protocol": "opc_ua",
+   "vertical": "industrial"
+  },
   "schneider": {
    "aliases": [
-    "powerlogic",
-    "ion",
-    "pm8000",
     "em6400",
-    "square_d",
+    "ion",
+    "meter",
+    "pm8000",
     "power_meter",
-    "meter"
+    "powerlogic",
+    "square_d"
    ],
-   "canonical_field_count": 9,
+   "canonical_field_count": 19,
    "display_name": "Schneider PowerLogic revenue meter",
-   "mapping_count": 41,
+   "mapping_count": 60,
    "protocol": "modbus_rtu",
    "vertical": "energy"
   },
   "siemens": {
    "aliases": [
-    "sinumerik",
     "s7",
-    "simatic"
+    "simatic",
+    "sinumerik"
    ],
-   "canonical_field_count": 56,
+   "canonical_field_count": 57,
    "display_name": "Siemens S7-1500 PLC / SINUMERIK 840D",
    "mapping_count": 440,
    "protocol": "profinet_s7",
    "vertical": "cnc"
   },
-  "tesla": {
+  "solaredge_inverter": {
    "aliases": [
-    "megapack",
-    "powerpack",
-    "tesla_energy",
-    "bess",
-    "powerwall"
+    "se_inverter",
+    "solaredge",
+    "solaredge_se"
+   ],
+   "canonical_field_count": 21,
+   "display_name": "SolarEdge inverter (SunSpec Modbus TCP)",
+   "mapping_count": 31,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "solaredge_meter": {
+   "aliases": [
+    "se_meter",
+    "solaredge_meter"
+   ],
+   "canonical_field_count": 18,
+   "display_name": "SolarEdge revenue meter (SunSpec Modbus TCP)",
+   "mapping_count": 29,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "sungrow": {
+   "aliases": [
+    "sh10rt",
+    "sh5k",
+    "sungrow_sh",
+    "sungrow_shx"
+   ],
+   "canonical_field_count": 29,
+   "display_name": "Sungrow SH-series hybrid inverter (Modbus TCP)",
+   "mapping_count": 30,
+   "protocol": "modbus_tcp",
+   "vertical": "energy"
+  },
+  "sunspec_inverter": {
+   "aliases": [
+    "delta_inverter",
+    "goodwe",
+    "inverter",
+    "pv_inverter",
+    "sma",
+    "sungrow",
+    "sunspec",
+    "sunspec_103"
+   ],
+   "canonical_field_count": 29,
+   "display_name": "SunSpec inverter, three phase (model 103)",
+   "mapping_count": 65,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "sunspec_inverter_1ph": {
+   "aliases": [
+    "residential_inverter",
+    "single_phase_inverter",
+    "sunspec_101"
+   ],
+   "canonical_field_count": 22,
+   "display_name": "SunSpec inverter, single phase (model 101)",
+   "mapping_count": 59,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "sunspec_meter": {
+   "aliases": [
+    "revenue_meter",
+    "sunspec_203",
+    "sunspec_204",
+    "sunspec_meter_3ph"
+   ],
+   "canonical_field_count": 18,
+   "display_name": "SunSpec meter, wye/delta three phase (models 203/204)",
+   "mapping_count": 33,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "sunspec_meter_1ph": {
+   "aliases": [
+    "sunspec_201",
+    "sunspec_202"
+   ],
+   "canonical_field_count": 11,
+   "display_name": "SunSpec meter, single/split phase (models 201/202)",
+   "mapping_count": 26,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "sunspec_storage": {
+   "aliases": [
+    "bess_sunspec",
+    "sunspec_124",
+    "sunspec_802",
+    "sunspec_battery",
+    "sunspec_storage"
    ],
    "canonical_field_count": 8,
+   "display_name": "SunSpec storage + battery (models 124 / 802)",
+   "mapping_count": 23,
+   "protocol": "sunspec_modbus",
+   "vertical": "energy"
+  },
+  "tesla": {
+   "aliases": [
+    "bess",
+    "megapack",
+    "powerpack",
+    "powerwall",
+    "tesla_energy"
+   ],
+   "canonical_field_count": 18,
    "display_name": "Tesla Megapack / Powerpack (BESS)",
-   "mapping_count": 42,
+   "mapping_count": 52,
    "protocol": "modbus_tcp",
    "vertical": "energy"
   },
@@ -272,6 +393,23 @@
    "mapping_count": 65,
    "protocol": "rtde",
    "vertical": "robotics"
+  },
+  "victron": {
+   "aliases": [
+    "cerbo",
+    "cerbo_gx",
+    "multiplus",
+    "quattro",
+    "venus",
+    "venus_gx",
+    "victron_energy",
+    "victron_gx"
+   ],
+   "canonical_field_count": 22,
+   "display_name": "Victron Venus OS / GX (Modbus-TCP + MQTT)",
+   "mapping_count": 32,
+   "protocol": "modbus_tcp",
+   "vertical": "energy"
   }
  }
 }
