@@ -62,6 +62,8 @@ _UNITS = (
     r"bar|psi|psia|psig|kpa|mpa|pa|mbar|inhg|mmhg|"
     r"l/min|lpm|ml/min|gpm|gal/min|l/s|m3/h|lbm/s|kg/s|"
     r"cfm|scfm|acfm|cfh|ft3/min|ft3/h|"
+    r"gph|lph|l/h|gal/h|gal|gallon|gallons|liter|liters|litre|litres|"
+    r"km|mi|mile|miles|kilometer|kilometers|"
     r"mv|khz|km/h|kmh|"
     r"s|sec|seconds|ms|min|minutes|h|hr|hrs|hours|days|"
     r"pcs|parts|cycles|ppm|db|dbm|amps|amp|amperes|ampere|volts|volt|watts|watt"
@@ -340,6 +342,11 @@ def _normalize_unit_token(tok):
         "degree": "deg", "degrees": "deg",
         "scfm": "ft3/min", "acfm": "ft3/min", "ft3min": "ft3/min",
         "cfh": "ft3/h", "mv": "mV", "khz": "kHz",
+        "gph": "gal/h", "lph": "L/h", "galh": "gal/h", "lh": "L/h",
+        "gal": "gal", "gallon": "gal", "gallons": "gal",
+        "liter": "L", "liters": "L", "litre": "L", "litres": "L", "l": "L",
+        "km": "km", "kilometer": "km", "kilometers": "km",
+        "mi": "mi", "mile": "mi", "miles": "mi",
         "h": "h", "hr": "h", "hrs": "h", "hours": "h",
         "min": "min", "s": "s", "sec": "s",
         "nm": "Nm", "ntu": "NTU", "ppm": "ppm",
@@ -839,8 +846,18 @@ _OEM_DOMAINS = {
     "hach": "water", "endress": "water", "ysi": "water",
     "krones": "packaging", "tetra_pak": "packaging", "sidel": "packaging",
     "sartorius": "pharma", "eppendorf": "pharma", "thermo_fisher": "pharma",
-    "caterpillar": "heavy_equipment", "komatsu": "heavy_equipment",
-    "liebherr": "heavy_equipment", "hitachi_ce": "heavy_equipment",
+    # Off-highway OEMs speak J1939 exactly as on-road trucks do -- same PGNs,
+    # same SPNs, plus the AEMP/ISO 15143 overlay. They were "heavy_equipment",
+    # a domain no pack served, so every construction tag was refused as
+    # cross-domain against the vehicle vocabulary it should have used.
+    "caterpillar": "automotive", "komatsu": "automotive",
+    "liebherr": "automotive", "hitachi_ce": "automotive",
+    "deere": "automotive", "john_deere": "automotive", "jlg": "automotive",
+    "genie": "automotive", "doosan_ce": "automotive", "volvo_ce": "automotive",
+    "kubota": "automotive", "bobcat": "automotive", "takeuchi": "automotive",
+    "equipmentshare": "automotive", "trackunit": "automotive",
+    "geotab": "automotive", "motive": "automotive", "samsara": "automotive",
+    "j1939": "automotive", "aemp": "automotive", "fms": "automotive",
     "wartsila": "marine", "man_es": "marine", "cummins": "marine",
     "abb": "utility", "ge_grid": "utility", "sel": "utility",
     "siemens_energy": "utility",
@@ -860,6 +877,10 @@ _VERTICAL_DOMAINS = {
     "industrial": "industrial",
     "water": "water",
     "logistics": "logistics",
+    # J1939 is one bus and one SPN set whether it is under a semi or an
+    # excavator, so the on-road and off-highway OEMs share a domain. Splitting
+    # them would make a Caterpillar payload refuse its own pack.
+    "fleet": "automotive",
 }
 
 # A vendor-neutral pack describes no particular industry, so it stays eligible

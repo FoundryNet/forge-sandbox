@@ -572,3 +572,93 @@ def test_ambiguous_bare_tags_are_not_answered_confidently(client):
     ]
     assert not overconfident, (
         f"ambiguous bare tags answered confidently: {overconfident}")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# FLEET / HEAVY VEHICLE — J1939 pack
+# ═══════════════════════════════════════════════════════════════════════════
+
+def test_geotab_motive_j1939_evaluator(client):
+    """A telematics platform's first payload. Every tag is a documented SPN."""
+    r = normalize(client, {"oem": "j1939", "data": {
+        "EngineSpeed": 2400, "EngineLoad_Pct": 78,
+        "EngineCoolantTemp_F": 195, "FuelRate_GPH": 8.4, "FuelLevel_Pct": 68,
+        "Odometer_km": 142800, "TransmissionTemp_F": 180,
+        "OilPressure_PSI": 42, "DEF_Level_Pct": 72, "DPF_Soot_Load_Pct": 34,
+        "TurboBoost_PSI": 28.4, "ExhaustTemp_F": 842, "BatteryVoltage": 13.8,
+        "VehicleSpeed_MPH": 62, "TotalFuelUsed_gal": 48200,
+        "TotalIdleHours": 2400, "EngineHours": 14203, "AmbientTemp_F": 85,
+        "Barometric_kPa": 101.3,
+    }})
+    clean(r)
+    assert r["coverage_pct"] >= 85
+    n = r["normalized"]
+    # Idle hours and engine hours are DIFFERENT meters. They shared
+    # operating_hours before this pack, idle won, and a 14,203-hour truck
+    # reported 2,400 -- the number that drives every maintenance interval.
+    assert n["engine_hours"] == 14203
+    assert n["idle_hours"] == 2400
+    # Conversions, each against the arithmetic rather than a golden file.
+    assert n["vehicle_speed_km_h"] == pytest.approx(62 * 1.609344, abs=0.01)
+    assert n["fuel_rate_lph"] == pytest.approx(8.4 * 3.785411784, abs=0.01)
+    assert n["total_fuel_used_l"] == pytest.approx(48200 * 3.785411784, abs=1)
+    assert n["engine_oil_pressure_kpa"] == pytest.approx(42 * 6.894757, abs=0.1)
+    assert n["exhaust_temp_c"] == pytest.approx(450.0, abs=0.1)
+    # A 142,800 km odometer is an ordinary truck, not a physics violation.
+    assert n["odometer_km"] == 142800
+    assert not r.get("null_states"), r.get("null_states")
+
+
+def test_equipmentshare_mixed_fleet_evaluator(client):
+    """T3 prefixes every tag with the machine's make. Six vendors, one
+    canonical -- the same claim the CNC demo makes, in a second vertical."""
+    r = normalize(client, {"oem": "equipmentshare", "data": {
+        "CAT_EngineRPM": 1800, "CAT_CoolantTemp": 195, "CAT_FuelRate": 6.2,
+        "Deere_EngHrs": 8420, "Deere_HydTemp": 185, "Deere_HydPSI": 3200,
+        "JLG_BoomAngle": 45, "JLG_PlatformLoad": 680,
+        "Genie_LiftHeight": 60, "Genie_BatterySOC": 72,
+        "Doosan_EngineLoad": 78, "Doosan_FuelLevel": 45,
+    }})
+    clean(r)
+    assert r["coverage_pct"] >= 85
+    n = r["normalized"]
+    assert n["engine_speed_rpm"] == 1800
+    assert n["engine_hours"] == 8420
+    # 3200 psi is normal construction hydraulics, not an out-of-range reading.
+    assert n["hydraulic_pressure_kpa"] == pytest.approx(3200 * 6.894757, abs=1)
+    assert n["platform_load_kg"] == pytest.approx(680 * 0.45359237, abs=0.1)
+    assert n["lift_height_m"] == pytest.approx(60 * 0.3048, abs=0.001)
+    assert not r.get("null_states"), r.get("null_states")
+
+
+def test_aemp_construction_evaluator(client):
+    """Trackunit / AEMP 2.0 off-highway payload."""
+    r = normalize(client, {"oem": "aemp", "data": {
+        "Machine_Hours": 4280, "Fuel_Used_gal": 12400, "Fuel_Level_Pct": 45,
+        "Idle_Hours": 1200, "Location_Lat": 36.1699, "Location_Lon": -115.1398,
+        "DEF_Level_Pct": 68, "HydraulicTemp_F": 185,
+        "HydraulicPressure_PSI": 3200, "Engine_Coolant_Temp_F": 195,
+        "Engine_Oil_Pressure_PSI": 42, "Ground_Speed_MPH": 12,
+        "BoomAngle_deg": 45.2, "BucketAngle_deg": 22.8, "SwingAngle_deg": 90,
+        "TrackTension_PSI": 450,
+    }})
+    clean(r)
+    assert r["coverage_pct"] >= 85
+    n = r["normalized"]
+    assert n["engine_hours"] == 4280
+    assert n["idle_hours"] == 1200
+    assert n["gps_latitude"] == pytest.approx(36.1699)
+    assert n["gps_longitude"] == pytest.approx(-115.1398)
+    assert not r.get("null_states"), r.get("null_states")
+
+
+def test_doosan_still_means_machine_tools(client):
+    """`doosan` is a CNC builder in the OEM domain table and must stay one.
+
+    The J1939 pack answers for construction OEMs, but claiming the bare name
+    would route a lathe's tags into a truck pack. The construction arm is
+    reachable as `doosan_ce`.
+    """
+    from app import corpus
+    assert corpus.domain_from_oem("doosan") == "cnc"
+    assert corpus.domain_from_oem("doosan_ce") == "automotive"

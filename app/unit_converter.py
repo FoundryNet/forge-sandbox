@@ -106,6 +106,17 @@ UNIT_ALIASES = {
     # explicit spellings are auto-recognised. An ambiguous "pps" tag is left
     # alone and flagged rather than guessed.
     "lbm/s": "lb/s", "lb/s": "lb/s", "kg/s": "kg/s", "kg/h": "kg/h",
+    # volume, and volume-per-hour. Fuel is the reason: a truck reports fuel
+    # RATE in gal/h and fuel USED in gallons, and neither quantity existed.
+    "l": "L", "liter": "L", "litre": "L", "liters": "L", "litres": "L",
+    "gal": "gal", "gallon": "gal", "gallons": "gal", "usgal": "gal",
+    "ml": "mL", "m3": "m3", "cf": "ft3", "ft3": "ft3",
+    "lph": "L/h", "l/h": "L/h", "gph": "gal/h", "gal/h": "gal/h",
+    "gal/hr": "gal/h", "l/hr": "L/h",
+    # distance at vehicle scale. `mi` is NOT `mil` (a thousandth of an inch);
+    # both are anchored to end-of-tag so they cannot shadow each other.
+    "km": "km", "kilometer": "km", "kilometers": "km", "kilometre": "km",
+    "mi": "mi", "mile": "mi", "miles": "mi",
     # mass
     "kg": "kg", "g": "g", "lb": "lb", "lbs": "lb", "oz": "oz",
     "tonne": "tonne", "tonnes": "tonne", "ton": "ton", "tons": "ton",
@@ -171,6 +182,10 @@ QUANTITY = {
     # src == dst" and "no conversion because the table never heard of it" must
     # not look the same to the converter.
     "ppm": "concentration", "NTU": "turbidity",
+    "L": "volume", "mL": "volume", "gal": "volume", "m3": "volume",
+    "ft3": "volume",
+    "L/h": "flow", "gal/h": "flow",
+    "km": "length", "mi": "length",
     "lb/s": "mass_flow", "kg/s": "mass_flow", "kg/h": "mass_flow",
     "kg": "mass", "g": "mass", "lb": "mass", "oz": "mass",
     "tonne": "mass", "ton": "mass",
@@ -219,6 +234,7 @@ TARGET_UNIT = {
     "voltage": "V",
     "current": "A",
     "irradiance": "W/m2",
+    "volume": "L",
     "concentration": "ppm",
     "turbidity": "NTU",
     # Degrees, not radians. Radians are the SI unit, but every robot teach
@@ -310,6 +326,41 @@ CONVERSIONS = {
     # vibration acceleration
     ("m/s2", "mm/s2"): (lambda v: v * 1000.0, "m_s2_to_mm_s2"),
     ("g-force", "mm/s2"): (lambda v: v * 9806.65, "g_to_mm_s2"),
+    # volume
+    ("gal", "L"): (lambda v: v * 3.785411784, "gallons_to_litres"),
+    ("mL", "L"): (lambda v: v / 1000.0, "millilitres_to_litres"),
+    ("m3", "L"): (lambda v: v * 1000.0, "cubic_metres_to_litres"),
+    ("ft3", "L"): (lambda v: v * 28.316846592, "cubic_feet_to_litres"),
+    # fuel rate
+    ("gal/h", "L/h"): (lambda v: v * 3.785411784, "gph_to_lph"),
+    # ...and on to the flow TARGET, so no recognised unit is left without a
+    # route to its quantity's target unit (test_no_recognized_unit_lacks_a
+    # _converter_to_its_target). Fuel rate fields declare L/h and take the
+    # pair above; these two only fire if a field declares the flow default.
+    ("L/h", "L/min"): (lambda v: v / 60.0, "lph_to_lpm"),
+    ("gal/h", "L/min"): (lambda v: v * 3.785411784 / 60.0, "gph_to_lpm"),
+    ("L/min", "L/h"): (lambda v: v * 60.0, "lpm_to_lph"),
+    ("gal/min", "L/h"): (lambda v: v * 3.785411784 * 60.0, "gpm_to_lph"),
+    # distance at vehicle scale
+    ("mi", "km"): (lambda v: v * 1.609344, "miles_to_km"),
+    # Vehicle distances into the length target. Numerically absurd but
+    # dimensionally correct, and only reachable if a field declares mm and is
+    # handed a road distance; leaving the pair out would mean a RECOGNISED
+    # unit with no route to its target, which is the CFM trap again.
+    ("mi", "mm"): (lambda v: v * 1609344.0, "miles_to_mm"),
+    ("km", "mm"): (lambda v: v * 1000000.0, "km_to_mm"),
+    ("m", "km"): (lambda v: v / 1000.0, "metres_to_km"),
+    ("ft", "m"): (lambda v: v * 0.3048, "feet_to_metres"),
+    ("mm", "m"): (lambda v: v / 1000.0, "millimetres_to_metres"),
+    ("in", "m"): (lambda v: v * 0.0254, "inches_to_metres"),
+    # pressure into kPa. J1939 reports oil, boost and brake-air pressure in
+    # kPa; the SI target here is bar, so a psi source had no route to a
+    # kPa-declared field.
+    ("psi", "kPa"): (lambda v: v * 6.894757293168361, "psi_to_kpa"),
+    ("bar", "kPa"): (lambda v: v * 100.0, "bar_to_kpa"),
+    ("MPa", "kPa"): (lambda v: v * 1000.0, "mpa_to_kpa"),
+    ("Pa", "kPa"): (lambda v: v / 1000.0, "pa_to_kpa"),
+    ("mbar", "kPa"): (lambda v: v / 10.0, "mbar_to_kpa"),
     # flow
     ("ft3/min", "L/min"): (lambda v: v * 28.316846592, "cfm_to_lpm"),
     ("ft3/h", "L/min"): (lambda v: v * 28.316846592 / 60.0, "ft3h_to_lpm"),
@@ -355,7 +406,7 @@ _TRAILING = re.compile(r"[_\s]([A-Za-z°µ/%²0-9\-]{1,8})$")
 # suffixes are only trusted when the token is unambiguous standing alone;
 # parenthesised units — "(F)", "(in)", "(s)" — are explicit and always trusted.
 _UNAMBIGUOUS_SUFFIX = {
-    "mm", "cm", "um", "µm", "inch", "inches", "feet", "mil", "mils",
+    "mm", "cm", "um", "µm", "inch", "inches", "feet", "ft", "mil", "mils",
     "psi", "psig", "psia", "kpa", "mpa", "mbar", "bar", "inhg",
     "rpm", "hz", "kwh", "wh", "kw", "mw", "hp",
     "nm", "n-m", "n_m", "ftlb", "ft-lb", "lbft",
@@ -369,6 +420,7 @@ _UNAMBIGUOUS_SUFFIX = {
     # Millivolts and kilohertz: same shape, both recognised by the tag
     # tokenizer and unparseable here. `mv` is not the ambiguous bare `v`.
     "mv", "khz",
+    "lph", "l/h", "gph", "gal/h", "gal", "gallons", "km", "mi", "miles",
     "mmhg", "mm_hg", "torr", "inhg",
     "pct", "percent", "hrs", "hours", "minutes", "seconds",
     "mph", "kph", "km/h", "kmh", "ipm", "fpm",
@@ -409,6 +461,11 @@ _BARE_SUFFIX_CONTEXT = {
     "v": ("V", ("volt", "volts", "voltage", "vdc", "vac", "bus", "vll",
                 "potential", "emf")),
     "a": ("A", ("curr", "current", "amp", "amps", "amperage", "ampere")),
+    # A bare trailing `_L` is litres only when the tag says what is being
+    # measured by volume. `TotalFuelUsed_L` qualifies; `Motor_L` (left) does
+    # not, and must keep falling through.
+    "l": ("L", ("fuel", "volume", "tank", "coolant", "oil", "used",
+                "consumed", "capacity", "def", "urea")),
 }
 
 

@@ -1,6 +1,6 @@
 {
   "base_version": "1.0.0",
-  "field_count": 576,
+  "field_count": 623,
   "fields": {
     "ac_current_phase_a": {
       "description": "AC line current, phase A. The trailing letter is the phase designator, not a unit.",
@@ -140,6 +140,36 @@
       "type": "string",
       "unit": null,
       "vertical": "universal"
+    },
+    "alternator_current_a": {
+      "description": "Alternator output current.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "current",
+      "type": "float",
+      "unit": "A",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "alternator_voltage": {
+      "description": "Alternator output voltage.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "voltage",
+      "type": "float",
+      "unit": "V",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "ambient_temp_c": {
+      "description": "Ambient air temperature. SPN 171.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "ambient_temperature": {
       "description": null,
@@ -899,6 +929,16 @@
       "unit": null,
       "vertical": "universal"
     },
+    "barometric_pressure_kpa": {
+      "description": "Barometric pressure. SPN 108.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "battery_capacity_kwh": {
       "description": "Battery nameplate usable capacity. ADDED: Pack_Energy_Wh is a rating, not cumulative production; mapping it to energy_delivered_kwh would be a category error.",
       "example_value": 0,
@@ -1002,6 +1042,36 @@
       "unit": "C",
       "unit_source": "sandbox_declared",
       "vertical": "additive"
+    },
+    "boom_angle_deg": {
+      "description": "Boom angle.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "angle",
+      "type": "float",
+      "unit": "deg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "brake_air_pressure_kpa": {
+      "description": "Service brake air pressure. SPN 117/118.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "bucket_angle_deg": {
+      "description": "Bucket angle.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "angle",
+      "type": "float",
+      "unit": "deg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "chamber_temperature_c": {
       "description": null,
@@ -1250,6 +1320,26 @@
       "unit_source": "sandbox_declared",
       "vertical": "universal"
     },
+    "cruise_control_active": {
+      "description": "Cruise control active. SPN 595.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": null,
+      "type": "bool",
+      "unit": null,
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "cruise_control_set_km_h": {
+      "description": "Cruise control set speed. SPN 86.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "vehicle_speed",
+      "type": "float",
+      "unit": "kph",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "cutting_time_hours": {
       "description": "Cumulative runtime of the machine, in h.",
       "example_value": null,
@@ -1342,6 +1432,16 @@
       "unit": "V",
       "vertical": "energy"
     },
+    "def_level_pct": {
+      "description": "Diesel exhaust fluid level. SPN 1761.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "percent",
+      "type": "float",
+      "unit": "%",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "def_remaining_pct": {
       "description": "Reported value for def remaining pct, in %.",
       "example_value": null,
@@ -1385,6 +1485,46 @@
       "type": "integer",
       "unit": "min",
       "vertical": "universal"
+    },
+    "dpf_inlet_temp_c": {
+      "description": "DPF inlet temperature.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "dpf_outlet_temp_c": {
+      "description": "DPF outlet temperature.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "dpf_regen_state": {
+      "description": "Particulate filter regeneration state. SPN 3751.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": null,
+      "type": "string",
+      "unit": null,
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "dpf_soot_load_pct": {
+      "description": "Diesel particulate filter soot load. SPN 3719.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "percent",
+      "type": "float",
+      "unit": "%",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "emergency_stop_active": {
       "description": "Reported value for emergency stop active.",
@@ -1430,6 +1570,26 @@
       "unit": "kWh",
       "vertical": "energy"
     },
+    "engine_coolant_temp_c": {
+      "description": "Engine coolant temperature. SPN 110.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "engine_hours": {
+      "description": "Total engine running hours. SPN 247. NOT idle hours -- see idle_hours; collapsing the two reported a 14,203-hour truck as 2,400.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "time",
+      "type": "float",
+      "unit": "h",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "engine_load_pct": {
       "description": "Load on the machine, in %.",
       "example_value": null,
@@ -1438,6 +1598,26 @@
       "type": "float",
       "unit": "%",
       "vertical": "universal"
+    },
+    "engine_oil_pressure_kpa": {
+      "description": "Engine oil pressure. SPN 100.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "engine_oil_temp_c": {
+      "description": "Engine oil temperature. SPN 175.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "engine_speed_rpm": {
       "description": "Speed of the machine, in rpm.",
@@ -1455,6 +1635,16 @@
       "type": "string",
       "unit": null,
       "vertical": "universal"
+    },
+    "exhaust_temp_c": {
+      "description": "Exhaust gas temperature. SPN 173.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "extruder_position_mm": {
       "description": null,
@@ -1574,6 +1764,16 @@
       "unit": null,
       "vertical": "universal"
     },
+    "fuel_level_pct": {
+      "description": "Fuel tank level. SPN 96.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "percent",
+      "type": "float",
+      "unit": "%",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "fuel_rate": {
       "description": "Reported value for fuel rate.",
       "example_value": null,
@@ -1581,6 +1781,16 @@
       "type": null,
       "unit": null,
       "vertical": "universal"
+    },
+    "fuel_rate_lph": {
+      "description": "Instantaneous fuel rate. SPN 183.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "flow",
+      "type": "float",
+      "unit": "L/h",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "fuel_remaining_pct": {
       "description": "Reported value for fuel remaining pct, in %.",
@@ -1591,6 +1801,16 @@
       "unit": "%",
       "vertical": "universal"
     },
+    "fuel_temp_c": {
+      "description": "Fuel temperature. SPN 174.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "gearbox_temperature": {
       "description": null,
       "example_value": null,
@@ -1600,6 +1820,46 @@
       "unit": "C",
       "unit_source": "sandbox_declared",
       "vertical": "universal"
+    },
+    "gps_altitude_m": {
+      "description": "GPS altitude.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "length",
+      "type": "float",
+      "unit": "m",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "gps_heading_deg": {
+      "description": "GPS heading.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "angle",
+      "type": "float",
+      "unit": "deg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "gps_latitude": {
+      "description": "GPS latitude.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "angle",
+      "type": "float",
+      "unit": "deg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "gps_longitude": {
+      "description": "GPS longitude.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "angle",
+      "type": "float",
+      "unit": "deg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "grid_frequency_hz": {
       "description": "AC line frequency.",
@@ -1686,6 +1946,26 @@
       "unit_source": "sandbox_declared",
       "vertical": "additive"
     },
+    "hydraulic_pressure_kpa": {
+      "description": "Hydraulic pressure.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "hydraulic_temp_c": {
+      "description": "Hydraulic oil temperature.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "hydraulic_temperature": {
       "description": null,
       "example_value": null,
@@ -1704,6 +1984,16 @@
       "unit": null,
       "vertical": "universal"
     },
+    "idle_fuel_used_l": {
+      "description": "Fuel consumed while idling.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "volume",
+      "type": "float",
+      "unit": "L",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "idle_hours": {
       "description": "Cumulative runtime of the machine, in h.",
       "example_value": null,
@@ -1712,6 +2002,26 @@
       "type": "float",
       "unit": "h",
       "vertical": "universal"
+    },
+    "intake_manifold_temp_c": {
+      "description": "Intake manifold temperature. SPN 105.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "intercooler_temp_c": {
+      "description": "Charge air cooler temperature. SPN 52.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "inverter_cabinet_temp_c": {
       "description": "Inverter cabinet internal temperature.",
@@ -1823,6 +2133,16 @@
       "unit": "mm",
       "unit_source": "sandbox_declared",
       "vertical": "additive"
+    },
+    "lift_height_m": {
+      "description": "Lift / platform height.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "length",
+      "type": "float",
+      "unit": "m",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "line_current_a": {
       "description": "AC line current.",
@@ -2433,6 +2753,16 @@
       "unit": null,
       "vertical": "universal"
     },
+    "odometer_km": {
+      "description": "Total vehicle distance.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "length",
+      "type": "float",
+      "unit": "km",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "oil_temperature": {
       "description": null,
       "example_value": null,
@@ -2485,6 +2815,16 @@
       "unit": "C",
       "vertical": "energy"
     },
+    "parking_brake_active": {
+      "description": "Parking brake applied. SPN 70.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": null,
+      "type": "bool",
+      "unit": null,
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "part_count": {
       "description": "Count of the machine.",
       "example_value": 1234,
@@ -2536,6 +2876,16 @@
       "unit": "C",
       "unit_source": "sandbox_declared",
       "vertical": "additive"
+    },
+    "platform_load_kg": {
+      "description": "Work platform load.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "mass",
+      "type": "float",
+      "unit": "kg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "power.instantaneous_kw": {
       "description": "Reported value for instantaneous kw, in kW.",
@@ -2671,6 +3021,26 @@
       "type": "float",
       "unit": "%",
       "vertical": "universal"
+    },
+    "pto_active": {
+      "description": "Power take-off engaged. SPN 976.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": null,
+      "type": "bool",
+      "unit": null,
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "pto_speed_rpm": {
+      "description": "PTO output speed.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "rotational",
+      "type": "float",
+      "unit": "rpm",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "pump_efficiency_pct": {
       "description": "Pump efficiency, percent.",
@@ -4339,6 +4709,16 @@
       "unit": null,
       "vertical": "universal"
     },
+    "service_brake_active": {
+      "description": "Service brake applied. SPN 597.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": null,
+      "type": "bool",
+      "unit": null,
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "service_hours_remaining": {
       "description": "Cumulative runtime of the machine.",
       "example_value": null,
@@ -4483,6 +4863,16 @@
       "unit_source": "sandbox_declared",
       "vertical": "building_automation"
     },
+    "swing_angle_deg": {
+      "description": "Swing / slew angle.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "angle",
+      "type": "float",
+      "unit": "deg",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
     "tank_level_pct": {
       "description": "Tank / vessel level, percent of capacity.",
       "example_value": 0,
@@ -4549,6 +4939,76 @@
       "type": null,
       "unit": null,
       "vertical": "cnc"
+    },
+    "total_fuel_used_l": {
+      "description": "Total fuel consumed. SPN 250.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "volume",
+      "type": "float",
+      "unit": "L",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "track_tension_kpa": {
+      "description": "Undercarriage track tension.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "transmission_gear": {
+      "description": "Current gear. SPN 523.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": null,
+      "type": "int",
+      "unit": null,
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "transmission_oil_pressure_kpa": {
+      "description": "Transmission oil pressure.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "transmission_temp_c": {
+      "description": "Transmission oil temperature. SPN 177.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "temperature",
+      "type": "float",
+      "unit": "C",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "turbo_boost_pressure_kpa": {
+      "description": "Turbocharger boost pressure. SPN 102.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "pressure",
+      "type": "float",
+      "unit": "kPa",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
+    },
+    "undercarriage_wear_pct": {
+      "description": "Undercarriage wear.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "percent",
+      "type": "float",
+      "unit": "%",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "valve_position_pct": {
       "description": "Valve open position, percent.",
@@ -5111,6 +5571,16 @@
       "type": null,
       "unit": null,
       "vertical": "vehicle"
+    },
+    "vehicle_speed_km_h": {
+      "description": "Wheel-based vehicle speed. SPN 84.",
+      "example_value": null,
+      "isa95_category": "equipment_performance",
+      "physical_quantity": "vehicle_speed",
+      "type": "float",
+      "unit": "kph",
+      "unit_source": "sandbox_declared",
+      "vertical": "fleet"
     },
     "vfd_output_frequency_hz": {
       "description": "Variable-frequency-drive output frequency.",

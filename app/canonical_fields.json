@@ -1,5 +1,5 @@
 {
-  "field_count": 576,
+  "field_count": 623,
   "fields": {
     "ac_current_phase_a": {
       "accepted_input_units": [],
@@ -259,6 +259,75 @@
       "quantity": null,
       "si": false,
       "unit": null
+    },
+    "alternator_current_a": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Alternator output current.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "current",
+      "physics_bounds": {
+        "max": 500.0,
+        "min": -500.0
+      },
+      "quantity": "current",
+      "si": true,
+      "type": "float",
+      "unit": "A",
+      "valid_range": [
+        -500,
+        500
+      ],
+      "vertical": "fleet"
+    },
+    "alternator_voltage": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Alternator output voltage.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "voltage",
+      "physics_bounds": {
+        "max": 60.0,
+        "min": 0.0
+      },
+      "quantity": "voltage",
+      "si": true,
+      "type": "float",
+      "unit": "V",
+      "valid_range": [
+        0,
+        60
+      ],
+      "vertical": "fleet"
+    },
+    "ambient_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Ambient air temperature. SPN 171.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 90.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        90
+      ],
+      "vertical": "fleet"
     },
     "ambient_temperature": {
       "description": "",
@@ -1845,6 +1914,29 @@
       "si": false,
       "unit": null
     },
+    "barometric_pressure_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Barometric pressure. SPN 108.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 120.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        120
+      ],
+      "vertical": "fleet"
+    },
     "battery_capacity_kwh": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -2008,6 +2100,75 @@
       "type": "float",
       "unit": "C",
       "vertical": "additive"
+    },
+    "boom_angle_deg": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Boom angle.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "angle",
+      "physics_bounds": {
+        "max": 180.0,
+        "min": -90.0
+      },
+      "quantity": "angle",
+      "si": true,
+      "type": "float",
+      "unit": "deg",
+      "valid_range": [
+        -90,
+        180
+      ],
+      "vertical": "fleet"
+    },
+    "brake_air_pressure_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Service brake air pressure. SPN 117/118.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 2000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        2000
+      ],
+      "vertical": "fleet"
+    },
+    "bucket_angle_deg": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Bucket angle.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "angle",
+      "physics_bounds": {
+        "max": 180.0,
+        "min": -180.0
+      },
+      "quantity": "angle",
+      "si": true,
+      "type": "float",
+      "unit": "deg",
+      "valid_range": [
+        -180,
+        180
+      ],
+      "vertical": "fleet"
     },
     "chamber_temperature_c": {
       "description": "",
@@ -2431,6 +2592,44 @@
       "unit": "C",
       "vertical": "universal"
     },
+    "cruise_control_active": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Cruise control active. SPN 595.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": null,
+      "quantity": null,
+      "si": true,
+      "type": "bool",
+      "unit": null,
+      "vertical": "fleet"
+    },
+    "cruise_control_set_km_h": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Cruise control set speed. SPN 86.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "vehicle_speed",
+      "physics_bounds": {
+        "max": 250.0,
+        "min": 0.0
+      },
+      "quantity": "vehicle_speed",
+      "si": true,
+      "type": "float",
+      "unit": "kph",
+      "valid_range": [
+        0,
+        250
+      ],
+      "vertical": "fleet"
+    },
     "cutting_time_hours": {
       "accepted_input_units": [
         "days",
@@ -2612,6 +2811,29 @@
       "unit": "V",
       "vertical": "energy"
     },
+    "def_level_pct": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Diesel exhaust fluid level. SPN 1761.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "percent",
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "percent",
+      "si": true,
+      "type": "float",
+      "unit": "%",
+      "valid_range": [
+        0,
+        100
+      ],
+      "vertical": "fleet"
+    },
     "def_remaining_pct": {
       "accepted_input_units": [
         "%"
@@ -2709,6 +2931,90 @@
       "quantity": "time",
       "si": false,
       "unit": "min"
+    },
+    "dpf_inlet_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "DPF inlet temperature.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 900.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        900
+      ],
+      "vertical": "fleet"
+    },
+    "dpf_outlet_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "DPF outlet temperature.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 900.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        900
+      ],
+      "vertical": "fleet"
+    },
+    "dpf_regen_state": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Particulate filter regeneration state. SPN 3751.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": null,
+      "quantity": null,
+      "si": true,
+      "type": "string",
+      "unit": null,
+      "vertical": "fleet"
+    },
+    "dpf_soot_load_pct": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Diesel particulate filter soot load. SPN 3719.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "percent",
+      "physics_bounds": {
+        "max": 200.0,
+        "min": 0.0
+      },
+      "quantity": "percent",
+      "si": true,
+      "type": "float",
+      "unit": "%",
+      "valid_range": [
+        0,
+        200
+      ],
+      "vertical": "fleet"
     },
     "emergency_stop_active": {
       "accepted_input_units": [],
@@ -2830,6 +3136,52 @@
       "unit": "kWh",
       "vertical": "energy"
     },
+    "engine_coolant_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Engine coolant temperature. SPN 110.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 200.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        200
+      ],
+      "vertical": "fleet"
+    },
+    "engine_hours": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Total engine running hours. SPN 247. NOT idle hours -- see idle_hours; collapsing the two reported a 14,203-hour truck as 2,400.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "time",
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "time",
+      "si": true,
+      "type": "float",
+      "unit": "h",
+      "valid_range": [
+        0,
+        500000
+      ],
+      "vertical": "fleet"
+    },
     "engine_load_pct": {
       "accepted_input_units": [
         "%"
@@ -2844,12 +3196,62 @@
       ],
       "physical_quantity": "ratio",
       "physics_bounds": {
-        "max": 100.0,
+        "max": 125.0,
         "min": 0.0
       },
       "quantity": "percent",
       "si": true,
-      "unit": "%"
+      "unit": "%",
+      "valid_range": [
+        0,
+        125
+      ]
+    },
+    "engine_oil_pressure_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Engine oil pressure. SPN 100.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 2000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        2000
+      ],
+      "vertical": "fleet"
+    },
+    "engine_oil_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Engine oil temperature. SPN 175.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 250.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        250
+      ],
+      "vertical": "fleet"
     },
     "engine_speed_rpm": {
       "accepted_input_units": [
@@ -2866,12 +3268,16 @@
       ],
       "physical_quantity": "rotational_speed",
       "physics_bounds": {
-        "max": 50000,
-        "min": -50000
+        "max": 10000.0,
+        "min": 0.0
       },
       "quantity": "rotational",
       "si": true,
-      "unit": "rpm"
+      "unit": "rpm",
+      "valid_range": [
+        0,
+        10000
+      ]
     },
     "execution_state": {
       "accepted_input_units": [],
@@ -2938,6 +3344,29 @@
       "si": false,
       "type": "enum",
       "unit": null
+    },
+    "exhaust_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Exhaust gas temperature. SPN 173.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 1200.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        1200
+      ],
+      "vertical": "fleet"
     },
     "extruder_position_mm": {
       "description": "",
@@ -3188,6 +3617,29 @@
       "si": false,
       "unit": null
     },
+    "fuel_level_pct": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Fuel tank level. SPN 96.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "percent",
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "percent",
+      "si": true,
+      "type": "float",
+      "unit": "%",
+      "valid_range": [
+        0,
+        100
+      ],
+      "vertical": "fleet"
+    },
     "fuel_rate": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -3207,6 +3659,29 @@
         0,
         1
       ]
+    },
+    "fuel_rate_lph": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Instantaneous fuel rate. SPN 183.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "flow",
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": true,
+      "type": "float",
+      "unit": "L/h",
+      "valid_range": [
+        0,
+        1000
+      ],
+      "vertical": "fleet"
     },
     "fuel_remaining_pct": {
       "accepted_input_units": [
@@ -3229,6 +3704,29 @@
       "si": true,
       "unit": "%"
     },
+    "fuel_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Fuel temperature. SPN 174.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 150.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        150
+      ],
+      "vertical": "fleet"
+    },
     "gearbox_temperature": {
       "description": "",
       "isa95_category": "equipment_condition",
@@ -3237,6 +3735,98 @@
       "type": "float",
       "unit": "C",
       "vertical": "universal"
+    },
+    "gps_altitude_m": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "GPS altitude.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "length",
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": -500.0
+      },
+      "quantity": "length",
+      "si": true,
+      "type": "float",
+      "unit": "m",
+      "valid_range": [
+        -500,
+        10000
+      ],
+      "vertical": "fleet"
+    },
+    "gps_heading_deg": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "GPS heading.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "angle",
+      "physics_bounds": {
+        "max": 360.0,
+        "min": 0.0
+      },
+      "quantity": "angle",
+      "si": true,
+      "type": "float",
+      "unit": "deg",
+      "valid_range": [
+        0,
+        360
+      ],
+      "vertical": "fleet"
+    },
+    "gps_latitude": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "GPS latitude.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "angle",
+      "physics_bounds": {
+        "max": 90.0,
+        "min": -90.0
+      },
+      "quantity": "angle",
+      "si": true,
+      "type": "float",
+      "unit": "deg",
+      "valid_range": [
+        -90,
+        90
+      ],
+      "vertical": "fleet"
+    },
+    "gps_longitude": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "GPS longitude.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "angle",
+      "physics_bounds": {
+        "max": 180.0,
+        "min": -180.0
+      },
+      "quantity": "angle",
+      "si": true,
+      "type": "float",
+      "unit": "deg",
+      "valid_range": [
+        -180,
+        180
+      ],
+      "vertical": "fleet"
     },
     "grid_frequency_hz": {
       "accepted_input_units": [],
@@ -3352,6 +3942,52 @@
       "unit": "C",
       "vertical": "additive"
     },
+    "hydraulic_pressure_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Hydraulic pressure.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 70000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        70000
+      ],
+      "vertical": "fleet"
+    },
+    "hydraulic_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Hydraulic oil temperature.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 250.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        250
+      ],
+      "vertical": "fleet"
+    },
     "hydraulic_temperature": {
       "description": "",
       "isa95_category": "equipment_condition",
@@ -3372,6 +4008,29 @@
       "quantity": null,
       "si": false,
       "unit": null
+    },
+    "idle_fuel_used_l": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Fuel consumed while idling.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "volume",
+      "physics_bounds": {
+        "max": 10000000.0,
+        "min": 0.0
+      },
+      "quantity": "volume",
+      "si": true,
+      "type": "float",
+      "unit": "L",
+      "valid_range": [
+        0,
+        10000000
+      ],
+      "vertical": "fleet"
     },
     "idle_hours": {
       "accepted_input_units": [
@@ -3396,12 +4055,62 @@
       ],
       "physical_quantity": "time_duration",
       "physics_bounds": {
-        "max": 1000000000.0,
+        "max": 500000.0,
         "min": 0.0
       },
       "quantity": "time",
       "si": true,
-      "unit": "h"
+      "unit": "h",
+      "valid_range": [
+        0,
+        500000
+      ]
+    },
+    "intake_manifold_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Intake manifold temperature. SPN 105.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 300.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        300
+      ],
+      "vertical": "fleet"
+    },
+    "intercooler_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Charge air cooler temperature. SPN 52.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 300.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        300
+      ],
+      "vertical": "fleet"
     },
     "inverter_cabinet_temp_c": {
       "accepted_input_units": [],
@@ -3651,6 +4360,29 @@
       "type": "float",
       "unit": "mm",
       "vertical": "additive"
+    },
+    "lift_height_m": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Lift / platform height.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "length",
+      "physics_bounds": {
+        "max": 200.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": true,
+      "type": "float",
+      "unit": "m",
+      "valid_range": [
+        0,
+        200
+      ],
+      "vertical": "fleet"
     },
     "line_current_a": {
       "accepted_input_units": [],
@@ -4712,6 +5444,29 @@
         526385152
       ]
     },
+    "odometer_km": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Total vehicle distance.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "length",
+      "physics_bounds": {
+        "max": 5000000.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": true,
+      "type": "float",
+      "unit": "km",
+      "valid_range": [
+        0,
+        5000000
+      ],
+      "vertical": "fleet"
+    },
     "oil_temperature": {
       "description": "",
       "isa95_category": "equipment_condition",
@@ -4806,6 +5561,21 @@
       "si": true,
       "unit": "C",
       "vertical": "energy"
+    },
+    "parking_brake_active": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Parking brake applied. SPN 70.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": null,
+      "quantity": null,
+      "si": true,
+      "type": "bool",
+      "unit": null,
+      "vertical": "fleet"
     },
     "part_count": {
       "accepted_input_units": [],
@@ -4925,6 +5695,29 @@
       "type": "float",
       "unit": "C",
       "vertical": "additive"
+    },
+    "platform_load_kg": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Work platform load.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "mass",
+      "physics_bounds": {
+        "max": 50000.0,
+        "min": 0.0
+      },
+      "quantity": "mass",
+      "si": true,
+      "type": "float",
+      "unit": "kg",
+      "valid_range": [
+        0,
+        50000
+      ],
+      "vertical": "fleet"
     },
     "power.instantaneous_kw": {
       "accepted_input_units": [
@@ -5175,6 +5968,44 @@
       "quantity": "percent",
       "si": true,
       "unit": "%"
+    },
+    "pto_active": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Power take-off engaged. SPN 976.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": null,
+      "quantity": null,
+      "si": true,
+      "type": "bool",
+      "unit": null,
+      "vertical": "fleet"
+    },
+    "pto_speed_rpm": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "PTO output speed.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "rotational",
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": 0.0
+      },
+      "quantity": "rotational",
+      "si": true,
+      "type": "float",
+      "unit": "rpm",
+      "valid_range": [
+        0,
+        10000
+      ],
+      "vertical": "fleet"
     },
     "pump_efficiency_pct": {
       "accepted_input_units": [
@@ -8834,6 +9665,21 @@
       "si": false,
       "unit": null
     },
+    "service_brake_active": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Service brake applied. SPN 597.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": null,
+      "quantity": null,
+      "si": true,
+      "type": "bool",
+      "unit": null,
+      "vertical": "fleet"
+    },
     "service_hours_remaining": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -9111,6 +9957,29 @@
       "unit": "C",
       "vertical": "building_automation"
     },
+    "swing_angle_deg": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Swing / slew angle.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "angle",
+      "physics_bounds": {
+        "max": 360.0,
+        "min": -360.0
+      },
+      "quantity": "angle",
+      "si": true,
+      "type": "float",
+      "unit": "deg",
+      "valid_range": [
+        -360,
+        360
+      ],
+      "vertical": "fleet"
+    },
     "tank_level_pct": {
       "accepted_input_units": [
         "%"
@@ -9223,6 +10092,167 @@
       "quantity": null,
       "si": false,
       "unit": null
+    },
+    "total_fuel_used_l": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Total fuel consumed. SPN 250.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "volume",
+      "physics_bounds": {
+        "max": 10000000.0,
+        "min": 0.0
+      },
+      "quantity": "volume",
+      "si": true,
+      "type": "float",
+      "unit": "L",
+      "valid_range": [
+        0,
+        10000000
+      ],
+      "vertical": "fleet"
+    },
+    "track_tension_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Undercarriage track tension.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 70000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        70000
+      ],
+      "vertical": "fleet"
+    },
+    "transmission_gear": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Current gear. SPN 523.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": null,
+      "physics_bounds": {
+        "max": 30.0,
+        "min": -10.0
+      },
+      "quantity": null,
+      "si": true,
+      "type": "int",
+      "unit": null,
+      "valid_range": [
+        -10,
+        30
+      ],
+      "vertical": "fleet"
+    },
+    "transmission_oil_pressure_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Transmission oil pressure.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 5000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        5000
+      ],
+      "vertical": "fleet"
+    },
+    "transmission_temp_c": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Transmission oil temperature. SPN 177.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "temperature",
+      "physics_bounds": {
+        "max": 250.0,
+        "min": -60.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "type": "float",
+      "unit": "C",
+      "valid_range": [
+        -60,
+        250
+      ],
+      "vertical": "fleet"
+    },
+    "turbo_boost_pressure_kpa": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Turbocharger boost pressure. SPN 102.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "pressure",
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": true,
+      "type": "float",
+      "unit": "kPa",
+      "valid_range": [
+        0,
+        1000
+      ],
+      "vertical": "fleet"
+    },
+    "undercarriage_wear_pct": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Undercarriage wear.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "percent",
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "percent",
+      "si": true,
+      "type": "float",
+      "unit": "%",
+      "valid_range": [
+        0,
+        100
+      ],
+      "vertical": "fleet"
     },
     "valve_position_pct": {
       "accepted_input_units": [
@@ -10527,6 +11557,29 @@
       "quantity": "rotational",
       "si": true,
       "unit": "rpm"
+    },
+    "vehicle_speed_km_h": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Wheel-based vehicle speed. SPN 84.",
+      "isa95_category": "equipment_performance",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physical_quantity": "vehicle_speed",
+      "physics_bounds": {
+        "max": 250.0,
+        "min": 0.0
+      },
+      "quantity": "vehicle_speed",
+      "si": true,
+      "type": "float",
+      "unit": "kph",
+      "valid_range": [
+        0,
+        250
+      ],
+      "vertical": "fleet"
     },
     "vfd_output_frequency_hz": {
       "accepted_input_units": [
