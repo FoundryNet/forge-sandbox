@@ -129,12 +129,36 @@ print("    tcp_speed 250 mm/s · battery_pct 68 · UR joint 89.95 deg · notes c
 PY
 ok "robotics"
 
-step "8/8  anonymous-pull parity"
-# The published image must be reachable without credentials. A private image
-# is indistinguishable from a broken one to a prospect.
+step "8/8  publish + anonymous-pull parity"
+# Two traps live in this step.
+#
+# 1. The image that was TESTED must be the image that is PUSHED. Pushing
+#    "${IMAGE}:${TAG}" directly would publish whatever that tag pointed at
+#    before the gate ran -- which, the first time this script existed, was a
+#    20-hour-old build that never saw a single test above.
+# 2. The published image is multi-arch. A plain `docker build` on an Apple
+#    Silicon machine produces arm64 ONLY, so pushing it would leave every
+#    amd64 prospect unable to run the image at all.
+#
+# So the publish is a buildx run over the same source tree, for both
+# platforms, and the manifest is checked for both before we call it done.
 if [ "$PUSH" = 1 ]; then
-    docker push "${IMAGE}:${TAG}" || die "docker push"
-    ok "pushed ${IMAGE}:${TAG}"
+    docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        --tag "${IMAGE}:${TAG}" \
+        --push . || die "buildx push"
+    ok "pushed ${IMAGE}:${TAG} (linux/amd64, linux/arm64)"
+
+    docker manifest inspect "${IMAGE}:${TAG}" | python3 -c '
+import json, sys
+have = {f"{m[\"platform\"][\"os\"]}/{m[\"platform\"][\"architecture\"]}"
+        for m in json.load(sys.stdin)["manifests"]}
+need = {"linux/amd64", "linux/arm64"}
+missing = need - have
+assert not missing, f"published manifest is missing {missing}"
+print("    platforms:", ", ".join(sorted(p for p in have if "unknown" not in p)))
+' || die "published manifest is not multi-arch"
+    ok "multi-arch manifest"
     ANON_DIR=$(mktemp -d)
     if DOCKER_CONFIG="$ANON_DIR" docker manifest inspect "${IMAGE}:${TAG}" >/dev/null 2>&1; then
         ok "anonymous pull verified"
