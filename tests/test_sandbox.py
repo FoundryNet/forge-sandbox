@@ -517,15 +517,24 @@ def test_unknown_v1_endpoint_lists_the_real_ones(client):
     assert "/v1/normalize" in body["available"]
 
 
-def test_health_declares_it_is_a_sandbox_subset(client):
-    """A prospect's first call is /health. The relationship to the licensed
-    engine has to be readable there -- the field counts differ, and someone
-    comparing 467 against the sell sheet's 694 must find the reason in the
-    response, not conclude the image is short."""
+def test_health_declares_it_is_an_evaluation_build(client):
+    """A prospect's first call is /health, so what this image IS has to be
+    readable there.
+
+    It used to claim to be a subset of a 694-field licensed corpus. The
+    robotics and fleet packs made that false in the two verticals most likely
+    to be evaluated, so the note no longer compares itself to the licensed
+    engine at all -- it points at the pilot, which is where coverage is
+    actually established. Asserting the absence of the old claim is the point
+    of this test: a future edit that reinstates a parity promise fails here."""
     h = client.get("/health").json()
     assert h["sandbox"] is True
-    assert "Evaluation subset" in h["sandbox_note"]
-    assert "694" in h["sandbox_note"]
+    note = h["sandbox_note"]
+    assert "Evaluation build" in note
+    assert "pilot" in note.lower()
+    assert "694" not in note, "reinstated a corpus-size claim we do not honour"
+    assert "subset" not in note.lower(), (
+        "this build is a SUPERset in robotics and fleet; do not call it a subset")
 
 
 def test_health_does_not_disclaim_physics_it_actually_enforces(client):

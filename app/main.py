@@ -167,11 +167,22 @@ async def health():
         "simulated": True,
         # Stated on /health itself so the relationship to the licensed engine is
         # legible from the first call a prospect makes, without reading the
-        # README, the sell sheet, or anything else. The field counts differ and
-        # someone comparing them should find the reason here, not infer a defect.
+        # README, the sell sheet, or anything else.
+        #
+        # This used to read "Evaluation subset. Licensed engine serves the full
+        # 694-field corpus." That stopped being true on 2026-09-02. The
+        # robotics and fleet packs added here (7 packs, 156 canonical fields)
+        # do not exist in the production kernel yet, so for exactly the two
+        # verticals a robotics or telematics prospect would evaluate, this
+        # build is a SUPERset -- and the note pointed them the other way.
+        #
+        # Promising parity we have not shipped is the one claim that cannot be
+        # walked back after a pilot starts, so the note no longer makes a
+        # comparison at all. The pilot is where coverage gets confirmed, on the
+        # prospect's own equipment, and that is what it now says.
         "sandbox": True,
-        "sandbox_note": ("Evaluation subset. Licensed engine serves the full "
-                         "694-field corpus."),
+        "sandbox_note": ("Evaluation build. Coverage confirmed during your "
+                         "14-day pilot on your actual equipment."),
         "uptime_seconds": round(time.time() - STARTED, 1),
         "db": None,
         "embedder_ready": None,
