@@ -1,0 +1,60 @@
+{
+  "aliases": [
+    "mir100",
+    "mir250",
+    "mir600",
+    "mir_amr",
+    "mobile_industrial_robots"
+  ],
+  "canonical_fields": [
+    "amr.battery.time_remaining_s",
+    "amr.distance_to_target_m",
+    "amr.error_count",
+    "amr.mission_id",
+    "amr.navigation_state",
+    "amr.operating_mode",
+    "amr.position.theta",
+    "amr.position.x",
+    "amr.position.y",
+    "amr.robot_state",
+    "amr.velocity.angular",
+    "amr.velocity.linear",
+    "battery_current_a",
+    "battery_soc_pct",
+    "battery_voltage",
+    "machine_id",
+    "operating_hours",
+    "serial_number"
+  ],
+  "display_name": "Mobile Industrial Robots (MiR REST API v2)",
+  "mappings": {
+    "battery_current": "battery_current_a",
+    "battery_percentage": "battery_soc_pct",
+    "battery_time_remaining": "amr.battery.time_remaining_s",
+    "battery_voltage": "battery_voltage",
+    "distance_to_next_target": "amr.distance_to_target_m",
+    "errors": "amr.error_count",
+    "mission_queue_id": "amr.mission_id",
+    "mission_text": "amr.navigation_state",
+    "mode_id": "amr.operating_mode",
+    "mode_text": "amr.operating_mode",
+    "orientation": "amr.position.theta",
+    "position_x": "amr.position.x",
+    "position_y": "amr.position.y",
+    "robot_name": "machine_id",
+    "serial_number": "serial_number",
+    "state_id": "amr.robot_state",
+    "state_text": "amr.robot_state",
+    "uptime": "operating_hours",
+    "velocity_angular": "amr.velocity.angular",
+    "velocity_linear": "amr.velocity.linear"
+  },
+  "oem": "mir",
+  "protocol": "rest_json",
+  "source": "MiR REST API v2.0 /status response fields",
+  "tag_units": {
+    "battery_time_remaining": "s",
+    "uptime": "s"
+  },
+  "vertical": "amr"
+}

@@ -6,6 +6,51 @@
  "name": "Forge sandbox mapping packs",
  "note": "Deterministic subset only. The production corpus, embedding index, LLM resolution, and physics validators are not in this image.",
  "packs": {
+  "abb_robot": {
+   "aliases": [
+    "abb_irc5",
+    "abb_omnicore",
+    "irb",
+    "rapid"
+   ],
+   "canonical_field_count": 43,
+   "display_name": "ABB industrial robot (RAPID / IRC5, OmniCore)",
+   "mapping_count": 49,
+   "protocol": "rapid_variable",
+   "vertical": "robotics"
+  },
+  "amr": {
+   "aliases": [
+    "6_river_systems",
+    "6river",
+    "addverb",
+    "agv",
+    "amr_generic",
+    "fetch",
+    "fetch_robotics",
+    "geek_plus",
+    "generic_amr",
+    "grey_orange",
+    "greyorange",
+    "hai_robotics",
+    "haibot",
+    "locus",
+    "locus_robotics",
+    "ocado",
+    "otto",
+    "otto_motors",
+    "six_river",
+    "vecna",
+    "vecna_robotics",
+    "zebra",
+    "zebra_robotics"
+   ],
+   "canonical_field_count": 57,
+   "display_name": "Warehouse AMR (Locus, Fetch/Zebra, 6 River, OTTO, Vecna)",
+   "mapping_count": 125,
+   "protocol": "rest_json",
+   "vertical": "amr"
+  },
   "carrier": {
    "aliases": [
     "bacnet",
@@ -47,6 +92,23 @@
    "protocol": "sunspec_modbus",
    "vertical": "energy"
   },
+  "generic_conveyor": {
+   "aliases": [
+    "autostore",
+    "conveyor",
+    "intralogistics",
+    "material_handling",
+    "mhe",
+    "modula",
+    "sortation",
+    "sorter"
+   ],
+   "canonical_field_count": 17,
+   "display_name": "Conveyor / sortation (Modula, AutoStore, generic MHE)",
+   "mapping_count": 33,
+   "protocol": "opcua",
+   "vertical": "logistics"
+  },
   "generic_iot": {
    "aliases": [
     "weather",
@@ -71,6 +133,34 @@
    "mapping_count": 240,
    "protocol": "mtconnect",
    "vertical": "cnc"
+  },
+  "kuka": {
+   "aliases": [
+    "krc4",
+    "krc5",
+    "krl",
+    "kuka_kr",
+    "kuka_robot"
+   ],
+   "canonical_field_count": 47,
+   "display_name": "KUKA industrial robot (KRL / KUKA.RobotSensorInterface)",
+   "mapping_count": 91,
+   "protocol": "krl_variable",
+   "vertical": "robotics"
+  },
+  "mir": {
+   "aliases": [
+    "mir100",
+    "mir250",
+    "mir600",
+    "mir_amr",
+    "mobile_industrial_robots"
+   ],
+   "canonical_field_count": 18,
+   "display_name": "Mobile Industrial Robots (MiR REST API v2)",
+   "mapping_count": 20,
+   "protocol": "rest_json",
+   "vertical": "amr"
   },
   "prusa": {
    "aliases": [
@@ -125,6 +215,25 @@
    "mapping_count": 42,
    "protocol": "modbus_tcp",
    "vertical": "energy"
+  },
+  "universal_robots": {
+   "aliases": [
+    "polyscope",
+    "rtde",
+    "universalrobots",
+    "ur",
+    "ur10",
+    "ur16",
+    "ur20",
+    "ur3",
+    "ur5",
+    "ur_cobot"
+   ],
+   "canonical_field_count": 49,
+   "display_name": "Universal Robots cobot (RTDE / primary interface)",
+   "mapping_count": 65,
+   "protocol": "rtde",
+   "vertical": "robotics"
   }
  }
 }

@@ -488,12 +488,18 @@ def test_unknown_series_field_lists_what_is_available(client):
 
 def test_coverage_reports_the_oems(client):
     body = client.get("/v1/coverage").json()
-    assert set(body["oems"]) == set(simulate.MACHINES)
+    # Every simulatable machine must be covered. The pack set is a superset:
+    # the robotics packs (UR, KUKA, ABB, AMR, MiR, conveyor) resolve tags for
+    # hardware the sandbox ships no simulator for.
+    assert set(simulate.MACHINES) <= set(body["oems"])
     assert body["total_mappings"] > 1000
 
 
 def test_coverage_is_honest_about_an_unknown_oem(client):
-    body = client.get("/v1/coverage?oem=kuka").json()
+    # Deliberately not `kuka` any more -- KUKA is a shipped pack. This has to
+    # be a vendor we genuinely cannot place, or the test asserts the opposite
+    # of what it is named for.
+    body = client.get("/v1/coverage?oem=definitely_not_a_vendor").json()
     assert body["recognized"] is False
     assert "known_oems" in body
 

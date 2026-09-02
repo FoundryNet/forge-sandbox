@@ -54,6 +54,7 @@ _UNITS = (
     r"c|f|k|r|celsius|fahrenheit|kelvin|rankine|°c|°f|°k|°r|degc|degf|"
     r"mm|cm|m|in|inch|inches|ft|mil|um|µm|"
     r"rpm|1/min|min-1|rev/min|hz|"
+    r"deg|rad|rad/s|deg/s|"
     r"mm/min|mm/rev|mm/s|m/min|m/s|in/s|ips|ipm|ipr|fpm|mph|kph|"
     r"%|pct|percent|"
     r"kw|w|kwh|wh|mwh|j|kj|v|vac|vdc|kv|a|ma|"
@@ -333,10 +334,26 @@ def _normalize_unit_token(tok):
         "m3h": "m3/h", "mph": "mph", "ms": "m/s", "kmh": "km/h",
         "in": "in", "inch": "in", "mm": "mm", "m": "m", "ft": "ft",
         "pct": "%", "percent": "%",
+        "deg": "deg", "rad": "rad", "rads": "rad", "radians": "rad",
+        "degree": "deg", "degrees": "deg",
         "h": "h", "hr": "h", "hrs": "h", "hours": "h",
         "min": "min", "s": "s", "sec": "s",
         "nm": "Nm", "ntu": "NTU", "ppm": "ppm",
     }.get(key)
+
+
+def _percent_suffix(tag: str) -> bool:
+    """True when the tag's trailing unit token is a percentage.
+
+    `_tokens` strips the unit suffix before the signal classifier ever sees the
+    tag, so `battery_pct` arrives as the bare subject "battery" with no
+    quantity at all. The percent is the only thing that says WHAT about the
+    battery is being reported, and it is thrown away before anything can read
+    it -- which is why Locus's `battery_pct` went unresolved while
+    `battery_soc` resolved fine.
+    """
+    m = _UNIT_SUFFIX.search(_strip_node_id(tag))
+    return bool(m) and _normalize_unit_token(m.group(0)) == "%"
 
 
 def _tokens(tag: str) -> list:
@@ -701,6 +718,29 @@ def _signal_guess(tag: str, dictionary: dict):
                 return True
         return False
 
+    # ── State of charge, however the vendor spelled it ───────────────────
+    # Only one of the spellings in the field contains the token "soc". Locus
+    # ships `battery_pct`, Fetch ships `BatteryLevel`, others ship
+    # `BatteryStateOfCharge` -- the same reading, and the first field any
+    # fleet operator asks for. Before this, two of the three resolved to
+    # nothing and `BatteryStateOfCharge` aimed at `execution_state`, because
+    # camelCase splits it into "state","of","charge" and the "stateofcharge"
+    # alias can never be reached.
+    #
+    # Scoped to a battery subject deliberately. "Level" on its own is a tank
+    # and a bare "%" is a load at least as often as a charge, so neither may
+    # claim SOC unaided -- which is why this is not a new _BARE_QUANTITY entry.
+    if "battery" in subjects and "soc" not in quantities:
+        why = None
+        if "level" in quantities:
+            why = "level"
+        elif "state" in quantities and "charge" in toks:
+            why = "state-of-charge"
+        elif not quantities and _percent_suffix(tag):
+            why = "percent"
+        if why and "battery_soc_pct" in dictionary:
+            return "battery_soc_pct", 0.72, f"signal:battery+soc({why})", "soc"
+
     for subj in subjects:
         for qty in quantities:
             hit = _SIGNAL_MAP.get((subj, qty))
@@ -735,9 +775,36 @@ _OEM_DOMAINS = {
     "mazak": "cnc", "okuma": "cnc", "dmg_mori": "cnc",
     "doosan": "cnc", "makino": "cnc", "brother": "cnc",
 
-    # Robotics
+    # Robotics -- arms and cobots
     "fanuc_robot": "robotics", "kuka": "robotics",
     "abb_robot": "robotics", "universal_robots": "robotics",
+    "ur3": "robotics", "ur5": "robotics", "ur10": "robotics",
+    "ur16": "robotics", "ur20": "robotics", "polyscope": "robotics",
+    "yaskawa": "robotics", "motoman": "robotics", "staubli": "robotics",
+    "denso_robot": "robotics", "epson_robot": "robotics",
+    "doosan_robot": "robotics", "techman": "robotics", "kassow": "robotics",
+
+    # Robotics -- warehouse AMR / AGV. Without these an orchestration layer
+    # naming its robot vendor (SVT names Locus, Fetch, 6 River, OTTO) hit
+    # domain_from_oem -> None, which made every cross-pack match a refusal and
+    # reported oem_recognized: false on perfectly well-known hardware.
+    "amr": "robotics", "agv": "robotics",
+    "locus": "robotics", "fetch": "robotics", "zebra": "robotics",
+    "6river": "robotics", "six_river": "robotics", "ocado": "robotics",
+    "otto": "robotics", "vecna": "robotics", "mir": "robotics",
+    "mobile_industrial_robots": "robotics",
+    "hai_robotics": "robotics", "addverb": "robotics",
+    "geek_plus": "robotics", "greyorange": "robotics",
+    "grey_orange": "robotics", "omron_amr": "robotics",
+    "seegrid": "robotics", "clearpath": "robotics",
+
+    # Intralogistics fixed automation. Conveyors and cube storage are not
+    # robots and must not trade fields with an arm pack.
+    "generic_conveyor": "logistics", "conveyor": "logistics",
+    "sortation": "logistics", "sorter": "logistics",
+    "modula": "logistics", "autostore": "logistics",
+    "material_handling": "logistics", "intralogistics": "logistics",
+    "dematic": "logistics", "swisslog": "logistics", "knapp": "logistics",
 
     # 3D printing
     "prusa": "3dp", "stratasys": "3dp", "markforged": "3dp",
@@ -788,6 +855,7 @@ _VERTICAL_DOMAINS = {
     "amr": "robotics",
     "industrial": "industrial",
     "water": "water",
+    "logistics": "logistics",
 }
 
 # A vendor-neutral pack describes no particular industry, so it stays eligible
@@ -1491,11 +1559,23 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
         # missing mapping apart from a rejected one.
         oem_, canon_, dom_ = refused[0]
         rec["match_type"] = "cross_domain_refused"
-        rec["note"] = (
-            f"{tag} matches '{canon_}' in the {oem_} pack ({dom_}), but this "
-            f"reading is {source_domain}. Cross-domain match refused; a "
-            f"{source_domain} mapping for this tag is missing."
-        )
+        # An unrecognized OEM has no domain at all, and interpolating that None
+        # read as a bug ("this reading is None") in exactly the payloads a new
+        # integrator sends -- every robotics test hit this. Say what is true:
+        # the reading has no established domain, so no cross-domain match is
+        # safe to take.
+        if source_domain:
+            rec["note"] = (
+                f"{tag} matches '{canon_}' in the {oem_} pack ({dom_}), but this "
+                f"reading is {source_domain}. Cross-domain match refused; a "
+                f"{source_domain} mapping for this tag is missing."
+            )
+        else:
+            rec["note"] = (
+                f"{tag} matches '{canon_}' in the {oem_} pack ({dom_}), but this "
+                f"reading has no established domain. Cross-domain match refused; "
+                f"a domain-neutral mapping for this tag is missing."
+            )
         rec["refused_matches"] = [
             {"pack": o, "canonical_field": c, "domain": d} for o, c, d in refused
         ]

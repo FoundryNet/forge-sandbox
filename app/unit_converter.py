@@ -152,6 +152,13 @@ QUANTITY = {
     "m/s2": "vibration_accel", "mm/s2": "vibration_accel", "g-force": "vibration_accel",
     "s": "time", "min": "time", "h": "time", "ms": "time", "days": "time",
     "%": "percent", "V": "voltage", "kV": "voltage", "A": "current", "mA": "current",
+    # Robot joints are the reason this exists. UR's RTDE reports every joint
+    # angle in radians and KUKA/ABB/FANUC teach pendants report the same angle
+    # in degrees; without an angle quantity the two vendors cannot share a
+    # canonical field, and the alternative -- a separate degrees field and a
+    # separate radians field for the same axis -- is exactly the fragmentation
+    # the canonical registry exists to prevent.
+    "deg": "angle", "rad": "angle",
 }
 
 # Several "quantities" above are really reporting CONVENTIONS over one physical
@@ -186,6 +193,10 @@ TARGET_UNIT = {
     "voltage": "V",
     "current": "A",
     "irradiance": "W/m2",
+    # Degrees, not radians. Radians are the SI unit, but every robot teach
+    # pendant, work instruction and operator on the floor reads degrees, and
+    # UR is the only vendor here that puts radians on the wire.
+    "angle": "deg",
 }
 
 # ── conversions ─────────────────────────────────────────────────────────────
@@ -265,6 +276,9 @@ CONVERSIONS = {
     ("ton", "kg"): (lambda v: v * 907.18474, "shortton_to_kg"),
     # torque
     ("ftlb", "Nm"): (lambda v: v * 1.3558179483314004, "ftlb_to_nm"),
+    # angle -- UR ships joint angles in radians, everyone else in degrees
+    ("rad", "deg"): (lambda v: v * 57.29577951308232, "radians_to_degrees"),
+    ("deg", "rad"): (lambda v: v / 57.29577951308232, "degrees_to_radians"),
     # vibration acceleration
     ("m/s2", "mm/s2"): (lambda v: v * 1000.0, "m_s2_to_mm_s2"),
     ("g-force", "mm/s2"): (lambda v: v * 9806.65, "g_to_mm_s2"),
