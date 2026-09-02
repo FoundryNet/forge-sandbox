@@ -502,3 +502,73 @@ def test_every_robotics_vendor_svt_names_is_recognized(client):
     from app import corpus
     unplaced = [v for v in vendors if corpus.domain_from_oem(v) is None]
     assert not unplaced, f"no domain for: {unplaced}"
+
+
+def test_every_recognized_unit_token_is_convertible():
+    """A unit the tokenizer recognises but the converter cannot convert is
+    worse than one it never heard of.
+
+    An unrecognised unit leaves the tag unresolved. A RECOGNISED but
+    unconvertible one still resolves, still lands in the canonical field, and
+    keeps the source unit's magnitude -- silently. `cfm` normalised to
+    ft3/min, ft3/min was absent from QUANTITY, and a 450 CFM VAV box was
+    stored as 450 in an L/min field: 28x low, no conversion recorded, nothing
+    flagged. Same shape as the tcp_speed defect with none of the evidence.
+    """
+    from app import corpus
+    unconvertible = []
+    for token in sorted(set(corpus._UNITS.split("|"))):
+        token = token.strip()
+        if not token or "|" in token:
+            continue
+        norm = corpus._normalize_unit_token(token)
+        if norm and norm not in unit_converter.QUANTITY:
+            unconvertible.append(f"{token} -> {norm}")
+    assert not unconvertible, (
+        "tag tokenizer recognises units the converter cannot convert:\n  "
+        + "\n  ".join(unconvertible))
+
+
+def test_cfm_air_flow_converts(client):
+    """HVAC/BMS bread and butter: a VAV box reports CFM, the field is L/min."""
+    r = normalize(client, {"oem": "carrier", "data": {"VAV_Flow_CFM": 450}})
+    clean(r)
+    assert r["normalized"]["flow_rate_lpm"] == pytest.approx(12742.58, abs=0.1)
+
+
+def test_a_canonical_name_resolves_in_any_case(client):
+    """`Operating_Hours` is the same field as `operating_hours`.
+
+    Layer 2 was a literal `in` test, so the lowercase form matched at
+    confidence 1.0 and the capitalised form -- much the commoner spelling on a
+    real historian -- fell through to UNRESOLVED. It could not be rescued
+    later either: the unit stripper reads the trailing "Hours" as a time unit
+    and folds the tag to "operating".
+    """
+    for spelling in ("operating_hours", "Operating_Hours", "OPERATING_HOURS",
+                     "Operating Hours", "operating-hours"):
+        r = normalize(client, {"oem": "generic", "data": {spelling: 14203}})
+        assert r["normalized"].get("operating_hours") == 14203, \
+            f"{spelling!r} did not resolve to operating_hours"
+
+
+def test_ambiguous_bare_tags_are_not_answered_confidently(client):
+    """Test F. Maximally ambiguous tags must not resolve at high confidence.
+
+    `Temperature`, `Pressure`, `Speed`, `Level` could belong to any vertical.
+    A confident answer here means the evidence gate has gone loose.
+    """
+    r = normalize(client, {"oem": "generic", "data": {
+        "Temperature": 72, "Pressure": 450, "Current": 28.4, "Speed": 1200,
+        "Load": 78, "Power": 412, "Voltage": 480, "Frequency": 60,
+        "Level": 68, "Flow": 28.4, "Position": 45.2, "Status": "RUNNING",
+        "Mode": "AUTO", "Count": 4200, "Hours": 14203,
+    }})
+    clean(r)
+    overconfident = [
+        (t, m["canonical_field"], m["confidence"])
+        for t, m in r["field_mappings"].items()
+        if m.get("canonical_field") and (m.get("confidence") or 0) > 0.7
+    ]
+    assert not overconfident, (
+        f"ambiguous bare tags answered confidently: {overconfident}")

@@ -93,6 +93,14 @@ UNIT_ALIASES = {
     # volumetric flow
     "l/min": "L/min", "lpm": "L/min", "ml/min": "mL/min",
     "gpm": "gal/min", "gal/min": "gal/min", "l/s": "L/s", "m3/h": "m3/h",
+    # CFM. Recognised by the tag tokenizer but absent HERE, so the converter
+    # could not parse the unit it was handed: a 450 CFM VAV box landed as 450
+    # in an L/min field, 28x low, with no conversion recorded and no flag.
+    # scfm/acfm are the same reading at different reference conditions; the
+    # distinction is not one this table can carry, and treating them as CFM is
+    # far closer than leaving them unconverted.
+    "cfm": "ft3/min", "ft3/min": "ft3/min", "ft³/min": "ft3/min",
+    "scfm": "ft3/min", "acfm": "ft3/min", "ft3/h": "ft3/h", "cfh": "ft3/h",
     # mass flow. NASA C-MAPSS documents bleed flow as "pps", meaning lbm/s —
     # but "pps" also means parts-per-second on a packaging line, so only the
     # explicit spellings are auto-recognised. An ambiguous "pps" tag is left
@@ -119,6 +127,7 @@ UNIT_ALIASES = {
     # dimensionless / electrical
     "%": "%", "pct": "%", "percent": "%",
     "v": "V", "vac": "V", "vdc": "V", "kv": "kV", "a": "A", "ma": "mA",
+    "mv": "mV", "khz": "kHz",
 }
 
 QUANTITY = {
@@ -145,6 +154,23 @@ QUANTITY = {
     "ratio": "percent",
     "L/min": "flow", "mL/min": "flow", "gal/min": "flow", "L/s": "flow",
     "m3/h": "flow",
+    # CFM. The tokenizer already recognised `cfm` and normalised it to
+    # ft3/min, but the quantity table did not list it -- so no conversion was
+    # attempted, none was recorded, and a 450 CFM VAV box was stored as 450 in
+    # an L/min field. Silent, and 28x off. A recognised unit that cannot be
+    # converted is worse than an unrecognised one, because the reading still
+    # lands in the canonical field wearing the wrong unit.
+    "ft3/min": "flow", "ft3/h": "flow",
+    # Same trap, different quantity: these were all recognised by
+    # _normalize_unit_token and absent here.
+    "km/h": "vehicle_speed",
+    "mV": "voltage", "kHz": "rotational",
+    # Concentration has exactly one unit here, so source and target are always
+    # equal and no conversion is ever attempted. It is listed anyway: an
+    # unlisted-but-recognised unit is the CFM trap, and "no conversion because
+    # src == dst" and "no conversion because the table never heard of it" must
+    # not look the same to the converter.
+    "ppm": "concentration", "NTU": "turbidity",
     "lb/s": "mass_flow", "kg/s": "mass_flow", "kg/h": "mass_flow",
     "kg": "mass", "g": "mass", "lb": "mass", "oz": "mass",
     "tonne": "mass", "ton": "mass",
@@ -193,6 +219,8 @@ TARGET_UNIT = {
     "voltage": "V",
     "current": "A",
     "irradiance": "W/m2",
+    "concentration": "ppm",
+    "turbidity": "NTU",
     # Degrees, not radians. Radians are the SI unit, but every robot teach
     # pendant, work instruction and operator on the floor reads degrees, and
     # UR is the only vendor here that puts radians on the wire.
@@ -282,6 +310,15 @@ CONVERSIONS = {
     # vibration acceleration
     ("m/s2", "mm/s2"): (lambda v: v * 1000.0, "m_s2_to_mm_s2"),
     ("g-force", "mm/s2"): (lambda v: v * 9806.65, "g_to_mm_s2"),
+    # flow
+    ("ft3/min", "L/min"): (lambda v: v * 28.316846592, "cfm_to_lpm"),
+    ("ft3/h", "L/min"): (lambda v: v * 28.316846592 / 60.0, "ft3h_to_lpm"),
+    # voltage / rotational
+    ("mV", "V"): (lambda v: v / 1000.0, "millivolts_to_volts"),
+    ("kHz", "rpm"): (lambda v: v * 1000.0 * 60.0, "khz_to_rpm"),
+    # km/h and kph are the same unit spelled two ways; declaring the identity
+    # keeps a km/h source from looking unconvertible.
+    ("km/h", "kph"): (lambda v: v, "kmh_to_kph"),
     # time
     ("min", "h"): (lambda v: v / 60.0, "minutes_to_hours"),
     ("s", "h"): (lambda v: v / 3600.0, "seconds_to_hours"),
@@ -324,6 +361,14 @@ _UNAMBIGUOUS_SUFFIX = {
     "nm", "n-m", "n_m", "ftlb", "ft-lb", "lbft",
     "kg", "lb", "lbs", "oz", "tonne", "tonnes",
     "gpm", "lpm", "l/min", "ml/min", "l/s", "m3/h", "lbm/s", "kg/s", "kg/h",
+    # CFM is as unambiguous as GPM and was simply missing. A `_CFM` tag is an
+    # air flow, full stop -- and until it was listed here, declared_unit()
+    # returned None for it, so a 450 CFM VAV box was written into an L/min
+    # field as 450: no conversion, no record, 28x low.
+    "cfm", "scfm", "acfm", "cfh", "ft3/min", "ft3/h",
+    # Millivolts and kilohertz: same shape, both recognised by the tag
+    # tokenizer and unparseable here. `mv` is not the ambiguous bare `v`.
+    "mv", "khz",
     "mmhg", "mm_hg", "torr", "inhg",
     "pct", "percent", "hrs", "hours", "minutes", "seconds",
     "mph", "kph", "km/h", "kmh", "ipm", "fpm",

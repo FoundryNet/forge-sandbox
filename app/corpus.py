@@ -61,6 +61,8 @@ _UNITS = (
     r"nm|n-m|n_m|knm|ft-lb|ftlb|lb|lbs|kg|g|oz|tonne|tons|"
     r"bar|psi|psia|psig|kpa|mpa|pa|mbar|inhg|mmhg|"
     r"l/min|lpm|ml/min|gpm|gal/min|l/s|m3/h|lbm/s|kg/s|"
+    r"cfm|scfm|acfm|cfh|ft3/min|ft3/h|"
+    r"mv|khz|km/h|kmh|"
     r"s|sec|seconds|ms|min|minutes|h|hr|hrs|hours|days|"
     r"pcs|parts|cycles|ppm|db|dbm|amps|amp|amperes|ampere|volts|volt|watts|watt"
 )
@@ -336,6 +338,8 @@ def _normalize_unit_token(tok):
         "pct": "%", "percent": "%",
         "deg": "deg", "rad": "rad", "rads": "rad", "radians": "rad",
         "degree": "deg", "degrees": "deg",
+        "scfm": "ft3/min", "acfm": "ft3/min", "ft3min": "ft3/min",
+        "cfh": "ft3/h", "mv": "mV", "khz": "kHz",
         "h": "h", "hr": "h", "hrs": "h", "hours": "h",
         "min": "min", "s": "s", "sec": "s",
         "nm": "Nm", "ntu": "NTU", "ppm": "ppm",
@@ -1368,6 +1372,22 @@ def resolve_field(tag: str, pack, dictionary: dict, oem=None) -> dict:
         return {"canonical_field": tag, "confidence": 1.0,
                 "match_type": "identity", "layer": 2, "source": "canonical_schema",
                 "matched_tag": tag}
+
+    # ...and the same name in a different case or with different separators is
+    # still the same name. This was a literal `in` test, so `operating_hours`
+    # resolved at confidence 1.0 while `Operating_Hours` -- the far commoner
+    # spelling on a real historian -- fell through every layer to UNRESOLVED.
+    # It could not even be rescued downstream: the unit-suffix stripper reads
+    # the trailing "Hours" as a time unit and folds the tag to "operating".
+    #
+    # Canonical names are lowercase with `_` and `.` separators, so a
+    # case-and-separator-normalised hit is exact, not a guess.
+    _norm = re.sub(r"[\s\-]+", "_", tag.strip().lower())
+    if _norm != tag and _norm in fields:
+        return {"canonical_field": _norm, "confidence": 1.0,
+                "match_type": "identity", "layer": 2, "source": "canonical_schema",
+                "matched_tag": tag,
+                "note": f"'{tag}' is '{_norm}' in canonical spelling"}
 
     # Layer 1c: some other pack knows this tag. Lower confidence, because the
     # caller's oem hint said otherwise -- production calls this cross-vertical
