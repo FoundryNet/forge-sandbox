@@ -149,14 +149,21 @@ if [ "$PUSH" = 1 ]; then
         --push . || die "buildx push"
     ok "pushed ${IMAGE}:${TAG} (linux/amd64, linux/arm64)"
 
+    # No f-string here on purpose: escaping quotes inside one, inside a
+    # single-quoted shell argument, is a SyntaxError on 3.11 and it failed
+    # AFTER the push had already succeeded -- reporting a red gate on a
+    # correctly published image, which is the worst of both.
     docker manifest inspect "${IMAGE}:${TAG}" | python3 -c '
 import json, sys
-have = {f"{m[\"platform\"][\"os\"]}/{m[\"platform\"][\"architecture\"]}"
-        for m in json.load(sys.stdin)["manifests"]}
+have = set()
+for m in json.load(sys.stdin)["manifests"]:
+    plat = m["platform"]
+    have.add(plat["os"] + "/" + plat["architecture"])
 need = {"linux/amd64", "linux/arm64"}
 missing = need - have
-assert not missing, f"published manifest is missing {missing}"
-print("    platforms:", ", ".join(sorted(p for p in have if "unknown" not in p)))
+assert not missing, "published manifest is missing " + repr(missing)
+real = sorted(x for x in have if "unknown" not in x)
+print("    platforms: " + ", ".join(real))
 ' || die "published manifest is not multi-arch"
     ok "multi-arch manifest"
     ANON_DIR=$(mktemp -d)
