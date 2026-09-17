@@ -200,6 +200,17 @@ QUANTITY = {
     # separate radians field for the same axis -- is exactly the fragmentation
     # the canonical registry exists to prevent.
     "deg": "angle", "rad": "angle",
+    # Ported from forge-prod 2026-09-15 (engine-parity gate). These are unit
+    # tokens production already resolves; without them the sandbox silently
+    # treated a declared `deg/s` or `dBm` as an unknown unit and passed the
+    # value through unconverted, which is the failure mode the parity gate
+    # exists to catch — the two engines answering differently for one input.
+    "deg/s": "angular_velocity", "rad/s": "angular_velocity",
+    "cycles": "count",
+    "dBm": "signal_level",
+    # Marlin's `@:` PWM is 0-127, not 0-100. Its own quantity so nothing can
+    # mistake it for a percentage and scale it as one.
+    "pwm_0_127": "pwm_duty",
 }
 
 # Several "quantities" above are really reporting CONVENTIONS over one physical
@@ -241,10 +252,27 @@ TARGET_UNIT = {
     # pendant, work instruction and operator on the floor reads degrees, and
     # UR is the only vendor here that puts radians on the wire.
     "angle": "deg",
+    # Ported from forge-prod 2026-09-15 (engine-parity gate). Radians here,
+    # unlike `angle` above: an angular RATE is consumed by code, not read off a
+    # teach pendant, and rad/s is what every controls library expects.
+    "angular_velocity": "rad/s",
+    # Identity targets — these quantities have exactly one unit, so declaring
+    # the target is what stops `target_unit()` returning None and the value
+    # falling out of the conversion path entirely.
+    "count": "cycles",
+    "pwm_duty": "pwm_0_127",
+    "signal_level": "dBm",
 }
 
 # ── conversions ─────────────────────────────────────────────────────────────
 CONVERSIONS = {
+    # angular velocity. REQUIRED by TARGET_UNIT["angular_velocity"] above: a
+    # recognised unit the converter cannot convert is worse than an unknown one
+    # (it resolves, then stores a degrees-per-second number in a rad/s field).
+    # Ported verbatim from forge-prod, same rule name so the two engines'
+    # `unit_conversion.rule` strings agree on a certificate.
+    ("deg/s", "rad/s"): (lambda v: v * 0.017453292519943295, "deg_s_to_rad_s"),
+    ("rad/s", "deg/s"): (lambda v: v * 57.29577951308232, "rad_s_to_deg_s"),
     # temperature
     ("F", "C"): (lambda v: (v - 32.0) * 5.0 / 9.0, "fahrenheit_to_celsius"),
     ("K", "C"): (lambda v: v - 273.15, "kelvin_to_celsius"),
@@ -271,6 +299,14 @@ CONVERSIONS = {
     ("m/s", "mm/min"): (lambda v: v * 60_000.0, "m_s_to_mm_min"),
     ("mm/s", "mm/min"): (lambda v: v * 60.0, "mm_s_to_mm_min"),
     ("ft/min", "mm/min"): (lambda v: v * 304.8, "ft_min_to_mm_min"),
+    # ft/min -> m/min was MISSING in BOTH engines while conveyor belt
+    # fields declare m/min. Sandbox reported the conversion and then could
+    # not perform it (converted_value null, 120 served raw); prod had no
+    # unit on belt_speed_mpm at all, fell back to the mm/min quantity
+    # target and stored 36576 in a field NAMED _mpm - 1000x, the same
+    # name/value contradiction the energy_kwh sprint removed.
+    # 120 ft/min = 36.576 m/min, in both engines.
+    ("ft/min", "m/min"): (lambda v: v * 0.3048, "ft_min_to_m_min"),
     ("ft/s", "mm/min"): (lambda v: v * 18_288.0, "ft_s_to_mm_min"),
     # vibration velocity is reported in mm/s, not mm/min
     ("in/s", "mm/s"): (lambda v: v * 25.4, "in_s_to_mm_s"),
@@ -544,6 +580,12 @@ _NAME_SUFFIXES = sorted(
         ("_hours", "h"), ("_hrs", "h"), ("_h", "h"),
         ("_seconds", "s"), ("_sec", "s"), ("_ms", "ms"), ("_s", "s"),
         ("_days", "days"), ("_v", "V"), ("_a", "A"),
+        # Ported from forge-prod 2026-09-15 (engine-parity gate). Every one of
+        # these names a unit the tables above can now resolve AND convert —
+        # `_deg_s`/`_rad_s` only became safe to add once ("deg/s","rad/s")
+        # existed in CONVERSIONS.
+        ("_deg_s", "deg/s"), ("_rad_s", "rad/s"),
+        ("_km_h", "kph"), ("_m_min", "m/min"), ("_mpm", "m/min"),
     ],
     key=lambda p: -len(p[0]),
 )
@@ -601,6 +643,11 @@ _VELOCITY_CONTEXT = (
     ("vehicle_speed", "kph"),
     ("road_speed", "kph"),
     ("wheel_speed", "kph"),
+    # Conveyor belts are specified in m/min by every MHE vendor and both
+    # engines' belt fields are named for it. Without this the linear_speed
+    # default (mm/min) wins and 450 ft/min stores as 137160 under an m/min name.
+    ("belt_speed", "m/min"),
+    ("conveyor", "m/min"),
     ("feed", "mm/min"),         # machining feed rate
     ("jog", "mm/min"),
     ("rapid", "mm/min"),
@@ -756,3 +803,164 @@ def convert_value(tag: str, value: Any, canonical: str,
         "from": src, "to": dst, "converted": True, "unit_source": unit_source,
         "conversion": label, "raw_value": value, "converted_value": out,
     }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# WATER / WASTEWATER PORT — 2026-09-04
+# ─────────────────────────────────────────────────────────────────────────────
+# Ported from forge-prod forge_core/unit_converter.py alongside the
+# generic_water pack. Applied as explicit table updates rather than spliced into
+# the literals above so the port stays visibly a port and can be diffed against
+# prod in one block.
+#
+# Three of the water canonical names collide with SHORTER entries already in
+# _NAME_SUFFIXES, which is matched with endswith():
+#
+#     influent_flow_m3_h   ended `_h`  -> read as HOURS (time)
+#     conductivity_us_cm   ended `_cm` -> read as CENTIMETRES (length)
+#     orp_mv               ended `_v`  -> read as VOLTS (1000x)
+#
+# _NAME_SUFFIXES is re-sorted longest-first below, which is what makes the new
+# specific suffixes win the endswith() race against the old generic ones.
+#
+# The global SI targets (flow -> L/min, pressure -> bar, length -> mm) are
+# deliberately NOT changed. Water's m3/h, kPa and m ride on the FIELD NAME,
+# which target_unit() already honours above the per-quantity default; changing
+# the global target would re-unit every existing flow and pressure field.
+
+UNIT_ALIASES.update({
+    "mv": "mV",
+    "mgd": "MGD", "million_gallons_per_day": "MGD",
+    "cfs": "ft3/s", "ft3/s": "ft3/s", "cuft/s": "ft3/s",
+    "cfm": "ft3/min", "scfm": "ft3/min", "ft3/min": "ft3/min",
+    "m3/hr": "m3/h", "m³/h": "m3/h", "cmh": "m3/h",
+    "m3": "m3", "m³": "m3", "gal": "gal", "gallon": "gal", "gallons": "gal",
+    "l": "L", "liter": "L", "litre": "L",
+    "mg/l": "mg/L", "mgl": "mg/L", "mg_l": "mg/L", "ppm": "ppm",
+    "ug/l": "ug/L", "µg/l": "ug/L", "ppb": "ug/L",
+    "us/cm": "uS/cm", "µs/cm": "uS/cm", "umho/cm": "uS/cm", "umhos/cm": "uS/cm",
+    "ms/cm": "mS/cm", "mmho/cm": "mS/cm",
+    # Underscore spellings: declared_unit() looks the whitelisted token up in
+    # this table verbatim, so a token trusted in _UNAMBIGUOUS_SUFFIX but absent
+    # here resolves to None and the tag is treated as unit-less.
+    "us_cm": "uS/cm", "ms_cm": "mS/cm", "ug_l": "ug/L", "ml_g": "mL/g",
+    "m3_h": "m3/h", "m3_hr": "m3/h", "mj_cm2": "mJ/cm2", "mw_cm2": "mW/cm2",
+    "ntu": "NTU", "fnu": "NTU", "1/cm": "1/cm", "abs/cm": "1/cm",
+    "cu": "CU", "pcu": "CU", "hazen": "CU",
+    "ml/g": "mL/g",
+    "mj/cm2": "mJ/cm2", "mj/cm²": "mJ/cm2",
+    "mw/cm2": "mW/cm2", "mw/cm²": "mW/cm2",
+    "mg.min/l": "mg.min/L", "mg-min/l": "mg.min/L", "mg*min/l": "mg.min/L",
+})
+
+QUANTITY.update({
+    "mV": "voltage",
+    "MGD": "flow", "ft3/s": "flow", "ft3/min": "flow",
+    "m3": "volume", "gal": "volume", "MG": "volume", "L": "volume",
+    "mg/L": "concentration", "ppm": "concentration", "ug/L": "concentration",
+    "uS/cm": "conductivity", "mS/cm": "conductivity",
+    "NTU": "turbidity",
+    "mL/g": "sludge_volume_index",
+    "mg.min/L": "ct",
+    "mJ/cm2": "uv_dose",
+    "mW/cm2": "uv_intensity",
+    "1/cm": "absorbance",
+    "CU": "color",
+})
+
+TARGET_UNIT.update({
+    "volume": "m3",
+    "concentration": "mg/L",
+    "conductivity": "uS/cm",
+    "turbidity": "NTU",
+    "sludge_volume_index": "mL/g",
+    "ct": "mg.min/L",
+    "uv_dose": "mJ/cm2",
+    "uv_intensity": "mW/cm2",
+    "absorbance": "1/cm",
+    "color": "CU",
+})
+
+CONVERSIONS.update({
+    ("MGD", "m3/h"):     (lambda v: v * 157.725491, "mgd_to_m3_h"),
+    ("gal/min", "m3/h"): (lambda v: v * 0.227124707, "gpm_to_m3_h"),
+    ("L/min", "m3/h"):   (lambda v: v * 0.06, "l_min_to_m3_h"),
+    ("L/s", "m3/h"):     (lambda v: v * 3.6, "l_s_to_m3_h"),
+    ("ft3/s", "m3/h"):   (lambda v: v * 101.940648, "cfs_to_m3_h"),
+    ("ft3/min", "m3/h"): (lambda v: v * 1.69901082, "cfm_to_m3_h"),
+    ("MGD", "L/min"):     (lambda v: v * 2628.75818, "mgd_to_l_min"),
+    ("ft3/s", "L/min"):   (lambda v: v * 1699.01082, "cfs_to_l_min"),
+    ("ft3/min", "L/min"): (lambda v: v * 28.3168466, "cfm_to_l_min"),
+    ("gal", "m3"): (lambda v: v * 0.00378541178, "gallon_to_m3"),
+    ("MG", "m3"):  (lambda v: v * 3785.41178, "million_gallons_to_m3"),
+    ("L", "m3"):   (lambda v: v / 1000.0, "liter_to_m3"),
+    ("ft", "m"): (lambda v: v * 0.3048, "foot_to_meter"),
+    ("in", "m"): (lambda v: v * 0.0254, "inch_to_meter"),
+    ("mm", "m"): (lambda v: v / 1000.0, "mm_to_meter"),
+    ("cm", "m"): (lambda v: v / 100.0, "cm_to_meter"),
+    ("psi", "kPa"):  (lambda v: v * 6.89475729, "psi_to_kpa"),
+    ("bar", "kPa"):  (lambda v: v * 100.0, "bar_to_kpa"),
+    ("Pa", "kPa"):   (lambda v: v / 1000.0, "pa_to_kpa"),
+    ("MPa", "kPa"):  (lambda v: v * 1000.0, "mpa_to_kpa"),
+    ("mbar", "kPa"): (lambda v: v / 10.0, "mbar_to_kpa"),
+    # ppm and mg/L are numerically equal in dilute aqueous solution. Recorded as
+    # a conversion, not a no-op, so the relabel stays visible in the response.
+    ("ppm", "mg/L"):  (lambda v: v * 1.0, "ppm_to_mg_l_aqueous"),
+    ("ug/L", "mg/L"): (lambda v: v / 1000.0, "ug_l_to_mg_l"),
+    ("mS/cm", "uS/cm"): (lambda v: v * 1000.0, "ms_cm_to_us_cm"),
+    ("uS/cm", "mS/cm"): (lambda v: v / 1000.0, "us_cm_to_ms_cm"),
+    ("V", "mV"): (lambda v: v * 1000.0, "volt_to_millivolt"),
+    ("mV", "V"): (lambda v: v / 1000.0, "millivolt_to_volt"),
+    # `mL` and `ft3` were already in QUANTITY as volume units but "volume" had
+    # no TARGET_UNIT, so nothing could convert them and nothing needed to.
+    # Adding TARGET_UNIT["volume"] = "m3" above gives them a target, and a unit
+    # with a target and no converter is the exact gap
+    # test_no_recognized_unit_lacks_a_converter_to_its_target exists to catch.
+    ("mL", "m3"):  (lambda v: v / 1_000_000.0, "milliliter_to_m3"),
+    ("ft3", "m3"): (lambda v: v * 0.0283168466, "cubic_foot_to_m3"),
+})
+
+_UNAMBIGUOUS_SUFFIX.update({
+    "mgd", "cfs", "cfm", "scfm",
+    "m3", "m³", "m3_h", "m3/hr", "m3_hr", "cmh",
+    "mg/l", "mg_l", "ug/l", "ug_l", "ppm", "ppb",
+    "us/cm", "us_cm", "µs/cm", "ms/cm", "ms_cm", "umho/cm", "umhos/cm",
+    "ntu", "fnu", "abs/cm", "1/cm",
+    "ml/g", "ml_g",
+    "mj/cm2", "mj_cm2", "mw/cm2", "mw_cm2",
+    "mg.min/l", "mg-min/l",
+    "mv",
+    # A bare "mg" is deliberately ABSENT: on a water plant it means milligrams
+    # on every chemistry tag and Million Gallons on the totalizer. Totalizer_MG
+    # is resolved by the pack's declared unit instead of guessed here.
+})
+
+_BARE_SUFFIX_CONTEXT.update({
+    "ft": ("ft", ("level", "depth", "head", "elev", "elevation", "altitude",
+                  "height", "stage", "blanket", "well", "tank", "basin",
+                  "sump", "clearwell", "reservoir", "freeboard")),
+    "gal": ("gal", ("total", "totalizer", "totaliser", "volume", "vol",
+                    "cumulative", "consumed", "delivered", "produced",
+                    "pumped", "flow")),
+})
+# ORP is a potential reported in mV; `ORP_V` means volts. Without this the tag
+# reads as unit-less and 0.685 V stores as 0.685 mV, inside orp_mv's legitimate
+# range and therefore caught by nothing.
+_BARE_SUFFIX_CONTEXT["v"] = (
+    "V", tuple(_BARE_SUFFIX_CONTEXT["v"][1]) + ("orp", "redox"))
+
+_NAME_SUFFIXES[:] = sorted(
+    _NAME_SUFFIXES + [
+        ("_m3_h", "m3/h"), ("_m3h", "m3/h"), ("_m3", "m3"),
+        ("_mgd", "MGD"), ("_cfs", "ft3/s"), ("_cfm", "ft3/min"),
+        ("_mg_l", "mg/L"), ("_ug_l", "ug/L"), ("_ppm", "ppm"),
+        ("_mg_min_l", "mg.min/L"),
+        ("_us_cm", "uS/cm"), ("_ms_cm", "mS/cm"),
+        ("_ntu", "NTU"), ("_abs_cm", "1/cm"), ("_cu", "CU"),
+        ("_ml_g", "mL/g"),
+        ("_mj_cm2", "mJ/cm2"), ("_mw_cm2", "mW/cm2"),
+        ("_mv", "mV"),
+        ("_m", "m"),
+    ],
+    key=lambda p: -len(p[0]),
+)

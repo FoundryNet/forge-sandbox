@@ -1,0 +1,38 @@
+{
+ "aliases": [
+  "opcua",
+  "opc_ua",
+  "umati",
+  "machinetool"
+ ],
+ "canonical_fields": [
+  "execution_state",
+  "feed_override_pct",
+  "machine_mode",
+  "power_on_hours",
+  "program_name",
+  "rapid_override_pct",
+  "serial_number"
+ ],
+ "display_name": "OPC UA Machine Tool companion spec (OPC 40501-1)",
+ "mappings": {
+  "ActiveProgram": "program_name",
+  "ChannelMode": "machine_mode",
+  "ChannelState": "execution_state",
+  "FeedOverride": "feed_override_pct",
+  "MachineOperationMode": "machine_mode",
+  "PowerOnDuration": "power_on_hours",
+  "RapidOverride": "rapid_override_pct",
+  "SerialNumber": "serial_number"
+ },
+ "oem": "opcua_machinetool",
+ "protocol": "opcua",
+ "source": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames",
+ "tag_units": {
+  "FeedOverride": "%",
+  "PowerOnDuration": "s",
+  "RapidOverride": "%"
+ },
+ "vendor_native_note": "Tags using the vendor's own published identifier syntax, added from manufacturer documentation. Axis-indexed variables are expanded over X/Y/Z (and S1 for spindle) from the manual's declared axis identifiers.",
+ "vertical": "cnc"
+}

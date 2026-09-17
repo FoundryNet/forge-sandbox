@@ -70,9 +70,9 @@
     "fanuc_robotics",
     "focas"
    ],
-   "canonical_field_count": 70,
+   "canonical_field_count": 73,
    "display_name": "FANUC R-30iB robot / Series 30i CNC",
-   "mapping_count": 780,
+   "mapping_count": 793,
    "protocol": "focas",
    "vertical": "cnc"
   },
@@ -122,13 +122,28 @@
    "protocol": "mqtt",
    "vertical": "energy"
   },
+  "generic_water": {
+   "aliases": [
+    "water_treatment",
+    "wastewater",
+    "municipal_water",
+    "wtp",
+    "wwtp",
+    "water"
+   ],
+   "canonical_field_count": 97,
+   "display_name": "Municipal water / wastewater SCADA (generic)",
+   "mapping_count": 171,
+   "protocol": "modbus_tcp",
+   "vertical": "water"
+  },
   "haas": {
    "aliases": [
     "haas_automation"
    ],
-   "canonical_field_count": 39,
+   "canonical_field_count": 41,
    "display_name": "Haas VF-series CNC",
-   "mapping_count": 258,
+   "mapping_count": 269,
    "protocol": "mtconnect",
    "vertical": "cnc"
   },
@@ -198,6 +213,30 @@
    "protocol": "rest_json",
    "vertical": "amr"
   },
+  "mtconnect": {
+   "aliases": [
+    "mtconnect_agent",
+    "mtc"
+   ],
+   "canonical_field_count": 21,
+   "display_name": "MTConnect (vendor-neutral CNC observation types)",
+   "mapping_count": 22,
+   "protocol": "mtconnect",
+   "vertical": "cnc"
+  },
+  "opcua_machinetool": {
+   "aliases": [
+    "opcua",
+    "opc_ua",
+    "umati",
+    "machinetool"
+   ],
+   "canonical_field_count": 7,
+   "display_name": "OPC UA Machine Tool companion spec (OPC 40501-1)",
+   "mapping_count": 8,
+   "protocol": "opcua",
+   "vertical": "cnc"
+  },
   "prusa": {
    "aliases": [
     "marlin",
@@ -252,9 +291,9 @@
     "simatic",
     "sinumerik"
    ],
-   "canonical_field_count": 57,
+   "canonical_field_count": 72,
    "display_name": "Siemens S7-1500 PLC / SINUMERIK 840D",
-   "mapping_count": 440,
+   "mapping_count": 485,
    "protocol": "profinet_s7",
    "vertical": "cnc"
   },

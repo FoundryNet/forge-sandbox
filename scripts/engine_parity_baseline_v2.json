@@ -1,0 +1,44 @@
+{
+  "accepted": {
+    "corpus_size": "prod 16,908 curated corpus mappings vs sandbox 3,345 pack mappings",
+    "dead_conversions": {
+      "entries": [
+        "CONVERSIONS(pairs): 2 entr(y/ies) in sandbox but NOT in prod: ['deg->rad', 'kVA->VA']"
+      ],
+      "note": "Present in the sandbox, deliberately absent from prod: no prod field declares the destination unit, and prod asserts that every conversion targets a reachable unit. A conversion nothing can call is dead code."
+    },
+    "field_count": "prod 985 vs sandbox 719. The sandbox is a deliberate SUBSET: fewer fields, fewer packs, no embedder, no LLM research, no read-time validators. Prod must always be a superset.",
+    "prod_ahead_entries": [
+      "QUANTITY: 5 entr(y/ies) in prod but NOT ported to sandbox: ['cycles', 'dBm', 'deg/s', 'pwm_0_127', 'rad/s']",
+      "TARGET_UNIT: 4 entr(y/ies) in prod but NOT ported to sandbox: ['angular_velocity', 'count', 'pwm_duty', 'signal_level']",
+      "_NAME_SUFFIXES: 5 entr(y/ies) in prod but NOT ported to sandbox: ['_deg_s', '_km_h', '_m_min', '_mpm', '_rad_s']",
+      "field 'co2_ppm': quantity is 'concentration' in prod but None in sandbox",
+      "field 'conveyor_speed_m_s': quantity is 'linear_speed' in prod but None in sandbox",
+      "field 'discharge_pressure_kpa': quantity is 'pressure' in prod but None in sandbox",
+      "field 'flow_rate_lpm': quantity is 'volumetric_flow_rate' in prod but None in sandbox",
+      "field 'motor_current_a': quantity is 'electric_current' in prod but None in sandbox",
+      "field 'motor_speed_rpm': quantity is 'rotational_speed' in prod but None in sandbox",
+      "field 'pressure_kpa': quantity is 'pressure' in prod but None in sandbox",
+      "field 'suction_pressure_kpa': quantity is 'pressure' in prod but None in sandbox",
+      "field 'tank_level_pct': quantity is 'level' in prod but None in sandbox",
+      "field 'valve_position_pct': quantity is 'ratio' in prod but None in sandbox",
+      "field 'vfd_output_frequency_hz': quantity is 'frequency' in prod but None in sandbox",
+      "field 'vfd_output_pct': quantity is 'ratio' in prod but None in sandbox",
+      "field 'zone_temperature_c': quantity is 'temperature' in prod but None in sandbox"
+    ],
+    "prod_only_layers": "embedding similarity, LLM field research, six read-time validators, TimesFM, persistence, billing"
+  },
+  "generated_at": "2026-09-06",
+  "note": "Split baseline. ACCEPTED entries are structural and will never be zero. PORT DEBT must be zero: any new entry there is a release blocker, because it means the engine a licensee deploys behaves differently from the engine a prospect evaluates.",
+  "port_debt": {
+    "angle_conversion": [],
+    "fleet_routing": [],
+    "locale_handling": [],
+    "note": "MUST BE EMPTY. Any entry here fails the gate.",
+    "other": [],
+    "physics_bounds": [],
+    "type_gate": [],
+    "unit_declarations": []
+  },
+  "version": 2
+}

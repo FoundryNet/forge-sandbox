@@ -8,7 +8,7 @@ consumer actually filters on.
 This is a SCRIPT, not a one-off hand edit, for two reasons:
 
   * There are two canonical-field files that disagree on their field list
-    (the 464-field registry and the 467-field serving dictionary). Classifying
+    (the 719-field serving dictionary). Classifying
     by hand guarantees they drift apart. Running one classifier over the union
     guarantees they cannot.
 

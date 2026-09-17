@@ -124,7 +124,12 @@ def test_field_context_adds_nothing_else_to_the_response(client):
     plain = client.post("/v1/normalize", json=BODY).json()
     rich = client.post("/v1/normalize?include_context=true", json=BODY).json()
     assert set(rich) - set(plain) == {"field_context"}
-    volatile = {"timestamp", "ingested_at", "observed_at"}
+    # `nte_hash` is volatile BY DESIGN: the digest covers `timestamp`, so two
+    # calls with identical payloads hash differently. That is the point — a
+    # per-hash meter has to tell two billable events apart from one event
+    # counted twice, which a content-only digest could not do. It belongs here
+    # for the same reason `timestamp` does.
+    volatile = {"timestamp", "ingested_at", "observed_at", "nte_hash"}
     for k in set(plain) - volatile:
         assert json.dumps(plain[k], sort_keys=True, default=str) == \
                json.dumps(rich[k], sort_keys=True, default=str), f"{k} changed"

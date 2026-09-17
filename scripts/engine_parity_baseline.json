@@ -1,0 +1,40 @@
+{
+  "known": [
+    "CONVERSIONS(pairs): 2 entr(y/ies) in sandbox but NOT in prod: ['deg->rad', 'kVA->VA']",
+    "UNIT_ALIASES: 9 entr(y/ies) in prod but NOT ported to sandbox: ['deg/s', 'deg/sec', 'deg_s', 'dps', 'mgd_', 'rad/s', 'rad/sec', 'rad_s', 'rads']",
+    "_BARE_SUFFIX_CONTEXT: 1 entr(y/ies) in sandbox but NOT in prod: ['l']",
+    "_UNAMBIGUOUS_SUFFIX: 15 token(s) in sandbox only: ['acfm', 'cfh', 'ft', 'ft3/h', 'ft3/min', 'gal', 'gal/h', 'gallons', 'gph', 'khz', 'km', 'l/h']",
+    "_UNAMBIGUOUS_SUFFIX: 4 token(s) in prod only: ['deg/s', 'deg_s', 'rad/s', 'rad_s']",
+    "field 'apparent_power_kva': quantity is 'apparent_power' in prod but 'power' in sandbox",
+    "field 'axes.x_voltage': quantity is None in prod but 'voltage' in sandbox",
+    "field 'axes.y_voltage': quantity is None in prod but 'voltage' in sandbox",
+    "field 'axes.z_voltage': quantity is None in prod but 'voltage' in sandbox",
+    "field 'dc_bus_voltage': quantity is None in prod but 'voltage' in sandbox",
+    "field 'engine_load_pct': bounds {'max': 100.0, 'min': 0.0} in prod vs {'max': 125.0, 'min': 0.0} in sandbox",
+    "field 'engine_speed_rpm': bounds {'max': 50000, 'min': -50000} in prod vs {'max': 10000.0, 'min': 0.0} in sandbox",
+    "field 'idle_hours': bounds {'max': 1000000000.0, 'min': 0.0} in prod vs {'max': 500000.0, 'min': 0.0} in sandbox",
+    "field 'pump_efficiency_pct': quantity is 'percent' in prod but None in sandbox",
+    "field 'ros.obstacle_distance_m': quantity is None in prod but 'length' in sandbox",
+    "field 'ros.path_deviation_m': quantity is None in prod but 'length' in sandbox",
+    "field 'sensor_readings.hotend2_temp': quantity is None in prod but 'temperature' in sandbox",
+    "field 'spindle_temperature': quantity is None in prod but 'temperature' in sandbox",
+    "field 'spindle_voltage': quantity is None in prod but 'voltage' in sandbox",
+    "field 'vehicle.gps_altitude_m': quantity is None in prod but 'length' in sandbox",
+    "field 'vehicle.lane_deviation_m': quantity is None in prod but 'length' in sandbox",
+    "field 'vehicle.obstacle_distance_m': quantity is None in prod but 'length' in sandbox"
+  ],
+  "note": "Accepted prod/sandbox divergence. Shrink this list; never grow it. Regenerate with REBASELINE=1.",
+  "justifications": {
+    "CONVERSIONS(pairs): sandbox-only deg->rad and kVA->VA": "NOT a port gap \u2014 prod refuses these BY DESIGN and has a test pinning it (tests/test_angle_units.py::test_deg_to_rad_is_deliberately_absent, plus test_unit_conversions.py::test_every_conversion_targets_a_reachable_unit). Prod's invariant is that no conversion may target a unit no field can hold: every prod angle field declares deg and no prod field declares rad or VA, so deg->rad and kVA->VA could never fire there. A dead conversion is worse than a missing one because it reads as capability. The sandbox DOES make rad and VA reachable (its own fields and name suffixes declare them), so the pair is live there. Porting into prod was attempted on 2026-09-15 and correctly rejected by those two tests; it was reverted. Re-port only if a prod field that genuinely stores radians or VA is ever added."
+  },
+  "ported_2026_09_15": {
+    "into_sandbox": [
+      "QUANTITY: deg/s, rad/s, cycles, dBm, pwm_0_127",
+      "TARGET_UNIT: angular_velocity, count, pwm_duty, signal_level",
+      "_NAME_SUFFIXES: _deg_s, _rad_s, _km_h, _m_min, _mpm",
+      "CONVERSIONS: deg/s<->rad/s (required before the _deg_s/_rad_s suffixes were safe to add \u2014 a recognised unit the converter cannot convert is worse than an unknown one)",
+      "registry quantity on 13 shared fields (co2_ppm, conveyor_speed_m_s, discharge_pressure_kpa, flow_rate_lpm, motor_current_a, motor_speed_rpm, pressure_kpa, suction_pressure_kpa, tank_level_pct, valve_position_pct, vfd_output_frequency_hz, vfd_output_pct, zone_temperature_c), taking prod's value as authoritative and asserting the units already agreed"
+    ],
+    "into_prod": "none \u2014 the one candidate was rejected by prod's own tests, see justifications"
+  }
+}

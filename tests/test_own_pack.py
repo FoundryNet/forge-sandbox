@@ -1,7 +1,7 @@
 """Own-pack regression -- every tag in every pack resolves to its own canonical.
 
 The packs are data, not code, so nothing else in the suite notices when an
-edit to one silently changes what a tag means. 2,131 mappings across 19 packs;
+edit to one silently changes what a tag means. 3,345 mappings across 27 packs;
 this walks all of them.
 
 ONE TRAP, and it produces exactly 431 false failures if you miss it: the engine
@@ -47,8 +47,8 @@ TOTAL = sum(len(m) for _, m in PACKS)
 def test_the_pack_set_has_not_shrunk():
     """A pack that fails to load is otherwise invisible -- its rows just stop
     being checked and everything still passes."""
-    assert len(PACKS) >= 19, f"only {len(PACKS)} packs loaded"
-    assert TOTAL >= 2131, f"only {TOTAL} mappings loaded (was 2131)"
+    assert len(PACKS) >= 27, f"only {len(PACKS)} packs loaded"
+    assert TOTAL >= 3345, f"only {TOTAL} mappings loaded (was 3345)"
 
 
 @pytest.mark.parametrize("pack_name,mappings", PACKS, ids=[n for n, _ in PACKS])

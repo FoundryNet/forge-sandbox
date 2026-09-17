@@ -101,6 +101,20 @@ PHYSICS_BOUNDS_BY_QUANTITY = {
     "time":             (0.0, 1e9),
     "voltage":          (-1e5, 1e5),
     "current":          (-1e5, 1e5),
+    # ── water / wastewater (2026-09-04) ──────────────────────────────────────
+    # A quantity absent here resolves to None, which means NO range check at all
+    # for any field lacking its own bounds. Every water quantity is new, so
+    # without these the chemistry half of the pack would be unvalidated.
+    "concentration":        (0.0, 1e6),
+    "conductivity":         (0.0, 1e6),
+    "turbidity":            (0.0, 1e6),
+    "volume":               (0.0, 1e12),
+    "sludge_volume_index":  (0.0, 1e4),
+    "ct":                   (0.0, 1e6),
+    "uv_dose":              (0.0, 1e6),
+    "uv_intensity":         (0.0, 1e6),
+    "absorbance":           (0.0, 1e4),
+    "color":                (0.0, 1e6),
 }
 
 # NOTE on rotational: an M04 reverse spindle legitimately reports negative rpm on

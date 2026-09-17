@@ -1,4 +1,4 @@
-"""Demo rehearsal -- the 35 beats a prospect actually sees.
+"""Demo rehearsal -- the 37 beats a prospect actually sees.
 
 This is the only suite here that leaves the process, and it exists because of a
 specific failure: on 2026-08-31 the demo had been broken for five days while
@@ -26,7 +26,12 @@ import pytest
 
 DEMO_DIR = os.path.expanduser("~/Desktop/licensing-demo")
 DEMO_SH = os.path.join(DEMO_DIR, "run_demo.sh")
-EXPECTED_BEATS = 35
+# 2026-09-06: the single "closing card: live field count AVAILABLE" check was
+# replaced by three that assert the VALUES (719 fields / 27 packs / 3,345
+# mappings). The old check passed for three days against a stale pinned image
+# showing 467/2,131/19 while every other surface said 719/3,345/27 — asserting
+# presence rather than correctness is what made that invisible. 35 -> 37.
+EXPECTED_BEATS = 37
 
 
 def _docker_ok():
@@ -67,7 +72,7 @@ def test_every_beat_verifies(rehearsal):
         "  docker tag ghcr.io/foundrynet/forge-sandbox:latest forge-demo:pinned")
 
 
-def test_all_thirty_five_beats_ran(rehearsal):
+def test_all_beats_ran(rehearsal):
     """A beat that silently stops running is a beat nobody is checking."""
     out = _plain(rehearsal.stdout + rehearsal.stderr)
     checks = sum(1 for ln in out.splitlines()

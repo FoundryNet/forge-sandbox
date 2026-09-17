@@ -63,8 +63,8 @@ budget.
 |---|---|---|
 | Data | simulated | your real machines |
 | Canonical schema | **real** | **real** |
-| Vendor tag mappings | 2,131 (public sources) | 16,908 curated |
-| Unresolved tags | signal classifier | + embeddings, + LLM research, + self-healing |
+| Vendor tag mappings | 3,345 (public sources) | 16,908 curated |
+| Unresolved tags | signal classifier | + embeddings, + LLM research, + corpus learning |
 | Forecasting | least squares | TimesFM (200M params) |
 | Auth | none | API key |
 | Persistence | none | history, identity, triggers, guardrails |
@@ -261,7 +261,7 @@ plausible-looking wrong field.
 
 ## ISA-95 categories: the dictionary is a model, not a lookup table
 
-Every one of the **467 canonical fields carries an `isa95_category`**, so a
+Every one of the **719 canonical fields carries an `isa95_category`**, so a
 resolved tag arrives already classified against a model the plant already uses.
 This is the difference between a normalization engine and a common data model: a
 normalizer tells you `SPINDLE SPEED` is `spindle_speed_rpm`; a CDM also tells you
@@ -324,7 +324,7 @@ Note the value alongside it: `CUT TIME (min)` of `90` is emitted as `1.5`, not
 Deliberately, and stated plainly so nothing here is mistaken for the real thing:
 
 - **The production mapping corpus.** 16,908 curated mappings with confidence
-  scores and provenance. The sandbox ships 2,131 mappings assembled from
+  scores and provenance. The sandbox ships 3,345 mappings assembled from
   already-public sources only: the
   [MIT-licensed canonical schema](https://github.com/FoundryNet/canonical-schema)
   (haas, fanuc, siemens, octoprint), the shipped BACnet/IP vertical pack plus
@@ -365,8 +365,8 @@ the wrong shape is worse than no sandbox.
    reading of `95` gets interpreted as "95%, near maximum" when it is really
    about 75%. The sandbox declares `unit: "pwm_0_127"`.
 
-2. **Null units are backfilled from field names.** The published corpus declares
-   a unit for only 189 of the 467 fields this image serves. Where the field name states the unit
+2. **Null units are backfilled from field names.** 479 of the 719 fields this
+   image serves carry a declared unit. Where the field name states the unit
    (`_temperature_c`, `_pressure_bar`, `_rpm`), the sandbox fills it in and
    marks it `unit_source: "sandbox_inferred_from_name"`.
 
@@ -402,7 +402,7 @@ everything:
 | `test_sandbox.py` | response shape and fidelity against production |
 | `test_final_boss.py` | 49 fields, every bug class, all of them DECIDED |
 | `test_sunspec_103.py` | Model 103, all 28 registers, shared scale factors |
-| `test_own_pack.py` | 2,131 mappings across 19 packs resolve to their own canonical |
+| `test_own_pack.py` | 3,345 mappings across 27 packs resolve to their own canonical |
 | `test_relief_valve.py` | the output invariants, on clean and on garbage |
 | `test_opc_quality.py` | OPC UA Bad quality never ships as a reading |
 | `test_impersonation.py` | all eight evaluator scenarios, shortfalls pinned |

@@ -1,5 +1,5 @@
 {
-  "field_count": 623,
+  "field_count": 719,
   "fields": {
     "ac_current_phase_a": {
       "accepted_input_units": [],
@@ -200,6 +200,35 @@
       "unit": "kW",
       "vertical": "energy"
     },
+    "aeration_do_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Aeration do (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 20.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "alarm_code": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -306,6 +335,35 @@
       ],
       "vertical": "fleet"
     },
+    "alum_dose_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Alum dose (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "ambient_temp_c": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -356,6 +414,64 @@
       "si": true,
       "unit": "C",
       "vertical": "energy"
+    },
+    "ammonia_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Ammonia (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "ammonium_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Ammonium (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "amr.battery.charge": {
       "accepted_input_units": [
@@ -716,6 +832,7 @@
     },
     "amr.position.theta": {
       "accepted_input_units": [],
+      "bounds_note": "deg; bounds were written in radians (2026-09-06 parity fix)",
       "conversion_required": [],
       "corpus_tags": 6,
       "dimension": null,
@@ -724,15 +841,15 @@
       "observed_input_units": [],
       "physical_quantity": "angle",
       "physics_bounds": {
-        "max": 3.1416,
-        "min": -3.1416
+        "max": 180.0,
+        "min": -180.0
       },
       "quantity": "angle",
       "si": false,
       "unit": "deg",
       "valid_range": [
-        -3.1416,
-        3.1416
+        -180.0,
+        180.0
       ]
     },
     "amr.position.x": {
@@ -1914,6 +2031,85 @@
       "si": false,
       "unit": null
     },
+    "backwash_duration_min": {
+      "accepted_input_units": [
+        "min"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Backwash duration (min)",
+      "dimension": "time",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1440.0,
+        "min": 0.0
+      },
+      "quantity": "time",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "min",
+      "vertical": "water"
+    },
+    "backwash_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Backwash flow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
+    "backwash_status": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Backwash status",
+      "dimension": null,
+      "isa95_category": "equipment_state",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
     "barometric_pressure_kpa": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -1936,6 +2132,39 @@
         120
       ],
       "vertical": "fleet"
+    },
+    "basin_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Basin level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 200.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
     },
     "battery_capacity_kwh": {
       "accepted_input_units": [],
@@ -2101,6 +2330,290 @@
       "unit": "C",
       "vertical": "additive"
     },
+    "blower_airflow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower airflow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
+    "blower_current_a": {
+      "accepted_input_units": [
+        "A"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Blower current (A)",
+      "dimension": "current",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "current",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "A",
+      "vertical": "water"
+    },
+    "blower_discharge_temp_c": {
+      "accepted_input_units": [
+        "C",
+        "F",
+        "K",
+        "R"
+      ],
+      "conversion_required": [
+        "F",
+        "K",
+        "R"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower discharge temp (C)",
+      "dimension": "temperature",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 250.0,
+        "min": -40.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "C",
+      "vertical": "water"
+    },
+    "blower_oil_temp_c": {
+      "accepted_input_units": [
+        "C",
+        "F",
+        "K",
+        "R"
+      ],
+      "conversion_required": [
+        "F",
+        "K",
+        "R"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower oil temp (C)",
+      "dimension": "temperature",
+      "isa95_category": "equipment_condition",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 150.0,
+        "min": -40.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "C",
+      "vertical": "water"
+    },
+    "blower_pressure_kpa": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "bar",
+        "kPa",
+        "mbar",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "bar",
+        "mbar",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower pressure (kPa)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "kPa",
+      "vertical": "water"
+    },
+    "blower_runtime_hours": {
+      "accepted_input_units": [
+        "days",
+        "h",
+        "min",
+        "ms",
+        "s"
+      ],
+      "conversion_required": [
+        "days",
+        "min",
+        "ms",
+        "s"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower runtime (h)",
+      "dimension": "time",
+      "isa95_category": "equipment_condition",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "quantity": "time",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "h",
+      "vertical": "water"
+    },
+    "blower_speed_rpm": {
+      "accepted_input_units": [
+        "rpm"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Blower speed (rpm)",
+      "dimension": "rotational",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "rotational",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "rpm",
+      "vertical": "water"
+    },
+    "blower_vfd_speed_pct": {
+      "accepted_input_units": [
+        "%",
+        "ratio"
+      ],
+      "conversion_required": [
+        "ratio"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower vfd speed (%)",
+      "dimension": "percent",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "percent",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "%",
+      "vertical": "water"
+    },
+    "blower_vibration_mm_s": {
+      "accepted_input_units": [
+        "in/s",
+        "m/s",
+        "mm/s"
+      ],
+      "conversion_required": [
+        "in/s",
+        "m/s"
+      ],
+      "corpus_tags": 0,
+      "description": "Blower vibration (mm/s)",
+      "dimension": "velocity",
+      "isa95_category": "equipment_condition",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "linear_speed",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mm/s",
+      "vertical": "water"
+    },
+    "bod_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Five-day biochemical oxygen demand",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "boom_angle_deg": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -2123,6 +2636,35 @@
         180
       ],
       "vertical": "fleet"
+    },
+    "booster_chlorine_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Booster chlorine (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 20.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "brake_air_pressure_kpa": {
       "accepted_input_units": [],
@@ -2216,6 +2758,35 @@
       "unit": "kW",
       "vertical": "energy"
     },
+    "chemical_feed_rate_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Chemical feed rate (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 5000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "chilled_water_temperature_c": {
       "description": "",
       "isa95_category": "equipment_condition",
@@ -2224,6 +2795,68 @@
       "type": "float",
       "unit": "C",
       "vertical": "building_automation"
+    },
+    "chlorine_residual_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Chlorine residual (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 20.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "clearwell_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Clearwell level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
     },
     "cnc.axis.load": {
       "accepted_input_units": [
@@ -2343,9 +2976,92 @@
         "max": 50000.0,
         "min": 0.0
       },
+      "quantity": "concentration",
       "type": "float",
       "unit": "ppm",
       "vertical": "building_automation"
+    },
+    "coagulant_dose_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Coagulant dose (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "cod_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Chemical oxygen demand",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "color_cu": {
+      "accepted_input_units": [
+        "CU"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Color (CU)",
+      "dimension": "color",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": 0.0
+      },
+      "quantity": "color",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "CU",
+      "vertical": "water"
     },
     "condenser_pressure_bar": {
       "description": "",
@@ -2355,6 +3071,57 @@
       "type": "float",
       "unit": "bar",
       "vertical": "building_automation"
+    },
+    "conductivity_us_cm": {
+      "accepted_input_units": [
+        "mS/cm",
+        "uS/cm"
+      ],
+      "conversion_required": [
+        "mS/cm"
+      ],
+      "corpus_tags": 0,
+      "description": "Specific conductance",
+      "dimension": "conductivity",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 200000.0,
+        "min": 0.0
+      },
+      "quantity": "conductivity",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "uS/cm",
+      "vertical": "water"
+    },
+    "contact_time_min": {
+      "accepted_input_units": [
+        "min"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Contact time (min)",
+      "dimension": "time",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": 0.0
+      },
+      "quantity": "time",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "min",
+      "vertical": "water"
     },
     "conveyor.belt_speed": {
       "accepted_input_units": [],
@@ -2566,7 +3333,7 @@
         "max": 100.0,
         "min": -100.0
       },
-      "quantity": null,
+      "quantity": "linear_speed",
       "si": true,
       "unit": "m/s",
       "vertical": "universal"
@@ -2629,6 +3396,30 @@
         250
       ],
       "vertical": "fleet"
+    },
+    "ct_value_mg_min_l": {
+      "accepted_input_units": [
+        "mg.min/L"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Disinfection CT value \u2014 residual concentration multiplied by contact time",
+      "dimension": "ct",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "ct",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg.min/L",
+      "vertical": "water"
     },
     "cutting_time_hours": {
       "accepted_input_units": [
@@ -2855,6 +3646,72 @@
       "si": true,
       "unit": "%"
     },
+    "diffuser_pressure_kpa": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "bar",
+        "kPa",
+        "mbar",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "bar",
+        "mbar",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "Diffuser pressure (kPa)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "kPa",
+      "vertical": "water"
+    },
+    "digester_temp_c": {
+      "accepted_input_units": [
+        "C",
+        "F",
+        "K",
+        "R"
+      ],
+      "conversion_required": [
+        "F",
+        "K",
+        "R"
+      ],
+      "corpus_tags": 0,
+      "description": "Digester temp (C)",
+      "dimension": "temperature",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 65.0,
+        "min": 20.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "C",
+      "vertical": "water"
+    },
     "discharge_pressure_kpa": {
       "accepted_input_units": [
         "kPa"
@@ -2873,7 +3730,7 @@
         "max": 100000.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "pressure",
       "si": true,
       "unit": "kPa",
       "vertical": "universal"
@@ -2896,6 +3753,70 @@
       "si": true,
       "unit": "kW",
       "vertical": "energy"
+    },
+    "dissolved_oxygen_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Dissolved oxygen (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 20.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "distribution_pressure_kpa": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "bar",
+        "kPa",
+        "mbar",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "bar",
+        "mbar",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "Distribution pressure (kPa)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 2000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "kPa",
+      "vertical": "water"
     },
     "door_status": {
       "accepted_input_units": [],
@@ -3015,6 +3936,43 @@
         200
       ],
       "vertical": "fleet"
+    },
+    "effluent_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Effluent flow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
     },
     "emergency_stop_active": {
       "accepted_input_units": [],
@@ -3520,6 +4478,35 @@
       "unit": "mm/min",
       "vertical": "universal"
     },
+    "ferric_dose_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Ferric dose (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "filament_diameter_mm": {
       "description": "",
       "isa95_category": "equipment_performance",
@@ -3582,6 +4569,123 @@
       "si": true,
       "unit": "mm"
     },
+    "filter_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Filter flow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
+    "filter_head_loss_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Filter head loss (m)",
+      "dimension": "length",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
+    },
+    "filter_runtime_hours": {
+      "accepted_input_units": [
+        "days",
+        "h",
+        "min",
+        "ms",
+        "s"
+      ],
+      "conversion_required": [
+        "days",
+        "min",
+        "ms",
+        "s"
+      ],
+      "corpus_tags": 0,
+      "description": "Filter runtime (h)",
+      "dimension": "time",
+      "isa95_category": "equipment_condition",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "quantity": "time",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "h",
+      "vertical": "water"
+    },
+    "filter_status": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Filter status",
+      "dimension": null,
+      "isa95_category": "equipment_state",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
     "flow_rate_lpm": {
       "accepted_input_units": [
         "L/min"
@@ -3600,10 +4704,76 @@
         "max": 1000000.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "volumetric_flow_rate",
       "si": true,
       "unit": "L/min",
       "vertical": "universal"
+    },
+    "flow_rate_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Flow rate (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
+    "free_chlorine_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Free chlorine (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 20.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "fuel_consumed": {
       "accepted_input_units": [],
@@ -3873,6 +5043,43 @@
       "si": true,
       "unit": "kph"
     },
+    "headworks_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Headworks flow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
     "heated_bed_heater_pwm_output": {
       "description": "",
       "isa95_category": "equipment_performance",
@@ -3941,6 +5148,43 @@
       "type": "float",
       "unit": "C",
       "vertical": "additive"
+    },
+    "hydrant_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Hydrant flow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
     },
     "hydraulic_pressure_kpa": {
       "accepted_input_units": [],
@@ -4065,6 +5309,43 @@
         0,
         500000
       ]
+    },
+    "influent_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Influent flow (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
     },
     "intake_manifold_temp_c": {
       "accepted_input_units": [],
@@ -4361,6 +5642,43 @@
       "unit": "mm",
       "vertical": "additive"
     },
+    "leak_rate_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Leak rate (m3/h)",
+      "dimension": "flow",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
     "lift_height_m": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -4383,6 +5701,68 @@
         200
       ],
       "vertical": "fleet"
+    },
+    "lift_station_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Lift station level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
+    },
+    "lime_dose_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Lime dose (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 5000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "line_current_a": {
       "accepted_input_units": [],
@@ -4593,6 +5973,28 @@
       "quantity": null,
       "si": false,
       "unit": null
+    },
+    "main_break_count": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Distribution main break count",
+      "dimension": null,
+      "isa95_category": "general",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000000000.0,
+        "min": 0.0
+      },
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
     },
     "maintenance_desc": {
       "accepted_input_units": [],
@@ -4933,6 +6335,64 @@
       "si": true,
       "unit": "%"
     },
+    "mlss_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Mixed liquor suspended solids in the aeration basin",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 30000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "mlvss_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Mixed liquor volatile suspended solids",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 30000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "model": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -4993,7 +6453,7 @@
         "max": 10000.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "electric_current",
       "si": true,
       "unit": "A",
       "vertical": "universal"
@@ -5016,7 +6476,7 @@
         "max": 50000.0,
         "min": -50000.0
       },
-      "quantity": null,
+      "quantity": "rotational_speed",
       "si": true,
       "unit": "rpm",
       "vertical": "universal"
@@ -5408,6 +6868,91 @@
       "unit": "C",
       "vertical": "universal"
     },
+    "nitrate_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Nitrate (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "nitrite_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Nitrite (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "non_revenue_water_pct": {
+      "accepted_input_units": [
+        "%",
+        "ratio"
+      ],
+      "conversion_required": [
+        "ratio"
+      ],
+      "corpus_tags": 0,
+      "description": "Non-revenue water \u2014 produced volume not billed",
+      "dimension": "percent",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "percent",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "%",
+      "vertical": "water"
+    },
     "nozzle_diameter_mm": {
       "description": "",
       "isa95_category": "equipment_performance",
@@ -5530,6 +7075,62 @@
       "quantity": null,
       "si": false,
       "unit": null
+    },
+    "orp_mv": {
+      "accepted_input_units": [
+        "V",
+        "mV"
+      ],
+      "conversion_required": [
+        "V"
+      ],
+      "corpus_tags": 0,
+      "description": "Oxidation-reduction potential. Signed: chlorinated contact runs positive, an anaerobic zone runs negative",
+      "dimension": "voltage",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 2000.0,
+        "min": -2000.0
+      },
+      "quantity": "voltage",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mV",
+      "vertical": "water"
+    },
+    "orthophosphate_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Orthophosphate (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "pallet_position": {
       "accepted_input_units": [],
@@ -5687,6 +7288,235 @@
       "unit": "kW",
       "vertical": "energy"
     },
+    "permit_exceedance": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Discharge permit exceedance flag",
+      "dimension": null,
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "permit_limit_ammonia_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Permit limit ammonia (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "permit_limit_bod_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Permit limit bod (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "permit_limit_ph_high": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Permit limit ph high",
+      "dimension": null,
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 14.0,
+        "min": 0.0
+      },
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "permit_limit_ph_low": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Permit limit ph low",
+      "dimension": null,
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 14.0,
+        "min": 0.0
+      },
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "permit_limit_phosphorus_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Permit limit phosphorus (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "permit_limit_tss_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Permit limit tss (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "safety",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "ph": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Ph",
+      "dimension": null,
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 14.0,
+        "min": 0.0
+      },
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "phosphorus_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Phosphorus (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
     "pinda_probe_temperature_c": {
       "description": "",
       "isa95_category": "equipment_condition",
@@ -5718,6 +7548,35 @@
         50000
       ],
       "vertical": "fleet"
+    },
+    "polymer_dose_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Polymer dose (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "power.instantaneous_kw": {
       "accepted_input_units": [
@@ -5827,7 +7686,7 @@
         "max": 100000.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "pressure",
       "si": true,
       "unit": "kPa",
       "vertical": "universal"
@@ -6007,6 +7866,63 @@
       ],
       "vertical": "fleet"
     },
+    "pump_current_a": {
+      "accepted_input_units": [
+        "A"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Pump current (A)",
+      "dimension": "current",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "current",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "A",
+      "vertical": "water"
+    },
+    "pump_discharge_pressure_bar": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "atm",
+        "bar",
+        "inHg",
+        "kPa",
+        "mbar",
+        "mmHg",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "atm",
+        "inHg",
+        "kPa",
+        "mbar",
+        "mmHg",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "Pump discharge pressure bar (bar)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "pressure",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "bar",
+      "vertical": "water"
+    },
     "pump_efficiency_pct": {
       "accepted_input_units": [
         "%"
@@ -6030,6 +7946,177 @@
       "unit": "%",
       "vertical": "universal"
     },
+    "pump_flow_rate_m3h": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Pump flow rate m3h",
+      "dimension": null,
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "pump_runtime_hours": {
+      "accepted_input_units": [
+        "days",
+        "h",
+        "min",
+        "ms",
+        "s"
+      ],
+      "conversion_required": [
+        "days",
+        "min",
+        "ms",
+        "s"
+      ],
+      "corpus_tags": 0,
+      "description": "Pump runtime (h)",
+      "dimension": "time",
+      "isa95_category": "equipment_condition",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "quantity": "time",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "h",
+      "vertical": "water"
+    },
+    "pump_speed_pct": {
+      "accepted_input_units": [
+        "%",
+        "ratio"
+      ],
+      "conversion_required": [
+        "ratio"
+      ],
+      "corpus_tags": 0,
+      "description": "Pump speed (%)",
+      "dimension": "percent",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "percent",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "%",
+      "vertical": "water"
+    },
+    "pump_speed_rpm": {
+      "accepted_input_units": [
+        "rpm"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Pump speed (rpm)",
+      "dimension": "rotational",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "rotational",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "rpm",
+      "vertical": "water"
+    },
+    "pump_starts": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Pump starts",
+      "dimension": null,
+      "isa95_category": "equipment_condition",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000000000.0,
+        "min": 0.0
+      },
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "pump_status": {
+      "accepted_input_units": [],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Pump status",
+      "dimension": null,
+      "isa95_category": "equipment_state",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": null,
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": null,
+      "vertical": "water"
+    },
+    "pump_suction_pressure_bar": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "atm",
+        "bar",
+        "inHg",
+        "kPa",
+        "mbar",
+        "mmHg",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "atm",
+        "inHg",
+        "kPa",
+        "mbar",
+        "mmHg",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "Pump suction pressure bar (bar)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "quantity": "pressure",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "bar",
+      "vertical": "water"
+    },
     "rapid_override_pct": {
       "accepted_input_units": [
         "%"
@@ -6050,6 +8137,43 @@
       "quantity": "percent",
       "si": true,
       "unit": "%"
+    },
+    "ras_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Return activated sludge flow",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
     },
     "reactive_power_kvar": {
       "accepted_input_units": [],
@@ -6088,6 +8212,39 @@
       "si": true,
       "unit": "%",
       "vertical": "universal"
+    },
+    "reservoir_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Reservoir level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 200.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
     },
     "return_air_temperature_c": {
       "description": "",
@@ -6681,6 +8838,7 @@
     },
     "robot.joint.position": {
       "accepted_input_units": [],
+      "bounds_note": "deg; bounds were written in radians (2026-09-06 parity fix)",
       "conversion_required": [],
       "corpus_tags": 33,
       "dimension": null,
@@ -6689,15 +8847,15 @@
       "observed_input_units": [],
       "physical_quantity": "angle",
       "physics_bounds": {
-        "max": 6.2832,
-        "min": -6.2832
+        "max": 360.0,
+        "min": -360.0
       },
       "quantity": "angle",
       "si": false,
       "unit": "deg",
       "valid_range": [
-        -6.2832,
-        6.2832
+        -360.0,
+        360.0
       ]
     },
     "robot.joint.temperature": {
@@ -9723,6 +11881,98 @@
       "si": true,
       "unit": "h"
     },
+    "service_pressure_kpa": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "bar",
+        "kPa",
+        "mbar",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "bar",
+        "mbar",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "Service pressure (kPa)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 2000.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "kPa",
+      "vertical": "water"
+    },
+    "sludge_age_days": {
+      "accepted_input_units": [
+        "days"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Solids retention time",
+      "dimension": "time",
+      "isa95_category": "general",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 365.0,
+        "min": 0.0
+      },
+      "quantity": "time",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "days",
+      "vertical": "water"
+    },
+    "sludge_blanket_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Sludge blanket depth in the clarifier",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
+    },
     "solar_irradiance_w_m2": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -9738,7 +11988,7 @@
       },
       "quantity": null,
       "si": true,
-      "unit": "W/m\u00b2",
+      "unit": "W/m2",
       "vertical": "energy"
     },
     "space_temperature_c": {
@@ -9943,7 +12193,7 @@
         "max": 100000.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "pressure",
       "si": true,
       "unit": "kPa",
       "vertical": "universal"
@@ -9956,6 +12206,30 @@
       "type": "float",
       "unit": "C",
       "vertical": "building_automation"
+    },
+    "svi_ml_g": {
+      "accepted_input_units": [
+        "mL/g"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Sludge volume index \u2014 settled sludge volume per gram of MLSS",
+      "dimension": "sludge_volume_index",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500.0,
+        "min": 0.0
+      },
+      "quantity": "sludge_volume_index",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mL/g",
+      "vertical": "water"
     },
     "swing_angle_deg": {
       "accepted_input_units": [],
@@ -9980,6 +12254,74 @@
       ],
       "vertical": "fleet"
     },
+    "system_pressure_kpa": {
+      "accepted_input_units": [
+        "MPa",
+        "Pa",
+        "bar",
+        "kPa",
+        "mbar",
+        "psi"
+      ],
+      "conversion_required": [
+        "MPa",
+        "Pa",
+        "bar",
+        "mbar",
+        "psi"
+      ],
+      "corpus_tags": 0,
+      "description": "System pressure (kPa)",
+      "dimension": "pressure",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 2500.0,
+        "min": 0.0
+      },
+      "quantity": "pressure",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "kPa",
+      "vertical": "water"
+    },
+    "tank_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Tank level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 200.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
+    },
     "tank_level_pct": {
       "accepted_input_units": [
         "%"
@@ -9998,10 +12340,39 @@
         "max": 100.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "level",
       "si": true,
       "unit": "%",
       "vertical": "universal"
+    },
+    "tds_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Total dissolved solids",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "temperature_c": {
       "description": "",
@@ -10093,6 +12464,62 @@
       "si": false,
       "unit": null
     },
+    "total_chlorine_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Total chlorine (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 20.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "total_flow_m3": {
+      "accepted_input_units": [
+        "L",
+        "MG",
+        "gal",
+        "m3"
+      ],
+      "conversion_required": [
+        "L",
+        "MG",
+        "gal"
+      ],
+      "corpus_tags": 0,
+      "description": "Cumulative flow totalizer",
+      "dimension": "volume",
+      "isa95_category": "environmental",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "quantity": "volume",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3",
+      "vertical": "water"
+    },
     "total_fuel_used_l": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -10115,6 +12542,35 @@
         10000000
       ],
       "vertical": "fleet"
+    },
+    "total_phosphorus_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Total phosphorus (mg/L)",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
     },
     "track_tension_kpa": {
       "accepted_input_units": [],
@@ -10208,6 +12664,59 @@
       ],
       "vertical": "fleet"
     },
+    "tss_mg_l": {
+      "accepted_input_units": [
+        "mg/L",
+        "ppm",
+        "ug/L"
+      ],
+      "conversion_required": [
+        "ppm",
+        "ug/L"
+      ],
+      "corpus_tags": 0,
+      "description": "Total suspended solids",
+      "dimension": "concentration",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50000.0,
+        "min": 0.0
+      },
+      "quantity": "concentration",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mg/L",
+      "vertical": "water"
+    },
+    "turbidity_ntu": {
+      "accepted_input_units": [
+        "NTU"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Turbidity in nephelometric turbidity units",
+      "dimension": "turbidity",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 10000.0,
+        "min": 0.0
+      },
+      "quantity": "turbidity",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "NTU",
+      "vertical": "water"
+    },
     "turbo_boost_pressure_kpa": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -10254,6 +12763,105 @@
       ],
       "vertical": "fleet"
     },
+    "uv254_abs_cm": {
+      "accepted_input_units": [
+        "1/cm"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "UV absorbance at 254 nm \u2014 a proxy for organic carbon",
+      "dimension": "absorbance",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 10.0,
+        "min": 0.0
+      },
+      "quantity": "absorbance",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "1/cm",
+      "vertical": "water"
+    },
+    "uv_dosage_mj_cm2": {
+      "accepted_input_units": [
+        "mJ/cm2"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Uv dosage (mJ/cm2)",
+      "dimension": "uv_dose",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 2000.0,
+        "min": 0.0
+      },
+      "quantity": "uv_dose",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mJ/cm2",
+      "vertical": "water"
+    },
+    "uv_intensity_mw_cm2": {
+      "accepted_input_units": [
+        "mW/cm2"
+      ],
+      "conversion_required": [],
+      "corpus_tags": 0,
+      "description": "Uv intensity (mW/cm2)",
+      "dimension": "uv_intensity",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "uv_intensity",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "mW/cm2",
+      "vertical": "water"
+    },
+    "uv_transmittance_pct": {
+      "accepted_input_units": [
+        "%",
+        "ratio"
+      ],
+      "conversion_required": [
+        "ratio"
+      ],
+      "corpus_tags": 0,
+      "description": "UV transmittance at 254 nm",
+      "dimension": "percent",
+      "isa95_category": "production_quality",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "percent",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "%",
+      "vertical": "water"
+    },
     "valve_position_pct": {
       "accepted_input_units": [
         "%"
@@ -10272,7 +12880,7 @@
         "max": 100.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "ratio",
       "si": true,
       "unit": "%",
       "vertical": "universal"
@@ -11599,7 +14207,7 @@
         "max": 1000.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "frequency",
       "si": true,
       "unit": "Hz",
       "vertical": "universal"
@@ -11622,7 +14230,7 @@
         "max": 100.0,
         "min": 0.0
       },
-      "quantity": null,
+      "quantity": "ratio",
       "si": true,
       "unit": "%",
       "vertical": "universal"
@@ -11656,6 +14264,173 @@
       "unit": "mm/s",
       "vertical": "universal"
     },
+    "was_flow_m3_h": {
+      "accepted_input_units": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min",
+        "m3/h"
+      ],
+      "conversion_required": [
+        "L/min",
+        "L/s",
+        "MGD",
+        "ft3/min",
+        "ft3/s",
+        "gal/min"
+      ],
+      "corpus_tags": 0,
+      "description": "Waste activated sludge flow",
+      "dimension": "flow",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 500000.0,
+        "min": 0.0
+      },
+      "quantity": "flow",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m3/h",
+      "vertical": "water"
+    },
+    "water_age_hours": {
+      "accepted_input_units": [
+        "days",
+        "h",
+        "min",
+        "ms",
+        "s"
+      ],
+      "conversion_required": [
+        "days",
+        "min",
+        "ms",
+        "s"
+      ],
+      "corpus_tags": 0,
+      "description": "Water age in the distribution network",
+      "dimension": "time",
+      "isa95_category": "general",
+      "measurement_type": "cumulative",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 8760.0,
+        "min": 0.0
+      },
+      "quantity": "time",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "h",
+      "vertical": "water"
+    },
+    "water_temperature_c": {
+      "accepted_input_units": [
+        "C",
+        "F",
+        "K",
+        "R"
+      ],
+      "conversion_required": [
+        "F",
+        "K",
+        "R"
+      ],
+      "corpus_tags": 0,
+      "description": "Water temperature (C)",
+      "dimension": "temperature",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 50.0,
+        "min": -5.0
+      },
+      "quantity": "temperature",
+      "si": true,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "C",
+      "vertical": "water"
+    },
+    "well_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Well level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 1000.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
+    },
+    "wet_well_level_m": {
+      "accepted_input_units": [
+        "cm",
+        "ft",
+        "in",
+        "m",
+        "mm"
+      ],
+      "conversion_required": [
+        "cm",
+        "ft",
+        "in",
+        "mm"
+      ],
+      "corpus_tags": 0,
+      "description": "Wet well level (m)",
+      "dimension": "length",
+      "isa95_category": "environmental",
+      "measurement_type": "instantaneous",
+      "observed_input_units": [],
+      "physics_bounds": {
+        "max": 100.0,
+        "min": 0.0
+      },
+      "quantity": "length",
+      "si": false,
+      "source": "deterministic_pack",
+      "source_packs": [
+        "generic_water.json"
+      ],
+      "unit": "m",
+      "vertical": "water"
+    },
     "wind_speed_m_s": {
       "accepted_input_units": [],
       "conversion_required": [],
@@ -11667,7 +14442,7 @@
       "observed_input_units": [],
       "physical_quantity": "linear_speed",
       "physics_bounds": {
-        "max": 100.0,
+        "max": 150.0,
         "min": 0.0
       },
       "quantity": "linear_speed",
@@ -11740,7 +14515,7 @@
         "max": 3000.0,
         "min": -273.15
       },
-      "quantity": null,
+      "quantity": "temperature",
       "si": true,
       "unit": "C",
       "vertical": "universal"

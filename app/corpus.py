@@ -2131,12 +2131,32 @@ def normalize_row(data: dict, oem=None, sunspec_model=None, locale=None):
     # report as ten covered fields.
     coverage = round((distinct / fields_total) * 100, 2) if fields_total else 0.0
 
+    # ── HONEST coverage ────────────────────────────────────────────────────
+    # `coverage_pct` above counts anything that resolved at all. That number
+    # flatters: a signal-classifier guess at 0.42 confidence counts exactly the
+    # same as a curated 1.0 corpus hit, so a payload full of low-confidence
+    # inference reports the same coverage as one the corpus actually knows.
+    #
+    # The honest number counts only mappings the engine is CONFIDENT about, at
+    # the same 0.78 threshold production uses. It is the number a prospect will
+    # repeat internally, so it is the one that has to be defensible. Reported
+    # alongside the naive figure rather than replacing it, because the gap
+    # between the two is itself the useful signal.
+    HONEST_MIN_CONF = 0.78
+    confident = [r for r in resolved if float(r.get("confidence") or 0.0) >= HONEST_MIN_CONF]
+    distinct_confident = len({r["canonical_field"] for r in confident})
+    coverage_honest = (round((distinct_confident / fields_total) * 100, 2)
+                       if fields_total else 0.0)
+
     stats = {
         "fields_total": fields_total,
         "fields_mapped": len(resolved),
         "fields_unknown": fields_total - len(resolved),
         "fields_distinct_canonical": distinct,
         "coverage_pct": coverage,
+        "coverage_honest_pct": coverage_honest,
+        "coverage_honest_min_confidence": HONEST_MIN_CONF,
+        "fields_low_confidence": len(resolved) - len(confident),
         "layer1_deterministic": sum(1 for r in resolved if r.get("layer") == 1),
         "layer2_identity": sum(1 for r in resolved if r.get("layer") == 2),
         "layer3_signal": sum(1 for r in resolved if r.get("layer") == 3),

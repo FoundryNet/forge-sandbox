@@ -6,6 +6,7 @@ egress, nothing written to disk.
 """
 
 import contextlib
+import hashlib
 import io
 import csv
 import json
@@ -153,6 +154,25 @@ async def _satellite_beat(request: Request):
             "license_valid": AGENT.license_valid}
 
 
+def _corpus_version_release():
+    """Never allowed to raise: /health is the deploy gate and UptimeRobot's
+    target. A corpus identifier that cannot be computed is reported as null,
+    which is a visible fault; an exception here would take the service down."""
+    try:
+        from app import corpus_version as _cv
+        return _cv.release()
+    except Exception:
+        return None
+
+
+def _corpus_version_detail():
+    try:
+        from app import corpus_version as _cv
+        return _cv.release_detail()
+    except Exception as e:
+        return {"error": str(e)}
+
+
 @app.head("/health", include_in_schema=False)
 @app.get("/health")
 async def health():
@@ -214,6 +234,13 @@ async def health():
         ],
         "packs": {oem: len(p.mappings) for oem, p in sorted(packs.items())},
         "canonical_fields": dictionary["field_count"],
+        # WHICH CORPUS IS RUNNING. Every normalize response carries
+        # `corpus_version` inside its nte_hash; this is where a holder of such a
+        # record checks what that identifier resolves to. Note the distinct
+        # `satellite.corpus_version` below: that is the control plane's DELTA
+        # FEED sequence number, not a digest of the decision tables.
+        "corpus_version": _corpus_version_release(),
+        "corpus": _corpus_version_detail(),
         "mcp": {"mounted": MCP_APP is not None, "path": "/mcp",
                 "transport": "streamable-http", "error": MCP_ERROR},
         "satellite": _satellite_health(),
@@ -512,6 +539,145 @@ def _build_field_context(field_mappings, emitted):
     return ctx
 
 
+# ── NTE hash + positive validation attestation (2026-09-14) ──────────────────
+# The hash FUNCTION is kept identical to forge-prod: sha256 over the response
+# with `nte_hash` and `field_context` removed, sorted keys, no whitespace.
+# `nte_count` is INSIDE the digest, so the billable quantity is tamper-evident
+# with the data. So is `corpus_version` / `corpus_state` (2026-09-15).
+#
+# The hash VALUES deliberately differ between the two engines, and that is not
+# a parity break. This build ships a different corpus from production, so the
+# same raw tag can legitimately mean something else here; issuing a digest that
+# collided with production's would be the bug. `corpus_version` is what makes
+# the difference explicit instead of silent — it names the engine and the
+# decision tables that produced the reading, and it is inside the digest.
+#
+# Verify by deleting `nte_hash` and `field_context` from the archived response,
+# canonicalising (sorted keys, no whitespace) and re-hashing. The digest covers
+# the canonical output, the event count, AND the corpus version that decided it.
+#
+# `field_context` is excluded because it is assembly-only — a derived view of
+# values already present elsewhere in this same response (see
+# _build_field_context). Including it would make the digest depend on the
+# ?include_context query parameter, so the SAME billable normalization would
+# hash two different ways depending on how the caller asked for it. A metering
+# identifier must key on the work performed, not on the presentation options.
+_NTE_HASH_EXCLUDED = ("nte_hash", "field_context")
+
+
+def _compute_nte_hash(payload: dict) -> str:
+    body = {k: v for k, v in payload.items() if k not in _NTE_HASH_EXCLUDED}
+    canonical = json.dumps(body, sort_keys=True, separators=(",", ":"),
+                           default=str).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
+def _build_validation_checks(response: dict) -> dict:
+    """Per-field POSITIVE attestation: which checks ran, and what each returned.
+
+    Never reports `passed` for a check that did not run — a field with no
+    declared physics bounds reports `not_applicable`, not `passed`.
+    """
+    try:
+        from app.value_validator import physics_bounds_for as _bounds_for
+    except ImportError:
+        from value_validator import physics_bounds_for as _bounds_for
+
+    normalized = response.get("normalized") or {}
+    nulls      = response.get("null_states") or {}
+    convs      = response.get("unit_conversions") or []
+    mappings   = response.get("field_mappings") or {}
+
+    conv_by_canonical = {c["canonical_field"]: c for c in convs
+                         if isinstance(c, dict) and c.get("canonical_field")}
+    unit_by_canonical, raw_by_canonical, mapping_by_canonical = {}, {}, {}
+    for raw, m in mappings.items():
+        if not isinstance(m, dict):
+            continue
+        cf = m.get("canonical_field") or m.get("canonical")
+        if cf:
+            raw_by_canonical.setdefault(cf, raw)
+            mapping_by_canonical.setdefault(cf, m)
+            if m.get("unit"):
+                unit_by_canonical.setdefault(cf, m["unit"])
+
+    out = {}
+    for cf, value in normalized.items():
+        if cf not in raw_by_canonical and cf not in nulls:
+            continue
+        ns = nulls.get(cf) or {}
+        reason = ns.get("null_reason") or ""
+        failed_physics  = "physics_violation" in reason
+        failed_sentinel = "sentinel" in reason
+        try:
+            bounds = _bounds_for(cf)
+        except Exception:
+            bounds = None
+
+        # ORDER MATTERS. The sentinel gate runs pre_conversion and the physics
+        # validator post_conversion, so a value killed as a sentinel NEVER
+        # reaches physics. Reporting "passed" for it would assert a check that
+        # did not run — the exact false assurance this block exists to remove.
+        if failed_physics:
+            physics = "failed"
+        elif failed_sentinel:
+            physics = "not_evaluated"
+        elif bounds:
+            physics = "passed"
+        else:
+            physics = "not_applicable"
+        # Provenance. A pack row and a signal-classifier guess are not the same
+        # evidentiary weight, and a certificate that prints only a confidence
+        # number implies they are on one scale — they are not. `match_layer`
+        # says which table or model decided it; `evidence` says what kind of
+        # claim that is. One definition, shared with production.
+        _m = mapping_by_canonical.get(cf) or {}
+        _mt = _m.get("match_type")
+        try:
+            from app import corpus_version as _cv
+            _layer, _evidence = _cv.match_layer(_mt)
+        except Exception:
+            _layer, _evidence = "L_unclassified", "probabilistic"
+
+        entry = {
+            "value":          value,
+            "unit":           conv_by_canonical.get(cf, {}).get("to") or unit_by_canonical.get(cf),
+            "source_tag":     ns.get("raw_field") or raw_by_canonical.get(cf),
+            "match_type":     _mt,
+            "match_layer":    _layer,
+            "evidence":       _evidence,
+            "confidence":     _m.get("confidence"),
+            "physics_check":  physics,
+            "physics_bounds": list(bounds) if bounds else None,
+            "sentinel_check": "failed" if failed_sentinel else "passed",
+            "type_check":     "passed" if (value is not None or failed_physics or failed_sentinel) else "not_applicable",
+        }
+        if physics == "not_applicable":
+            entry["physics_note"] = "no_bounds_declared for this canonical field"
+        elif physics == "not_evaluated":
+            entry["physics_note"] = "value rejected by the sentinel gate before physics ran"
+        if failed_physics or failed_sentinel:
+            entry["rejected_value"]  = ns.get("raw_value")
+            entry["rejected_reason"] = reason
+            entry["rejected_stage"]  = ns.get("stage")
+        conv = conv_by_canonical.get(cf)
+        if conv:
+            entry["unit_check"] = "converted"
+            entry["unit_conversion"] = {
+                "from": conv.get("from"), "to": conv.get("to"),
+                "raw_value": conv.get("raw_value"),
+                "converted_value": conv.get("converted_value"),
+                "rule": conv.get("conversion"),
+                "unit_source": conv.get("unit_source"),
+            }
+        elif entry["unit"]:
+            entry["unit_check"] = "declared_no_conversion_needed"
+        else:
+            entry["unit_check"] = "no_unit_declared"
+        out[cf] = entry
+    return out
+
+
 def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
                        site=None, observed_at=None, rows=1, is_csv=False,
                        csv_rows=None, sunspec_model=None, locale=None,
@@ -532,6 +698,12 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
         "fields_unknown":   stats["fields_unknown"],
         "fields_distinct_canonical": stats["fields_distinct_canonical"],
         "coverage_pct":     stats["coverage_pct"],
+        # The number a prospect should quote. See corpus.py: counts only
+        # mappings at >= 0.78 confidence, so a low-confidence inference no
+        # longer reports as covered.
+        "coverage_honest_pct": stats["coverage_honest_pct"],
+        "coverage_honest_min_confidence": stats["coverage_honest_min_confidence"],
+        "fields_low_confidence": stats["fields_low_confidence"],
         "collisions":       collisions or None,
         # Present only for SunSpec readings. Carries every scale factor applied
         # (raw -> scaled, with the exponent and which register supplied it) and
@@ -616,6 +788,28 @@ def _normalize_payload(data, oem, machine_id=None, model=None, serial=None,
             relief_valve_fires=payload.get("_invariant_violations", 0),
             fields_total=stats["fields_total"],
             fields_mapped=stats["fields_mapped"])
+    except Exception:
+        pass
+
+    # Validation attestation first, then the NTE hash LAST so the digest covers
+    # the checks too. Best-effort: normalize must never fail on an attestation.
+    try:
+        payload["validation_checks"] = _build_validation_checks(payload)
+    except Exception:
+        pass
+    # Corpus identity goes in BEFORE the hash — the whole point is that the
+    # digest covers it. Without it a record is provably unmodified and not
+    # provably interpretable, because what every canonical field MEANS is a
+    # function of the corpus that decided it.
+    try:
+        from app import corpus_version as _cv
+        payload["corpus_version"] = _cv.release()
+        payload["corpus_state"]   = _cv.state()
+    except Exception:
+        pass
+    try:
+        payload["nte_count"] = int(payload.get("fields_total") or 0) * int(payload.get("rows") or 1)
+        payload["nte_hash"] = _compute_nte_hash(payload)
     except Exception:
         pass
     return payload
