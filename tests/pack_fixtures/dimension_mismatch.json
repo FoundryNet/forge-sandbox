@@ -1,0 +1,42 @@
+{
+  "aliases": [
+    "fixture_dimension_alias"
+  ],
+  "canonical_fields": [
+    "energy_kwh",
+    "execution_state",
+    "spindle_load_pct",
+    "spindle_speed_rpm"
+  ],
+  "display_name": "Compiler fixture - dimension mismatch",
+  "mapping_provenance": {
+    "SpindleSpeed": "synthetic fixture"
+  },
+  "mappings": {
+    "EnergyTotal": "energy_kwh",
+    "ExecState": "execution_state",
+    "SpindleLoadPct": "spindle_load_pct",
+    "SpindleSpeed": "spindle_speed_rpm",
+    "powerusage_kw": "energy_kwh"
+  },
+  "oem": "fixture_dimension",
+  "protocol": "mtconnect",
+  "source": "synthetic compiler fixture; not a real OEM",
+  "tag_enums": {
+    "ExecState": [
+      "ACTIVE",
+      "READY",
+      "STOPPED"
+    ]
+  },
+  "tag_polarity": {
+    "SpindleLoadPct": "higher_is_worse"
+  },
+  "tag_units": {
+    "EnergyTotal": "kWh",
+    "SpindleLoadPct": "%",
+    "SpindleSpeed": "rpm",
+    "powerusage_kw": "kW"
+  },
+  "vertical": "cnc"
+}

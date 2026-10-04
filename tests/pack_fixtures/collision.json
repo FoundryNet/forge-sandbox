@@ -1,0 +1,42 @@
+{
+  "aliases": [
+    "haas_automation"
+  ],
+  "canonical_fields": [
+    "energy_kwh",
+    "execution_state",
+    "spindle_load_pct",
+    "spindle_speed_commanded",
+    "spindle_speed_rpm"
+  ],
+  "display_name": "Compiler fixture - tag collision",
+  "mapping_provenance": {
+    "SpindleSpeed": "synthetic fixture"
+  },
+  "mappings": {
+    "EnergyTotal": "energy_kwh",
+    "ExecState": "execution_state",
+    "SP_SPEED": "spindle_speed_commanded",
+    "SpindleLoadPct": "spindle_load_pct",
+    "SpindleSpeed": "spindle_speed_rpm"
+  },
+  "oem": "fixture_collision",
+  "protocol": "mtconnect",
+  "source": "synthetic compiler fixture; not a real OEM",
+  "tag_enums": {
+    "ExecState": [
+      "ACTIVE",
+      "READY",
+      "STOPPED"
+    ]
+  },
+  "tag_polarity": {
+    "SpindleLoadPct": "higher_is_worse"
+  },
+  "tag_units": {
+    "EnergyTotal": "kWh",
+    "SpindleLoadPct": "%",
+    "SpindleSpeed": "rpm"
+  },
+  "vertical": "cnc"
+}
