@@ -56,7 +56,6 @@
   "motion_time_hours",
   "operating_hours",
   "part_count",
-  "parts_count",
   "power_consumption_kw",
   "program_line_number",
   "program_name",
@@ -79,6 +78,10 @@
   "tool_number"
  ],
  "display_name": "Siemens S7-1500 PLC / SINUMERIK 840D",
+ "mapping_provenance": {
+  "PartCounter": "consolidated onto part_count 2026-10-04: `parts_count` carries the auto-generated description \"Count of the machine.\", has no example value, and has ZERO rows in the production corpus (part_count has 280). A utilisation or lessor report summing part_count silently missed any machine whose collector spelled the tag this way.",
+  "PartsProduced": "consolidated onto part_count 2026-10-04: `parts_count` carries the auto-generated description \"Count of the machine.\", has no example value, and has ZERO rows in the production corpus (part_count has 280). A utilisation or lessor report summing part_count silently missed any machine whose collector spelled the tag this way."
+ },
  "mappings": {
   "$AA IM[X](in)": "axes.0.position_actual",
   "$AAIM[X] (m)": "axes.0.position_actual",
@@ -220,8 +223,8 @@
   "OperatingHours": "operating_hours",
   "OperationCounter": "cycle_count",
   "PROGRAMM": "program_name",
-  "PartCounter": "parts_count",
-  "PartsProduced": "parts_count",
+  "PartCounter": "part_count",
+  "PartsProduced": "part_count",
   "ProgramBlock": "program_line_number",
   "S ACT RPM [min-1]": "spindle_speed_rpm",
   "SACTRPM": "spindle_speed_rpm",

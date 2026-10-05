@@ -13,9 +13,9 @@
     "irb",
     "rapid"
    ],
-   "canonical_field_count": 43,
+   "canonical_field_count": 45,
    "display_name": "ABB industrial robot (RAPID / IRC5, OmniCore)",
-   "mapping_count": 49,
+   "mapping_count": 54,
    "protocol": "rapid_variable",
    "vertical": "robotics"
   },
@@ -143,8 +143,24 @@
    ],
    "canonical_field_count": 41,
    "display_name": "Haas VF-series CNC",
-   "mapping_count": 269,
+   "mapping_count": 272,
    "protocol": "mtconnect",
+   "vertical": "cnc"
+  },
+  "heidenhain": {
+   "aliases": [
+    "heidenhain_tnc",
+    "itnc",
+    "itnc530",
+    "lsv2",
+    "statemonitor",
+    "tnc",
+    "tnc640"
+   ],
+   "canonical_field_count": 20,
+   "display_name": "HEIDENHAIN TNC 640 CNC control (DNC / LSV-2 / StateMonitor)",
+   "mapping_count": 28,
+   "protocol": "lsv2",
    "vertical": "cnc"
   },
   "j1939": {
@@ -179,9 +195,9 @@
     "truck",
     "volvo_ce"
    ],
-   "canonical_field_count": 52,
+   "canonical_field_count": 54,
    "display_name": "SAE J1939 heavy vehicle / AEMP off-highway (CAN bus)",
-   "mapping_count": 660,
+   "mapping_count": 663,
    "protocol": "j1939_can",
    "vertical": "fleet"
   },
@@ -193,9 +209,9 @@
     "kuka_kr",
     "kuka_robot"
    ],
-   "canonical_field_count": 47,
+   "canonical_field_count": 48,
    "display_name": "KUKA industrial robot (KRL / KUKA.RobotSensorInterface)",
-   "mapping_count": 91,
+   "mapping_count": 95,
    "protocol": "krl_variable",
    "vertical": "robotics"
   },
@@ -218,9 +234,9 @@
     "mtconnect_agent",
     "mtc"
    ],
-   "canonical_field_count": 21,
+   "canonical_field_count": 23,
    "display_name": "MTConnect (vendor-neutral CNC observation types)",
-   "mapping_count": 22,
+   "mapping_count": 29,
    "protocol": "mtconnect",
    "vertical": "cnc"
   },
@@ -231,9 +247,9 @@
     "umati",
     "machinetool"
    ],
-   "canonical_field_count": 7,
+   "canonical_field_count": 17,
    "display_name": "OPC UA Machine Tool companion spec (OPC 40501-1)",
-   "mapping_count": 8,
+   "mapping_count": 18,
    "protocol": "opcua",
    "vertical": "cnc"
   },
@@ -427,9 +443,9 @@
     "ur5",
     "ur_cobot"
    ],
-   "canonical_field_count": 49,
+   "canonical_field_count": 52,
    "display_name": "Universal Robots cobot (RTDE / primary interface)",
-   "mapping_count": 65,
+   "mapping_count": 73,
    "protocol": "rtde",
    "vertical": "robotics"
   },
@@ -449,6 +465,22 @@
    "mapping_count": 32,
    "protocol": "modbus_tcp",
    "vertical": "energy"
+  },
+  "yaskawa_motoman": {
+   "aliases": [
+    "fs100",
+    "hses",
+    "motoman",
+    "yaskawa",
+    "yaskawa_robot",
+    "yrc1000",
+    "yrc1000micro"
+   ],
+   "canonical_field_count": 31,
+   "display_name": "YASKAWA Motoman robot controller (High-Speed Ethernet Server, FS100 protocol)",
+   "mapping_count": 34,
+   "protocol": "hses_udp",
+   "vertical": "robotics"
   }
  }
 }

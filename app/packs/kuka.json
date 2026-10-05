@@ -49,6 +49,7 @@
     "robot.program.state",
     "robot.safety.gate_state",
     "robot.safety.protective_stop",
+    "robot.speed_scaling",
     "robot.tcp.force",
     "robot.tcp.position_x",
     "robot.tcp.speed",
@@ -56,6 +57,12 @@
     "sensor_readings.tcp_speed"
   ],
   "display_name": "KUKA industrial robot (KRL / KUKA.RobotSensorInterface)",
+  "mapping_provenance": {
+    "$OV_JOG": "KUKA KRL system variables ($OV_PRO program override, $OV_JOG jog override, $PRO_STATE1 program run state, $STOPMESS stop message) \u2014 KUKA System Software programming documentation",
+    "$OV_PRO": "KUKA KRL system variables ($OV_PRO program override, $OV_JOG jog override, $PRO_STATE1 program run state, $STOPMESS stop message) \u2014 KUKA System Software programming documentation",
+    "$PRO_NAME[]": "KUKA KRL system variables ($OV_PRO program override, $OV_JOG jog override, $PRO_STATE1 program run state, $STOPMESS stop message) \u2014 KUKA System Software programming documentation",
+    "$PRO_STATE1": "KUKA KRL system variables ($OV_PRO program override, $OV_JOG jog override, $PRO_STATE1 program run state, $STOPMESS stop message) \u2014 KUKA System Software programming documentation"
+  },
   "mappings": {
     "$AXIS_ACT[1]": "robot.joint.0.position",
     "$AXIS_ACT[2]": "robot.joint.1.position",
@@ -70,8 +77,12 @@
     "$CURR_ACT[5]": "robot.joint.4.current",
     "$CURR_ACT[6]": "robot.joint.5.current",
     "$MODE_OP": "robot.operating_mode",
+    "$OV_JOG": "robot.speed_scaling",
+    "$OV_PRO": "robot.speed_scaling",
     "$POS_ACT": "robot.tcp.position_x",
     "$PRO_MODE": "robot.program.state",
+    "$PRO_NAME[]": "program_name",
+    "$PRO_STATE1": "robot.program.state",
     "$STOPMESS": "emergency_stop_active",
     "$TORQUE_AXIS_ACT[1]": "robot.joint.0.torque",
     "$TORQUE_AXIS_ACT[2]": "robot.joint.1.torque",
@@ -174,5 +185,12 @@
     "TCP_Force_N": "N",
     "TCP_Speed_mm_s": "mm/s"
   },
+  "topup_history": [
+    {
+      "added": 4,
+      "at": "20260926_134059",
+      "note": "Light pack pass. Documented vendor/standard sources only; every target field validated against the registry tier before writing."
+    }
+  ],
   "vertical": "robotics"
 }

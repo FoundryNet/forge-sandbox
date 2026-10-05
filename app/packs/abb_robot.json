@@ -45,12 +45,21 @@
     "robot.joint.5.torque",
     "robot.motor_on",
     "robot.operating_mode",
+    "robot.program.state",
+    "robot.safety.mode",
     "robot.speed_scaling",
     "robot.tcp.force",
     "robot.tcp.speed",
     "sensor_readings.cycle_time"
   ],
   "display_name": "ABB industrial robot (RAPID / IRC5, OmniCore)",
+  "mapping_provenance": {
+    "ctrlexecstate": "ABB Robot Web Services (RWS) resource fields: /rw/rapid/execution (ctrlexecstate, cycle), /rw/panel/ctrlstate, /rw/panel/opmode, /rw/panel/speedratio \u2014 published ABB developer documentation",
+    "ctrlstate": "ABB Robot Web Services (RWS) resource fields: /rw/rapid/execution (ctrlexecstate, cycle), /rw/panel/ctrlstate, /rw/panel/opmode, /rw/panel/speedratio \u2014 published ABB developer documentation",
+    "cycle": "ABB Robot Web Services (RWS) resource fields: /rw/rapid/execution (ctrlexecstate, cycle), /rw/panel/ctrlstate, /rw/panel/opmode, /rw/panel/speedratio \u2014 published ABB developer documentation",
+    "opmode": "ABB Robot Web Services (RWS) resource fields: /rw/rapid/execution (ctrlexecstate, cycle), /rw/panel/ctrlstate, /rw/panel/opmode, /rw/panel/speedratio \u2014 published ABB developer documentation",
+    "speedratio": "ABB Robot Web Services (RWS) resource fields: /rw/rapid/execution (ctrlexecstate, cycle), /rw/panel/ctrlstate, /rw/panel/opmode, /rw/panel/speedratio \u2014 published ABB developer documentation"
+  },
   "mappings": {
     "Axis1_Angle": "robot.joint.0.position",
     "Axis1_Current": "robot.joint.0.current",
@@ -100,7 +109,12 @@
     "Run_Hours": "operating_hours",
     "Speed_Override": "robot.speed_scaling",
     "TCP_Force": "robot.tcp.force",
-    "TCP_Speed": "robot.tcp.speed"
+    "TCP_Speed": "robot.tcp.speed",
+    "ctrlexecstate": "robot.program.state",
+    "ctrlstate": "robot.safety.mode",
+    "cycle": "robot.program.state",
+    "opmode": "robot.operating_mode",
+    "speedratio": "robot.speed_scaling"
   },
   "oem": "abb_robot",
   "protocol": "rapid_variable",
@@ -122,5 +136,12 @@
     "Run_Hours": "h",
     "TCP_Speed": "mm/s"
   },
+  "topup_history": [
+    {
+      "added": 5,
+      "at": "20260926_134059",
+      "note": "Light pack pass. Documented vendor/standard sources only; every target field validated against the registry tier before writing."
+    }
+  ],
   "vertical": "robotics"
 }

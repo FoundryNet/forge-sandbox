@@ -9,14 +9,18 @@ The kernel had FOUR disagreeing notions of "the canonical field list":
                                                         resolution actually emits)
     corpus_v2/canonical_schema_v2.json                  75 entries in a different
                                                         namespace (cnc.spindle.*)
-    the sandbox's packs/_canonical_fields.json          408 names
+    the sandbox's packs/_canonical_fields.json          a DUPLICATE of this
+                                                        file (719 names, identical
+                                                        content) -- see
+                                                        check_single_dictionary.py
 
 `axes.x_position_actual` is emitted by the corpus 232 times and is absent from
 the hardcoded universe. Any validator built on the wrong list would have rejected
 real fields, so there was no list you could safely validate against — which is
 precisely why the LLM layer was free to invent names.
 
-`canonical_fields.json` is generated from what the corpus actually emits and is
+`app/canonical_fields.json` is the SINGLE source of truth (719 fields as of
+corpus 2.0.0). It is generated from what the corpus actually emits and is
 the ONLY vocabulary the kernel may output. A resolution that lands outside it is
 a hallucination and is recorded as UNRESOLVED.
 

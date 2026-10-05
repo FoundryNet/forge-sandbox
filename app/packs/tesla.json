@@ -27,6 +27,14 @@
     "discharge_rate_kw"
   ],
   "display_name": "Tesla Megapack / Powerpack (BESS)",
+  "excluded_from_license": true,
+  "license_exclusion": {
+    "effect": "NOT licensed under any platform agreement and NOT covered by the MIT vocabulary licence. Remains available for sandbox and evaluation use. Do not redistribute or sell.",
+    "mappings": 41,
+    "marked": "2026-09-25",
+    "provenance_class": "observed_on_hardware",
+    "reason": "observed on hardware; Tesla publishes no open register map and there is no upstream permission of any kind"
+  },
   "mappings": {
     "AphA": "ac_current_phase_a",
     "AphB": "ac_current_phase_b",

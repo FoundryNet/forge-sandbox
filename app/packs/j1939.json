@@ -31,6 +31,8 @@
     "volvo_ce"
   ],
   "canonical_fields": [
+    "alarm_code",
+    "alarm_severity",
     "alternator_current_a",
     "alternator_voltage",
     "ambient_temp_c",
@@ -85,7 +87,13 @@
     "vehicle_speed_km_h"
   ],
   "display_name": "SAE J1939 heavy vehicle / AEMP off-highway (CAN bus)",
+  "mapping_provenance": {
+    "ActiveTroubleCodes": "SAE J1939-73 Diagnostics, DM1 (Active Diagnostic Trouble Codes): SPN (Suspect Parameter Number), FMI (Failure Mode Identifier), OC (Occurrence Count), and the MIL/red/amber lamp status bits",
+    "DM1_FMI": "SAE J1939-73 Diagnostics, DM1 (Active Diagnostic Trouble Codes): SPN (Suspect Parameter Number), FMI (Failure Mode Identifier), OC (Occurrence Count), and the MIL/red/amber lamp status bits",
+    "DM1_SPN": "SAE J1939-73 Diagnostics, DM1 (Active Diagnostic Trouble Codes): SPN (Suspect Parameter Number), FMI (Failure Mode Identifier), OC (Occurrence Count), and the MIL/red/amber lamp status bits"
+  },
   "mappings": {
+    "ActiveTroubleCodes": "alarm_code",
     "AirPressure": "brake_air_pressure_kpa",
     "AltCurrent": "alternator_current_a",
     "AltVoltage": "alternator_voltage",
@@ -223,6 +231,8 @@
     "DEF_Level": "def_level_pct",
     "DEF_Level_Pct": "def_level_pct",
     "DEF_Tank_Level": "def_level_pct",
+    "DM1_FMI": "alarm_severity",
+    "DM1_SPN": "alarm_code",
     "DPFRegenStatus": "dpf_regen_state",
     "DPFSootLoad": "dpf_soot_load_pct",
     "DPF_InletTemp": "dpf_inlet_temp_c",
@@ -868,5 +878,12 @@
     "idle_time_hours": "h",
     "oil_pressure_psi": "psi"
   },
+  "topup_history": [
+    {
+      "added": 3,
+      "at": "20260926_134059",
+      "note": "Light pack pass. Documented vendor/standard sources only; every target field validated against the registry tier before writing."
+    }
+  ],
   "vertical": "fleet"
 }

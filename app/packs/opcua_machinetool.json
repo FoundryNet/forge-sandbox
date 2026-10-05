@@ -1,38 +1,77 @@
 {
- "aliases": [
-  "opcua",
-  "opc_ua",
-  "umati",
-  "machinetool"
- ],
- "canonical_fields": [
-  "execution_state",
-  "feed_override_pct",
-  "machine_mode",
-  "power_on_hours",
-  "program_name",
-  "rapid_override_pct",
-  "serial_number"
- ],
- "display_name": "OPC UA Machine Tool companion spec (OPC 40501-1)",
- "mappings": {
-  "ActiveProgram": "program_name",
-  "ChannelMode": "machine_mode",
-  "ChannelState": "execution_state",
-  "FeedOverride": "feed_override_pct",
-  "MachineOperationMode": "machine_mode",
-  "PowerOnDuration": "power_on_hours",
-  "RapidOverride": "rapid_override_pct",
-  "SerialNumber": "serial_number"
- },
- "oem": "opcua_machinetool",
- "protocol": "opcua",
- "source": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames",
- "tag_units": {
-  "FeedOverride": "%",
-  "PowerOnDuration": "s",
-  "RapidOverride": "%"
- },
- "vendor_native_note": "Tags using the vendor's own published identifier syntax, added from manufacturer documentation. Axis-indexed variables are expanded over X/Y/Z (and S1 for spindle) from the manual's declared axis identifiers.",
- "vertical": "cnc"
+  "aliases": [
+    "opcua",
+    "opc_ua",
+    "umati",
+    "machinetool"
+  ],
+  "canonical_fields": [
+    "alarm_code",
+    "alarm_description",
+    "alarm_severity",
+    "axes.0.position_actual",
+    "emergency_stop_active",
+    "execution_state",
+    "feed_override_pct",
+    "machine_mode",
+    "part_count",
+    "power_on_hours",
+    "program_id",
+    "program_name",
+    "rapid_override_pct",
+    "serial_number",
+    "spindle_load_pct",
+    "spindle_override_pct",
+    "spindle_speed_rpm"
+  ],
+  "display_name": "OPC UA Machine Tool companion spec (OPC 40501-1)",
+  "mapping_provenance": {
+    "ActualPosition": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "ActualSpeed": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "EmergencyStop": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "Identifier": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "JobName": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "Load": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "Message": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "OverrideValue": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "PartsProducedTotal": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)",
+    "Severity": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames: MachineToolSpindleType (ActualSpeed, OverrideValue, Load), MachineToolAxisType (ActualPosition), MachineToolNotificationType (Identifier, Message, Severity), Production (JobName, PartsProducedTotal), Monitoring (EmergencyStop)"
+  },
+  "mappings": {
+    "ActiveProgram": "program_name",
+    "ActualPosition": "axes.0.position_actual",
+    "ActualSpeed": "spindle_speed_rpm",
+    "ChannelMode": "machine_mode",
+    "ChannelState": "execution_state",
+    "EmergencyStop": "emergency_stop_active",
+    "FeedOverride": "feed_override_pct",
+    "Identifier": "alarm_code",
+    "JobName": "program_id",
+    "Load": "spindle_load_pct",
+    "MachineOperationMode": "machine_mode",
+    "Message": "alarm_description",
+    "OverrideValue": "spindle_override_pct",
+    "PartsProducedTotal": "part_count",
+    "PowerOnDuration": "power_on_hours",
+    "RapidOverride": "rapid_override_pct",
+    "SerialNumber": "serial_number",
+    "Severity": "alarm_severity"
+  },
+  "oem": "opcua_machinetool",
+  "protocol": "opcua",
+  "source": "OPC UA Companion Specification for Machine Tools (OPC 40501-1), Opc.Ua.MachineTool.NodeSet2.xml BrowseNames",
+  "tag_units": {
+    "FeedOverride": "%",
+    "PowerOnDuration": "s",
+    "RapidOverride": "%"
+  },
+  "topup_history": [
+    {
+      "added": 10,
+      "at": "20260926_134059",
+      "note": "Light pack pass. Documented vendor/standard sources only; every target field validated against the registry tier before writing."
+    }
+  ],
+  "vendor_native_note": "Tags using the vendor's own published identifier syntax, added from manufacturer documentation. Axis-indexed variables are expanded over X/Y/Z (and S1 for spindle) from the manual's declared axis identifiers.",
+  "vertical": "cnc"
 }

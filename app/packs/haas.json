@@ -16,6 +16,7 @@
   "battery_voltage",
   "cutting_time_hours",
   "cycle_count",
+  "door_status",
   "execution_state",
   "feed_override_pct",
   "feed_rate",
@@ -26,7 +27,6 @@
   "motion_time_hours",
   "operating_hours",
   "part_count",
-  "parts_count",
   "power_on_hours",
   "program_line_number",
   "program_name",
@@ -46,6 +46,14 @@
   "tool_number"
  ],
  "display_name": "Haas VF-series CNC",
+ "mapping_provenance": {
+  "DOOR STATE": "MTConnect DOOR_STATE observation type (MTConnect Part 2.0) as emitted by the Haas MTConnect adapter; spellings match the haas door_status decoder already declared in the federation state tier",
+  "DOOR_STATE": "MTConnect DOOR_STATE observation type (MTConnect Part 2.0) as emitted by the Haas MTConnect adapter; spellings match the haas door_status decoder already declared in the federation state tier",
+  "DOOR_STATUS": "MTConnect DOOR_STATE observation type (MTConnect Part 2.0) as emitted by the Haas MTConnect adapter; spellings match the haas door_status decoder already declared in the federation state tier",
+  "DoorState": "MTConnect DOOR_STATE observation type (MTConnect Part 2.0) as emitted by the Haas MTConnect adapter; spellings match the haas door_status decoder already declared in the federation state tier",
+  "M30 #2": "consolidated onto part_count 2026-10-04: `parts_count` carries the auto-generated description \"Count of the machine.\", has no example value, and has ZERO rows in the production corpus (part_count has 280). A utilisation or lessor report summing part_count silently missed any machine whose collector spelled the tag this way.",
+  "MACHINE_HOURS": "retained over the colliding tag 'Machine'->machine_id, removed 2026-10-04. Both fold to 'machine' (the folder strips '_HOURS' as a unit suffix), and corpus.Pack.folded keeps whichever sorts first, so one was silently unreachable through layer 1b. machine_id keeps three other spellings in this pack (ASSET/Asset/asset) and is normally supplied in the request, whereas MACHINE_HOURS is the only runtime spelling of its kind and feeds the utilisation/lessor report."
+ },
  "mappings": {
   "ALARM": "alarm_code",
   "ALARM DESC": "alarm_description",
@@ -72,6 +80,10 @@
   "COOL_TEMP_F": "sensor_readings.coolant_temp",
   "CUTTING_TIME": "cutting_time_hours",
   "CUT_TIME": "cutting_time_hours",
+  "DOOR STATE": "door_status",
+  "DOOR_STATE": "door_status",
+  "DOOR_STATUS": "door_status",
+  "DoorState": "door_status",
   "ERR CODE": "alarm_code",
   "ERRCODE": "alarm_code",
   "ERRORMSG": "alarm_description",
@@ -93,14 +105,13 @@
   "LAST CYCLE": "last_cycle_time_seconds",
   "LAST_CYCLE_TIME": "last_cycle_time_seconds",
   "M30 #1": "part_count",
-  "M30 #2": "parts_count",
+  "M30 #2": "part_count",
   "M30_COUNT": "cycle_count",
   "MACHINE STATUS": "execution_state",
   "MACHINESTATUS": "execution_state",
   "MACHINE_HOURS": "operating_hours",
   "MODE": "machine_mode",
   "MOTION_TIME": "motion_time_hours",
-  "Machine": "machine_id",
   "Machine Status": "execution_state",
   "OVERRIDES_FEED": "feed_override_pct",
   "OVERRIDES_RAPID": "rapid_override_pct",
@@ -329,6 +340,13 @@
   "SP_SPEED": "rpm",
   "Spindle RPM": "rpm"
  },
+ "topup_history": [
+  {
+   "added": 4,
+   "at": "20260926_134059",
+   "note": "Light pack pass. Documented vendor/standard sources only; every target field validated against the registry tier before writing."
+  }
+ ],
  "vendor_native_note": "Tags using the vendor's own published identifier syntax, added from manufacturer documentation. Axis-indexed variables are expanded over X/Y/Z (and S1 for spindle) from the manual's declared axis identifiers.",
  "vertical": "cnc"
 }

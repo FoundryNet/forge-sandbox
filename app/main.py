@@ -989,7 +989,7 @@ class PredictBreachRequest(BaseModel):
     canonical_field: Optional[str] = Field(None, max_length=128)
     direction: str = Field("above", pattern="^(above|below)$")
     horizon: int = Field(96, ge=1, le=256)
-    mint_id: Optional[str] = Field(None, max_length=200)
+    machine_id: Optional[str] = Field(None, max_length=200)
     settle: bool = Field(False)
 
 
@@ -1030,15 +1030,15 @@ async def v1_predict_breach(req: PredictBreachRequest):
     if warnings:
         result["field_warnings"] = warnings
 
-    # Production returns a real attestation and can settle it on-chain. The
-    # sandbox computes the same data_hash but settles nothing.
-    result["attestation"] = {
+    # Production returns a durable integrity record. The sandbox computes the
+    # same data_hash but records nothing.
+    result["integrity"] = result["attestation"] = {
         "data_hash": predict.data_hash({
             "time_series": req.time_series, "threshold": req.threshold,
             "direction": req.direction, "horizon": req.horizon,
             "canonical_field": req.canonical_field}),
         "settled": False,
-        "note": "Sandbox attestation. Not anchored; not verifiable externally.",
+        "note": "Sandbox integrity proof. Not recorded; not verifiable externally.",
     }
     if req.settle:
         result["attestation"]["settle_requested_but_ignored"] = True
@@ -1076,10 +1076,10 @@ async def v1_fleet_health(req: FleetHealthRequest):
             "service": SERVICE})
 
     out = predict.fleet_health([m.model_dump() for m in req.machines])
-    out["attestation"] = {
+    out["integrity"] = out["attestation"] = {
         "data_hash": predict.data_hash(out["fleet_health"]),
         "settled": False,
-        "note": "Sandbox attestation. Not anchored; not verifiable externally.",
+        "note": "Sandbox integrity proof. Not recorded; not verifiable externally.",
     }
     out["timestamp"] = _now()
     return out
@@ -1105,7 +1105,7 @@ _STATEFUL = {
     "/v1/history":               "the sandbox persists nothing",
     "/v1/guardrails":            "guardrails are enforced server-side",
     "/v1/triggers":              "triggers need durable state and webhooks",
-    "/v1/attest":                "attestation settles on-chain",
+    "/v1/attest":                "integrity records need durable server-side state",
     "/v1/billing/usage":         "nothing is metered here",
 }
 
