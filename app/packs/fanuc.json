@@ -50,7 +50,6 @@
   "motion_time_hours",
   "operating_hours",
   "part_count",
-  "parts_count",
   "payload_kg",
   "power_consumption_kw",
   "program_id",
@@ -79,6 +78,9 @@
   "tool_number"
  ],
  "display_name": "FANUC R-30iB robot / Series 30i CNC",
+ "mapping_provenance": {
+  "PartCount": "consolidated onto part_count 2026-10-04: `parts_count` carries the auto-generated description \"Count of the machine.\", has no example value, and has ZERO rows in the production corpus (part_count has 280). A utilisation or lessor report summing part_count silently missed any machine whose collector spelled the tag this way."
+ },
  "mappings": {
   "ABSOLUTE_X": "axes.x_position_actual",
   "ABSOLUTE_Y": "axes.y_position_actual",
@@ -428,7 +430,7 @@
   "PRG_NAME": "program_name",
   "PROGRAM": "program_name",
   "PROGRAM_NUMBER": "program_id",
-  "PartCount": "parts_count",
+  "PartCount": "part_count",
   "Payload Kg [lb]": "payload_kg",
   "Payload Kg [lbs]": "payload_kg",
   "Payload Kg(g)": "payload_kg",

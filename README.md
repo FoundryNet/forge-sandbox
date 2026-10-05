@@ -227,7 +227,7 @@ list is told the data is simulated before it acts on anything.
 
 Production Forge exposes **32** tools at `https://mcp.foundrynet.io/mcp`. The
 other 24 need durable identity, history, guardrails, triggers, billing, or
-on-chain attestation.
+durable integrity records.
 
 ---
 
@@ -342,7 +342,7 @@ Deliberately, and stated plainly so nothing here is mistaken for the real thing:
   model. The sandbox uses least squares with a residual-scaled quantile band.
   Every prediction is stamped `"model": "sandbox-ols-v1"` and `"simulated": true`.
 - **Persistence, identity, history, triggers, guardrails, billing,
-  attestation.** All stateful, all server-side.
+  integrity records.** All stateful, all server-side.
 - **Any connection to production.** The application imports no HTTP client and
   no socket API, so it makes no outbound calls — `grep -rE "httpx|requests|urllib|socket" app/`
   comes back empty. `docker-compose.yml` additionally runs it `read_only` with
@@ -468,7 +468,7 @@ What changes underneath:
 - Predictions come from TimesFM instead of a straight line.
 - Readings persist, so history, triggers, and guardrails start working.
 - `/v1/identify` issues a durable machine identity.
-- Predictions can be attested.
+- Predictions carry a durable integrity record.
 
 **Get a key: [foundrynet.io](https://foundrynet.io)**
 
@@ -489,4 +489,4 @@ MIT. The mapping packs are derived from the MIT-licensed
 
 ---
 
-Forge by Foundry Labs · [forge@foundrynet.io](mailto:forge@foundrynet.io)
+Forge by Foundry Labs · [foundrynet@proton.me](mailto:foundrynet@proton.me)

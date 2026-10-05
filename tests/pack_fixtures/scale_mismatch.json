@@ -1,0 +1,43 @@
+{
+  "aliases": [
+    "fixture_scale_alias"
+  ],
+  "canonical_fields": [
+    "energy_kwh",
+    "execution_state",
+    "robot.speed_scaling",
+    "spindle_load_pct",
+    "spindle_speed_rpm"
+  ],
+  "display_name": "Compiler fixture - percent into a ratio field",
+  "mapping_provenance": {
+    "SpindleSpeed": "synthetic fixture"
+  },
+  "mappings": {
+    "EnergyTotal": "energy_kwh",
+    "ExecState": "execution_state",
+    "SpeedOverride": "robot.speed_scaling",
+    "SpindleLoadPct": "spindle_load_pct",
+    "SpindleSpeed": "spindle_speed_rpm"
+  },
+  "oem": "fixture_scale",
+  "protocol": "mtconnect",
+  "source": "synthetic compiler fixture; not a real OEM",
+  "tag_enums": {
+    "ExecState": [
+      "ACTIVE",
+      "READY",
+      "STOPPED"
+    ]
+  },
+  "tag_polarity": {
+    "SpindleLoadPct": "higher_is_worse"
+  },
+  "tag_units": {
+    "EnergyTotal": "kWh",
+    "SpeedOverride": "%",
+    "SpindleLoadPct": "%",
+    "SpindleSpeed": "rpm"
+  },
+  "vertical": "cnc"
+}

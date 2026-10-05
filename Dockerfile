@@ -24,6 +24,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ ./app/
 COPY scripts/ ./scripts/
 
+# License and attribution travel WITH the artifact, not just the repo. Anyone
+# who pulls this image can read what it bundles and under what terms without
+# having to find the source — which is the point of a notices file.
+COPY LICENSE THIRD_PARTY_NOTICES.md ./
+
 # ── test stage ───────────────────────────────────────────────────────────────
 # docker build --target test -t forge-sandbox:test .
 # Runs the suite inside the image that ships, so a dependency that resolves on

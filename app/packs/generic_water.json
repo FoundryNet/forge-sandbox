@@ -107,6 +107,14 @@
     "wet_well_level_m"
   ],
   "display_name": "Municipal water / wastewater SCADA (generic)",
+  "excluded_from_license": true,
+  "license_exclusion": {
+    "effect": "NOT licensed under any platform agreement and NOT covered by the MIT vocabulary licence. Remains available for sandbox and evaluation use. Do not redistribute or sell.",
+    "mappings": 170,
+    "marked": "2026-09-25",
+    "provenance_class": "unknown",
+    "reason": "provenance unknown: no vendor, no standard, no citation recorded"
+  },
   "mappings": {
     "Aeration_DO": "aeration_do_mg_l",
     "Aeration_DO_mg_l": "aeration_do_mg_l",

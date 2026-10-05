@@ -84,6 +84,14 @@
     "ros.wifi_signal_dbm"
   ],
   "display_name": "Warehouse AMR (Locus, Fetch/Zebra, 6 River, OTTO, Vecna)",
+  "excluded_from_license": true,
+  "license_exclusion": {
+    "effect": "NOT licensed under any platform agreement and NOT covered by the MIT vocabulary licence. Remains available for sandbox and evaluation use. Do not redistribute or sell.",
+    "mappings": 125,
+    "marked": "2026-09-25",
+    "provenance_class": "unknown",
+    "reason": "provenance unknown: names five commercial vendors (Locus, Fetch/Zebra, 6 River, OTTO, Vecna) with no cited document"
+  },
   "mappings": {
     "AngularVelocity": "amr.velocity.angular",
     "BatteryCharging": "amr.battery.charging",

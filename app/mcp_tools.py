@@ -8,7 +8,7 @@ will not carry over -- which would defeat the point of the sandbox.
 Production exposes 32 tools. This server exposes the 8 that can work with no
 state, no account, and no network: the five real ones, plus three that hand you
 simulated equipment to point them at. The other 24 need durable identity,
-history, guardrails, triggers, billing, or on-chain settlement. Asking for one
+history, guardrails, triggers, billing, or durable integrity records. Asking for one
 by name returns a 501 from the REST side with the reason.
 """
 
@@ -138,7 +138,7 @@ async def predict_breach(
     canonical_field: Optional[str] = None,
     direction: str = "above",
     horizon: int = 96,
-    mint_id: Optional[str] = None,
+    machine_id: Optional[str] = None,
     settle: bool = False,
 ) -> dict:
     """Predict whether — and when — a canonical series will cross a threshold.
@@ -155,7 +155,7 @@ async def predict_breach(
       canonical_field  FCS field the series represents (e.g. "spindle_load_pct")
       direction        "above" (default) or "below" — which side is the breach
       horizon          steps to look ahead (1–256, default 96)
-      mint_id          caller-owned machine to record provenance to (optional)
+      machine_id       caller-owned machine to record provenance to (optional)
       settle           production only; ignored here
 
     USE WHEN: a user asks if/when a limit will be hit — "will spindle load breach
@@ -173,7 +173,7 @@ async def predict_breach(
             result["field_warnings"] = [
                 f"'{canonical_field}' is not a canonical field in the shipped "
                 f"schema; production validates this and will 422."]
-    result["attestation"] = {
+    result["integrity"] = result["attestation"] = {
         "data_hash": predict.data_hash({
             "time_series": time_series, "threshold": threshold,
             "direction": direction, "horizon": horizon,
@@ -182,8 +182,8 @@ async def predict_breach(
     }
     if settle:
         result["attestation"]["settle_requested_but_ignored"] = True
-    if mint_id:
-        result["mint_id"] = mint_id
+    if machine_id:
+        result["machine_id"] = machine_id
     return result
 
 

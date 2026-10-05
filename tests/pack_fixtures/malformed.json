@@ -1,0 +1,40 @@
+{
+  "aliases": [
+    "fixture_malformed_alias"
+  ],
+  "canonical_fields": [
+    "spindle_speed_rpm",
+    "spindle_load_pct",
+    "energy_kwh",
+    "execution_state"
+  ],
+  "display_name": "Compiler fixture - malformed",
+  "mapping_provenance": {
+    "SpindleSpeed": "synthetic fixture"
+  },
+  "mappings": {
+    "EnergyTotal": "energy_kwh",
+    "ExecState": "execution_state",
+    "SpindleLoadPct": "spindle_load_pct",
+    "SpindleSpeed": "spindle_speed_rpm",
+    "SpindleTemp": null
+  },
+  "oem": "fixture_malformed",
+  "source": "synthetic compiler fixture; not a real OEM",
+  "tag_enums": {
+    "ExecState": [
+      "ACTIVE",
+      "READY",
+      "STOPPED"
+    ]
+  },
+  "tag_polarity": {
+    "SpindleLoadPct": "higher_is_worse"
+  },
+  "tag_units": {
+    "EnergyTotal": "kWh",
+    "SpindleLoadPct": "%",
+    "SpindleSpeed": "rpm"
+  },
+  "vertical": "cnc"
+}
