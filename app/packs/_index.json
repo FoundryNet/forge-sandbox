@@ -141,9 +141,9 @@
    "aliases": [
     "haas_automation"
    ],
-   "canonical_field_count": 41,
+   "canonical_field_count": 42,
    "display_name": "Haas VF-series CNC",
-   "mapping_count": 272,
+   "mapping_count": 274,
    "protocol": "mtconnect",
    "vertical": "cnc"
   },

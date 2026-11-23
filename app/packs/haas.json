@@ -14,6 +14,7 @@
   "axes.b_load_pct",
   "axes.x_position_actual",
   "battery_voltage",
+  "cnc.path.feedrate",
   "cutting_time_hours",
   "cycle_count",
   "door_status",
@@ -52,7 +53,9 @@
   "DOOR_STATUS": "MTConnect DOOR_STATE observation type (MTConnect Part 2.0) as emitted by the Haas MTConnect adapter; spellings match the haas door_status decoder already declared in the federation state tier",
   "DoorState": "MTConnect DOOR_STATE observation type (MTConnect Part 2.0) as emitted by the Haas MTConnect adapter; spellings match the haas door_status decoder already declared in the federation state tier",
   "M30 #2": "consolidated onto part_count 2026-10-04: `parts_count` carries the auto-generated description \"Count of the machine.\", has no example value, and has ZERO rows in the production corpus (part_count has 280). A utilisation or lessor report summing part_count silently missed any machine whose collector spelled the tag this way.",
-  "MACHINE_HOURS": "retained over the colliding tag 'Machine'->machine_id, removed 2026-10-04. Both fold to 'machine' (the folder strips '_HOURS' as a unit suffix), and corpus.Pack.folded keeps whichever sorts first, so one was silently unreachable through layer 1b. machine_id keeps three other spellings in this pack (ASSET/Asset/asset) and is normally supplied in the request, whereas MACHINE_HOURS is the only runtime spelling of its kind and feeds the utilisation/lessor report."
+  "MACHINE_HOURS": "retained over the colliding tag 'Machine'->machine_id, removed 2026-10-04. Both fold to 'machine' (the folder strips '_HOURS' as a unit suffix), and corpus.Pack.folded keeps whichever sorts first, so one was silently unreachable through layer 1b. machine_id keeps three other spellings in this pack (ASSET/Asset/asset) and is normally supplied in the request, whereas MACHINE_HOURS is the only runtime spelling of its kind and feeds the utilisation/lessor report.",
+  "PathFeedrate": "MTConnect PATH_FEEDRATE as the Haas NGC agent publishes it. The MTConnect standard fixes its unit at MILLIMETER/SECOND whatever the control's G20/G21 mode, so it is converted x60 into the mm/min field. Mirrors forge-prod haas_ngc (docs/decisions/2026-11-18-tier-test-corpus-fixes.md); before this the sandbox borrowed the mtconnect row and stored the raw mm/s value unconverted (2026-11-23 cross-vertical run: 32.5 here vs 1950.0 from the kernel for the same reading).",
+  "path_feedrate": "MTConnect PATH_FEEDRATE as the Haas NGC agent publishes it. The MTConnect standard fixes its unit at MILLIMETER/SECOND whatever the control's G20/G21 mode, so it is converted x60 into the mm/min field. Mirrors forge-prod haas_ngc (docs/decisions/2026-11-18-tier-test-corpus-fixes.md); before this the sandbox borrowed the mtconnect row and stored the raw mm/s value unconverted (2026-11-23 cross-vertical run: 32.5 here vs 1950.0 from the kernel for the same reading)."
  },
  "mappings": {
   "ALARM": "alarm_code",
@@ -141,6 +144,7 @@
   "Part_Cnt(pcs)": "part_count",
   "Part_Cnt_cycles": "part_count",
   "Parts": "part_count",
+  "PathFeedrate": "cnc.path.feedrate",
   "Present machine coordinate position": "axes.0.position_actual",
   "Prog_Name": "program_name",
   "RAPID OVERRIDE [percent]": "rapid_override_pct",
@@ -299,6 +303,7 @@
   "f_rate_mm/min": "feed_rate",
   "mode": "machine_mode",
   "parts (parts)": "part_count",
+  "path_feedrate": "cnc.path.feedrate",
   "prog_name": "program_name",
   "rapid_override (%)": "rapid_override_pct",
   "rapid_override [%]": "rapid_override_pct",
@@ -332,13 +337,15 @@
  "protocol": "mtconnect",
  "source": "FoundryNet/canonical-schema (MIT) schema/oem-mappings/haas.json",
  "tag_units": {
+  "PathFeedrate": "mm/s",
   "S1Load": "%",
   "S1Temp": "C",
   "S1_SPEED": "rpm",
   "S2Load": "%",
   "S2Temp": "C",
   "SP_SPEED": "rpm",
-  "Spindle RPM": "rpm"
+  "Spindle RPM": "rpm",
+  "path_feedrate": "mm/s"
  },
  "topup_history": [
   {
